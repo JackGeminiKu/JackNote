@@ -1,8 +1,18 @@
 {include file="template/header" title="C# 日志" /}
-<ol>
-    <li class="summary closed">Log4net</li>
-    <div>
-        配置
+
+<div class="list list-number">
+    <div class="title">启用Debug信息</div>
+    <div class="content closed">
+		<p>log4net可以输出internal debug信息，只要在配置文件里加上（configuration根节点下, log4net相关节点末尾）</p>
+		<pre class="prettyprint linenums"><code>&lt;appSettings> 
+    &lt;add key="log4net.Internal.Debug" value="true "/> 
+&lt;/appSettings></code></pre>
     </div>
-</ol>
+
+    <div class="title">XXX</div>
+    <div class="content open">
+        
+    </div>
+</div>
+
 {include file="template/footer" /}
