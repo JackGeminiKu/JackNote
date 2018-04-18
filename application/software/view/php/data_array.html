@@ -1,0 +1,204 @@
+{include file="template/header" title="PHP 数组" /}
+<ol>
+    <!-- index数组 -->
+    <li class="summary closed">index数组</li>
+    <div>
+        <ol>
+            <li>定义</li>
+            <div>
+<xmp class="prettyprint">// 方法1
+$productors = array('Tires', 'Oil', 'Spark Plugs');
+$productors = ['Tires', 'Oil', 'Spark Plugs'];    // since 5.4
+// 方法2
+$productors[0] = 'Tires';
+$productors[1] = 'Oil';
+$productors[2] = 'Spark Plugs';</xmp>
+            </div>
+
+            <li>访问</li>
+            <div>
+<xmp class="prettyprint">$productors[0];</xmp>                
+            </div>
+
+            <li>遍历</li>
+            <div>
+<xmp class="prettyprint">// 方法1
+for ($i = 0; $i < 3; $i++) {
+    echo $produccts[$i];
+}
+// 方法2
+foreach ($product as $current) {
+    echo $current;
+}
+</xmp>
+            </div>
+        </ol>
+    </div>
+
+    <!-- key/value数组 -->
+    <li class="summary closed">key/value数组</li>
+    <div>
+        <ol>
+            <li>定义</li>
+            <div>
+<xmp class="prettyprint">// 方法1
+$prices = array('Tires' => 100, 'Oil' => 10, 'Spark Plugs' => 4);
+$prices = ['Tires' => 100, 'Oil' => 10, 'Spark Plugs' => 4];  // since 5.4
+// 方法2
+$prices['Tires'] = 100;
+$prices['Oil'] = 10;
+$prices['Spark Plugs'] = 4;</xmp>
+            </div>
+
+            <li>访问</li>
+            <div>
+<xmp class="prettyprint">$prices['Tires'];</xmp>
+            </div>
+
+            <li>遍历</li>
+            <div>
+<xmp class="prettyprint">// 方法1
+foreach ($prices as $pirce)
+    echo($price);
+// 方法2
+foreach ($prices as $key => $value) {
+    echo $key . '=>' . $values;
+}
+// 方法3
+while ($element = each($prices)) {
+    echo $element['key'] . '=>' . $element['value'];
+}
+// 方法4
+reset($prices);
+while (list($product, $price) = each($prices))
+    echo "$product - $price";</xmp>                
+            </div>
+        </ol>
+    </div>
+    
+    <!-- 二维数组 -->
+    <li class="summary closed">二维数组(元素也是数组)</li>
+    <div>
+        <ol>
+            <li>定义</li>
+            <div>
+<xmp class="prettyprint">$products = array(
+    array('TIR', 'Tires', 100), 
+    array('OIL', 'Oil', 10), 
+    array('SPK', 'Spark Plugs', 4)
+);
+$productors = array(
+    array('Code' => 'TIR', 'Description' => 'Tires', 'Price' => 100),
+    array('Code' => 'OIL', 'Description' => 'Oil', 'Price' => 10),
+    array('Code' => 'SPK', 'Description' => 'Spark Plugs', 'Price' => 4)
+);</xmp>
+            </div>
+
+            <li>访问</li>
+            <div>
+<xmp class="prettyprint">$productors[0][0];
+$productors[0]['Code'];</xmp>
+            </div>
+
+        </ol>
+    </div>
+
+    <!-- 数组操作 -->
+    <li class="summary closed">数组操作</li>
+    <div>
+        <ol>
+            <li>数组运算</li>
+            <div>
+                <table class="table table-bordered table-condensed table-hover table-sm w-50">
+                    <tr>
+                        <th>运算符</th>
+                        <th>名称</th>
+                        <th>示例</th>
+                        <th>结果</th>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>联合</td>
+                        <td>$arr1 + $arr2</td>
+                        <td>数组$b将被附加到$a中, 但是任何关键字冲突的元素将不会被添加.</td>
+                    </tr>
+                    <tr>
+                        <td>==</td>
+                        <td>等于</td>
+                        <td>$arr1 == $arr2</td>
+                        <td>如果$a和$b包含相同的元素, 则返回true; 否则, 返回false.</td>
+                    </tr>
+                    <tr>
+                        <td>===</td>
+                        <td>恒等于</td>
+                        <td>$arr1 === $arr2</td>
+                        <td>如果$a和$b包含相同顺序的相同元素, 则返回true; 否则, 返回false.</td>
+                    </tr>
+                    <tr>
+                        <td>!=</td>
+                        <td>不等于</td>
+                        <td>$arr1 != $arr2</td>
+                        <td>如果$a和$b不包含相同的元素, 则返回ture; 否则, 返回true.</td>
+                    </tr>
+                    <tr>
+                        <td>!==</td>
+                        <td>不恒等于</td>
+                        <td>$arr1 !== $arr2</td>
+                        <td>如果$a和$b不包含相同顺序的相同元素, 则返回true; 否则, 返回false.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <li>添加&删除元素</li>
+            <div>
+                <p>
+                    <a href="http://php.net/manual/zh/function.array-push.php" target="_blank">array_push()</a><br>
+                    <a href="http://php.net/manual/zh/function.array-pop.php" target="_blank">array_pop()</a><br>
+                    $productors[] = 'Tire'; // 在数组末尾添加元素
+                </p>
+            </div>
+
+            <li>排序</li>
+            <div>
+                <p>
+                    sort / rsort<br>
+                    asort / rasort<br>
+                    ksort / rksort<br>
+                    uasort<br>
+                    shuffle<br>
+                    array_reverse<br>
+                    array_rand<br>
+                </p>
+            </div>
+
+            <li>数组&字符串互转</li>
+            <div></div>
+
+            <li>其他函数</li>
+            <div>
+                <a title="将一个一维数组值转换为字符串" href="http://php.net/manual/zh/function.implode.php" target="_blank">implode()</a>, 
+                <a title="将一个字符串分割为一个一维数组" href="http://php.net/manual/zh/function.explode.php" target="_blank">explode()</a>, 
+                <a title="将一个字符串转换为数组" href="http://php.net/manual/zh/function.str-split.php" target="_blank">str_split()</a><br>
+
+                <a title="把整个文件读入一个数组中" href="http://php.net/manual/zh/function.file.php" target="_blank">file()</a><br>
+                <a title="返回数组长度" href="http://php.net/manual/zh/function.count.php" target="_blank">count()</a><br>
+                array_count_values()<br>
+                each()<br>
+                current()<br>
+                reset()<br>
+
+                end(), 
+                next(), 
+                prev()<br>
+                array_walk<br>
+                extract()<br>
+                in_array()<br>
+                array_keys()<br>
+                array_key_exists()<br>
+                range()<br>
+                <a title="切割数组" href="http://php.net/manual/zh/function.array-slice.php" target="_blank">array_slice()</a>
+            </div>
+        </ol>
+    </div>
+</ol>
+{include file="template/footer" /}

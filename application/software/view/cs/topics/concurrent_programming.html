@@ -1,0 +1,841 @@
+{include file="template/header" title="C# 并行编程" /}
+
+<div class="list list-number">
+    <div class="title">多线程</div>
+    <div class="content open">
+        <div class="list list-number">
+            <div class="title">多线程优缺点</div>
+            <div class="content closed">
+                <p>多线程的好处：可以提高CPU的利用率。在多线程程序中，一个线程必须等待的时候，CPU可以运行其它的线程而不是等待，这样就大大提高了程序的效率。 </p>
+
+                <p>
+                    多线程的不利方面：<br>
+                    1) 线程也是程序，所以线程也需要占用内存，线程越多占用内存也越多； <br>
+                    2) 多线程需要协调和管理，所以需要CPU时间跟踪线程； <br>
+                    3) 线程之间对共享资源的访问会相互影响，必须解决竞用共享资源的问题；<br>
+                    4) 线程太多会导致控制太复杂，最终可能造成很多Bug；<br>
+                </p>
+                <p>
+                    除非运行一个多CPU计算机, 否则在CPU密集的任务中使用两个线程不能节省多少时间, 理解这一点很重要. 
+                    在单CPU计算机上, 让两个线程都累加到800万所花的时间与让一个线程累加到1600万是相同的, 甚至使用两个线程所用的时间略长, 
+                    因为要处理一个线程, OS必须用一定的时间切换线程, 但这种区别可以忽略不计.
+                </P>
+            </div>
+
+            <div class="title">Thread</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">范例</div>
+                    <div class="content open">
+                        <pre class="prettyprint linenums lang-php"><code>static void Main(string[] args)
+{
+    Thread depthChangeThread = new Thread(new ThreadStart(ChangeColorDepth));    // 创建一个线程, entryPoint为线程入口函数
+    depthChangeThread.Name = "DepthChange Thread";    // 设置线程名字
+    depthChangeThread.Priority = ThreadPriority.AboveNormal; // 设置线程优先级
+    depthChangeThread.Start();    // 请求启动线程
+}
+　
+static void ChangeColorDepth()
+{
+    // processing to change color depth of image
+}</code></pre>
+                        <p>
+                            <strong>线程优先级</strong><br>
+                            可以在一个进程中为不同的线程指定不同的优先级. 一般情况下, 如果有优先级较高的线程在工作, 就不会给优先级较低的线程分配时间片, 其优点是可以保证给接收用户输入的线程指定较高的优先级. <br>
+
+                            注意: 每个进程都有一个基本优先级, 这些值与进程的优先级是有关系的. 给线程指定较高的优先级, 可以确保它在该进程中比其他线程有限执行, 但系统上可能还运行着其他进程, 它们的线程有更高的优先级. 因此Windows会给自己的OS线程指定高优先级.
+                        </p>
+                        <p>
+                            <strong>传递参数</strong><br>
+                            因为线程入口函数不能带任何参数, 所以必须采用其他方式, 给方法传送需要的参数. 最明显的方式是使用这个方法所属的类的成员字段. 除了不能带参数之外, 该方法还不能返回信息.                            
+                        </p>
+                        <p>
+                            <strong>使用匿名函数</strong>
+                        </p>
+                        <pre class="prettyprint linenums lang-php"><code>void ChangeColorDepth()
+{
+    Thread depthChangeThread = new Thread(delegate()
+    {
+        // processing to change color depth of image
+    });
+ 
+    depthChangeThread.Name = "DepthChange Thread";
+    depthChangeThread.Start();
+}</code></pre>
+                    </div>
+
+                    <div class="title">Suspend, Resume, Abort & Interupt</div>
+                    <div class="content closed">
+                        <p>http://www.cnblogs.com/whxylm/archive/2007/07/07/809534.html</p>
+                    </div>
+
+                    <div class="title">Join - 并行=>串行</div>
+                    <div class="content closed">
+                        <pre class="prettyprint linenums lang-php"><code>class Test
+{
+    static void Main()
+    {
+        Thread t = new Thread(Run);
+        t.Start();        
+        t.Join();  // 插队: 该死的t.Join(),害的主线程必须在你执行完后才能执行. Join()方法的其他重载方法可以指定等待的时间期限. 如果过了等待的时间期限, 程式会继续执行; 否则, 继续等待.
+ 
+        Console.WriteLine("我是主线程:" + Thread.CurrentThread.GetHashCode());
+        Console.Read();
+    }
+ 
+    static void Run()
+    {
+        //等待
+        Thread.Sleep(5000); 
+        Console.WriteLine("我是 新线程：" + Thread.CurrentThread.GetHashCode());
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="title">常用属性&方法</div>
+                    <div class="content closed">
+                        <p>
+                            CurrentThread: 静态属性, 获取当前正在运行的线程.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">BackgroundWorker</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">DoWorker事件 & RunWorkerCompleted事件的重大区别</div>
+                    <div class="content open">
+                        <p>
+                            RunWorkerCompleted事件运行在启动BackgroundWorker的那个线程上, 而DoWorker事件运行在BackGroundWorker中. 所以, 在DoWorker事件中使用UI控件需要委托, 而在RunWorkerCompleted事件中可以直接使用UI上的控件.
+                        </p>
+                    </div>
+                </div>                              
+            </div>
+
+            <div class="title">ThreadPool</div>
+            <div class="content closed">
+                ...
+            </div>
+
+            <div class="title">线程同步</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">线程同步情况分析</div>
+                    <div class="content closed">
+                        <p>
+                            所谓同步, 是指在任意时刻只能有一个线程可以访问某个变量. 一般情况下, 当一个线程写入一个变量, 同时还有其他线程读取/写入这个变量时, 就应该同步这个变量! 否则就会产生错误!<br>
+                            1) 局部变量不需要同步: 局部变量只能在定义它们的方法中使用, 也只有在执行该方法的线程中是可见的. 如果另一个线程开始执行这个方法, 该线程就会获得该局部变量的副本. 所以, 局部变量不会导致线程同步问题. <br>
+                            2) 成员变量需要考虑同步: 多线程对同一个对象的成员变量进行操作时, 它们对该成员变量是彼此影响的, 也就是说一个线程对成员变量的改变会影响到另一个线程.
+                        </p>
+                    </div>
+
+                    <div class="title">同步常见问题</div>
+                    <div class="content closed">
+                        <p>1)不要滥用同步</p>
+                        <p>
+                            因为线程同步会降低性能. 原因有两个: <br>
+                            首先, 在对象上放置和解开锁会带来某些系统开销, 但是这些系统开销都非常小. <br>
+                            第二个原因更为重要, 线程同步使用得越多, 等待释放对象的线程就越多. 因此, 在lock快内部编写的代码越少越好, 以免出现线程同步错误.
+                        </p>
+
+                        <p>2) 死锁</p>
+                        <p>在两个线程都需要访问被互锁的资源时发生. 假定一个线程运行下述代码, 其中a和b是两个线程都可以访问的对象引用.</p>
+
+                        <pre class="prettyprint linenums lang-php"><code>lock(a) {
+    // do something
+    lock(b) {
+        // do something
+    }
+}</code></pre>
+
+                        <p>同时, 另一个线程运行下述代码</p>
+
+                        <pre class="prettyprint linenums lang-php"><code>lock(b) {
+    // do something
+    lock(a) {
+        // do something
+    }
+}</code></pre>
+
+                        <p>
+                            根据线程遇到不同语句的时间, 可能会出现下述情况: 第一个线程在a上有一个锁, 同时,第二个线程在b上有一个锁. 不久, 线程A遇到lock(b)语句, 立即进入睡眠状态, 等待b上的锁被解开. 之后, 第二个线程遇到遇到lock(a)语句, 也立即进入睡眠状态, 等待Windows在a上的锁被解开时唤醒它. 但a上的锁永远不会解开, 因为第一个线程拥有这个锁, 目前正处于睡眠状态, 在b上的锁被解开前是不会醒的, 而在第二个线程被叫醒之前, b上的锁不会解开, 结果就是一个死锁. 两个线程都不会做任何事, 而仅是等待另一个线程解开它们的锁. <strong>这类问题会使整个应用程序挂起, 除非使用"任务管理器"中断整个进程!</strong>
+                        </p>
+
+                        <p>
+                            <strong>避免方法: </strong>让两个线程以相同的顺序在对象上声明加锁, 就可以避免发生死锁. 在上面的示例中, 如果第二个线程声明加锁的顺序与第一个线程相同, a先b后, 则无论哪个线程先在a上加锁, 都会先完成它的任何后, 才启动另一个线程. 这样, 就不会发生死锁了!
+                        </p>
+
+                        <p>
+                            在编码中很容易避免死锁, 在上面的代码中, 发生死锁是非常明显的, 所以用户肯定不会编写这样的代码, 但记住不同的锁可以发生在不同的方法调用中, 此时是否会发生死锁就不是那么明显了!
+                        </p>
+
+                        <p>3) 静态条件</p>
+                    </div>
+
+                    <!--lock语句-->
+                    <div class="title">lock语句 - 进程内</div>
+                    <div class="content closed">
+                        <p>Lock关键字实际上是一个语法糖，它将Monitor对象进行了封装.</p>
+                        <p><strong>范例</strong></p>
+                        <pre class="prettyprint linenums lang-php"><code>static readonly object syncRoot = new object();
+lock (syncRoot) {               // 尝试锁定syncRoot: 如果syncRoot没有被lock, 则线程可以进入block内执行; 否则, 等待, 直到syncRoot被其他线程unlock
+    // 需要同步的内容
+}                               // 解锁syncRoot</code></pre>
+                        <p>
+                            Generally, it is best to avoid locking on a public type, or on object instances beyond the control of your application. For example, lock(this) can be problematic if the instance can be accessed publicly, because code beyond your control may lock on the object as well. This could create deadlock situations where two or more threads wait for the release of the same object.
+                        </p>
+                        <p>
+                            Locking on a public data type, as opposed to an object, can cause problems for the same reason.
+                        </p>
+                        <p>
+                            Locking on literal strings is especially risky because literal strings are interned by the common language runtime (CLR). This means that there is one instance of any given string literal for the entire program, the exact same object represents the literal in all running application domains, on all threads. As a result, a lock placed on a string with the same contents anywhere in the application process locks all instances of that string in the application.
+                        </p>
+                        <p><strong>
+                                As a result, it is best to lock a private or protected member that is not interned. Some classes provide members specifically for locking. The Array type, for example, provides SyncRoot. Many collection types provide a SyncRoot member as well.
+                            </strong></p>
+                    </div>
+
+                    <!--Monitor-->
+                    <div class="title">Monitor - 进程内</div>
+                    <div class="content closed">
+                        <pre class="prettyprint linenums lang-cs"><code>private static object obj = new object();
+
+public void MonitorSomeThing()
+{
+    try {
+        Monitor.Enter(obj);	// 尝试锁定obj: 如果obj没有被lock, 则线程可以进入block内执行; 否则, 等待, 直到obj被其他线程unlock
+        dosomething();
+    } catch(Exception ex) {
+        // 需要同步的内容
+    } finally {
+       Monitor.Exit(obj);
+    }
+}</code></pre>
+                    </div>
+
+                    <!--Mutex-->
+                    <div class="title">Mutex - 跨进程</div>
+                    <div class="content closed">
+                        <p>Mutex 对象提供对资源的独占访问. Mutex 类比 Monitor 类使用更多系统资源，但是它可以跨应用程序域边界进行封送处理，可用于多个等待，并且可用于同步不同进程中的线程。</p>
+                        <pre class="prettyprint linenums lang-php"><code>mutex = new Mutex(false, "mutex name");   	// 不同的mutex由名字来做区分
+mutex.WaitOne();                                // 等待, 直到取得mutex
+// 需要同步的内容
+mutex.ReleaseMutex();                          // 一定要释放这个mutex, 否则其他使用该mutex的地方会抛出AbandonedMutexException</code></pre>
+
+                        <p><strong>Mutex & GC</strong></p>
+                        <pre class="prettyprint linenums lang-php"><code>class ThreadMutex
+{
+    public void Test()
+    {
+        Thread t1 = new Thread(Thread1);
+        Thread t2 = new Thread(Thread2);
+        t1.Start();
+        t2.Start();
+    }
+ 
+    public void Thread1()
+    {
+        Mutex m = new Mutex(false, "test");
+        bool b1 = m.WaitOne();
+        Console.WriteLine("Thread1 get the mutex : " + b1);
+        // 没有release啊!
+    }
+ 
+    public void Thread2()
+    {
+        Thread.Sleep(10);   //保证执行完
+ 
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+ 
+        bool b1;
+        Mutex m = new Mutex(false, "test", out b1);    // b1 = true, 说明这个mutex是新创建的哦, 所以这里不会抛出AbandonedMutexException
+        Console.WriteLine(b1);
+ 
+        bool b2 = m.WaitOne();
+        Console.WriteLine(b2);
+        m.ReleaseMutex();
+    }
+}</code></pre>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--线程本地变量-->
+            <div class="title">线程本地变量</div>
+            <div class="content closed">
+                <p>
+                    关于C#多线程的文章, 大部分都在讨论线程的启停, 或者是多线程同步问题, 而另外一种情况就是我们想让线程所访问的变量属于线程自身所有, 这就是所谓的线程本地变量.
+                </p>
+
+                <p>	
+                    下文我们将逐步扩展一个最简单的示例代码, 来展示上面所说的变量并发访问以及线程本地变量的区别和各自解决方案. 
+                    这里要展示的例子很简单. 所访问的变量是一个"袋子内苹果的数量", 而工作函数就是"往袋子里放苹果".
+                </p>
+                <p>
+                    代码如下所示, 这是一段经典的多线程变量并发访问错误的代码. 由于没有任何并发访问控制的代码, 所以执行结果是不确定的. 我们期望的结果是有20个苹果在袋子中, 实际情况下很难达到这个结果.
+                </p>
+
+                <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread();
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    public void TryTwoThread()
+    {
+        var b = new Bag();
+        Action localAct = () =>
+        {
+            for (int i = 0; i < 10; i++) {
+                ++b.AppleNum;
+                Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - " + b.AppleNum);
+                Thread.Sleep(100);
+            }
+        };
+        Parallel.Invoke(localAct, localAct);
+    }
+}</code></pre>
+
+                <p>解决这个问题的方法就是使用并发控制, 最容易的方法就是给共享变量的访问加个锁, 这样执行结果就能得到保障, 最终袋子里就会有20个苹果. 当然还有其他并发控制方法, 但那不是本文重点, 忽略不说!</p>
+                <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread();
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    private object _locker = new object();
+ 
+    public void TryTwoThread()
+    {
+        var b = new Bag();
+        Action localAct = () =>
+        {
+            for (int i = 0; i < 10; i++) {  // 并发控制: 加锁
+                lock (_locker) {
+                    ++b.AppleNum;
+                    Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + b.AppleNum);
+                    Thread.Sleep(100);
+                }
+            }
+        };
+        Parallel.Invoke(localAct, localAct);
+    }
+}</code></pre>
+
+                <p>在某些场景下我们会有另一种需求, 我们关心的是每个线程往袋子里放了多少个苹果. 这时我们就需要让Bag对象与线程相关(有多个袋子, 每个袋子为线程所有). 这就需要用到本文重点要介绍的内容 - 线程本地变量.</p>
+
+                <p>在不使用线程本地变量的情况下, 实现上述目的的一个简单方法是把变量放入工作函数内部, 作为<strong>局部变量</strong>.</p>
+                <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread(); 
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    public void TryTwoThread()
+    {
+        Action localAct = () =>
+        {
+            var b = new Bag();  // 把变量 放入工作函数当中
+            for (int i = 0; i < 10; i++) {
+                ++b.AppleNum;
+                Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + b.AppleNum);
+                Thread.Sleep(100);
+            }
+        };
+        Parallel.Invoke(localAct, localAct);
+    }
+}</code></pre>
+
+                <p>如果我们的工作函数是独立于一个类中, 且要并发的访问的变量是这个类的成员, 上面这种方法就不适用了. 前面的例子中的Action换成如下的工作类:</p>
+                <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread();
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    public void TryTwoThread()
+    {
+        var worker = new Worker();
+        Parallel.Invoke(worker.PutTenApple, worker.PutTenApple);
+    }
+}
+ 
+public class Worker
+{
+    private Bag _bag = new Bag();
+ 
+    public void PutTenApple()
+    {
+        for (int i = 0; i < 10; i++) {
+            PutApple();
+            Show();
+            Thread.Sleep(100);
+        }
+    }
+ 
+    private void PutApple()
+    {
+        ++_bag.AppleNum;
+    }
+ 
+    private void Show()
+    {
+        Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + _bag.AppleNum);
+    }
+}</code></pre>
+
+                <p>
+                    由于Worker类也是一个不满足我们每个线程独立操作自己关联变量要求的例子. 
+                    而且由于没有并发控制, 程序的执行结果不可控. 我们也可以将_bag变量声明于PutTenApple中来实现与线程本地变量一样的效果, 但那样在调用PutApple和Show方法时就免不了要传参数.
+                </p>
+                <p>下面开始介绍几种实现线程本地变量的方法.</p>
+
+                <div class="list list-number">
+
+                    <!--ThreadStatic属性-->
+                    <div class="title">ThreadStatic属性</div>
+                    <div class="content closed">
+                        <p>
+                            第一种方法是使用ThreadStaticAttribute, 这也是微软推荐的性能较好的方法.
+                            其做法是将成员变量声明为static并打上[ThreadStatic()]这个标记. 我们在之前代码的基础上做如下修改:
+                        </p>
+                        <pre class="prettyprint linenums lang-cs"><code>[ThreadStatic()]
+private static Bag _bag = new Bag();
+</code></pre>
+                        <p>
+                            但是这个实现是有问题的, 简单来说, 就是_bag的初始化只会调用一次, 导致的结果就是只有第一个执行此方法的线程能正确的获取到_bag成员的值, 之后的线程再访问_bag时, 会发现_bag仍是未初始化状态 - null.
+                            对于这个问题, 我们的解决方法是在工作方法中去初始化_bag变量.
+                        </p>
+                        <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread();
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    public void TryTwoThread()
+    {
+        var worker = new Worker();
+        Parallel.Invoke(worker.PutTenApple, worker.PutTenApple);
+    }
+}
+ 
+public class Worker
+{
+    [ThreadStatic]
+    private static Bag _bag;
+ 
+    public void PutTenApple()
+    {
+        _bag = new Bag();   // 调用前初始化
+        for (int i = 0; i < 10; i++) {
+            PutApple();
+            Show();
+            Thread.Sleep(100);
+        }
+    }
+ 
+    private void PutApple()
+    {
+        ++_bag.AppleNum;
+    }
+ 
+    private void Show()
+    {
+        Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + _bag.AppleNum);
+    }
+}</code></pre>
+
+                        <p>或者也可以通过一个属性去包装这个静态属性, 并将对静态字段的访问都换成对静态属性的访问.</p>
+                        <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread(); 
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    public void TryTwoThread()
+    {
+        var worker = new Worker();
+        Parallel.Invoke(worker.PutTenApple, worker.PutTenApple);
+    }
+}
+ 
+public class Worker
+{
+    [ThreadStatic]
+    private static Bag _bag;
+ 
+    public static Bag Bag   // 使用属性
+    {
+        get
+        {
+            return _bag ?? (_bag = new Bag());
+        }
+    }
+ 
+    public void PutTenApple()
+    {
+        for (int i = 0; i < 10; i++) {
+            PutApple();
+            Show();
+            Thread.Sleep(100);
+        }
+    }
+ 
+    private void PutApple()
+    {
+        ++Bag.AppleNum;
+    }
+ 
+    private void Show()
+    {
+        Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + Bag.AppleNum);
+    }
+}</code></pre>
+                    </div>
+
+                    <!--数据槽-->
+                    <div class="title">数据槽</div>
+                    <div class="content closed">
+                        <p>另一种等价的方法是使用LocalDataStoreSlot, 但是性能不如上面介绍的ThreadStatic方法.</p>
+                        <pre class="prettyprint linenums lang-cs"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tester = new Test();
+        tester.TryTwoThread(); 
+    }
+}
+ 
+public class Bag
+{
+    public int AppleNum { get; set; }
+}
+ 
+public class Test
+{
+    public void TryTwoThread()
+    {
+        var worker = new Worker();
+        Parallel.Invoke(worker.PutTenApple, worker.PutTenApple);
+    }
+}
+ 
+public class Worker
+{
+    
+    private LocalDataStoreSlot _localSlot = Thread.AllocateNamedDataSlot("Apple");
+ 
+    public void PutTenApple()
+    {
+        Thread.SetData(_localSlot, new Bag());   // 存入数据槽
+ 
+        for (int i = 0; i < 10; i++) {
+            PutApple();
+            Show();
+            Thread.Sleep(100);
+        }
+    }
+ 
+    private void PutApple()
+    {
+        var bag = Thread.GetData(_localSlot) as Bag;   // 从数据槽中取出
+        ++bag.AppleNum;
+    }
+ 
+    private void Show()
+    {
+        var bag = Thread.GetData(_localSlot) as Bag;   // 从数据槽中取出
+        Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + bag.AppleNum);
+    }
+}</code></pre>
+
+                        <p>在多组件的情况下, 用不同名称区分数据槽很有用. 但如果不小心给不同组件起了相同的名字, 则会导致数据污染. 数据槽的性能较低, 微软也不推荐使用, 而且不是强类型的, 用起来也不太方便.</p>
+                    </div>
+
+                    <div class="title">ThreadLocal类型(.NET 4.0)</div>
+                    <div class="content closed">
+                        <p>
+                            在.NET Framework 4以后新增了一种泛型化的本地变量存储机制 - ThreadLocal&lt;T>. 
+                            ThreadLocal&lt;T>的构造函数接收一个lambda用于线程本地变量的延迟初始化, 通过Value属性可以访问本地变量的值. IsValueCreated可以判断本地变量是否已经创建.
+                        </p>
+                        <pre class="prettyprint linenums lang-cs"><code>class Program
+ {
+     static void Main(string[] args)
+     {
+         var tester = new Test();
+         tester.TryTwoThread();
+     }
+ }
+ 
+ public class Bag
+ {
+     public int AppleNum { get; set; }
+ }
+ 
+ public class Test
+ {
+     public void TryTwoThread()
+     {
+         var worker = new Worker();
+         Parallel.Invoke(worker.PutTenApple, worker.PutTenApple);
+     }
+ }
+ 
+ public class Worker
+ {
+     private ThreadLocal&lt;Bag> _bagLocal = new ThreadLocal&lt;Bag>(() => new Bag()); // 使用ThreadLocal&lt;T>
+ 
+     public void PutTenApple()
+     {
+         if (_bagLocal.IsValueCreated)   //在第一次访问后，线程本地变量才会被创建
+             Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - " + "已初始化");
+ 
+         for (int i = 0; i < 10; i++) {
+             PutApple();
+             Show();
+             Thread.Sleep(100);
+         }
+ 
+         if (_bagLocal.IsValueCreated)
+             Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - " + "已初始化");
+     }
+ 
+     private void PutApple()
+     {
+         var bag = _bagLocal.Value;  // 通过Value属性访问
+         ++bag.AppleNum;
+     }
+ 
+     private void Show()
+     {
+         var bag = _bagLocal.Value;  // 通过Value属性访问
+         Console.WriteLine(Thread.CurrentThread.ManagedThreadId + ":\t" + bag.AppleNum);
+     }
+}</code></pre>
+                        <p>另外如果在初始化ThreadLocal&lt;T>时，将其trackAllValues设置为true，则可以在使用ThreadLocal&lt;T>的线程外部访问线程本地变量中所存储的值。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--跨线程访问控件-->
+            <div class="title">跨线程访问控件</div>
+            <div class="content closed">
+                <p>
+                    有过多线程编程经验的人都知道, 当我们在非UI线程上试图给一个界面中的控件赋值的时候， 比如说label的Text属性, 系统会抛出一个下面这样的异常. 
+                    这是由于.NET中的大部分控件的实例都是非线程安全的, 如果进行跨线程的访问, 可能会造成脏数据, 所以.NET默认禁止这种跨线程的赋值操作. 那要如何解决这个问题呢?
+
+                    注: 但是可以读哦!!!
+                </p>
+                <img src="__ROOT__/static/image/cs/.NET禁止跨线程调用控件.png">
+
+                <div class="list list-number">
+                    <div class="title">禁止编译器对跨线程访问做检查</div>
+                    <div class="content closed">
+                        <p>这是最简单的办法， 相当于不检查线程之间的冲突，允许各个线程随便乱搞，最后Lable1控件的值是什么就难以预料了 (不推荐使用这种方法). 只需要一行代码:</p>
+                        <pre class="prettyprint linenums lang-cs"><code>Control.CheckForIllegalCrossThreadCalls = false;  //禁止编译器对跨线程访问做检查</code></pre> 
+                    </div>
+
+                    <div class="title"> control.Invoke() / control.BeginInvoke()</div>
+                    <div class="content closed">
+                        <p>
+                            既然.NET禁止跨线程的赋值操作, 那么需要给控件赋值的非UI线程就只有将这种赋值的请求传递给UI线程, 最终由UI线程完成赋值的操作. 
+                            如何传递这种请求? 幸运的是, Control类提供了一个Invoke方法. 
+                            这个方法的功能是将Invoke所指定的方法提交到生成这个Control的UI线程上执行, 也就是说我们可以通过调用这个Invoke方法, 让UI线程来执行Invoke所指定的方法. 
+                            由于Invoke方法是一个public方法, 所以所有继承了Control类的.NET控件都可以调用这个方法.
+                        </P>
+
+                        <p>
+                            我们来看一下Invoke方法的声明:<br>
+                            public object Invoke(Delegate method);<br>
+                            对于这个Invoke方法, 它的参数是一个委托类型, 调用的时候指向那个你想让UI线程执行的方法, 它的返回值是这个委托指定的方法的返回值.
+                        </p>
+
+                        <p>
+                            public object Invoke(Delegate method, params object[] args);<br>
+                            这个Invoke方法的参数除了委托类型外, 还有一个不定长的参数数组, 用来传递委托类型指定的方法的参数.
+                        </p>
+
+                        <p>
+                            有了这两个Invoke方法后, 我们在非UI线程中, 如果需要给界面中的控件进行赋值操作的话, 就可以调用控件的Invoke方法, 让Invoke方法去执行给控件进行复制的操作, 
+                            这样一来, 实际执行给控件复制的操作就有UI线程执行了.
+                        </p>
+
+                        <pre class="prettyprint linenums lang-cs"><code>private void button2_Click(object sender, EventArgs e)
+{
+    Thread thread1 = new Thread(new ParameterizedThreadStart(UpdateLabel2));
+    thread1.Start("更新Label");
+}
+ 
+private void UpdateLabel2(object str)
+{
+    if (label2.InvokeRequired) {  // 当一个控件的InvokeRequired属性值为真时，说明有一个创建它以外的线程想访问它       
+        Action&lt;string> actionDelegate = delegate(string txt) { this.label2.Text = txt; };
+        label2.Invoke(actionDelegate, str);
+    } else {
+        label2.Text = str.ToString();
+    }
+}
+
+
+private void button3_Click(object sender, EventArgs e)
+{
+    Thread thread1 = new Thread(new ParameterizedThreadStart(UpdateLabel3));
+    thread1.Start("更新Label");
+}
+ 
+private void UpdateLabel3(object str)
+{
+    if (label3.InvokeRequired) {  // 当一个控件的InvokeRequired属性值为真时，说明有一个创建它以外的线程想访问它       
+        Action&lt;string> actionDelegate = delegate(string txt) { this.label3.Text = txt; };
+        label3.BeginInvoke(actionDelegate, str);
+    } else {
+        label3.Text = str.ToString();
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="title">使用BackgroundWorker组件(推荐使用这个方法)</div>
+                    <div class="content closed">
+                        <p>方法3: 
+                            如果不习惯使用委托, 那么.NET还为我们提供了一个组件BackgroundWorker, 你可以使用这个组件, 以事件的方式去处理这种跨线程的控件访问.<br>
+
+                            在非UI线程上执行:	DoWork()<br>
+                            在UI线程上执行:	ProgressChanged(); RunWorkerCompleted()</p>	
+
+                        <pre class="prettyprint linenums lang-cs"><code>private void button4_Click(object sender, EventArgs e)
+{
+    using (BackgroundWorker bw = new BackgroundWorker()) {
+        bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+        bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+        bw.RunWorkerAsync("Tank");
+    }
+}
+ 
+void bw_DoWork(object sender, DoWorkEventArgs e)
+{
+    // 这里是后台线程，是在另一个线程上完成的这里是真正做事的工作线程可以在这里做一些费时的，复杂的操作
+    Thread.Sleep(5000);
+    e.Result = e.Argument + "工作线程完成";
+}
+ 
+void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+{   
+    this.label4.Text = e.Result.ToString();  //这时后台线程已经完成，并返回了主线程，所以可以直接使用UI控件了
+}</code></pre>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--多线程生成COM对象问题-->
+            <div class="title">多线程生成COM对象问题</div>
+            <div class="content closed">
+                <p>無法產生 ActiveX 控制項 '1b7ef35a-e675-4f2a-884a-bf935171ea02'，因為目前的執行緒不是在單一執行緒 Apartment</P>
+
+                <p>只需在启动线程之前添加; thread.SetApartmentState(ApartmentState.STA);</p>
+
+                <p>
+                    An apartment is a logical container within a process for objects sharing the same thread access requirements. 
+                    All objects in the same apartment can receive calls from any thread in the apartment. 
+                    The .NET Framework does not use apartments, and managed objects are responsible for using all shared resources in a thread-safe manner themselves.
+                </p>
+
+                <p>
+                    Because COM classes use apartments, the common language runtime needs to create and initialize an apartment when calling a COM object in a COM interop situation. 
+                    A managed thread can create and enter a single-threaded apartment (STA) that allows only one thread, or a multithreaded apartment (MTA) that contains one or more threads. 
+                    You can control the type of apartment created by setting the ApartmentState property of the thread to one of the values of the ApartmentState enumeration. 
+                    Because a given thread can only initialize a COM apartment once, you cannot change the apartment type after the first call to the unmanaged code.
+                </p>
+            </div>
+
+            <!--volatile vs Interlocked vs lock-->
+            <div class="title">volatile vs Interlocked vs lock</div>
+            <div class="content closed">
+                <a href="https://stackoverflow.com/questions/154551/volatile-vs-interlocked-vs-lock">volatile vs Interlocked vs lock</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">异步</div>
+    <div class="content closed">
+        <a href="https://blog.csdn.net/ppdyhappy/article/details/49001143">多线程&异步比较</a><br>
+        <a href="https://docs.microsoft.com/zh-cn/dotnet/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously">msdn</a>
+    </div>
+
+    <div class="title">多进程</div>
+    <div class="content closed">
+
+    </div>
+
+    <div class="title">跨线程&跨进程通信技术</div>
+    <div class="content closed">
+        <a href="http://blog.sina.com.cn/s/blog_4df46da00102w90d.html">内存映射文件</a>
+    </div>
+</div>
+
+{include file="template/footer" /}

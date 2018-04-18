@@ -1,0 +1,79 @@
+/* html {
+    font-size: 14px;
+} */
+
+body {
+    font-size: 14px;
+    background-color: #CCE8CF
+}
+
+/* CSS表格
+.jContainer {
+    display: table;
+}
+
+.jRow{
+    display: table-row;
+}
+
+.jCell {
+    display: table-cell;
+} */
+
+/* 外边距 */
+body {
+    margin: 10px;
+}
+
+.row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* 列表样式 */
+ul {
+    list-style-type: disc;
+    padding-left: 16px;
+}
+
+ol {
+    padding-left: 16px;
+}
+
+/* 行距 */
+li {
+    line-height: 160%;    
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-weight: bold;
+    /* list-style-type: disc; */
+}
+
+/* >>> 导航 */
+.nav-tabs .nav-link.active{
+	background-color: transparent;
+	font-weight: 700;
+	color: black;
+}
+
+a.nav-link {
+	background-color: transparent;
+	font-weight: 400;
+	color: black;
+}
+
+.nav-tabs .nav-link {
+	border-style: none;
+}
+/* <<< 导航 */
+
+/* panel */
+div.panel {
+    padding: 2px;
+    margin-bottom: 16px;
+    background-color: #F8F9FA;
+}
+
+.text-strong {
+	font-weight: bold;
+}

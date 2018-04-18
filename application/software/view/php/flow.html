@@ -1,0 +1,169 @@
+{include file="template/header" title="PHP 流程控制" /}
+<div class="list list-number">
+    <div class="title">条件</div>
+    <div class="content open">
+        <div class="containter">
+            <div class="row">
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-php">
+<code>//条件1
+if (条件) {                            
+    ...
+}
+// 条件2
+if (条件) {                            
+    ...
+} else {
+    ...
+}
+// 条件3
+if (条件1) {                            
+    ...
+} else if (条件2) {
+    ...
+} else {
+    ...
+}</code></pre>
+                </div>
+
+                <div class="col-4">
+                    <pre class="prettyprint linenums lang-php">
+<code>switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
+    case 条件值1:
+        ...
+        break;
+    case 条件值2:
+        ...
+        break;
+    default:
+        ...
+        break;
+}</code></pre>
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-12">
+                    <p>备注: 条件语句一定要把情况考虑清楚, 不要忘了else情况和default情况, 不一定在代码上体现出来, 但是心里一定要默默考虑到!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">循环</div>
+    <div class="content open">
+        <div class="container-fluid ml-0">
+            <div class="row">
+                <div class="col-2">
+                    while循环
+                </div>
+                <div class="col-2">
+                    do while循环
+                </div>
+                <div class="col-2">
+                    for循环
+                </div>
+                <div class="col-3">
+                    foreach循环
+                </div>
+                <div class="col-3">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <pre class="prettyprint linenums lang-php">
+<code>while (条件) {    
+    ...
+}</code></pre>
+                </div>
+                <div class="col-2">
+                    <pre class="prettyprint linenums lang-php">
+<code>do {    
+    ...
+} while(条件)</code></pre>
+                </div>
+                <div class="col-2">
+                    <pre class="prettyprint linenums lang-php">
+<code>for (初始化; 条件; 更新) {    
+    ...
+}</code></pre>
+                </div>
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-php">
+<code>foreach ($array as $item) {    
+    // 可同时用于索引数组和关联数组
+}</code></pre>
+                </div>
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-php">
+<code>foreach ($array as $key => $value) {    
+    // 可同时用于索引数组和关联数组
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">跳转</div>
+    <div class="content open">
+        <p>break; &emsp; continue; &emsp; return; &emsp; <a title="输出一个消息并且退出当前脚本" href="http://php.net/manual/zh/function.exit.php">exit()</a></p>
+    </div>
+
+    <div class="title">异常处理</div>
+    <div class="content closed">
+        <pre class="prettyprint linenums lang-php">
+<code>// 抛异常
+throw new Exception('message',code);   
+
+// 捕获异常
+try {
+    // 这段代码可能会抛异常
+} catch(Exception $e) {
+    // 异常处理
+}</code></pre>
+    </div>
+
+    <div class="title">decalre结构</div>
+    <div class="content closed">
+        <p>declare 结构用来设定一段代码的执行指令。declare 的语法和其它流程控制结构相似：</p>
+
+        <pre class="prettyprint linenums lang-php">
+<code>declare (directive)
+    statement</code></pre>
+
+        <p>directive 部分允许设定 declare 代码段的行为. 目前只认识两个指令: ticks（更多信息见下面 ticks 指令）以及 encoding（更多信息见下面 encoding 指令）.</p>
+        <p>declare 结构也可用于全局范围，影响到其后的所有代码（但如果有 declare 结构的文件被其它文件包含，则对包含它的父文件不起作用）.</p>
+
+        <p><strong>ticks</strong></p>
+        <p>Tick（时钟周期）是一个在 declare 代码段中解释器每执行 N 条可计时的低级语句就会发生的事件。N 的值是在 declare 中的 directive 部分用 ticks=N 来指定的。</P>
+        <p>不是所有语句都可计时。通常条件表达式和参数表达式都不可计时。</p>
+        <p>在每个 tick 中出现的事件是由 register_tick_function() 来指定的。更多细节见下面的例子。注意每个 tick 中可以出现多个事件。</p>
+        <p><strong>Ticks用法范例</strong></p>
+        <pre class="prettyprint linenums lang-php">
+<code>declare(ticks=1);
+
+// A function called on each tick event
+function tick_handler()
+{
+    echo "tick_handler() called\n";
+}
+
+register_tick_function('tick_handler');
+
+$a = 1;
+
+if ($a > 0) {
+    $a += 2;
+    print($a);
+}</code></pre>
+
+        <p><strong>Encoding</strong></p>
+        <p>可以用 encoding 指令来对每段脚本指定其编码方式.</p>
+        <pre class="prettyprint linenums lang-php">
+<code>declare(encoding='ISO-8859-1');
+// code here</code></pre>
+
+    </div>
+</div>
+{include file="template/footer" /}

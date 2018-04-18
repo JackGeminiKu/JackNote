@@ -1,0 +1,247 @@
+{include file="template/header" title="PHP 表达式" /}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-bordered table-hover table-sm">
+                <thead class="thead-light">
+                    <tr>
+                        <th>操作</th>
+                        <th>运算符</th>
+                        <th>优先级</th>
+                        <th>结合性</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>逗号表达式</td>
+                        <td>,</td>
+                        <td>最低</td>
+                        <td>左</td>
+                        <td>返回最右边子表达式的值</td>
+                    </tr>
+                    <tr>
+                        <td>逻辑或</td>
+                        <td>or</td>
+                        <td></td>
+                        <td>左</td>
+                        <td>短路求值, 优先级比||低</td>
+                    </tr>
+                    <tr>
+                        <td>逻辑异或</td>
+                        <td>xor</td>
+                        <td></td>
+                        <td>左</td>
+                        <td>短路求值</td>
+                    </tr>
+                    <tr>
+                        <td>逻辑与</td>
+                        <td>and</td>
+                        <td></td>
+                        <td>左</td>
+                        <td>短路求值, 优先级比&&低</td>
+                    </tr>        
+                    <tr>
+                        <td></td>
+                        <td>print</td>
+                        <td></td>
+                        <td>右</td>
+                        <td></td>
+                    </tr>  
+                    <tr>
+                        <td>赋值</td>
+                        <td>=, +=, -=, *=, /=, %=, .=, &=, |=, ^=, ~=, <<=, >>=</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>         
+                    <tr>
+                        <td></td>
+                        <td>?:</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>          
+                    </tr>            
+                    <tr>
+                        <td>逻辑或</td>
+                        <td>||</td>
+                        <td></td>
+                        <td>左</td>
+                        <td>短路求值</td>
+                    </tr>
+                    <tr>
+                        <td>逻辑与</td>
+                        <td>&&</td>
+                        <td></td>
+                        <td>左</td>
+                        <td>短路求值</td>
+                    </tr>     
+                    <tr>
+                        <td>位或</td>
+                        <td>|</td>
+                        <td></td>
+                        <td>左</td>
+                        <td>短路求值</td>
+                    </tr>   
+                    <tr>
+                        <td>位异或</td>
+                        <td>^</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>   
+                    <tr>
+                        <td>位与</td>
+                        <td>&</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>         
+                    <tr>
+                        <td>引用</td>
+                        <td>&</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>  
+                    <tr>
+                        <td>比较</td>
+                        <td>==, !=, ===, !==; <, <=, >, >=</td>
+                        <td></td>
+                        <td>不相关</td>
+                        <td></td>
+                    </tr> 
+                    <tr>
+                        <td>左右位移</td>
+                        <td><<, >></td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>       
+                    <tr>
+                        <td>字符串连接</td>
+                        <td>.</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>   
+                    <tr>
+                        <td>加减</td>
+                        <td>+, -</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>           
+                    <tr>
+                        <td>乘, 除, 取余</td>
+                        <td>*, /, %</td>
+                        <td></td>
+                        <td>左</td>
+                        <td></td>
+                    </tr>           
+                    <tr>
+                        <td></td>
+                        <td>
+                            !, ~, (int), (double), (string), (array), (object), @
+                        </td>
+                        <td></td>
+                        <td>右</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>递增&递减</td>
+                        <td>++, --</td>
+                        <td></td>
+                        <td>右</td>
+                        <td>注意前后差异</td>
+                    </tr>   
+                    <tr>
+                        <td></td>
+                        <td>[]</td>
+                        <td></td>
+                        <td>右</td>
+                        <td></td>
+                    </tr>       
+                    <tr>
+                        <td></td>
+                        <td>New</td>
+                        <td></td>
+                        <td>不相关</td>
+                        <td></td>
+                    </tr>           
+                    <tr>
+                        <td></td>
+                        <td>()</td>
+                        <td></td>
+                        <td>不相关</td>
+                        <td></td>
+                    </tr>           
+                    <tr>
+                        <td>引用对象成员</td>
+                        <td>-></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>   
+                    <tr>
+                        <td>数组赋值</td>
+                        <td>=></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>           
+                </tbody>
+            </table>
+            备注: <a href="http://php.net/manual/zh/language.operators.precedence.php">运算符优先级</a>
+        </div>
+        <div class="col-6">
+            <div class="list list-number">
+                <div class="title">引用操作</div>
+                <div class="content closed">
+<xmp class="prettyprint linenums lang-php">$a = 5;
+$b = &$b;    // 引用就像一个别名: $a和$b都指向了内存的相同地址.
+unset($b);   // 销毁变量$b</xmp>
+                </div>
+
+                <div class="title">等于&恒等于</div>
+                <div class="content closed">
+                    <p>
+                        false, null, 和0会被PHP解释为false, 其他都是true! <br>
+                        ==  // 等于: 0和空串会计算为相等 <br>
+                        === // 恒等于: 操作数相等, 并且数据类型也相等时, 才返回true. 例如: 0 == '0'值为true, 但是0 === '0'就不是true.<br>
+                        !=  // 不等 <br>
+                        !== // 不恒等 <br>
+                    </p>
+                </div>
+                
+                <div class="title">错误抑制</div>
+                <div class="content closed">
+                    <p>
+                        $a = @ (57/0); 不会提示除0警告 <br>
+                        如果通过这种方法抑制了一些警告, 一旦遇到一个警告, 你就要写一些错误处理代码. <br>
+                        如果已经启用了PHP的track_errors特性, 错误信息将会被保存在全局变量$php_errormsg中.
+                    </p>
+                </div>
+                
+                <div class="title">执行操作符</div>
+                <div class="content closed">
+                    <p>
+                        执行操作符是一对反向单引号(与键盘~的相同位置) <br>
+                        PHP将试着将反向单引号之间的命令当做服务器端的命令来执行, 表达式的值就是命令的执行结果.
+                    </p>
+                    <pre class="prettyprint linenums lang-php">$out = `dir c:` </pre>
+                </div>
+                
+                <div class="title">类型操作</div>
+                <div class="content closed">
+                    <pre class="prettyprint linenums lang-php">$myObject instranceof sampleClass;    // 检查$myObject是否是sampleClass类型</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{include file="template/footer" /}

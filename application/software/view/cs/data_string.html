@@ -1,0 +1,301 @@
+{include file="template/header" title="PHP 字符串" /}
+<div class="list list-number">
+    <div class="title">char - 表示Unocode字符</div>
+    <div class="content closed">
+        <div class="list list-number">
+            <div class="title">定义</div>
+            <div class="content open">
+                <p>char myChar = 'J';    // 表示一个16位的(Unicode)字符, 存储时用0 ~ 65535之间的整数表示.</p>
+            </div>
+
+            <div class="title">字面值</div>
+            <div class="content open">
+                <div class="list list-number">
+                    <div class="title">单引号形式</div>
+                    <div class="content open">
+                        'C'
+                    </div>
+
+                    <div class="title">转义字符</div>
+                    <div class="content open">
+                        <table class="w-50">
+                            <tbody>
+                                <tr>
+                                    <th>字符</th>
+                                    <th>转义字符</th>
+                                    <th>字符</th>
+                                    <th>转义字符</th>
+                                    <th>字符</th>
+                                    <th>转义字符</th>
+                                </tr>
+                                <tr>
+                                    <td>单引号</td>
+                                    <td>\'</td>
+                                    <td>双引号</td>
+                                    <td>\"</td>
+                                    <td>反斜杠</td>
+                                    <td>\\</td>
+                                </tr>
+                                <tr>
+                                    <td>空字符</td>
+                                    <td>\0</td>
+                                    <td>警告(产生蜂鸣)</td>
+                                    <td>\a</td>
+                                    <td>退格</td>
+                                    <td>\b</td>
+                                </tr>
+                                <tr>
+                                    <td>换页</td>
+                                    <td>\f</td>
+                                    <td>换行</td>
+                                    <td>\n</td>
+                                    <td>回车</td>
+                                    <td>\r</td>
+                                </tr>
+                                <tr>
+                                    <td>水平制表符</td>
+                                    <td>\t</td>
+                                    <td>垂直制表符</td>
+                                    <td>\v</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <p>注意: 使用Unicode转义序列可以指定Unicode字符, 该转义序列包括标准的\字符后跟一个u和一个4位十六进制值, 例如单引号可以表示为: '\u0027'</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">与string的关系</div>
+            <div class="content open">
+                <p>
+                    char myChar = myString[1];<br>
+                    char[] myChars = myString.toCharArray();
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">string - 表示Unicode字符串</div>
+    <div class="content closed">
+        <div class="list list-number">
+            <div class="title">定义</div>
+            <div class="content open">
+                <p>
+                    Object是所有类的基类, 从某种程度上来说, string也是所有类的基类, 因为所有类都可以序列化为stirng类型.
+                </P>
+                <p>
+                    <strong>string是值传递还是引用传递？</strong><br>
+                    string是引用传递, 但是又有值传递的效果，这是因为string是常量，不能更改，所以如果在函数里更改(=号赋值)的话，其实是生成了另外一个string, 函数里的string指向另外一个新生成的string， 而函数外的string还是原来的string, 给人一种值传递的假象!
+                </p>
+                <pre class="prettyprint linenums lang-cs"><code>string a = "aaa";     //==> 创建一个字符串"aaa", a指向它
+string b = a;         //==> 传引用, b也指向这个字符串 
+b = "bbb";            //==> String是只读的, 所以这里创建了另一个字符串"bbb", b指向这个新的字符串, a不动</code></pre>
+            </div>
+
+            <div class="title">字面值</div>
+            <div class="content open">
+                <pre class="prettyprint linenums lang-cs"><code>"我是字符串"
+@"C:\Temp\MyDir\MyFile.doc"    // 在字符串前面添加@符号, 可以直接使用转义字符, 但是对双引号转义字符无效.</code></pre>
+            </div>
+
+            <div class="title">基本操作</div>
+            <div class="content open">
+                <div class="container-fluid ml-0">
+                    <div class="row">
+                        <div class="col-2">获取某个位置的字符</div>
+                        <div class="col-2">str[0]</div>
+                        <div class="col-6">只读, 返回char类型</div>
+                    </div>	
+                    <div class="row">
+                        <div class="col-2">获取字符串长度</div>
+                        <div class="col-2">str.Length</div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">转换成大/小写</div>
+                        <div class="col-2">ToLower(); ToUpper()</div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">去空格</div>
+                        <div class="col-2">str.Trim(); str.TrimStart(); str.TrimEnd()</div>
+                        <div class="col-6"></div>
+                    </div>	
+                    <div class="row">
+                        <div class="col-2">对齐</div>
+                        <div class="col-2">str.PadLeft(); str.PadRight()</div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">分割字符串</div>
+                        <div class="col-2">str.Split()</div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">比较</div>
+                        <div class="col-2">
+                            s1 == s2<br>
+                            string.Equals()<br>
+                            str.CompareTo()
+                        </div>
+                        <div class="col-6">
+                            比较字符串的"值"(不是引用地址)是否相同, 如果要比较引用地址, 可以使用Object.ReferenceEquals()方法<br>
+                            etermines whether two String objects have the same value. <br>
+                            根据一定culture, case, and sort rules, 比较两个字符串的大小(返回一个int型值)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">替换</div>
+                        <div class="col-2">str.Replace()</div>
+                        <div class="col-6"></div>
+                    </div>	
+                    <div class="row">
+                        <div class="col-2">子字符串</div>
+                        <div class="col-2">str.Substring()</div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">包含字符?</div>
+                        <div class="col-2">str.Contains()</div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">判断起始/结尾字符</div>
+                        <div class="col-2">str.StartsWith(); str.EndsWith()</div>
+                        <div class="col-6"></div>
+                    </div>	
+                    <div class="row">
+                        <div class="col-2">字符索引</div>
+                        <div class="col-2">str.IndexOf()</div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">string[] ==> string</div>
+            <div class="content open">
+                <p>string.Join()    // Concatenates a specified separator String between each element of a specified String array, yielding a single concatenated string.</p>
+            </div>
+
+            <div class="title">字符串比较</div>
+            <div class="content open">
+                <p>
+                    在C#中有很多方法可以比较字符串. 虽然有不少程序员使用==操作符来比较字符串, 但是这种方法实际上是最不推荐使用的. 主要原因是这种方法没有在代码中显示的指定用哪种类型去比较字符串. 所以, 最好使用Equals方法：<br>
+                    public bool Equals(string value, StringComparison comparisonType);
+                </p>
+                <table class="w-75">
+                    <tbody>
+                        <tr>
+                            <td>1) StringComparison.Ordinal / StringComparison.OrdinalIgnoreCase</td>
+                            <td>对两个字符串进行byte级别的比较, 因此这种比较是比较严格和准确的,并且在性能上也很好.</td>
+                        </tr>
+                        <tr>
+                            <td>2) StringComparison.CurrentCulture / StringComarison.CurrentCultureIgnoreCase</td>
+                            <td>是在当前的区域信息下进行比较</td>
+                        </tr>
+                        <tr>
+                            <td>3) StringComarison.InvariantCulture / StringComparison.InvariantCultureIgnoreCase</td>
+                            <td>使用StringComarison.InvariantCulture来进行字符串比较, 在任何系统中(不同的culture)比较都将得到相同的结果.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="title">字符串格式化</div>
+            <div class="content open">
+                <p>
+                    string.Format方法是string类提供的静态方法， 一般最多使用的是其两个参数的重载： public static string Format (string format,params Object[] args)
+                </p>
+                <pre class="prettyprint linenums lang-php"><code>string name = "Zhezhe";
+string msg = string.Format("Hello Cnblogs, I am {0},Today is {1:yyyy-MM-dd}.", name, DateTime.Now);</code></pre>
+                <p>
+                    不带有特殊格式化的: 调用对象的ToString()方法即可. 上例用name.ToString()直接代替{0}.<br>
+                    带有特殊格式化的: 将冒号后面的内容分解出来, 并且在调用ToString()时作为参数传入. 上例中用DateTime.Now.ToString("yyyy-MM-dd")代替{1}.<br>
+                    左对齐空格： string.Format("{0,-20}","左对齐20个字符");
+                </p>
+            </div>
+
+            <div class="title">字符串转换</div>
+            <div class="content open">
+                <p>
+                    string ==> byte[ ]：byte[] byteArray = System.Text.Encoding.Default.GetBytes ( str );<br>
+                    byte[ ] ==> string：string str = System.Text.Encoding.Default.GetString ( byteArray );
+                </p>
+                <p>
+                    string ==> ASCII byte[ ]：byte[] byteArray = System.Text.Encoding.ASCII.GetBytes ( str );    （"01" 转成 byte[] = new byte[]{ 0x30,0x31}）<br>
+                    ASCII byte[ ] ==> string：string str = System.Text.Encoding.ASCII.GetString ( byteArray );    （byte[] = new byte[]{ 0x30, 0x31} 转成"01"）<br>
+                </p>
+                <p>string ==> char[] : str.ToCharArray()</p>
+            </div>
+
+            <div class="title">String深入解析: 拘留池</div>
+            <div class="content open">
+                <p>
+                    String是一个有值意义的引用类型, 也就是说, String不同于大多数的引用类型. <br>
+                    1) 其比较操作是对字符串值进行比较, 而不是比较字符串的位置.<br>
+                    2) 字符串的值是可以修改的, 但是修改后的字符串要存放在新的内存位置, 原来的字符串仍保留, 直到被GC删除.
+                </p>
+                <p>值类型存储在托管栈上, 引用类型存储在托管堆上, 这个一般都知道, 但是, 很多人不知道CLR还在内存中预留了第3个区域: 拘留池, 用来存储编译期间所有的字符串直接量, 简单说这个池就是避免存储重复的字符串值.</p>
+                <pre class="prettyprint linenums lang-php"><code>String str = "abc";   // "abc"存储在托管堆中
+String str2 = "abc";  // CLR发现内存中已经有"abc"字符串, 此时把"abc"转移到到拘留池中, str和str2都指向拘留池中的这个值.
+ 
+Console.WriteLine(str == str2);  // 值相等
+Console.WriteLine(Object.ReferenceEquals(str, str2));  // 引用也相等</code></pre>
+
+                <p>由于每次创建字符串都要检查拘留池, 因此会影响性能, 所以, 拘留池中是不存放动态创建的值. 不过, 为此提供了一个String.Intern()方法, 以便可以手动指定向拘留池中增加动态创建的字符串.</p>
+                <pre class="prettyprint linenums lang-php"><code>String str = "abc";
+String ch = "c";
+ 
+String str2 = "ab" + ch;    // 虽然和str的值相等, 但是由于是动态创建, str2还是存储在托管堆中
+ 
+Console.WriteLine(str == str2); // 值相等
+Console.WriteLine(Object.ReferenceEquals(str, str2));   // 引用不相等
+ 
+String str3 = "ab" + ch;
+str3 = String.Intern(str3); // 虽然是动态创建是动态创建是字符串, 但是使用了Intern()方法, 等价于str3 = "abc", 所以会把字符串转移到拘留池, str和str3都指向拘留池中的这个值
+ 
+Console.WriteLine(str == str3); // 值相等
+Console.WriteLine(Object.ReferenceEquals(str, str3));   // 引用也相等</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">StringBuilder</div>
+    <div class="content closed">
+        <p>String 对象是不可改变的. 每次使用String 类中的方法之一时, 都要在内存中创建一个新的字符串对象, 这就需要为该新对象分配新的空间. 
+            在需要对字符串执行重复修改的情况下, 与创建新的 String 对象相关的系统开销可能会非常昂贵. 
+            如果要修改字符串而不创建新的对象, 则可以使用 System.Text.StringBuilder 类. 例如, 当在一个循环中将许多字符串连接在一起时, 使用 StringBuilder 类可以提升性能. 例如:
+        </p>
+        <pre class="prettyprint linenums lang-php"><code>Private Sub ShowThreadExceptionDialog(ByVal e As Exception)
+    Dim errorMsg As StringWriter = New StringWriter()
+    errorMsg.WriteLine("An error occurred please contact the adminstrator with the following information:")
+    errorMsg.WriteLine("")
+    errorMsg.WriteLine("Type: ")
+    errorMsg.WriteLine(e.GetType.ToString())
+    errorMsg.WriteLine("")
+    errorMsg.WriteLine("Message: ")
+    errorMsg.WriteLine(e.Message)
+    errorMsg.WriteLine("")
+    errorMsg.WriteLine("Stack Trace:")
+    errorMsg.WriteLine(e.StackTrace)
+    MessageBox.Show(errorMsg.ToString(), "Application Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+End Sub</code></pre>
+
+        <p><strong>创建StringBuilder对象</strong><br></p>
+        <p>StringBuilder MyStringBuilder = new StringBuilder("Hello World!"); </p>
+
+        <p><strong>Length & Capacity</strong></p>
+        <p>
+            Capacity: 分配的空间可以存储多少个字符? 可以使用EnsureCapacity()申请存储空间.<br>
+            Length: sb中多少个字符?<br>
+            当Capacity小于Length时，会抛出异常System.ArgumentOutOfRangeException.
+        </p>
+        <p><strong>修改 StringBuilder 字符串</strong></p>
+        <p>sb.Append(), sb.AppendFormat(), sb.Insert(), sb.Remove(), sb.Replace()</p>
+
+        <p><strong>获取字符串</strong></p>
+        <p> 使用这个类的ToString()方法即可获得最终的字符串.</p>
+    </div>
+</div>
+{include file="template/footer" /}

@@ -1,0 +1,68 @@
+{include file="template/header" title="C# Object" /}
+<p>
+    Object是C#所有类的基类(详见MSDN), 所有, 可以:<br>
+    1) 使用object引用绑定任何子类型的对象.<br>
+    2) object类型执行许多基本的一般用途的方法, 包括Equals(), GetHashCode(), GetType()和ToString().
+</p>
+
+<div class="list list-number">
+    <div class="title">常用方法</div>
+    <div class="content open">
+        <div class="list list-number">
+            <div class="title">== & !=</div>
+            <div class="content open">
+                <p>对于预定义的值类型&字符串类型, 如果其操作数的值相等, 则相等运算符(==)返回true, 否则返回false; 对于string外的引用类型, 如果两个操作数引用同一对象, 则==会返回true;</p>
+            </div>
+
+            <div class="title">ToString()</div>
+            <div class="content open">
+                <p>
+                    public virtual string ToString ()<br>
+                    对象的String表示, 默认显示类的名称.
+                </p>
+            </div>
+
+            <div class="title">GetHashCode()</div>
+            <div class="content open">
+                <p>
+                    public virtual int GetHashCode ()<br>
+                    如果对象放在名为映射(也称为散列表或字典)的数据结构中, 就可以使用这个方法.
+                </p>
+            </div>
+
+            <div class="title">GetType()</div>
+            <div class="content open">
+                <p>
+                    Gets the Type of the current instance.
+                </p>
+            </div>
+
+            <div class="title">Equals()</div>
+            <div class="content open">
+                <p>
+                    public virtual bool Equals ( Object obj )<br>
+                    public static bool Equals ( Object objA, Object objB )<br>
+                    public static bool ReferenceEquals ( Object objA, Object objB )<br>
+                    Equals 的默认实现仅支持引用相等，但派生类可重写此方法以支持值相等。
+                </p>
+            </div>
+
+            <div class="title">Finalize()</div>
+            <div class="content open">
+                <p>
+                    ~Object()<br>
+                    如果对象拥有对未托管资源的引用, 则在该对象被删除时, 就需要删除这些引用, 此时一般要重写Finalize(). 垃圾收集器不能直接重写该方法, 因为它只负责托管的资源, 所以只能依赖用户提供的Finalize().
+                </p>
+            </div>
+
+            <div class="title">MemberwiseClone()</div>
+            <div class="content open">
+                <p>
+                    protected Object MemberwiseClone ()<br>
+                    浅拷贝.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="template/footer" /}

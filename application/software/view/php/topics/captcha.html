@@ -1,0 +1,85 @@
+{include file="template/header" title="PHP CAPTCHA" /}
+
+<P>
+    要验证一个表单所面对的是否是一个真正的人, 
+    这种测试称为CAPTCHA(Completely Automated Public Turing Test to Tell Computers and Humans Apart).
+</P>
+<div class="list list-number">
+    <div class="title">通行短语CAPTCHA</div>
+    <div class="content open">
+        <P>
+            已经设计出很多有意思的CAPTCHA, 不过其中最有效的方法是生成一个要求用户输入的随机通行短语. 
+            为了防止更狡诈的机器人(支持光学字符识别(OCR)))破解系统, 通行短语字母必须变形, 或者用随机的直线和点进行部分模糊处理.            
+        </P>
+        <P>
+            好的CAPTCHA应当有一个足够深的内容存储库, 使表单很少会将相同的测试显示两次. 这正是通行短语CAPTCHA的好处. 
+            由于通行短语由随机的字母生产, 所以对任何给定用户, 完全相同的测试出现两次的可能性不大, 即使是多次反复尝试.
+        </P>
+        <details>
+            <summary>范例</summary>
+            <div class="container-fluid ml-0">
+                <div class="row">
+                    <div class="col-6">
+                        <p><strong>captcha.php</strong></p>
+                        <pre class="prettyprint linenums lang-php">
+<code>// Set some important CAPTCHA constants
+define('CAPTCHA_NUMCHARS', 6);
+define('CAPTCHA_WIDTH', 100);
+define('CAPTCHA_HEIGHT', 25);
+
+// Generate the random pass-phrase
+$pass_phrase = "";
+for ($i = 0; $i < CAPTCHA_NUMCHARS; $i++) {
+    $pass_phrase .= chr(rand(97, 122));
+}
+
+// Create the image
+$img = imagecreatetruecolor(CAPTCHA_WIDTH, CAPTCHA_HEIGHT);
+
+// Set a white background with black text and gray graphics
+$bg_color = imagecolorallocate($img, 255, 255, 255);
+$text_color = imagecolorallocate($img, 0, 0, 0);
+$graphic_color = imagecolorallocate($img, 64, 64, 64);
+
+// Fill the background
+imagefilledrectangle($img, 0, 0, CAPTCHA_WIDTH, CAPTCHA_HEIGHT, $bg_color);
+
+// Draw some radom lines
+for ($i = 0; $i < 5; $i++) {
+    imageline($img, 0, rand() % CAPTCHA_HEIGHT, CAPTCHA_WIDTH, rand() % CAPTCHA_HEIGHT, $graphic_color);
+}
+
+// Sprinkle in some random dots
+for ($i = 0; $i < 50; $i++) {
+    imagesetpixel($img, rand() % CAPTCHA_WIDTH, rand() % CAPTCHA_HEIGHT, $graphic_color);
+}
+
+// Draw the pass-phrase string
+imagettftext($img, 18, 0, 5, CAPTCHA_HEIGHT - 5, $text_color, 'Courier New Bold.ttf', $pass_phrase);
+
+// Output the image as a PNG using a header
+header("Content-type: image/png");
+imagepng($img);
+
+// Clean up
+imagedestroy($img);</code></pre>
+                    </div>
+                    <div class="col-6">
+                        <p><strong>表单文件</strong></p>
+                        <pre class="prettyprint linenums lang-php"><code>&lt;form>
+    &lt;label for="verify">Verfication: &lt;/label>
+    &lt;input type="text" id="verify" name="verify" value="Enter the pass-phrase" />
+    &lt;img src="captcha.php" alt="Verfication pass-phrase" />
+&lt;/form></code></pre>
+                        <p>
+                            图像的"源"是动态生产CAPTCHA图像的PHP脚本的名字. 
+                            这是可行的, 因为captcha.php脚本会通过imagepng()和一个首部指向想浏览器返回一个图像.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+</div>
+
+{include file="template/footer" /}

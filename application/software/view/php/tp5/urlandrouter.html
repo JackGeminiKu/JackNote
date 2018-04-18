@@ -1,0 +1,314 @@
+{include file="php/tp5/template/header" title="TP5 URL&路由" /}
+
+<div class="list list-number">
+	<!-- URL访问= -->
+	<div class="title">URL访问</div>
+	<div class="content closed">
+		<p>TP5采用单一入口模式访问应用, 对应用的所有请求都定向到应用的入口文件, 系统会从URL参数中解析当前请求的模块、控制器和操作, 下面是一个标准的URL访问格式：</p>
+		<div class="panel">
+			http://domainName/index.php/模块/控制器/操作
+		</div>
+		<p>模块在ThinkPHP中的概念其实就是应用目录下面的子目录, 而官方的规范是目录名小写, 因此模块全部采用小写命名, 无论URL是否开启大小写转换, 模块名都会强制小写.</p>
+	</div>
+
+	<!-- 默认模块/默认控制器/默认操作 -->
+	<div class="title">默认模块/默认控制器/默认操作</div>
+	<div class="content closed">
+		<p>如果直接访问入口文件, 系统会访问默认模块（index）下面的默认控制器（Index）的默认操作（index）, 因此下面的访问是等效的：</p>
+		<div class="panel">
+			http://tp5.com/index.php
+			<br> http://tp5.com/index.php/index/index/index
+		</div>
+	</div>
+
+	<!-- URL默认不区分大小写 -->
+	<div class="title">URL默认不区分大小写</div>
+	<div class="content closed">
+		<p>默认情况下, URL地址中的控制器和操作名是不区分大小写的, 因此下面的访问其实是等效的：</p>
+		<div class="panel">
+			http://tp5.com/index.php/index/Index/Index
+			<br> http://tp5.com/index.php/index/INDEX/INDEX
+		</div>
+	</div>
+
+	<!-- 驼峰控制器 -->
+	<div class="title">驼峰控制器</div>
+	<div class="content closed">
+		<p>
+			<strong>默认使用"_"分隔</strong>
+		</p>
+		<p>如果你的控制器是驼峰的, 例如定义一个HelloWorld控制器, 正确的URL访问地址应该是：</p>
+		<div class="panel">
+			http://tp5.com/index.php/模块/hello_world/操作
+		</div>
+
+		<p>
+			<strong>就是要用驼峰</strong>
+		</p>
+		<p>如果希望严格区分大小写访问（这样就可以支持驼峰法进行控制器访问）, 可以在应用配置文件中设置：关闭URL自动转换（支持驼峰访问控制器）</p>
+		<div class="panel">
+			'url_convert' => false,
+		</div>
+		<p>关闭URL自动转换之后, 必须使用下面的URL地址访问（控制器名称必须严格使用控制器类的名称, 不包含控制器后缀）：</p>
+		<div class="panel">
+			http://tp5.com/index.php/模块/HelloWorld/操作
+		</div>
+	</div>
+
+	<!-- 参数传入 -->
+	<div class="title">参数传入</div>
+	<div class="content closed">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-5">
+					<p>控制器代码如下：</p>
+					<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\controller;
+									
+class Index
+{
+    public function hello($name = 'World')
+    {
+        return 'Hello,' . $name . '!';
+    }
+									
+    public function hello2($name = 'World', $city = '')
+    {
+        return 'Hello,' . $name . '! You come from ' . $city . '.';
+    }
+}</code></pre>
+				</div>
+				<div class="col-7">
+					<p class="text-strong">1. 使用默认值 </p>
+					<p>
+						http://http://tp5.com/index.php/index/index/hello
+						<br> 因为没有传入任何参数, name参数就使用默认值World, 页面输出结果为: Hello,World!
+					</p>
+
+					<p class="text-strong">2. 传入参数</p>
+					<p>
+						http://tp5.com/index.php/index/index/hello/name/thinkphp
+						<br> 页面输出结果为: Hello,thinkphp!
+					</p>
+
+					<p class="text-strong">3. 传入多个参数</p>
+					<p>
+						http://tp5.com/index.php/index/index/hello2/name/thinkphp/city/shanghai
+						<br> 页面输出结果为：Hello,thinkphp! You come from shanghai.
+						<br> 可以看到, hello2方法会自动获取URL地址中的同名参数值作为方法的参数值, 而且这个参数的传入顺序不受URL参数顺序的影响.
+					</p>
+
+					<p class="text-strong">4. 取消匿名参数名</p>
+					<p>把应用配置文件中的url_param_type参数的值修改如下：</p>
+					<div class="panel">
+						// 按照参数顺序获取
+						<br> 'url_param_type' => 1,
+					</div>
+					<p>现在, URL的参数传值方式就变成了严格按照操作方法的变量定义顺序来传值了, 也就是说我们必须使用下面的URL地址访问才能正确传入name和city参数到hello2方法：
+						<br> 页面输出结果为: Hello,thinkphp! You come from shanghai.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--修改URL分隔符-->
+	<div class="title">修改URL分隔符</div>
+	<div class="content closed">
+		<p>在应用配置文件（application/config.php）中设置：</p>
+		<pre class="prettyprint linenums"><code>// 设置pathinfo分隔符
+'pathinfo_depr' => '-',</code></pre>
+	</div>
+
+	<!--隐藏入口文件: index.php-->
+	<div class="title">隐藏入口文件</div>
+	<div class="content closed">
+		<p>以Apache为例, 需要在入口文件的同级添加.htaccess文件(官方默认只带了改文件), 内容如下:</p>
+		<pre class="prettyprint linenums"><code>&lt;IfModule mod_rewrite.c>
+Options +FollowSymlinks -Multiviews
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+&lt;/IfModule></code></pre>
+
+		<p>接下来就可以使用下面的URL地址访问了: http://tp5.com/index/index/index</p>		
+	</div>
+
+	<!--定义路由-->
+	<div class="title">定义路由 - route.php</div>
+	<div class="content closed">
+		<div class="list list-number">
+	    	<div class="title">路由规则在哪定义?</div>
+	    	<div class="content closed">
+				<p>无论是配置方式还是通过Route类的方法定义路由, 都统一放到路由配置文件application/route.php文件中!</p> 
+	    	</div>
+
+		    <div class="title">各种路由范例</div>
+    		<div class="content closed">
+				<p class="text-strong">hello开头, 并且有参数</p> 
+				<pre class="prettyprint linenums lang-php"><code>return [
+    'hello/:name' => 'index/index/hello',    // 所有以hello开头, 后面跟着参数的访问, 都会路由到index模组的index控制器的hello操作方法, 并且后面跟着的参数是name参数!
+];</code></pre>
+				<p>定义路由之前的URL访问地址为：http://tp5.com/index/index/hello/name/thinkphp, 定义路由后就只能访问URL地址: http://tp5.com/hello/thinkphp, 原来的URL地址将会失效, 变成非法请求!</p>
+
+				<p class="text-strong">hello开头, 参数可选</p>
+				<pre class="prettyprint linenums lang-php"><code>return [
+    'hello/[:name]' => 'index/hello',    // 同上面, 只是使用[]把路由规则中的变量包起来, 表示该变量为可选
+];</code></pre>
+				<p>
+					定义路由以后, 以下URL地址都可以访问了:<br>
+					http://tp5.com/hello<br>
+					http://tp5.com/hello/thinkphp
+				</p>
+
+				<p class="text-strong">完整匹配</p>
+				<pre class="prettyprint linenums lang-php"><code>return [
+    'hello/[:name]$' => 'index/hello',    // 当路由规则以$结尾的时候就表示当前路由规则需要完整匹配
+];</code></pre>
+				<p>
+					当我们访问下面的URL地址的时候：<br>
+					http://tp5.com/hello // 正确匹配<br>
+					http://tp5.com/hello/thinkphp // 正确匹配<br>
+					http://tp5.com/hello/thinkphp/val/value // 不会匹配
+				</p>
+
+				<p class="text-strong">指定路由参数(请求类型, URL后缀...)</p>
+				<pre class="prettyprint linenums lang-php"><code>return [
+    'hello/[:name]' => ['index/hello', ['method' => 'get', 'ext' => 'html']],    // 定义路由的请求类型和后缀
+];</code></pre>
+				<p>
+					上面定义的路由规则限制了必须是get请求, 而且后缀必须是html的, 所以下面的访问地址：<br>
+					http://tp5.com/hello // 无效<br>
+					http://tp5.com/hello.html // 有效
+				</p>
+
+				<p class="text-strong">设置变量规则(使用正则表达式)</p>				
+				<p>我们来尝试一些复杂的路由规则定义, 来满足不同的路由变量. 在此之前, 首先增加一个控制器类如下：</p>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-4">
+							<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\controller;
+
+class Blog
+{
+    public function archive($year, $month)
+    {
+        return '查看' . $year . '/' . $month . '的归档内容';
+    }
+
+    public function get($id)
+    {
+        return '查看id=' . $id . '的内容';
+    }
+
+    public function read($name)
+    {
+        return '查看name=' . $name . '的内容';
+    }
+}</code></pre>	
+						</div>
+						<div class="col-8">
+							<p>在下面的路由规则中, 我们对变量进行的规则约束, 变量规则使用正则表达式进行定义.</p>
+							<pre class="prettyprint linenums lang-php"><code>return [
+    'blog/:year/:month' => ['blog/archive', ['method' => 'get'], ['year' => '\d{4}', 'month' => '\d{2}']],
+    'blog/:id'          => ['blog/get',     ['method' => 'get'], ['id' => '\d+']],
+    'blog/:name'        => ['blog/read',    ['method' => 'get'], ['name' => '\w+']],
+];</code></pre>
+
+							<p>
+								我们看下几种URL访问的情况:<br>
+								http://tp5.com/blog/2015/05     // 访问2015年5月的归档内容<br>
+								http://tp5.com/blog/5           // 访问id为5的内容<br>
+								http://tp5.com/blog/thinkphp    // 访问name为thinkphp的内容
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<p class="text-strong">其他路由</p>
+				<p>有时候, 我们还需要对URL做一些特殊的定制, 例如如果要同时支持下面的访问地址: http://tp5.com/blog-2015-05</p>
+				<p>我们只要稍微改变路由定义规则即可：</p>
+				<pre class="prettyprint linenums lang-php"><code>return [
+  'blog-&lt;year>-&lt;month>' => ['blog/archive', ['method' => 'get'], ['year' => '\d{4}', 'month' => '\d{2}']],
+];</code></pre>
+				<p>对 blog-&lt;year>-&lt;month> 这样的非正常规范, 我们需要使用<变量名>这样的变量定义方式, 而不是 :变量名方式.</p>
+			</div>
+
+			<div class="title">全局规则&局部规则</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php"><code>return [
+    // 全局变量规则定义
+    '__pattern__' => [
+        'name' => '\w+',
+        'id' => '\d+',
+        'year' => '\d{4}',
+        'month' => '\d{2}',
+    ],
+
+    // 局部变量规则定义
+    'blog/:id' => 'blog/get',
+    'blog/:name' => 'blog/read',
+    'blog-&lt;year>-&lt;month>' => 'blog/archive',
+];</code></pre>
+
+				<p class="text-danger"> 如果一个变量同时定义了全局规则和局部规则的话, 当前的局部规则会覆盖全局规则的!</p>
+			</div>
+
+			<div class="title">路由分组</div>
+			<div class="content closed">
+				<p>上面的"设置变量规则"中的三个路由规则由于都是blog打头, 所以我们可以做如下的简化：</p>
+				<pre class="prettyprint linenums lang-php"><code>return [
+    '[blog]' => [
+        ':year/:month' => ['blog/archive', ['method' => 'get'], ['year' => '\d{4}', 'month' => '\d{2}']], 
+        ':id' => ['blog/get', ['method' => 'get'], ['id' => '\d+']],
+        ':name' => ['blog/read', ['method' => 'get'], ['name' => '\w+']],
+    ],
+];</code></pre>
+				<p>对于这种定义方式, 我们称之为路由分组, 路由分组一定程度上可以提高路由检测的效率.</p>
+			</div>
+
+			<div class="title">闭包定义</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php"><code>return [
+    // 定义闭包
+    'hello/[:name]' => function ($name) {
+        return 'Hello,' . $name . '!';
+    },
+];</code></pre>
+				<p>因此, 当访问URL地址：http://tp5.com/hello/thinkphp, 会输出: Hello,thinkphp!</p>
+			</div>
+		</div>	
+	</div>
+
+	<div class="title">生成URL地址</div>
+	<div class="content closed">
+		<p class="text-strong">使用当前模块&当前控制器</p>
+		<pre class="prettyprint linenums lang-php"><code>Url::build('method2', 'id=5');    //  当前模块/当前控制器/method2/id/5</code></pre>
+
+		<p class="text-strong">使用路由规则</p>
+		<p>使用到的路由规则</p>
+		<pre class="prettyprint linenums lang-php"><code>return [
+    'blog/:year/:month' => ['blog/archive', ['method' => 'get'], ['year' => '\d{4}', 'month' => '\d{2}']],
+];</code></pre>
+		<p>① 使用Url类</p>
+		<pre class="prettyprint linenums lang-php"><code>Url::build('blog/archive', 'year=2015&month=05');
+Url::build('blog/archive', ['year' => '2015', 'month' => '05']);	// 输出 blog/2015/05</code></pre>
+		<p>② 直接使用路由规则</p>
+		<pre class="prettyprint linenums lang-php"><code>Url::build('/blog/archive/2015/05');</code></pre>
+		<p class="text-danger">注意: 生成方法的第一个参数一定要和路由定义的路由地址保持一致!</p>
+
+		<p class="text-strong">使用url助手函数来简化代码</p>
+		<p>Url::build()可以使用助手函数url()来简化.</p>
+
+		<p class="text-strong">在模板文件中</p>
+		<pre class="prettyprint linenums lang-php"><code>{:url('blog/archive', 'year=2017&month=06')}</code></pre>
+
+		<p class="text-strong">配置生成的URL地址自动带上后缀!</p>
+		<p>如果配置了url_html_suffix参数(位于config.php)的话，生成的URL地址会带上后缀，例如：</p>
+		<pre class="prettyprint linenums lang-php"><code>'url_html_suffix' => 'html',</code></pre>
+	</div>
+</div>
+
+{include file="php/tp5/template/footer" /}

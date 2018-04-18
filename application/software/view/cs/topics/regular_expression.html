@@ -1,0 +1,203 @@
+{include file="template/header" title="C# 正则表达式" /}
+
+<a href="https://msdn.microsoft.com/zh-cn/library/az24scfc(v=vs.110).aspx">快速参考</a>, 
+<a href="https://msdn.microsoft.com/zh-cn/library/20bw873z(v=vs.110).aspx">字符类</a>
+
+<div class="list list-number">
+    <div class="title">元字符</div>
+    <div class="content closed">
+		<table class="table table-bordered table-sm w-25">
+			<thead>
+				<tr>
+					<th>元字符</th>
+					<th>含义</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>.</td>
+					<td>匹配任意字符, 除了换行符</td>
+				</tr>
+				<tr>
+					<td>\w</td>
+					<td>匹配字母, 数字, 下划线, 或汉字</td>
+				</tr>
+				<tr>
+					<td>\d</td>
+					<td>匹配一个数字, 0~9</td>
+				</tr>
+				<tr>
+					<td>\s</td>
+					<td>匹配任意一个空白符</td>
+				</tr>
+				<tr>
+					<td>^</td>
+					<td>匹配字符串的开始</td>
+				</tr>
+				<tr>
+					<td>$</td>
+					<td>匹配字符串的结束</td>
+				</tr>
+				<tr>
+					<td>\b</td>
+					<td>匹配单词的开始或结束</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+    <div class="title">转义字符</div>
+    <div class="content closed">
+		<p>如果你想查找元字符本身的话, 比如你查找".", 或者"*", 需要使用转义字符!</p>
+		<table class="table table-bordered table-sm w-25">
+			<thead>
+				<tr>
+					<th>字符</th>
+					<th>转义字符</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>.</td>
+					<td>\.</td>
+				</tr>
+				<tr>
+					<td>*</td>
+					<td>\*</td>
+				</tr>
+				<tr>
+					<td>\</td>
+					<td>\\</td>
+				</tr>
+				<tr>
+					<td>|</td>
+					<td>\|</td>
+				</tr>
+				<tr>
+					<td>(</td>
+					<td>\(</td>
+				</tr>
+				<tr>
+					<td>)</td>
+					<td>\)</td>
+				</tr>
+				<tr>
+					<td>[</td>
+					<td>\[</td>
+				</tr>
+				<tr>
+					<td>]</td>
+					<td>\]</td>
+				</tr>
+				<tr>
+					<td>{</td>
+					<td>\{</td>
+				</tr>
+				<tr>
+					<td>}</td>
+					<td>\}</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+	<div class="title">重复描述符</div>
+    <div class="content closed">
+		<table class="table table-border table-sm w-25">
+			<thead>
+				<tr>
+					<th>重复描述符</th>
+					<th>含义</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>?</td>
+					<td>有或者无</td>
+				</tr>
+				<tr>
+					<td>*</td>
+					<td>>=0次</td>
+				</tr>
+				<tr>
+					<td>+</td>
+					<td>>=1次</td>
+				</tr>
+				<tr>
+					<td>{n}</td>
+					<td>重复n次</td>
+				</tr>
+				<tr>
+					<td>{n,m}</td>
+					<td>n~m次</td>
+				</tr>
+				<tr>
+					<td>{n,}</td>
+					<td>>=n次</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+    <div class="title">枚举</div>
+    <div class="content closed">
+		<table class="table table-broder table-sm w-25">
+			<thead>
+				<tr>
+					<th>枚举</th>
+					<th>含义</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>[0~9]</td>
+					<td>匹配一个数字: 0~9</td>
+				</tr>
+				<tr>
+					<td>[abc]</td>
+					<td>匹配一个字符: a,b或者c</td>
+				</tr>
+				<tr>
+					<td>[^aeiou]</td>
+					<td>匹配一个字符, 除了aeiou</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+	<div class="title">分支匹配</div>
+    <div class="content closed">
+		<table class="table table-border table-sm w-25">
+			<tbody>
+				<tr>
+					<td>|</td>
+					<td>正则或</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+    <div class="title">子表达式</div>
+    <div class="content closed">
+		<p>使用括号表示子表达式, 例如: (表达式1)(表达式2)</p>
+    </div>
+
+	<div class="title">例子</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums lang-cs"><code>string temp = "ErrorCode:-1,Message:{\"UserId\" : \"1000\",\"userName\" : \"ZhangSan\"}";
+Regex reg = new Regex("ErrorCode:(?&lt;key1>.*?),Message:{(?&lt;key2>.*?)}");
+Match match = reg.Match(temp);
+string tempStr = match.Groups["key1"].Value + "--" + match.Groups["key2"].Value;
+　
+MessageBox.Show(tempStr);</code></pre>
+
+				<pre class="prettyprint linenums lang-cs"><code>Match match = Regex.Match("age=30", @"^(.+)=(.+)$");
+if (match.Success){     
+    Console.WriteLine(match.Groups[0] .Value);//输出匹配的子字符串
+    Console.WriteLine(match.Groups[1] .Value);//获取第一个分组的内容
+    Console.WriteLine(match.Groups[2] .Value);//获取第二个分组的内容
+}</code></pre>
+	</div>
+
+</div>
+{include file="template/footer" /}

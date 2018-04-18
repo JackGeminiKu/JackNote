@@ -1,0 +1,229 @@
+{include file="template/header" title="PHP 数据" /}
+
+<div class="list list-number">
+    <div class="title">常用数据类型</div>
+    <div class="content open">
+        <div class="container ml-0">
+            <div class="row">
+                <div class="col-1">
+                    <strong>基本类型</strong>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_int')}">int</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_float')}">float</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_string')}">string</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_bool')}">bool</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_datetime')}">日期时间</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <strong>复杂类型</strong>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_array')}">array</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_class')}">class</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_null')}">null</a>
+                </div>
+                <div class="col-1">
+                    <a href="{:url('software/php/index', 'template=data_resource')}">resource</a>
+                </div>
+            </div>
+        </div>
+
+        <details class="ml-3">
+            <summary><label>值类型&引用类型</label></summary>
+            <p>值类型赋值时, 拷贝的是值; 引用类型赋值时, 拷贝的是"地址". </p>
+            <p>值类型只有6种: 包括字符串, 整数, 浮点数和数组; 引用类型包括类和对象.</p>
+        </details>
+    </div>
+
+    <div class="title">常量/变量</div>
+    <div class="content open">
+        <div class="list list-number">
+            <div class="title">常量</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">定义</div>
+                    <div class="content open">
+                        <pre class="prettyprint linenums lang-php"><code>define('PI', 3.14); // 常量的值只能是标量, 即布尔, 整数, 浮点数, 字符串, 这4种.</code></pre>
+                    </div>
+
+                    <div class="title">使用</div>
+                    <div class="content open">
+                        <pre class="prettyprint linenums lang-php"><code>echo PI; // 不需要$符号</code></pre>
+                    </div>
+
+                    <div class="title">作用域</div>
+                    <div class="content open">
+                        <p>当前页面内, 包括我们通过include和include_once包含进来的PHP页面.</p>
+                    </div>
+
+                    <div class="title">系统常量</div>
+                    <div class="content open">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-3">
+									<table class="table table-hover table-sm">
+										<tr>
+											<td>__FILE__</td>
+											<td>当前PHP文件的绝对路径</td>
+										</tr>
+										<tr>
+											<td>__DIR__</td>
+											<td>当前PHP文件所在的目录</td>
+										</tr>
+										<tr>
+											<td>__LINE__</td>
+											<td>PHP文件的行数</td>
+										</tr>
+										<tr>
+											<td>PHP_VSERION</td>
+											<td>PHP版本</td>
+										</tr>
+										<tr>
+											<td>PHP_OS</td>
+											<td>运行PHP的电脑的OS</td>
+										</tr>
+										<tr>
+											<td>TRUE</td>
+											<td>真</td>
+										</tr>
+										<tr>
+											<td>FALSE</td>
+											<td>假</td>
+										</tr>
+									</table>
+								</div>
+								<div class="col-3">
+									<table class="table table-hover table-sm">
+										<tr>
+											<td>TRUE</td>
+											<td>真</td>
+										</tr>
+										<tr>
+											<td>FALSE</td>
+											<td>假</td>
+										</tr>
+										<tr>
+											<td>E_ERROR</td>
+											<td>最近的错误处</td>
+										</tr>
+										<tr>
+											<td>E_WARNING</td>
+											<td>最近的警告处</td>
+										</tr>
+										<tr>
+											<td>E_PARSE</td>
+											<td>剖析语法有潜在的问题处</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">变量</div>
+            <div class="content closed">
+                <div>
+                    <p>PHP是弱类型语言: 即不需要提前声明, 当第一次给变量赋值时, 系统才创建这个变量. 而且可以在运行中改变变量的类型.</p>
+
+                    <div class="list list-number">
+                        <div class="title">变量分类</div>
+                        <div class="content open">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>变量分类</th>
+                                    <th>局部变量</th>
+                                    <th>全局变量</th>
+                                    <th>(内置)超级全局变量</th>
+                                </tr>
+                                <tr>
+                                    <th>定义</th>
+                                    <td>$local_var = 1; // 在函数内部定义, 这里存放的是整数值</td>
+                                    <td>$global_var = 1.0; // 在函数外部定义, 这里存放的是浮点值</td>
+                                    <td>见备注</td>
+                                </tr>
+                                <tr>
+                                    <th>作用域</th>
+                                    <td>
+                                        仅在当前函数内部使用.
+                                        <br> 当声明为static时, 可以在函数的多次执行过程中保持该变量的值.</td>
+                                    <td>
+                                        仅在当前页面内使用, 除了函数内部.
+                                        <br> 如果要在函数内部可见, 需要在函数内部声明: global $global_var;
+                                    </td>
+                                    <td>在当前网站中使用</td>
+                                </tr>
+                                <tr>
+                                    <th>生存期</th>
+                                    <td>
+                                        进入函数时生成, 退出函数时销毁
+                                        <br> 如果定义为static类型, 则在程序退出时销毁.
+                                    </td>
+                                    <td>程序开始时生成, 程序退出时销毁.</td>
+                                    <td>程序开始时生产, 程序退出时销毁.</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="title">变量命名</div>
+                        <div class="content open">
+                            <p> 1) 第一个字母必须是$符号</p>
+                            <p> 2) $符号后面的第一个字符只能是字母或下划线(_), 此后的字符可以是字母, 下滑线和数字. </p>
+                            <p> 通常变量名使用小写, 且变量中的各个词使用下划线分隔. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">引用变量</div>
+            <div class="content closed">
+                <div>
+                    <pre class="prettyprint linenums lang-php"><code>$nick_name = &$old_name;    // 指向同一个内容</code></pre>
+                </div>
+            </div>
+
+            <div class="title">可变变量</div>
+            <div class="content closed">
+                <pre class="prettyprint linenums lang-php"><code>$newname = 'tireqty';
+$$newname = 5;           // 等价于: $tireqty = 5;</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">类型转换</div>
+    <div class="content closed">
+        <pre class="prettyprint linenums lang-php"><code>$totalqty = 0;
+$totalamount = (float)$totalqty;</code></pre>
+    </div>
+
+    <div class="title">变量判断</div>
+    <div class="content closed">
+        <pre class="prettyprint linenums lang-php"><code>isset($var);    // 有这个变量?
+empty($var);    // 变量是空值? 空值包括: 0, 空串(''或""), false 和 null值.</code></pre>
+    </div>
+
+    <div class="title">其他变量相关函数</div>
+    <div class="content closed">
+        <p>
+            gettype() & settype()<br>
+            unset()
+        </p> 
+    </div>
+</div>
+{include file="template/footer" /}

@@ -1,0 +1,142 @@
+{include file="../view/template/header" title="PHP 文件操作" /}
+<div class="list list-number">
+    <div class="title">打开文件</div>
+    <div class="content open">
+        <a href="http://php.net/manual/zh/function.fopen.php">
+            resource fopen ( string $filename , string $mode [, bool $use_include_path = false [, resource $context ]] )
+        </a>
+        <p>
+            备注: 在UNIX系统中, 目录中的间隔符是正斜线(/). 如果你使用的是Windows平台, 可以使用正斜线或者反斜线. 
+            如果使用反斜线, 这意味着代码只能在Windows上运行; 如果使用了正斜线, 代码不需要任何修改就可以在Windows和UNIX机器上运行.
+        </p>
+    </div>
+
+    <div class="title">写文件</div>
+    <div class="content open">
+        <a href="http://php.net/manual/zh/function.fwrite.php">
+            int fwrite ( resource $handle , string $string [, int $length ] )
+        </a>
+    </div>
+
+    <div class="title">读文件</div>
+    <div class="content open">
+        <p>
+            判断文件是否结束<br>
+            <a href="http://php.net/manual/zh/function.feof.php">
+                bool feof ( resource $handle )
+            </a>                       
+        </p>
+
+        <p>
+            读取字符<br>
+            <a href="http://php.net/manual/zh/function.fgetc.php">
+                string fgetc ( resource $handle )
+            </a>            
+        </p>
+
+        <p>
+            读取一行<br>
+            <a href="http://php.net/manual/zh/function.fgets.php">
+                string fgets ( resource $handle [, int $length ] )
+            </a>
+            <br>
+            <a href="http://php.net/manual/zh/function.fgetss.php">
+                string fgetss ( resource $handle [, int $length [, string $allowable_tags ]] )
+            </a>
+            <br>
+            <a href="http://php.net/manual/zh/function.fgetcsv.php">
+                array fgetcsv ( resource $handle [, int $length = 0 [, string $delimiter = ',' [, string $enclosure = '"' [, string $escape = '\\' ]]]] )
+            </a>
+        </p>
+
+        <p>
+            读取整个文件<br>
+            <a href="http://php.net/manual/zh/function.file.php">
+                array file ( string $filename [, int $flags = 0 [, resource $context ]] )
+            </a>
+            <br>
+            <a href="http://php.net/manual/zh/function.file-get-contents.php">
+                string file_get_contents ( string $filename [, bool $use_include_path = false [, resource $context [, int $offset = -1 [, int $maxlen ]]]] )
+            </a>
+        </p>
+
+        <p>
+            读取任意长度<br>
+            <a href="http://php.net/manual/zh/function.fread.php">
+                string fread ( resource $handle , int $length )
+            </a>                
+        </p>
+        
+        <p>
+            输出文件<br>
+            <a href="http://php.net/manual/zh/function.readfile.php">
+                int readfile ( string $filename [, bool $use_include_path = false [, resource $context ]] )
+            </a>
+            <br>
+            <a href="http://php.net/manual/zh/function.fpassthru.php">
+                int fpassthru ( resource $handle )
+            </a>
+        </p>
+    </div>
+
+    <div class="title">关闭文件</div>
+    <div class="content open">
+        <a href="http://php.net/manual/zh/function.fclose.php">
+            bool fclose ( resource $handle )
+        </a>
+    </div>
+
+    <div class="title">在文件中定位</div>
+    <div class="content open">
+        <a href="http://php.net/manual/zh/function.ftell.php">
+            int ftell ( resource $handle )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.rewind.php">
+            bool rewind ( resource $handle )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.fseek.php">
+            int fseek ( resource $handle , int $offset [, int $whence = SEEK_SET ] )
+        </a>
+    </div>
+
+    <div class="title">文件锁定</div>
+    <div class="content open">
+        <a href="http://php.net/manual/zh/function.flock.php">
+            bool flock ( resource $handle , int $operation [, int &$wouldblock ] )
+        </a>
+    </div>
+
+    <div class="title">其他相关函数</div>
+    <div class="content open">
+        <a href="http://php.net/manual/zh/function.is-file.php">
+            bool is_file ( string $filename )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.is-dir.php">
+            bool is_dir ( string $filename )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.file-exists.php">
+            bool file_exists ( string $filename )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.filesize.php">
+            int filesize ( string $filename )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.nl2br.php">
+            string nl2br ( string $string [, bool $is_xhtml = TRUE ] )
+        </a>
+        <br>
+        <a href="http://php.net/manual/zh/function.unlink.php">
+            bool unlink ( string $filename [, resource $context ] )
+        </a>
+        <br>
+        <a href="http://php.net/search.php?show=quickref&pattern=dirname">
+            string dirname ( string $path )
+        </a>
+    </div>
+</div>
+{include file="../view/template/footer" /}

@@ -1,0 +1,31 @@
+{include file="template/header" title="C# 委托" /}
+
+<ul>
+    <li>匿名委托</li>
+    <div>
+
+    </div>
+    <li class="summary closed">Lambda表达式 - 简化的匿名委托</li>
+    <div>
+        <p>Lambda运算符"=>", 可以读作"转到"或者"成为. 运算符将表达式分为两部分, 左边指定为输入参数, 右边是Lambda的主体.</p>
+
+        <p><strong>一个参数: param => expr</strong></p>
+        <xmp class="prettyprint">Func <int, string> f = p => p.ToString();</xmp>
+
+        <p><strong>多个参数: (param-list) => expr</strong></p>
+        <xmp class="prettyprint">Func <int, int, int> f = (p,z) => p + z;</xmp>
+
+        <p><strong>主体运算比较复杂</strong></p>
+    <xmp class="prettyprint">Func <int, int, int> f = (p,z) => { 
+    if (p > z) { 
+        return p; 
+    } else { 
+        return z; 
+    } 
+}</xmp>
+    </div>
+</ul>
+
+<a href="https://www.cnblogs.com/chenwolong/p/5669440.html" target="_blank">Lamda表达式</a>
+
+{include file="template/footer" /}

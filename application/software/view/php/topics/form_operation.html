@@ -1,0 +1,94 @@
+{include file="template/header" title="PHP 表单处理" /}
+<pre class="prettyprint linenums lang-html"><code>&lt;form action="processorder.php" method="post">
+    &lt;table border="0">
+        &lt;tr bgcolor="#cccccc">
+            &lt;td width="150">Item&lt;/td>
+            &lt;td witdh="15">Quantity&lt;/td>
+        &lt;/tr> 
+        &lt;tr>
+            &lt;td>Tires&lt;/td>
+            &lt;td align="center">&lt;input type="text" name="tireqty" size="3" maxlength="3" />&lt;/td>
+        &lt;/tr>
+        &lt;tr>
+            &lt;td>Oil&lt;/td>
+            &lt;td align="center">&lt;input type="text" name="oilqty" size="3" maxlength="3" />&lt;/td>
+        &lt;/tr>
+        &lt;tr>
+            &lt;td colspan="2" align="center">&lt;input type="submit" value="Submit Order" />&lt;/td>
+        &lt;/tr>
+    &lt;/table>
+&lt;/form></code></pre>
+
+<div class="list list-number">
+    <div class="title">Action熟悉</div>
+    <div class="content open">
+        <p>表单的Action属性就是用户点击提交按钮时要载入的URL.</p>
+        <p><strong>引用自身</strong></p>
+        <pre class="prettyprint linenums lang-html"><code>&lt;form action="sendemail.php" method="post">
+// 或者
+&lt;form action="&lt;?php echo $_POST['PHP_SELF']; ?>" method="post"></code></pre>
+    </div>
+
+    <div class="title">Method方法</div>
+    <div class="content open">
+        <p>
+            表单数据如何传给Server? <br>
+            Get: 附加在URL的结尾;<br>
+            Post: 以单独消息的形式发送.
+        </p>
+    </div>
+
+    <div class="title">表单变量</div>
+    <div class="content open">
+        <p>
+            在任何情况下, 一个页面上提交给PHP脚本的每一个表单域在PHP脚本中都是可以使用的. 可以使用中等风格访问表单域: $_POST['tireqty']<br>
+            中等风格涉及了从$_POST, %_GET或%_REQUEST数组之一检索变量. 使用哪一个数组取决于提交表单时使用的方法时POST还是GET. 此外, 通过POST或GET方法提交的所有数据都可以通过%_REQUEST数组获得.
+        </p>
+
+        <p><strong>设置表单域初始值</strong></p>
+        <p>可以使用HTML&lt;input&gt;标记的value属性设置输入表单域的初始值.</p>
+        <pre class="prettyprint linenums lang-html"><code>&lt;input name="subject" type="text" value="Fall Clearance!"></code></pre>
+
+        <p><strong>表单数组</strong></p>
+        <p>复选框后面的括号自动将复选框值放入一个名为"todelete[]"的数组.</p>
+        <pre class="prettyprint linenums lang-php"><code>echo '&lt;input type="checkbox" vallue="' . $row[id] . '" name="todelete[]">';</code></pre>
+
+        <p><strong>隐藏表单域</strong></p>
+        <p>隐藏表单域不会显示, 但是会作为GET或者POST请求的一部分发送!</p>
+        <pre class="prettyprint linenums lang-html"><code>&lt;input type="hidden" name="name" value="Jack" /></code></pre>
+    </div>
+
+    <div class="title">判断表单是否已经提交</div>
+    <div class="content open">
+        <p>每个表单都有一个Submit按钮, 而且很可能都一致地命名为submit, 所以检查$_POST['submit']可以提供一种在所有脚本中检查表单提交的可靠方法.</p>
+        <pre class="prettyprint linenums lang-php"><code>if (isset($_POST['submit'])) {
+    ...
+}</code></pre>
+    </div>
+
+    <div class="title">上传文件</div>
+    <div class="content">
+        <p>把文件上传到服务器上的一个临时文件夹中, 这个临时文件夹在服务器上自动创建, 通常有一个奇怪的名字, 包含一堆随机的字母和数字. 文件名也是随机的!</p>
+        <pre class="prettyprint linenums lang-html"><code>&lt;form enctype="multipart/form-data" method="post" action="...">   // form的enctype属性告诉表单要使用文件上传所需的一种特殊类型编码, 这会影响提交表单时如何打包和发送POST数据.
+    &lt;input type="hidden" name="MAX_FILE_SIZE" value="32768" />    // 为文件上传建立一个大小限制, 在这里是32KB(32767字节).
+    &lt;input type="file" id="screenshot" name="screenshot" />       // 最终依赖于一个本地操作系统对话框完成文件浏览和选择.
+    &lt;input type="submit" value="add" name="submit" />
+&lt;/form></code></pre>
+
+        <p><strong>$_FILES数组</strong></p>
+        <p>表单通过$_FILES超级全局变量将有关文件的一些信息传递到PHP脚本.</p>
+        <p>
+            $_FILES['screenshot']['name']: 上传文件的文件名<br>
+            $_FILES['screenshot']['tmp_name']: 文件在服务器上临时存储位置<br>
+            $_FILES['screenshot']['type']: 上传文件的MJME类型, 例如: GIF是image/gif; JPEG是image/jpeg或image/pjpeg; PNG是image/png<br>
+            $_FILES['screenshot']['size']: 上传文件的大小(字节数)<br>
+            $_FILES['screenshot']['error']: 上传文件错误代码, 0表示成功, 其他表示失败<br>
+        </p>
+        
+        <p><strong>移动上传的文件</strong></p>
+        <p>bool move_uploaded_file ( string $filename , string $destination )</p>
+    </div>
+</div>
+
+
+{include file="template/footer" /}

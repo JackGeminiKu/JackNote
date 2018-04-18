@@ -1,0 +1,130 @@
+{include file="template/header" title="PHP 函数" /}
+<ol>
+    <li class="summary open">自定义函数</li>
+    <div class="container-fluid ml-0">
+        <div class="row">
+                <div class="col-6">
+<xmp class="prettyprint linenums lang-php">function foo($arg1, $arg2) 
+{ 
+    echo "example function"; 
+    return "OK"; 
+}
+</xmp>
+                </div>
+
+            <div class="col-6">
+                <ul>
+                    <li class="summary closed">函数名</li>
+                    <div>
+                        <p>以字母, 或"_"下划线开始, 不区分大小写!</p>
+                    </div>
+
+                    <li class="summary closed">形参</li>
+                    <div>
+                        <p><strong>传值&传引用</strong></p>
+                        <p>传值: $形参<br>
+                        传引用: &$形参</p>
+
+                        <p><strong>可选参数(默认参数)</strong></p>
+                        <p>调用函数时, 可选参数可以全部给出, 也可以部分给出, 但是不能漏掉一个可选参数而给出参数列表中的后一个参数.</p>
+<xmp class="prettyprint linenums lang-php">function getPerson($name = "Jack", $age = 18 ) {
+    ...
+}</xmp>
+
+                        <p><strong>可变参数</strong></p>
+<xmp class="prettyprint linenums lang-php">string getType(mixed var);</xmp>
+
+                        <p><strong>指定形参类型</strong></p>
+<xmp class="prettyprint linenums lang-php">function demo(array $options) {
+    var_dump($options);
+}</xmp>
+                        <p>
+                            从PHP5开始, 可以指定形参的类型, 当调用函数时, 如果实参的类型与形参的类型不符, 那么就会产生一个致命级别的错误(Catchable fatal error).
+                            <br>1) 从PHP 5.0.0开始就支持用类名限制参数类型，限定以后，传入的参数必须是这个类的实例。
+                            <br>2) PHP 5.1.0开始增加了对array的支持，传递的参数必须是数组。
+                            <br>3) PHP 5.4.0开始支持又支持了callable这个伪类型，传递的参数必须是一个可以回调的函数。
+                            <br>4) PHP 7.0.0开始支持bool/float/int/string，传递的参数必须是布尔值/浮点数/整数/字符串
+                        </p>
+                    </div>
+
+                    <li class="summary closed">函数体</li>
+                    <div>
+                        <p><strong>退出函数: </strong>return; / return $value;</p>
+                    </div>
+                </ul>
+            </div>
+        </div>    
+    </div>
+
+    <li class="summary closed">内置函数(可在任何地方使用)</li>
+    <div class="container ml-0">
+        <div class="row">
+            <div class="col-xl-1">
+                <strong>包含</strong>
+            </div>
+            <div class="col-xl-1">require</div>
+            <div class="col-xl-1">require_once</div>
+            <div class="col-xl-1">include</div>
+            <div class="col-xl-1">include_once</div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-1">
+                <strong>输出</strong>
+            </div>
+            <div class="col-xl-1">echo</div>
+            <div class="col-xl-1">print</div>
+            <div class="col-xl-1">printf</div>
+            <div class="col-xl-1">vprintf</div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-1"><strong>变量</strong></div>
+            <div class="col-xl-1">is_int</div>
+            <div class="col-xl-1">is_float</div>
+            <div class="col-xl-1">is_string</div>
+            <div class="col-xl-1">is_bool</div>
+            <div class="col-xl-1">is_array</div>
+            <div class="col-xl-1">is_object</div>
+            <div class="col-xl-1">is_null</div>
+            <div class="col-xl-1">is_resource</div>
+            <div class="col-xl-1">is_scalar</div>
+            <div class="col-xl-1">is_numeric</div>
+            <div class="col-xl-1">is_callable</div>
+            <div class="col-xl-1"></div>
+            <div class="col-xl-1">empty</div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-1">
+                <strong>数据转换</strong>
+            </div>
+            <div class="col-xl-1">intval</div>
+            <div class="col-xl-1">floatval</div>
+            <div class="col-xl-1">strval</div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-1">
+                <strong>加密</strong>
+            </div>
+            <div class="col-xl-1">sha1</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-1">
+                <strong>url</strong>
+            </div>
+            <div class="col-xl-1">urlencode</div>        
+        </div>      
+    </div>
+
+    <li>函数重载(不支持)</li>
+    <li>递归函数(支持)</li>
+    
+    <li class="summary closed">函数相关函数</li>
+    <div>
+        <p>func_num_args(), func_get_arg(), func_get_args()</p>            
+    </div>
+</ol>
+{include file="template/footer" /}

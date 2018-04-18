@@ -1,0 +1,39 @@
+{include file="template/header" title="VIM" /}
+<div class="list list-number">
+	<div class="title">窗口控制: 最大化, 最小化</div>
+	<div class="content open">
+		<p>
+			最大化命令 :simalt ~x<br>
+			恢复命令 :simalt ~r<br>
+			最小化命令 :simalt ~n<br>
+		</p>
+	</div>
+
+	<div class="title">自动切换输入法</div>
+	<div class="content open">
+		<p>
+			在 Windows 下，用 AutoHotkey 的脚本来处理。<br>
+
+			按 ESC 时，将输入法切换为为美式键盘。<br>
+
+			脚本如下（保存为 vim.ahk）<br>
+
+			~esc::<br>
+
+			Send, {ESC}<br>
+
+			; 下方代码可只保留一个<br>
+			SwitchIME(0x04090409) ; 英语(美国) 美式键盘<br>
+			SwitchIME(0x08040804) ; 中文(中国) 简体中文-美式键盘<br>
+			return<br>
+
+			SwitchIME(dwLayout){<br>
+			HKL:=DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)<br>
+			ControlGetFocus,ctl,A<br>
+			SendMessage,0x50,0,HKL,%ctl%,A<br>
+			}<br>
+			发布于 2018-0<br>
+		</p>
+	</div>
+</div>
+{include file="template/footer" /}

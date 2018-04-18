@@ -1,0 +1,145 @@
+{include file="template/header" title="C# 流程控制" /}
+<div class="list list-number">
+    <!--条件-->
+    <div class="title">条件</div>
+    <div class="content open">
+        <div class="containter ml-0 w-75">
+            <div class="row">
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-cs">
+<code>//条件1
+if (条件) {                            
+    ...
+}
+// 条件2
+if (条件) {                            
+    ...
+} else {
+    ...
+}
+// 条件3
+if (条件1) {                            
+    ...
+} else if (条件2) {
+    ...
+} else {
+    ...
+}</code></pre>
+                </div>
+
+                <div class="col-4">
+                    <pre class="prettyprint linenums lang-cs">
+<code>switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
+    case 条件值1:
+        ...
+        break;
+    case 条件值2:
+        ...
+        break;
+    default:
+        ...
+        break;
+}</code></pre>
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-10">
+                    <p>备注: 条件语句一定要把情况考虑清楚, 不要忘了else情况和default情况, 不一定在代码上体现出来, 但是心里一定要默默考虑到!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--循环-->
+    <div class="title">循环</div>
+    <div class="content open">
+        <div class="container-fluid ml-0">
+            <div class="row">
+                <div class="col-2">
+                    while循环
+                </div>
+                <div class="col-2">
+                    do while循环
+                </div>
+                <div class="col-2">
+                    for循环
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-2">
+                    <pre class="prettyprint linenums lang-cs">
+<code>while (条件) {    
+    ...
+}</code></pre>
+                </div>
+                <div class="col-2">
+                    <pre class="prettyprint linenums lang-cs">
+<code>do {    
+    ...
+} while(条件)</code></pre>
+                </div>
+                <div class="col-2">
+                    <pre class="prettyprint linenums lang-cs">
+<code>for (初始化; 条件; 更新) {    
+    ...
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-3">
+                        foreach循环(实现了IEnumerable的类, 只读)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-cs">
+<code>foreach (int item in array) {    
+    // 数组类
+}</code></pre>
+                </div>
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-cs">
+<code>foreach (KeyValuePair&lt;string, int> item in dic) {    
+    // 字典类
+}</code></pre>
+                </div>
+                <div class="col-3">
+                    <pre class="prettyprint linenums lang-cs">
+<code>foreach (DictionaryEntry item in hashtable) {    
+    // 字典类
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--跳转-->
+    <div class="title">跳转</div>
+    <div class="content open">
+        <p>break; &emsp; continue; &emsp; return; &emsp; </p>
+    </div>
+
+    <!--异常处理-->
+    <div class="title">异常处理</div>
+    <div class="content closed">
+        <pre class="prettyprint linenums lang-cs w-75">
+<code>// 抛异常
+throw new Exception('...');   
+
+// 捕获异常
+try {
+    // 这段代码可能会抛异常
+} catch(Exception $e) {
+    // 异常处理
+} finally {
+    ...
+}</code></pre>
+    </div>
+</div>
+{include file="template/footer" /}
