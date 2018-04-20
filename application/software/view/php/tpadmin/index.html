@@ -1,3 +1,31 @@
 {include file="php/tpadmin/template/header" title="tpAdmin" /}
-<p>tpAdmin...</p>
+
+<div class="list list-number">
+    <div class="title">弹出提示框</div>
+    <div class="content open">
+		<p>使用<a href="https://www.kancloud.cn/yuan1994/tpadmin/225019">ajax_return...</a></p>
+		<p>需要在View中设置</p>
+		<pre class="prettyprint linenums lang-php"><code>&#123;block name="script"}
+&lt;script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js">&lt;/script>
+&lt;script>
+	$(function () {
+		$("#form").Validform({
+			tiptype: 2,
+			ajaxPost: true,
+			showAllError: true,
+			callback: function (ret) {
+				ajax_progress(ret);
+			}
+		});
+	})
+&lt;/script>
+&#123;/block}</code></pre>
+    </div>
+
+    <div class="title">XXX</div>
+    <div class="content open">
+
+    </div>
+</div>
+
 {include file="php/tpadmin/template/footer" /}
