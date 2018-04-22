@@ -1,8 +1,8 @@
 {include file="template/header" title="C# 类" /}
 
 <div class="list list-number">
-    <div class="title">各种类</div>
-    <div class="content open">
+	<div class="title">各种类</div>
+	<div class="content open">
 
 		<div class="list list-number">
 			<div class="title">嵌套类</div>
@@ -31,7 +31,7 @@
 
 			</div>	
 		</div>
-    </div>
+	</div>
 
 	<div class="title">高级功能</div>
 	<div class="content open">
@@ -57,6 +57,68 @@
 			<div class="title">添加迭代器功能</div>
 			<div class="content open">
 
+			</div>
+
+			<div class="title">函数调用: 同步 vs 异步</div>
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">异步调用范例</div>
+					<div class="content open">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-6">
+									<pre class="prettyprint linenums"><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("[{0}] [{1:D2}]: {2}", DateTime.Now.ToString("HH:mm:ss"), Thread.CurrentThread.ManagedThreadId, "main");
+        for (int i = 0; i < 3; i++) {
+            Func&lt;int, int, int> func = new Func&tl;int, int, int>(Add);
+            func.BeginInvoke(i, i, AddCallback, null);  // 异步调用
+        }
+
+        Console.Read();
+    }
+
+    static int Add(int a, int b)
+    {
+        Console.WriteLine("[{0}] [{1:D2}]: {2} + {3}",
+            DateTime.Now.ToString("HH:mm:ss"), Thread.CurrentThread.ManagedThreadId, a, b);
+        Thread.Sleep(3000);
+        return a + b;
+    }
+
+    static void AddCallback(IAsyncResult result)
+    {
+        Thread.Sleep(3000);
+        Func&lt;int, int, int> func = (Func&lt;int, int, int>)((AsyncResult)result).AsyncDelegate;
+        Console.WriteLine("[{0}] [{1:D2}]: result = {2}", DateTime.Now.ToString("HH:mm:ss"),
+            Thread.CurrentThread.ManagedThreadId, func.EndInvoke(result));
+    }
+}</code></pre>	
+								</div>
+								<div class="col-6">
+									<p>输出结果</p>
+									<pre class="prettyprint linenums"><code>[20:08:41] [09]: main
+[20:08:41] [10]: 0 + 0
+[20:08:41] [13]: 1 + 1
+[20:08:41] [14]: 2 + 2
+[20:08:47] [10]: result = 0
+[20:08:47] [13]: result = 2
+[20:08:47] [14]: result = 4</pre></code>
+									<p>
+										说明: 异步调用时, 函数在另外一个线程中执行, 回调函数也在这个新线程中执行!
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">XXX</div>
+					<div class="content open">
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -91,7 +153,7 @@
 
 			<div class="title">集合</div>
 			<div class="content open">
-				
+
 			</div>
 		</div>
 
