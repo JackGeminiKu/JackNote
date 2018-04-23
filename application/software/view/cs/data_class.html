@@ -1,10 +1,116 @@
 {include file="template/header" title="C# 类" /}
 
 <div class="list list-number">
+	<!--各种类-->
 	<div class="title">各种类</div>
 	<div class="content open">
-
 		<div class="list list-number">
+			<div class="title">普通类</div>
+			<div class="content open">
+				<p>[ internal | public ] [ abstract | sealed ] class Xxx : 基类, 接口1, 接口2...<br></p>
+				<p>{</p>
+				<div class="pl-4">
+					<div class="list list-square">
+						<div class="title">继承 vs 接口</div>
+						<div class="content closed">
+							<p class="text-strong">继承</p>
+							<p>
+								如果子类派生于父类, 则子类拥有父类中的所有成员字段和函数, 习继承最好是记住三句话:<br>
+								1) 子类拥有父类非private的属性和方法;<br> 
+								2) 子类具有自己的属性和方法, 极子类可以扩展父类没有的属性和方法; <br>
+								3) 子类还可以以自己的方式实现父类的功能(方法重写).
+							</p>
+
+							<p>在需要给现有的类型添加功能, 或许多相关的类型共享一组重要的公共功能时, 这种类型的继承是非常有效的. 但是只有当两个类之间具备"is-a"的关系时, 才能考虑使用继承!</p>
+
+							<p>所有的.NET类都派生于System.Object. 实际上, 如果在定义类时没有指定基类, 编译器就会自动假定这个类派生于Object.</p>
+
+							<p class="text-strong">接口</p>
+							<p>表示一个类型只继承了函数的签名, 却没有继承任何实现代码.</p>
+							<p>在需要指定该类型具有某些可用的特性时, 最好使用这种类型的继承. 例如, 某些类型可以指定从接口System.IDisposable中派生, 从而提供一种清理资源的方法Dispose(). 由于某种类型清理资源的方式可能与另一种类型完全不同, 所以定义通用的实现代码是没有意义的, 此时就适合使用接口继承.</p>
+							<p>注意: C#不支持多重继承, 但是C#又允许类型派生于多个接口.</p>
+						</div>
+
+						<div class="title">数据</div>
+						<div class="content closed">
+							<div class="list list-square">
+								<!--常量-->
+								<div class="title">常量</div>
+								<div class="content open">
+									<pre class="prettyprint linenums lang-cs"><code>private const double PI = 3.14;    // const型: 只能由初始化语句赋值, 在静态&非静态的类成员中均可使用.
+private [static] readonly double PI = 3.14;    // readonly型: 可以由初始化语句赋值, 也可以在构造函数中赋值. 加上static后不能混用.</code></pre>
+
+								</div>
+
+								<!--字段-->
+								<div class="title">字段</div>
+								<div class="content open">
+									<pre class="prettyprint linenums"><code>private [static] double Weight [= 60];	// 字段是与类相关的变量. 可以初始化</code></pre>
+									<p>注意: 客户端使用属性和字段的语法是相同的, 但是一般情况下, 在访问状态时最好提供属性, 而不是字段. 因为这样可以更好的控制整个过程(比如判断赋的值是否非法), 这个不会影响使用对象实例的代码.</p>
+								</div>
+
+								<!--属性-->
+								<div class="title">属性</div>
+								<div class="content open">
+									<p>属性是一个方法或方法对, 在客户端看来, 它们是一个字段, 所以属性适合以字段的方式使用方法调用的场合. 但是属性同字段相比, 可以做更多的控制, 所以属性要优于字段.</p>
+									<p>公共属性采用Pascal大小命名规则, 而私有属性采用camel大小命名规则.</p>
+									<pre class="prettyprint linenums"><code>private string foreName;
+
+public string ForeName
+{
+    get { return foreName; }	// 访问器可以有自己的可访问性, 但是不能超过属性的可访问性. 
+    set				// value引用用户提供的属性值, 类型与属性相同.
+    {
+        if (value.Length > 20) {
+            // code here to take error recovery action
+        } else {
+            foreName = value;
+        }
+    }
+}</code></pre>
+									<p class="text-danger"> 注意: 1) 可以定义只读或只写属性. 2) C#不支持属性带参数.</p>
+
+									<p class="text-strong">自动属性（Since .NET 3.5)</p>
+									<pre class="prettyprint linenums"><code>public string PetName { get; set; }  //right
+public string PetName { get; }  //wrong，必须get set同时，才可为自动的属性；</code></pre>
+								</div>
+							</div>
+						</div>
+
+						<div class="title">操作</div>
+						<div class="content open">
+							<div class="list list-square">
+								<div class="title">构造函数&析构函数</div>
+								<div class="content open">
+
+								</div>
+
+								<div class="title">方法</div>
+								<div class="content open">
+
+								</div>
+
+								<div class="title">运算符</div>
+								<div class="content open">
+
+								</div>
+
+								<div class="title">索引器</div>
+								<div class="content open">
+
+								</div>
+
+								<div class="title">事件</div>
+								<div class="content open">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p>}</p>
+			</div>
+
 			<div class="title">嵌套类</div>
 			<div class="content open">
 
@@ -33,8 +139,25 @@
 		</div>
 	</div>
 
+	<!--定义对象-->
+	<div class="title">定义对象</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">定义对象</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">多态性</div>
+			<div class="content open">
+
+			</div>
+		</div>
+	</div>
+	
+	<!--高级功能-->
 	<div class="title">高级功能</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">对象复制</div>
 			<div class="content open">
@@ -60,13 +183,13 @@
 			</div>
 
 			<div class="title">函数调用: 同步 vs 异步</div>
-			<div class="content open">
+			<div class="content closed">
 				<div class="list list-number">
 					<div class="title">异步调用范例</div>
 					<div class="content open">
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-6">
+								<div class="col-7">
 									<pre class="prettyprint linenums"><code>class Program
 {
     static void Main(string[] args)
@@ -97,7 +220,7 @@
     }
 }</code></pre>	
 								</div>
-								<div class="col-6">
+								<div class="col-5">
 									<p>输出结果</p>
 									<pre class="prettyprint linenums"><code>[20:08:41] [09]: main
 [20:08:41] [10]: 0 + 0
@@ -107,7 +230,7 @@
 [20:08:47] [13]: result = 2
 [20:08:47] [14]: result = 4</pre></code>
 									<p>
-										说明: 异步调用时, 函数在另外一个线程中执行, 回调函数也在这个新线程中执行!
+										说明: 异步调用时, 函数在另外一个线程中执行, 并且回调函数也在这个新线程中执行!
 									</p>
 								</div>
 							</div>
@@ -123,23 +246,9 @@
 		</div>
 	</div>
 
-	<div class="title">定义对象</div>
-	<div class="content open">
-		<div class="list list-number">
-			<div class="title">定义对象</div>
-			<div class="content open">
-
-			</div>
-
-			<div class="title">多态性</div>
-			<div class="content open">
-
-			</div>
-		</div>
-	</div>
-
+	<!--对象之间的关系-->
 	<div class="title">对象之间的关系</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">继承 vs 接口</div>
 			<div class="content open">

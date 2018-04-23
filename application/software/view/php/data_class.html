@@ -1,10 +1,19 @@
 {include file="template/header" title="PHP 类" /}
-<ol>
-    <li class="summary">自定义类</li>
-    <div>
-<xmp class="prettyprint lang-php">[final] class Dog extends Animal implements iSay    // final关键字禁止子类继承该类
+
+<div class="list list-number">
+    <div class="title">各种类</div>
+    <div class="content open">
+		<div class="list list-number">
+
+			<!--自定义类-->
+			<div class="title">自定义类</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php"><code>[final] class Dog extends Animal implements iSay    // final关键字禁止子类继承该类
 {
+	// 常量
     const pi = 3.14159;    // 类常量: 在定义和使用常量的时候不需要使用$符号. 常量的值必须是一个定值, 不能是变量, 类属性, 数学运算的结果或函数调用.
+	
+	// 属性
     private | protected | public $attribute;    // 属性. 可重载父类属性
 
     private | protected | public function __get($name){    // 读属性
@@ -14,19 +23,7 @@
         $this->$name = $value;
     }
 
-    public function __clone(){    // 在使用默认行为创建一个拷贝后能够被调用.
-    }
 
-    public function __call($method,$p){    // 函数重载
-        if($method=='function1'){
-            if(is_object($p[0])
-                $this->displayObject($p[0]);
-            else if(is_array(p[0])
-                $this->displayArray($p[0]);
-            else
-                $shit->displayScalor($p[0]);
-        }
-    }
 
     static function squared($input){    // 静态方法: 不能使用this关键字
     }
@@ -34,75 +31,88 @@
     [final] private | protected | public function operation($param){    // 操作: 可重载父类操作, 可调用父类的opertion操作形式如下: parent::opeartion(); 
     }   
 
+	// 构造函数 & 析构函数
     function _construct($param){    // 构造函数
     }
 
     function _destruct(){    // 析构函数, 无参数!
     }
-}
-</xmp>
-    </div>
+}</code></pre>
+			</div>
 
-    <li class="summary closed">静态类&静态成员</li>
-    <div>
-        <a href="https://www.cnblogs.com/moxiaoan/p/6228948.html" target="_blank">网上资料</a>
-    </div>
+			<!--静态成员 & 静态类-->
+			<div class="title">静态成员 & 静态类</div>
+			<div class="content closed">
+				<a href="https://www.cnblogs.com/moxiaoan/p/6228948.html" target="_blank">网上资料</a>
+			</div>
 
-    <li class="summary closed">抽象类&抽象成员</li>
-    <div>
-<xmp class="prettyprint lang-php">abstract class A {
+			<!--抽象类-->
+			<div class="title">抽象类</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php"><code>abstract class A {
     abstract function Operation($param);    // 抽象方法只能存在于抽象类中.
-}
-</xmp>
-    </div>    
+}</code></pre>
+			</div>
 
-    <li class="summary closed">实例化</li>
-    <div>
-<xmp class="prettyprint lang-php">$a = new classname('First');
-$a = $b;    // 引用
-$a = clone $b;    // 拷贝</xmp>
+		</div> 
     </div>
 
-    <li class="summary closed">使用类&对象</li>
-    <div>
-<xmp class="prettyprint lang-php">// 调用对象成员
+    <div class="title">使用类&对象</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">实例化</div>
+			<div class="content open">
+				<pre class="prettyprint linenums lang-php"><code>$a = new classname('First');
+$a = $b;    // 引用
+$a = clone $b;    // 拷贝</code></pre>
+			</div>
+
+			<div class="title">使用类&对象</div>
+			<div class="content open">
+				<pre class="prettyprint linenums lang-php"><code>// 调用对象成员
 $a->operation($param);    // 使用对象的方法
 // 调用类成员
 classname::pi;    // 使用常量
-classname::squared(8);    // 调用类的静态方法
-</xmp>
+classname::squared(8);    // 调用类的静态方法</code></pre>
+			</div>
+		</div>
     </div>
 
-    <li class="summary closed">__autoLoad() && spl_autoload_register()</li>
-    <div>
-        <p><strong>__autoLoad()</strong></p>
-<xmp class="prettyprint lang-php">// printit.class.php
+	<!--高级功能-->
+	<div class="title">高级功能</div>
+	<div class="content closed">
+		<div class="list list-number">
+
+			<!--__autoLoad() & spl_autoload_register()-->
+			<div class="title">__autoLoad() & spl_autoload_register()</div>
+			<div class="content closed">
+				<p><strong>__autoLoad()</strong></p>
+				<pre class="prettyprint linenums lang-php"><code>// printit.class.php
 class PRINTIT {
-    function doPrint() {
-        echo 'hello world';
-    }
+	function doPrint() {
+		echo 'hello world';
+	}
 }
 
 // index.php
 function __autoload( $class ) {
-    $file = $class . '.class.php';
-    if ( is_file($file) ) {
-        require_once($file);
-    }
+	$file = $class . '.class.php';
+	if ( is_file($file) ) {
+		require_once($file);
+	}
 }
 
 $obj = new PRINTIT();    // 实例化printit时, 由于没有包含printit.class.php, 将自动调用__autoload函数, 参数$class的值即为类名printit, 此时printit.class.php就被引进来了.
-$obj->doPrint();
-</xmp>
-<p>
-运行index.php后正常输出hello world。<br>
-</p>
-    <p><strong>spl_autoload_register()</strong></p>
-<xmp class="prettyprint lang-php">function loadprint( $class ) {
-    $file = $class . '.class.php';
-    if (is_file($file)) {
-        require_once($file);
-    }
+$obj->doPrint();</code></pre>
+				<p>
+					运行index.php后正常输出hello world。<br>
+				</p>
+				<p><strong>spl_autoload_register()</strong></p>
+				<pre class="prettyprint linenums lang-php"><code>function loadprint( $class ) {
+$file = $class . '.class.php';
+	if (is_file($file)) {
+		require_once($file);
+	}
 }
 
 spl_autoload_register( 'loadprint' );    // 告诉PHP碰到没有定义的类就自动调用loadprint()
@@ -112,49 +122,59 @@ $obj->doPrint();
 
 // 也可以调用静态方法
 class test {
-    public static function loadprint( $class ) {
-        $file = $class . '.class.php';
-        if (is_file($file)) {
-            require_once($file);
-        }
-    }
+	public static function loadprint( $class ) {
+		$file = $class . '.class.php';
+		if (is_file($file)) {
+           require_once($file);
+		}
+	}
 }
 
 spl_autoload_register( array('test','loadprint') );    //另一种写法：spl_autoload_register( "test::loadprint" );
 
 $obj = new PRINTIT();
-$obj->doPrint();
-</xmp>
-    </div>
+$obj->doPrint();</code></pre>
+			</div>
 
-    <li class="summary closed">遍历类的属性</li>
-    <div>
-<xmp class="prettyprint">$x = new myClass;
+			<!--遍历类的属性-->
+			<div class="title">遍历类的属性</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php"><code>$x = new myClass;
 foreach($x as $attribute) {
-    echo $attribute;
-}
-</xmp>
-    </div>
+	echo $attribute;
+}</code></pre>
+			</div>
 
-    <li class="summary closed">使用迭代器和迭代</li>
-    <div>
-        <p>Iterator接口和IteratorAggregate接口 P138</p>
-    </div>
+			<!--使用迭代器&迭代-->
+			<div class="title">使用迭代器和迭代</div>
+			<div class="content closed">
+				<p>Iterator接口和IteratorAggregate接口 P138</p>
+			</div>
 
-    <li class="summary closed">反射</li>
-    <div>
-<xmp class="prettyprint lang-php">$class = new ReflectionClass('page');
-echo $class;
-</xmp>        
-    </div>
+			<!--反射-->
+			<div class="title">反射</div>
+			<div class="content closed">
+				<pre class="prettyprint lang-php"><code>$class = new ReflectionClass('page');
+			echo $class;</code></pre>
+			</div>
 
-    <li class="summary closed">this, self & parent</li>
-    <div>
-        <p>
-            this: 当前对象,<br>
-            self: 当前类,<br>
-            parent: 父类
-        </p>
-    </div>
-</ol>
+			<!--this, selft & parent-->	
+			<div class="title">this, selft & parent</div>
+			<div class="content closed">
+				<p>
+					this: 当前对象,<br>
+					self: 当前类,<br>
+					parent: 父类
+				</p>
+			</div>	
+		</div>
+	</div>
+
+	<!--对象之间的关系-->
+	<div class="title">对象之间的关系</div>
+	<div class="content closed">
+
+	</div>
+</div>
+
 {include file="template/footer" /}
