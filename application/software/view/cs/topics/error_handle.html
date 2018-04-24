@@ -1,0 +1,6 @@
+{include file="template/header" title="C# 出错处理" /}
+<p>错误代码 vs 异常</p>
+<p>错误代码: 出现错误时, 如果程式没有处理, 很难发现; 需要知道不同错误代码的含义.</p>
+<p>异常: 出现异常时, 如果程式没有处理, 默认会弹出异常对话框; 通过Message属性可以获取异常的详细说明; 通过StackTrace可以知道哪一行代码出错; 抛出异常时对程式性能有影响.</p>
+<p>异常抛出一般用于处理未预料到的错误, 比如内存异常, 常见的错误可以使用错误代码方式. int.TryParse()就比int.Parse()函数友好..</p>
+{include file="template/footer" /}

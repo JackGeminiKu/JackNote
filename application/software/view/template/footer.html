@@ -3,10 +3,36 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="__STATIC__/bootstrap/js/bootstrap.js"></script>
 <!-- 折叠内容 -->
-<script src="__ROOT__/static/jack/fold/fold.js"></script>
 <script src="__ROOT__/static/jack/collapse/collapse.js"></script>
 <!-- 代码着色 -->
 <script src="__ROOT__/static/prettify/prettify.js"></script>
+<script>
+	$(function () {
+		$("pre>code").each(function (index) {
+			var text = $(this).text();
+//			// 添加序号或图标
+//			var classes = $(this).attr("class").split(" ");
+//			if ($.inArray("list-number", classes) != -1) {  // 数字
+//				$(this).children("div.title").each(function (index) {
+//					$(this).text(++index + ". " + $(this).text());
+//				})
+//			} else if ($.inArray("list-square", classes) != -1) {   // 方块
+//				$(this).children("div.title").each(function (index) {
+//					$(this).text("￭ " + $(this).text());
+//				})
+//			} else if ($.inArray("list-none", classes) != -1) {   // 无
+//				// 不需要添加数组或方块
+//			}
+//
+//			// 初始状态
+//			$(this).children("div.content").each(function (index) {
+//				if ($(this).attr("class").indexOf("closed") != -1) {
+//					$(this).css("display", "none");
+//				}
+//			})
+		})
+	});
+</script>
 </body>
 
 </html>

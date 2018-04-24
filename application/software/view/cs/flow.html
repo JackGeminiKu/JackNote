@@ -5,20 +5,28 @@
     <div class="content open">
         <div class="containter ml-0 w-75">
             <div class="row">
-                <div class="col-3">
-                    <pre class="prettyprint linenums lang-cs">
-<code>//条件1
-if (条件) {                            
+				<div class="col-2">
+					<pre class="prettyprint linenums lang-cs">
+<code>// if
+if (条件) {              
     ...
-}
-// 条件2
-if (条件) {                            
-    ...
+}</code></pre>	
+				</div>
+
+				<div class="col-2">
+					<pre class="prettyprint linenums lang-cs">
+<code>// if else
+if (条件) {
+	...
 } else {
     ...
-}
-// 条件3
-if (条件1) {                            
+}</code></pre>	
+				</div>
+
+				<div class="col-2">
+                    <pre class="prettyprint linenums lang-cs">
+<code>// else if
+if (条件1) {            
     ...
 } else if (条件2) {
     ...
@@ -27,7 +35,7 @@ if (条件1) {
 }</code></pre>
                 </div>
 
-                <div class="col-4">
+                <div class="col-6">
                     <pre class="prettyprint linenums lang-cs">
 <code>switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
     case 条件值1:
@@ -128,18 +136,259 @@ if (条件1) {
     <!--异常处理-->
     <div class="title">异常处理</div>
     <div class="content closed">
-        <pre class="prettyprint linenums lang-cs w-75">
-<code>// 抛异常
-throw new Exception('...');   
+		<div class="list list-number">
 
-// 捕获异常
-try {
-    // 这段代码可能会抛异常
-} catch(Exception $e) {
-    // 异常处理
+			<!--使用异常的正确姿势-->
+			<div class="title">使用异常的正确姿势</div>
+			<div class="content closed">
+				<div class="container-fluid pl-0">
+					<div class="row">
+						<div class="col-6">
+							<p class="text-strong">捕捉异常</p>
+							<pre class="prettyprint linenums">
+<code>try {
+    // 产生异常的代码块, 发生异常时: 直接跳转到catch区域, try区域中发生异常之后的语句不会执行
+} catch ( Exception_Type e ) {
+    // catch块可以使用Exception_Type, 设置为只响应特定的异常类型; 也可以省略这个参数, 设置为响应所有的异常.
 } finally {
-    ...
+    // 不管是否产生异常, 都会执行的代码.
 }</code></pre>
+						</div>
+						<div class="col-6">
+							<p class="text-strong">抛出异常</p>
+							<pre class="prettyprint linenums">
+<code>
+throw ( new Exception() );
+throw;    // 这个表达式会产生一个异常, 这个异常同这个catch块处理过的异常一样.
+</code>
+							</pre>
+							<p>配置异常: Ctrl + Alt + E</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--未捕获的异常-->
+			<div class="title">未捕获的异常 <span class="text-lighter">- 处理未捕获的异常是每个应用程序起码有的功能!</span></div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">捕获应用程序域异常: appDomain.UnhandledExcpetion</div>
+					<div class="content closed">
+						<p>AppDomain对象提供了UnhandledException事件来接收未捕获到的异常的通知。常见的应用如下：</p>
+						<pre class="prettyprint linenums">
+<code>
+static void Main(string[] args)
+{
+    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);    // 非UI异常
+}
+
+static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+{
+    Exception error = (Exception)e.ExceptionObject;
+    Console.WriteLine("MyHandler caught : " + error.Message);
+}
+</code>
+						</pre>
+						<p class="text-danger">注意: UnhandledException提供的机制并不能阻止应用程序终止，也就是说，CurrentDomain_UnhandledException方法执行后，应用程序就会被终止。</p>
+					</div>
+
+					<div class="title">WinForm异常: Application.ThreadException</div>
+					<div class="content closed">
+						<p>
+							在windows窗体程序中，还存在ThreadException来处理Windows窗体线程中所发生的其未经处理的异常。即在windows窗体程序 中:<br>
+							1) 使用ThreadException 事件来处理 UI 线程异常;<br>
+							2) 使用 UnhandledException 事件来处理非UI线程异常.
+						</p>
+						<pre class="prettyprint linenums">
+<code>
+[STAThread]
+static void Main()
+{
+    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);    // 非UI异常
+　
+    Application.ThreadException += new ThreadExceptionEventHandler(UI_ThreadException);                                     // UI异常
+    Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+　
+    Application.Run(new ErrorHandlerForm());
+}
+ 
+private static void UI_ThreadException(object sender, ThreadExceptionEventArgs t)
+{
+    try {
+        MessageBox.Show("Windows窗体线程异常: " + Environment.NewLine + t.Exception.Message + Environment.NewLine + t.Exception.StackTrace);
+    } catch {
+        MessageBox.Show("不可恢复的Windows窗体异常，应用程序 即将退出！");
+    }
+}
+ 
+private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+{
+    try {
+        Exception ex = (Exception)e.ExceptionObject;
+        MessageBox.Show("非窗体线程异常: " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+    } catch {
+        MessageBox.Show("不可恢复的非Windows窗体线程异常，应用程序 即将退出！");
+    }
+}
+</code>
+						</pre>
+					</div>
+
+					<div class="title">WPF窗体 异常: this.DispatcherUnhandledException </div>
+					<div class="content closed">
+						<p>WPF的UI线程和Windows的UI线程有点不一样。WPF的UI线程是交给一个叫做调度器的类：Dispatcher。代码如下： </p>
+						<pre class="prettyprint linenums">
+<code>
+public App()
+{
+    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);    // 非UI异常
+    this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(Application_DispatcherUnhandledException);    // WPF异常
+}
+ 
+void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+{
+    try {
+        Exception ex = e.ExceptionObject as Exception;
+        MessageBox.Show("非WPF窗体线程异常: " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+    } catch {
+        MessageBox.Show("不可恢复的WPF窗体线程异常，应用程序将退出！");
+    }
+}
+ 
+private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+{
+    try {
+        Exception ex = e.Exception;
+        MessageBox.Show("WPF窗体线程异常: " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+    } catch {
+        MessageBox.Show("不可恢复的WPF窗体线程异常，应用程序将退出！");
+    }
+}
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<!--多线程异常-->
+			<div class="title">多线程异常</div>
+			<div class="content closed">
+				<p>多线程的异常处理，要采用特殊的做法。从.NET2.0开始，任何线程上未处理的异常，都会导致应用程序的退出（先会触发AppDomain的UnhandledException）。</p>
+				<div class="container-fluid pl-0">
+					<div class="row">
+						<div class="col-6">
+							<pre class="prettyprint linenums">
+<code>
+// catch的是主线程中的异常, 子线程中的异常没有catch!
+try {
+    Thread t = new Thread((ThreadStart)delegate {
+        throw new Exception("多线程异常");
+    });
+    t.Start();
+} catch (Exception error) {
+    MessageBox.Show("主线程异常!");
+}
+</code>
+							</pre>	
+						</div>
+						<div class="col-6">
+							<pre class="prettyprint linenums">
+<code>
+// catch的是子线程中的异常, 主线程中的异常没有catch!
+Thread t = new Thread((ThreadStart)delegate {
+    try {
+        throw new Exception("多线程异常");
+    } catch (Exception error) {
+        MessageBox.Show("工作线程异常!");
+    }
+});
+t.Start();
+</code>
+							</pre>	
+						</div>
+					</div>
+				</div>
+
+				<p>原则上来说，每个线程自己的异常应该在自己的内部处理完毕，不过仍旧有一个办法，可以将线程内部的异常传递到主线程。</p>
+				<div class="container-fluid pl-0">
+					<div class="row">
+						<div class="col-6">
+							<p>1) 在Windows窗体程序中，可以使用窗体的BeginInvoke方法来将异常传递给主窗体线程： </p>
+							<pre class="prettyprint linenums">
+<code>
+// WinForm: 将子线程中的异常传递到主线程
+Thread t = new Thread((ThreadStart)delegate {
+    try {
+        throw new Exception("非窗体线程异常");
+    } catch (Exception ex) {
+        this.BeginInvoke((Action)delegate {    // Action委托.NET 3.5才支持       
+            throw ex;
+        });
+    }
+});
+t.Start();
+</code>
+							</pre>
+						</div>
+						<div class="col-6">
+							<p>2) 在WPF窗体程序中，你可以采用如下的方法将 子线程的异常传递到主线程：</p>
+							<pre class="prettyprint linenums">
+<code>
+// WPF: 将子线程中的异常传递到主线程
+Thread t = new Thread((ThreadStart)delegate {
+    try {
+        throw new Exception("非窗体线程异常");
+    } catch (Exception ex) {
+        this.Dispatcher.Invoke((Action)delegate
+        {
+            throw ex;
+        });
+    }
+});
+t.Start();
+</code>
+							</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--常用异常类-->
+			<div class="title">常用异常类</div>
+			<div class="content closed">
+				<p>Exception, ArgumentException, ArgumentNullExcpetion, InvalidOperationException</p>
+			</div>
+
+			<!--自定义异常类-->
+			<div class="title">自定义异常类</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+public class CardOutOfRangeException : Exception
+{
+    private Cards deckContents;
+   
+    public Cards DeckContents
+    {
+        get { return deckContents; }
+    }
+
+    public CardOutOfRangeException(Cards sourceDeckContents)
+        :base("There are only 52 cards in the deck.")
+    {
+        deckContents = sourceDeckContents;
+    }
+}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">异常对性能的影响</div>
+			<div class="content closed">
+				<a href="http://www.mamicode.com/info-detail-99312.html">网上资料</a>
+			</div>
+		</div>
     </div>
 </div>
 {include file="template/footer" /}
