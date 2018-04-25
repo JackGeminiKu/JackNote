@@ -4,17 +4,173 @@
     <div class="title">Log4net</div>
     <div class="content closed">
 		<div class="list list-number">
+			<div class="title">配置文件范本</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;?xml version="1.0" encoding="utf-8" ?>
+&lt;configuration>
+  &lt;configSections>
+    &lt;section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,log4net"/>    &lt;!--一定要放在最前面 -->
+  &lt;/configSections>
+
+  &lt;log4net>
+    &lt;!--根日志对象: 如果一个日志对象没有在配置文件里显式定义，则使用这里的设置 -->
+    &lt;root>
+      &lt;level value="DEBUG">&lt;/level>
+      &lt;appender-ref ref="RollingFileAppender">&lt;/appender-ref>
+      &lt;appender-ref ref="ConsoleAppender">&lt;/appender-ref>
+      &lt;appender-ref ref="AdoNetAppender">&lt;/appender-ref>
+    &lt;/root>
+
+    &lt;!--输出到MS SQL Server-->
+    &lt;appender name="AdoNetAppender" type="log4net.Appender.AdoNetAppender">
+      &lt;bufferSize value="1" />
+      &lt;connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      &lt;connectionString value="Data Source=192.168.51.161;Initial Catalog=TestLog;User ID=277ap;Password=2wsx3edc" />
+      &lt;commandText value="INSERT INTO Log ([Date],[Thread],[Level],[Logger],[Message],[Exception]) VALUES (@log_date, @thread, @log_level, @logger, @message, @exception)" />
+      &lt;parameter>
+        &lt;parameterName value="@log_date" />
+        &lt;dbType value="DateTime" />
+        &lt;layout type="log4net.Layout.RawTimeStampLayout" />
+      &lt;/parameter>
+      &lt;parameter>
+        &lt;parameterName value="@thread" />
+        &lt;dbType value="String" />
+        &lt;size value="255" />
+        &lt;layout type="log4net.Layout.PatternLayout">
+          &lt;conversionPattern value="%thread" />
+        &lt;/layout>
+      &lt;/parameter>
+      &lt;parameter>
+        &lt;parameterName value="@log_level" />
+        &lt;dbType value="String" />
+        &lt;size value="50" />
+        &lt;layout type="log4net.Layout.PatternLayout">
+          &lt;conversionPattern value="%level" />
+        &lt;/layout>
+      &lt;/parameter>
+      &lt;parameter>
+        &lt;parameterName value="@logger" />
+        &lt;dbType value="String" />
+        &lt;size value="255" />
+        &lt;layout type="log4net.Layout.PatternLayout">
+          &lt;conversionPattern value="%logger" />
+        &lt;/layout>
+      &lt;/parameter>
+      &lt;parameter>
+        &lt;parameterName value="@message" />
+        &lt;dbType value="String" />
+        &lt;size value="4000" />
+        &lt;layout type="log4net.Layout.PatternLayout">
+          &lt;conversionPattern value="%message" />
+        &lt;/layout>
+      &lt;/parameter>
+      &lt;parameter>
+        &lt;parameterName value="@exception" />
+        &lt;dbType value="String" />
+        &lt;size value="2000" />
+        &lt;layout type="log4net.Layout.ExceptionLayout" />
+      &lt;/parameter>
+    &lt;/appender>
+
+    &lt;!--Appender: 输出到文件-->
+    &lt;appender name="RollingFileAppender" type="log4net.Appender.RollingFileAppender">
+      &lt;param name="Encoding" value="utf-8" />
+      &lt;file value="logs/app.txt" />
+      &lt;appendToFile value="true" />
+      &lt;rollingStyle value="Size" />
+      &lt;maxSizeRollBackups value="10" />
+      &lt;maximumFileSize value="100KB" />
+      &lt;staticLogFileName value="true" />
+      &lt;layout type="log4net.Layout.PatternLayout">
+        &lt;conversionPattern value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" />
+      &lt;/layout>
+    &lt;/appender>
+
+    &lt;!--Appender: 输出到控制台-->
+    &lt;appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
+      &lt;layout type="log4net.Layout.PatternLayout">
+        &lt;conversionPattern value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" />
+      &lt;/layout>
+    &lt;/appender>
+  &lt;/log4net>
+
+  &lt;appSettings>
+    &lt;add key="log4net.Internal.Debug" value="true "/>
+  &lt;/appSettings>
+
+&lt;/configuration>
+</code>
+				</pre>
+			</div>
+
+
 			<div class="title">启用Debug信息</div>
 			<div class="content closed">
 				<p>log4net可以输出internal debug信息，只要在配置文件里加上（configuration根节点下, log4net相关节点末尾）</p>
-				<pre class="prettyprint linenums"><code>&lt;appSettings> 
+				<pre class="prettyprint linenums">
+<code>
+&lt;appSettings> 
     &lt;add key="log4net.Internal.Debug" value="true "/> 
-&lt;/appSettings></code></pre>
+&lt;/appSettings>
+</code>
+				</pre>
 			</div>
 
 			<div class="title">乱码问题</div>
 			<div class="content closed">
 				<a href="https://www.cnblogs.com/jys509/p/4702275.html">解决方法</a>
+			</div>
+
+			<div class="title">日记级别</div>
+			<div class="content closed">
+				<p>
+					日志的等级，它们由高到底分别为：OFF > FATAL > ERROR > WARN > INFO > DEBUG > ALL. 
+					高于等级设定值 的方法都能写入日志， OFF的话所有的写入方法都不写到日志里，ALL则相反。
+					例如当我们设成Info时，Debug()方法就会被忽略而不写入文件，但是FATAL, ERROR, WARN, INFO会被写入，因为他们等级高于INFO。
+				</p>
+
+				<p>
+					1. Debug ( 给程序员看的 )<br>
+					这个级别最低的东东，一般的来说，在系统实际运行过程中，一般都是不输出的。
+					因此这个级别的信息，可以随意的使用，任何觉得有利于在调试时更详细的了解系统运行状态的东东，比如变量的值等等，都输出来看看也无妨。 
+					当然，在每一个 Debug 调用之前，一定要加上 If 判断。
+				</p>
+
+				<p>
+					2. Info ( 给用户看的 )<br>
+					这个应该用来反馈系统的当前状态给最终用户的，所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思才行。
+					从某种角度上说，Info 输出的信息可以看作是软件产品的一部分（就像那些交互界面上的文字一样），所以需要谨慎对待，不可随便。
+				</p>
+
+				<p>
+					3. Warn、Error、Fatal ( 检测到了不正常的状态 )<br>
+					所谓警告，应该是这个时候进行一些修复性的工作，应该还可以把系统恢复到正常状态中来，系统应该可以继续运行下去。<br>
+					所谓错误，就是说可以进行一些修复性的工作，但无法确定系统会正常的工作下去，
+					系统在以后的某个阶段，很可能会因为当前的这个问题，导致一个无法修复的错误（例如宕机），但也可能一直工作到停止也不出现严重问题。<br>
+
+					所谓Fatal，那就是相当严重的了，可以肯定这种错误已经无法修复，并且如果系统继续运行下去的话，可以肯定必然会越来越乱。
+					这时候采取的最好的措施不是试图将系统状态恢复到正常，而是尽可能地保留系统有效数据并停止运行。<br>
+
+					也就是说，选择 Warn、Error、Fatal 中的具体哪一个，是根据当前的这个问题对以后可能产生的影响而定的，
+					如果对以后基本没什么影响，则警告之，如果肯定是以后要出严重问题的了，则Fatal之，拿不准会怎么样，则 Error 之.<br>
+				</p>
+			</div>
+
+			<div class="title">自动监测配置文件</div>
+			<div class="content closed">
+				<p>XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));</p>
+				<p>
+					The file to read the configuration from can be specified using any of the log4net.Config.XmlConfigurator methods that accept a System.IO.FileInfo object. 
+					Because the file system can be monitored for file change notifications 
+					the ConfigureAndWatch methods can be used to monitor the configuration file for modifications and automatically reconfigure log4net.
+				</p>
+			</div>
+
+			<div class="title">生成对象</div>
+			<div class="content closed">
+				<p>XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));</p>
 			</div>
 		</div>
 
