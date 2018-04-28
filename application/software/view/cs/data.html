@@ -49,115 +49,144 @@
 
             <div class="row">
                 <div class="col-1"><strong>特殊类型</strong></div>
-                <div class="col-1">委托</div>
+                <div class="col-1"><a href="{:url('software/cs/index', 'template=data_delegate')}">委托</a></div>
                 <div class="col-1">dynamic</div>
             </div>
         </div>
 
-        <details class="ml-3">
-            <summary><label>值类型&引用类型</label></summary>
-            <p>
-                两种类型的变量都存储在堆栈中, 区别是: 值类型变量中存储的就是值本身, 而引用类型变量中存储的是地址, 这个地址指向堆中的对象! <br>
-                所以值类型赋值时, 拷贝的是值; 引用类型赋值时, 拷贝的是"地址".<br>                
-                <img src="__ROOT__/static/image/值类型.png" width="445" height="196">       
-                <img src="__ROOT__/static/image/引用类型.png" width="445" height="196">
-            </p>
+		<div class="list list-square pl-3">
+			<div class="title">值类型&引用类型</div>
+			<div class="content closed">
+				<p>
+					两种类型的变量都存储在堆栈中, 区别是: 值类型变量中存储的就是值本身, 而引用类型变量中存储的是地址, 这个地址指向堆中的对象! <br>
+					所以值类型赋值时, 拷贝的是值; 引用类型赋值时, 拷贝的是"地址".<br>                
+					<img src="__ROOT__/static/image/cs/值类型.png" width="445" height="196">       
+					<img src="__ROOT__/static/image/cs/引用类型.png" width="445" height="196">
+				</p>
 
-            <p>
-                值类型只有6中: 包括bool, char, 整数, 浮点数 & 结构体. 剩下的如对象等等都是引用类型.
-            </p>
+				<p class="text-danger">
+					值类型只有6中: 包括bool, char, 整数, 浮点数 & 结构体. 剩下的都是引用类型.
+				</p>
+			</div>
 
-            <p><strong>装箱: 把值类型赋给Object类型</strong></p>
-            <pre class="prettyprint linenums lang-cs"><code>Currency balance = new Currency(40, 0);  // Currency是结构体, 所以是值类型
+			<div class="title">装箱&拆箱</div>
+			<div class="content closed">
+				<p><strong>装箱: 把值类型赋给Object类型</strong></p>
+				<pre class="prettyprint linenums lang-cs"><code>Currency balance = new Currency(40, 0);  // Currency是结构体, 所以是值类型
 object baseCopy = balance;  // 装箱: 引用类型指向了值类型</code></pre>
-            <p>
-                在隐式地把Currency转换为Object时, 会实例化一个新的装箱Currency实例, 并用Currency结构中的所有数据进行初始化, 在上例中, baseCopy对象引用的就是这个装箱Currency实例.</p>
-            <p>
-                注: 在最初定义Currency结构体时, .NET Framework自动提供了另一个"隐式"类, 即装箱Currency类, 它包含与Currency结构相同的所有字段, 但却是一个引用类型, 存储在堆上. 所有值类型都存在类似的装箱引用类型！
-            </p>
+				<p>
+					在最初定义Currency结构体时, .NET自动提供了另一个"隐式"类, 即装箱Currency类, 它包含与Currency结构相同的所有字段, 但却是一个引用类型, 存储在堆上. 所有值类型都存在类似的装箱引用类型！
+				</p>
+				<p>
+					在隐式地把Currency转换为Object时, 会实例化一个新的装箱Currency实例, 并用Currency结构中的所有数据进行初始化, 在上例中, baseCopy对象引用的就是这个装箱Currency实例.
+				</p>
 
-            <p><strong>拆箱: 装箱的反过程, 即把Object类型"赋给"值类型</strong></p>
-            <p>
-                拆箱是装箱的相反过程. 由于是一种显示转换, 转换时可能会抛异常!
-            </p>
-            <pre class="prettyprint linenums lang-php"><code>object derivedObject = new Currency(40, 0);
+
+				<p><strong>拆箱: 装箱的反过程, 即把Object类型"赋给"值类型</strong></p>
+				<p>
+					拆箱是装箱的相反过程. 由于是一种显示转换, 转换时可能会抛异常!
+				</p>
+				<pre class="prettyprint linenums lang-php">
+<code>object derivedObject = new Currency(40, 0);
 object baseObject = new object();
 Currency derivedCopy1 = (Currency)derivedObject;    // 拆箱
-Currency derivedCopy2 = (Currency)baseObject;       // Exception thrown</code></pre>
-        </details>
+Currency derivedCopy2 = (Currency)baseObject;       // Exception thrown
+</code>
+				</pre>	
+			</div>
 
-        <details class="ml-3">
-            <summary><label>托管&非托管类型</label></summary>
-            <p>详见资源释放专题!</p>            
-        </details>
+			<div class="title">托管&非托管类型</div>
+			<div class="content closed">
+				<p>详见资源释放专题!</p>
+			</div>
+		</div>
     </div>
 
     <!--常量/变量-->
     <div class="title">常量/变量</div>
     <div class="content closed">
-        <div class="list list-square">
+        <div class="list list-number">
             <div class="title">常量</div>
             <div class="content open">
-                <pre class="prettyprint linenums lang-cs"><code>const / readonly double PI = 3.14;    // 变量名一般用大写表示, 单词之间用"_"连接. 使用常量可以避免重复, 避免被修改, 增强程序可读性</code></pre>
+				<div class="list list-number">
+					<div class="title">定义常量</div>
+					<div class="content open">
+						<pre class="prettyprint linenums lang-cs">
+<code>
+const / readonly double PI = 3.14;    // 变量名一般用大写表示, 单词之间用"_"连接. 使用常量可以避免重复, 避免被修改, 增强程序可读性
+</code>
+						</pre>
 
-                <table class="w-75">
-                    <tbody>                        
-                        <tr>
-                            <th></th>
-                            <th>const: 类常量</th>
-                            <th>readonly: 对象常量</th>
-                        </tr>
-                        <tr>
-                            <th>声明位置</th>
-                            <td>类里面, 或者函数内</td>
-                            <td>类里面</td>
-                        </tr>
-                        <tr>
-                            <th>初始化</th>
-                            <td>声明时</td>
-                            <td>声明时 + 构造函数中 (声明时的顺序可能会对值造成影响, 可以把所有的ReadOnly声明看成一段代码)</td>                                
-                        </tr>
-                        <tr>
-                            <th>类型限制</th>
-                            <td>只能是值类型</td>
-                            <td>任何类型</td>
-                        </tr>
-                        <tr>
-                            <th>对于对象而言</th>
-                            <td>对于类的所有对象而言, 常量的值都是一样的</td>
-                            <td>对于类的不同对象而言, 常量的值可以是不一样的</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <p>注意: const常量总是静态的, 但是不必在常量声明中包含修饰符static.</p>
-                <details>
-                    <summary><label>常量命名规则</label></summary>
-                    <p>大写, 单词间用"_"连接</p>
-                </details>
+						<table class="w-75">
+							<tbody>                        
+								<tr>
+									<th></th>
+									<th>const: 类常量</th>
+									<th>readonly: 对象常量</th>
+								</tr>
+								<tr>
+									<th>声明位置</th>
+									<td>类里面, 或者函数内</td>
+									<td>类里面</td>
+								</tr>
+								<tr>
+									<th>初始化</th>
+									<td>声明时</td>
+									<td>声明时 + 构造函数中 (声明时的顺序可能会对值造成影响, 可以把所有的ReadOnly声明看成一段代码)</td>                                
+								</tr>
+								<tr>
+									<th>类型限制</th>
+									<td>只能是值类型</td>
+									<td>任何类型</td>
+								</tr>
+								<tr>
+									<th>对于对象而言</th>
+									<td>对于类的所有对象而言, 常量的值都是一样的</td>
+									<td>对于类的不同对象而言, 常量的值可以是不一样的</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<p>注意: const常量总是静态的, 但是不必在常量声明中包含修饰符static.</p>
+					</div>
+
+					<div class="title">常量命名规则</div>
+					<div class="content open">
+						<p>大写, 单词间用"_"连接</p>
+					</div>
+				</div>
             </div>
 
             <div class="title">变量</div>
             <div class="content open">
-                <p><strong>变量声明</strong></p>
-                <pre class="prettyprint linenums lang-cs"><code>int i = 0;
+
+				<div class="list list-number">
+					<div class="title">变量声明</div>
+					<div class="content open">
+						<pre class="prettyprint linenums lang-cs">
+<code>int i = 0;
 var i = 0;  // 隐式类型, 变量的类型由后面的值决定 (Since .NET 3.0)
-Person p = new Person() { Name = "Jack" };  // 初始化器 = 构造对象 + 属性赋值 (since .NET 3.0)</code></pre>
-                <details>
-                    <summary><label>变量命名规则</label></summary>
-                    <p>
-                        1) 变量名关系到程序的可读性, 所以变量名要起的有意义.<br>
-                        2) 以字母, 下划线(_) 或@开头, 后续字符可以是字母, 数字和下划线<br>
-                        3) 区分大小写, 建议采用camelCase规则.<br>
-                        注: 如果变量名和关键字同名, 可以在前面加个'@'符号, 例如: @if.
-                    </p>
-                </details>
+Person p = new Person() { Name = "Jack" };  // 初始化器 = 构造对象 + 属性赋值 (since .NET 3.0)
+</code>
+						</pre>
+					</div>
+
+					<div class="title">变量命名规则</div>
+					<div class="content open">
+						<p>
+							1) 变量名关系到程序的可读性, 所以变量名要起的有意义.<br>
+							2) 以字母, 下划线(_) 或@开头, 后续字符可以是字母, 数字和下划线<br>
+							3) 区分大小写, 建议采用camelCase规则.<br>
+							注: 如果变量名和关键字同名, 可以在前面加个'@'符号, 例如: @if.
+						</p>
+					</div>
+				</div>
             </div>
         </div>
     </div>
 
     <!--局部/全局-->
-    <div class="title">局部/全局</div>
+    <div class="title">作用域: 局部/全局</div>
     <div class="content closed">
         <p>
             1) 局部变量/常量: 在函数中定义, 只能在当前{}中使用<br>

@@ -1,31 +1,149 @@
 {include file="template/header" title="C# 委托" /}
 
-<ul>
-    <li>匿名委托</li>
-    <div>
+<p>委托是一种特殊的数据类型, 其特殊之处在于, 我们以前定义的所有对象都包含数据, 而委托包含的只是方法的细节. 委托类似于 C++ 中的函数指针, 但是委托可以"指向"多个函数.</p>
+<p>委托实现为派生于基类System.MulticastDelegate的类， System.MulticastDelegate又派生于基类System.Delegate.</p>
 
+<div class="list list-number">
+	<!--定义委托-->
+    <div class="title">定义委托</div>
+    <div class="content open">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-6">
+					<p class="text-strong">传统方法</p>
+					<pre class="prettyprint linenums">
+<code>
+// 先定义委托类型: 可在委托定义上添加一般的访问修饰符: private, protected和public等.
+delegate double ProcessDelegate(double value1, double value2);
+delegate T1 MyDelegate&lt;T1,T2>(T2 op1,T2 op2) where T1: T2;
+
+// 在定义委托变量: 传入构造函数的那个函数, 必须匹配最初定义委托时的签名
+ProcessDelegate process = new ProcessDelegate(Multiply);    
+</code>
+					</pre>
+
+					<p class="text-strong">使用匿名方法</p>
+					<pre class="prettyprint linenums">
+<code>
+ProcessDelegatet process = delegate(double value1, double value2) {
+    return value1 * value2;
+};
+ 
+</code>
+					</pre>
+
+					<div class="list list-none">
+						<div class="title">使用匿名函数优缺点...</div>
+						<div class="content closed">
+							<p>
+								优点<br>
+								1) 可以直接使用外部方法中定义的变量.<br>
+								2) 有助于降低代码的复杂性, 尤其是在定义了好几个方法时, 代码会显得比较简单.<br>
+
+								缺点<br>	
+								1) 不能使用跳转语句跳到该匿名方法的外部, 反之亦然; <br>
+								2) 不能访问匿名方法外部使用的ref和out参数.<br>
+								3) 不能访问不安全的代码.<br>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6">
+					<p class="text-strong">Lambda表达式: Lambda运算符"=>", 可以读作"转到". 运算符将表达式分为两部分, 左边指定为输入参数, 右边是Lambda的主体.</p>
+					<pre class="prettyprint linenums">
+<code>
+// 一个参数: param => expr
+Func &lt;int, string> f = p => p.ToString();
+
+// 多个参数: (param-list) => expr
+Func &lt;int, int, int> f = (p,z) => p + z;
+
+// 主体运算比较复杂
+Func&lt;int, int, int> f = (p, z) => {
+    if (p > z) {
+        return p;
+    } else {
+        return z;
+    }
+};
+</code>
+					</pre>
+					<a href="https://www.cnblogs.com/chenwolong/p/5669440.html" target="_blank">Lamda表达式</a>
+				</div>
+
+				<div class="col-6">
+
+				</div>
+			</div>
+		</div>
     </div>
-    <li class="summary closed">Lambda表达式 - 简化的匿名委托</li>
-    <div>
-        <p>Lambda运算符"=>", 可以读作"转到"或者"成为. 运算符将表达式分为两部分, 左边指定为输入参数, 右边是Lambda的主体.</p>
 
-        <p><strong>一个参数: param => expr</strong></p>
-        <xmp class="prettyprint">Func <int, string> f = p => p.ToString();</xmp>
-
-        <p><strong>多个参数: (param-list) => expr</strong></p>
-        <xmp class="prettyprint">Func <int, int, int> f = (p,z) => p + z;</xmp>
-
-        <p><strong>主体运算比较复杂</strong></p>
-    <xmp class="prettyprint">Func <int, int, int> f = (p,z) => { 
-    if (p > z) { 
-        return p; 
-    } else { 
-        return z; 
-    } 
-}</xmp>
+	<!--使用委托-->
+    <div class="title">使用委托</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+Console.WriteLine( process(2,8) );    // 像函数一样使用
+</code>
+		</pre>
+		<p>
+			<span class="text-strong">多播委托&单播委托:</span><br>
+			多播委托继承自单播委托, 所有自己定义的委托都继承多播委托. 区别是单播只能委托一个, 多播可以委托多个. 单播委托是个设计缺陷, 原本想区分这两者, 后来发现没必要.<br>
+			如果使用多播委托, 就可以按顺序(这个顺序没有定义)连续调用多个方法. 为此, 委托的签名就必须返回void(否则, 返回值应送到何处?).
+		</p>
     </div>
-</ul>
 
-<a href="https://www.cnblogs.com/chenwolong/p/5669440.html" target="_blank">Lamda表达式</a>
+	<!--常用操作-->
+    <div class="title">常用操作</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+// 赋值	=	
+委托变量 = new EventHandler( 方法名 );  // 对于多播委托, 会覆盖掉原来的方法.
+
+// 添加方法
+委托变量 += new EventHandler( 方法名 );
+委托 = 委托1 + 委托2;
+
+// 取消方法	
+委托变量 -= new EventHandler( 方法名 );
+委托 = 委托 - 委托1
+</code>
+		</pre>
+		<p class="text-danger">注: 方法不带括号</p>
+    </div>
+
+	<!--常用操作-->
+    <div class="title">常用委托</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+// Action: 没有返回值的委托类型。.Net Framework提供了17个Action委托，从无参数一直到最多16个参数。定义如下：
+public delegate void Action();
+public delegate void Action&lt;in T>(T obj);
+public delegate void Actionin &lt;T1,in T2>(T1 arg1, T2 arg2);
+...
+
+// Func: 有一个返回值的委托。.Net Framework提供了17个Func委托，从无参数一直到最多16个参数。定义如下：
+public delegate TResult Func&lt;out TResult>();
+public delegate TResult Funcin &lt;T, out TResult>(T arg);
+...
+
+// Predicate: 等同于Func&lt;T, bool>。表示定义一组条件并确定指定对象是否符合这些条件的方法。定义如下：
+public delegate bool Predicatein &lt;T>(T obj);
+
+// 其他
+public delegate void MethodInvoker ()
+public delegate void EventHandler ( Object sender, EventArgs e )
+public delegate void EventHandler&lt;TEventArgs> ( Object sender, TEventArgs e) where TEventArgs : EventArgs
+public delegate int Comparison&lt;in T>(T x, T y);
+public delegate TOutput Converter&lt;in TInput, out TOutput>(TInput input);
+</code>
+		</pre>
+	</div>
+</div>
+
+
 
 {include file="template/footer" /}
