@@ -1,36 +1,94 @@
 {include file="template/header" title="C# XML编程" /}
 
 <div class="list list-number">
-    <div class="title">XML DOM(XML Document Object Model)</div>
+    <div class="title">XML DOM (XML Document Object Model)</div>
     <div class="content open">
 		<div class="list list-number">
-			<div class="title">XmlNodeType</div>
-			<div class="content open">
-				Element & EndElement<br>
-				Attribute<br>
-				CDATA<br>
-				Comment<br>
-				Document<br>
-				DocumentType<br>
-				Enity<br>
-				EndEntity<br>
-				EnityReference<br>
-				None<br>
-				Notation<br>
-				ProcessingInstruction<br>
-				SignificantWhitespace<br>
-				Text<br>
-				XmlDeclaration<br>
+			<div class="title">XML文档</div>
+			<div class="content closed">
+
+				<div class="list list-none">
+					<div class="title">XML文档结构</div>
+					<div class="content open">
+						<p>XML数据是分层组织的, 有点类似于Windows Explorer中的文件夹和文件. 每一个文档必须有且仅有一个根元素, 其中包含所有的元素和文本数据. 但是可以在顶级包括其他XML节点 --- 通常是XML声明. 所以下面的XML文档是合法的.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;?xml version = "1.0" ?>
+&lt;books>
+  &lt;book>Tristram Shandy&lt;/book>
+  &lt;book>Moby Dick&lt;/book>
+  &lt;book>Ulysses&lt;/book>
+&lt;/books>
+</code>
+						</pre>
+						<p>为了有一个格式良好的XML, 对文档的要求如下:<br>
+							1) 有且仅有一个根元素<br>
+							2) 每一个元素都有闭标记(前面提到的简短语法除外)<br>
+							3) 没有重叠元素 --- 所有的子元素必须完全嵌套在父元素内<br>
+							4) 所有的属性必须放在引号内 </p>
+					</div>
+
+					<div class="title">XML文档分类</div>
+					<div class="content open">
+						<table class="table table-bordered table-sm w-50">
+							<tbody>
+								<tr>
+									<td>XmlDocument</td>
+									<td>扩展XmlNode, W3C DOM的实现, 给出XML文档在内存中的树形表示, 可以浏览和编辑它们.</td>
+								</tr>
+								<tr>
+									<td>
+										XmlReader<br>
+										XmlTextReader
+									</td>
+									<td>
+										抽象的读取器, 提供快速, 没有缓存的XML数据, 但是只能向前.<br>
+										扩展XmlReader, 提供访问XML数据的快速只向前流.
+									</td>
+								</tr>
+								<tr>
+									<td>
+										XmlWriter<br>
+										XmlTextWriter
+									</td>
+									<td>
+										抽象的写入器类, 以流或文件的格式提供快速, 没有缓存的XML数据.<br>
+										扩展XmlWriter, 快速生成只向前的XML流.
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>
+							XmlReader是基于数据流的, 占用极少的内存, 是只读方式的, 所以速度极快. 只能采用遍历的模式查找数据节点.<br>
+							XmlDocument是基于树形结构的模型, 数据保存于内存中, 可以查找内存中数据的任何方面. 占用内存大, 处理方便, 可读可写, 几乎相当于一次把Xml读入内存.<br>
+							所以: 如果数据量极大,用XmlReader合适, 如果处理复杂频繁且文件不大, XmlDocument合适. 
+						</p>
+					</div>
+
+					<div class="title">XmlDocument</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+XmlDocument document = new XmlDocument();
+document.Load(@"D:\books.xml");
+...
+document.Save(@"D:\books.xml");
+</code>
+						</pre>
+						<p>除了加载和保存XML之外, XmlDocument类还负责维护XML结构. 所以, 这个类有许多方法可以用于创建, 修改和删除树中的节点.</p>
+					</div>
+				</div>
+
 			</div>
 
-			<div class="title">XXX</div>
+			<div class="title">XML声明 - XmlDeclaration</div>
 			<div class="content open">
 
 			</div>
 		</div> 
     </div>
 
-    <div class="title">XXX</div>
+    <div class="title">XML常用操作</div>
     <div class="content open">
 
     </div>

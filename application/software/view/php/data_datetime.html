@@ -1,15 +1,61 @@
 {include file="template/header" title="PHP 日期" /}
-<ol>
-    <li>DateTime类型</li>
-    <div>
-        <a href="http://php.net/manual/zh/class.datetime.php" target="_blank">DateTime</a>
+
+<div class="list list-number">
+    <div class="title">DateTime类型</div>
+    <div class="content open">
+		<a href="http://php.net/manual/zh/class.datetime.php" target="_blank">DateTime</a>
     </div>
-    <li>Unix时间戳</li>
-    <div>
-        <a title="格式化时间戳" href="http://php.net/manual/zh/function.date.php" target="_blank">date()</a>,
-        <a title="返回Unix时间戳" href="http://php.net/manual/zh/function.time.php" taget="_blank">time()</a>,
-        <a title="返回指定日期的时间戳" href="http://php.net/manual/zh/function.mktime.php" target="_blank">mktime()</a>,
-        <a title="把字符串时间转成时间戳" href="http://php.net/manual/zh/function.strtotime.php" target="_blank">strtotime()</a>
+
+    <div class="title">Unix时间戳</div>
+    <div class="content open">
+		<p>unix时间戳是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数，不考虑闰秒</p>
+		<div class="list list-number">
+			<div class="title">格式化时间</div>
+			<div class="content open">
+				<a href="http://php.net/manual/zh/function.date.php" target="_blank">date()</a>
+				<pre class="prettyprint linenums">
+<code>
+// string date ( string $format [, int $timestamp ] )
+echo date('Y/m/d H:i:s, time());
+</code>
+				</pre>
+			</div>
+
+			<div class="title">生成Unix时间戳</div>
+			<div class="content open">
+				<p>返回当前时间的Unix时间戳: <a href="http://php.net/manual/zh/function.time.php" target="_blank">time()</a></p>
+				<pre class="prettyprint linenums">
+<code>
+// int time ( void )
+echo date('Y/m/d H:i:s, time());
+</code>
+				</pre>
+
+				<p>返回指定日期的时间戳: <a  href="http://php.net/manual/zh/function.mktime.php" target="_blank">mktime()</a></p>
+				<pre class="prettyprint linenums">
+<code>
+// int mktime ([ int $hour = date("H") [, int $minute = date("i") [, int $second = date("s") [, int $month = date("n") [, int $day = date("j") [, int $year = date("Y") [, int $is_dst = -1 ]]]]]]] )
+echo date('Y/m/d H:i:s, time());
+</code>
+				</pre>
+
+				<p> 将任何字符串的日期时间描述解析为 Unix 时间戳: <a href="http://php.net/manual/zh/function.strtotime.php" target="_blank">strtotime()</a></p>
+				<pre class="prettyprint linenums">
+<code>
+// int strtotime ( string $time [, int $now = time() ] )
+echo strtotime("now"), "\n";
+echo strtotime("10 September 2000"), "\n";
+echo strtotime("+1 day"), "\n";
+echo strtotime("+1 week"), "\n";
+echo strtotime("+1 week 2 days 4 hours 2 seconds"), "\n";
+echo strtotime("next Thursday"), "\n";
+echo strtotime("last Monday"), "\n";
+</code>
+				</pre>
+
+			</div>
+		</div>
     </div>
-</ol>
+</div>
+
 {include file="template/footer" /}
