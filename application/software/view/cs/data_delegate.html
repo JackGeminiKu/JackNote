@@ -28,38 +28,36 @@ ProcessDelegate process = new ProcessDelegate(Multiply);
 ProcessDelegatet process = delegate(double value1, double value2) {
     return value1 * value2;
 };
- 
+
+ProcessDelegatet process = delegate {    // 可以没有参数!
+    return 0;
+};
 </code>
 					</pre>
+					<p>使用匿名函数优缺点</p>
+					<p>
+						优点<br>
+						1) 可以直接使用外部方法中定义的变量.<br>
+						2) 有助于降低代码的复杂性, 尤其是在定义了好几个方法时, 代码会显得比较简单.<br>
 
-					<div class="list list-none">
-						<div class="title">使用匿名函数优缺点...</div>
-						<div class="content closed">
-							<p>
-								优点<br>
-								1) 可以直接使用外部方法中定义的变量.<br>
-								2) 有助于降低代码的复杂性, 尤其是在定义了好几个方法时, 代码会显得比较简单.<br>
-
-								缺点<br>	
-								1) 不能使用跳转语句跳到该匿名方法的外部, 反之亦然; <br>
-								2) 不能访问匿名方法外部使用的ref和out参数.<br>
-								3) 不能访问不安全的代码.<br>
-							</p>
-						</div>
-					</div>
+						缺点<br>	
+						1) 不能使用跳转语句跳到该匿名方法的外部, 反之亦然; <br>
+						2) 不能访问匿名方法外部使用的ref和out参数.<br>
+						3) 不能访问不安全的代码.<br>
+					</p>
 				</div>
 
 				<div class="col-6">
-					<p class="text-strong">Lambda表达式: Lambda运算符"=>", 可以读作"转到". 运算符将表达式分为两部分, 左边指定为输入参数, 右边是Lambda的主体.</p>
+					<p class="text-strong">Lambda表达式 <br>运算符"=>"读作"转到". 运算符的左边指定为输入参数, 右边是Lambda的主体.</p>
 					<pre class="prettyprint linenums">
 <code>
 // 一个参数: param => expr
 Func &lt;int, string> f = p => p.ToString();
 
-// 多个参数: (param-list) => expr
+// 多个参数: 放到()中
 Func &lt;int, int, int> f = (p,z) => p + z;
 
-// 主体运算比较复杂
+// 主体运算比较复杂, 可以放到{}中
 Func&lt;int, int, int> f = (p, z) => {
     if (p > z) {
         return p;
