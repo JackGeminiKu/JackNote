@@ -46,36 +46,49 @@ xdebug.idekey = PHPSTORM    //这里是调试器的关键字</code></pre>
 
     <div class="title">调试</div>
     <div class="content open">
-        <p><strong>输出调试信息</strong></p>
-        <div>
-            <pre class="prettyprint linenums lang-php">
-<code>$colors = array('red', 'blue', 'green', 'yellow');
+		<div class="list list-number">
+			<div class="title">输出调试信息</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php">
+<code>
+$colors = array('red', 'blue', 'green', 'yellow');
 print_r($colors);
 var_dump($colors);
-echo $colors;</code></pre>               
+echo $colors;
+</code>
+				</pre>               
 
-            <p>
-                输出结果如下：<br>
-                Array ( [0] => red [1] => blue [2] => green [3] => yellow ) <br>
-                array(4) { [0]=> string(3) "red" [1]=> string(4) "blue" [2]=> string(5) "green" [3]=> string(6) "yellow" } <br>
-                Array <br>
-            </p>
+				<p>
+					输出结果如下：<br>
+					Array ( [0] => red [1] => blue [2] => green [3] => yellow ) <br>
+					array(4) { [0]=> string(3) "red" [1]=> string(4) "blue" [2]=> string(5) "green" [3]=> string(6) "yellow" } <br>
+					Array <br>
+				</p>
 
-            <p>
-                var_dump可以使用任何变量, 此函数显示关于一个或多个表达式的结构信息, 包括表达式的类型与值. 数组将递归展开值, 通过缩进显示其结构.<br>
-                void var_dump ( mixed expression [, mixed expression [, ...]] ) <br>
-            </p>
-            <p>
-                print_r()显示关于一个变量的易于理解的信息. 如果给出的是string, integer或float, 将打印变量值本身. 如果给出的是array, 将会按照一定格式显示键和元素. object 与数组类似.<br>
-                记住，print_r() 将把数组的指针移到最后边. <br>
-                print_r和var_dump都能输出数组和对象, 但print_r对布尔型的输出不太明显; var_dump输出比较详细, 一般调试时用得多. <br>
-            </p>
-            <p>
-                echo是语法结构, 也就是关键字, 不是函数. 使用的时候不用加括号, 加上也可以. <br>
-                只支持基本类型, 布尔型除外, echo true的时候显示1, echo false的时候啥都没有.<br>
-                显示多个值的时候可以用逗号隔开. 
-            </p>
-        </div>
+				<p>
+					var_dump可以使用任何变量, 此函数显示关于一个或多个表达式的结构信息, 包括表达式的类型与值. 数组将递归展开值, 通过缩进显示其结构.<br>
+					void var_dump ( mixed expression [, mixed expression [, ...]] ) <br>
+				</p>
+				<p>
+					print_r()显示关于一个变量的易于理解的信息. 如果给出的是string, integer或float, 将打印变量值本身. 如果给出的是array, 将会按照一定格式显示键和元素. object 与数组类似.<br>
+					记住，print_r() 将把数组的指针移到最后边. <br>
+					print_r和var_dump都能输出数组和对象, 但print_r对布尔型的输出不太明显; var_dump输出比较详细, 一般调试时用得多. <br>
+				</p>
+				<p>
+					echo是语法结构, 也就是关键字, 不是函数. 使用的时候不用加括号, 加上也可以. <br>
+					只支持基本类型, 布尔型除外, echo true的时候显示1, echo false的时候啥都没有.<br>
+					显示多个值的时候可以用逗号隔开. 
+				</p>
+			</div>
+
+			<div class="title">查看Apache日志</div>
+			<div class="content open">
+				<p>
+					访问日志文件：/var/log/httpd/access_log
+					错误日志文件：/var/log/httpd/error_log
+				</p>
+			</div>
+		</div>
     </div>
 
     <div class="title">上传网站</div>
