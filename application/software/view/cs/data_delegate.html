@@ -120,16 +120,16 @@ Console.WriteLine( process(2,8) );    // 像函数一样使用
 // Action: 没有返回值的委托类型。.Net Framework提供了17个Action委托，从无参数一直到最多16个参数。定义如下：
 public delegate void Action();
 public delegate void Action&lt;in T>(T obj);
-public delegate void Actionin &lt;T1,in T2>(T1 arg1, T2 arg2);
+public delegate void Action&lt;in T1,in T2>(T1 arg1, T2 arg2);
 ...
 
 // Func: 有一个返回值的委托。.Net Framework提供了17个Func委托，从无参数一直到最多16个参数。定义如下：
 public delegate TResult Func&lt;out TResult>();
-public delegate TResult Funcin &lt;T, out TResult>(T arg);
+public delegate TResult Func&lt;in T, out TResult>(T arg);
 ...
 
 // Predicate: 等同于Func&lt;T, bool>。表示定义一组条件并确定指定对象是否符合这些条件的方法。定义如下：
-public delegate bool Predicatein &lt;T>(T obj);
+public delegate bool Predicate&lt;T>(T obj);
 
 // 其他
 public delegate void MethodInvoker ()
