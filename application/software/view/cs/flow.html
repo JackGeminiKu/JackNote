@@ -7,37 +7,47 @@
             <div class="row">
 				<div class="col-2">
 					<pre class="prettyprint linenums lang-cs">
-<code>// if
+<code>
+// if
 if (条件) {              
     ...
-}</code></pre>	
+}
+</code>
+					</pre>	
 				</div>
 
 				<div class="col-2">
 					<pre class="prettyprint linenums lang-cs">
-<code>// if else
+<code>
+// if else
 if (条件) {
 	...
 } else {
     ...
-}</code></pre>	
+}
+</code>
+					</pre>	
 				</div>
 
 				<div class="col-2">
                     <pre class="prettyprint linenums lang-cs">
-<code>// else if
+<code>
+// else if
 if (条件1) {            
     ...
 } else if (条件2) {
     ...
 } else {
     ...
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
 
                 <div class="col-6">
                     <pre class="prettyprint linenums lang-cs">
-<code>switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
+<code>
+	switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
     case 条件值1:
         ...
         break;
@@ -47,7 +57,9 @@ if (条件1) {
     default:
         ...
         break;
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
             </div> 
 
@@ -78,21 +90,30 @@ if (条件1) {
             <div class="row">
                 <div class="col-2">
                     <pre class="prettyprint linenums lang-cs">
-<code>while (条件) {    
+<code>
+while (条件) {    
     ...
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
                 <div class="col-2">
                     <pre class="prettyprint linenums lang-cs">
-<code>do {    
+<code>
+do {    
     ...
-} while(条件)</code></pre>
+} while(条件)
+</code>
+					</pre>
                 </div>
                 <div class="col-2">
                     <pre class="prettyprint linenums lang-cs">
-<code>for (初始化; 条件; 更新) {    
+<code>
+for (初始化; 条件; 更新) {    
     ...
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
             </div>
 
@@ -107,21 +128,30 @@ if (条件1) {
             <div class="row">
                 <div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
-<code>foreach (int item in array) {    
+<code>
+foreach (int item in array) {    
     // 数组类
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
                 <div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
-<code>foreach (KeyValuePair&lt;string, int> item in dic) {    
+<code>
+foreach (KeyValuePair&lt;string, int> item in dic) {    
     // 字典类
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
                 <div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
-<code>foreach (DictionaryEntry item in hashtable) {    
+<code>
+foreach (DictionaryEntry item in hashtable) {    
     // 字典类
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
             </div>
         </div>
@@ -139,20 +169,23 @@ if (条件1) {
 		<div class="list list-number">
 
 			<!--使用异常的正确姿势-->
-			<div class="title">使用异常的正确姿势</div>
+			<div class="title">异常抛出&捕捉</div>
 			<div class="content closed">
 				<div class="container-fluid pl-0">
 					<div class="row">
 						<div class="col-6">
 							<p class="text-strong">捕捉异常</p>
 							<pre class="prettyprint linenums">
-<code>try {
+<code>
+try {
     // 产生异常的代码块, 发生异常时: 直接跳转到catch区域, try区域中发生异常之后的语句不会执行
 } catch ( Exception_Type e ) {
     // catch块可以使用Exception_Type, 设置为只响应特定的异常类型; 也可以省略这个参数, 设置为响应所有的异常.
 } finally {
     // 不管是否产生异常, 都会执行的代码.
-}</code></pre>
+}
+</code>
+							</pre>
 						</div>
 						<div class="col-6">
 							<p class="text-strong">抛出异常</p>
@@ -169,9 +202,42 @@ throw;    // 这个表达式会产生一个异常, 这个异常同这个catch块
 				</div>
 			</div>
 
-			<!--未捕获的异常-->
-			<div class="title">未捕获的异常 <span class="text-lighter">- 处理未捕获的异常是每个应用程序起码有的功能!</span></div>
+			<!--常用异常类-->
+			<div class="title">系统异常类 & 自定义异常类</div>
 			<div class="content closed">
+				<p class="text-strong">常用系统异常类</p>
+				<p>Exception, ArgumentException, ArgumentNullExcpetion, InvalidOperationException</p>
+				<p class="text-strong">自定义异常类</p>
+				<pre class="prettyprint linenums">
+<code>
+public class CardOutOfRangeException : Exception
+{
+    private Cards deckContents;
+   
+    public Cards DeckContents
+    {
+        get { return deckContents; }
+    }
+
+    public CardOutOfRangeException(Cards sourceDeckContents)
+        :base("There are only 52 cards in the deck.")
+    {
+        deckContents = sourceDeckContents;
+    }
+}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">异常对性能的影响</div>
+			<div class="content closed">
+				<a href="http://www.mamicode.com/info-detail-99312.html">网上资料</a>
+			</div>
+
+			<!--未捕获的异常-->
+			<div class="title">未捕获的异常</div>
+			<div class="content closed">
+				<p>处理未捕获的异常时每个程式的必备功能!</p>
 				<div class="list list-number">
 					<div class="title">捕获应用程序域异常: appDomain.UnhandledExcpetion</div>
 					<div class="content closed">
@@ -354,40 +420,7 @@ t.Start();
 				</div>
 			</div>
 
-			<!--常用异常类-->
-			<div class="title">常用异常类</div>
-			<div class="content closed">
-				<p>Exception, ArgumentException, ArgumentNullExcpetion, InvalidOperationException</p>
-			</div>
 
-			<!--自定义异常类-->
-			<div class="title">自定义异常类</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-public class CardOutOfRangeException : Exception
-{
-    private Cards deckContents;
-   
-    public Cards DeckContents
-    {
-        get { return deckContents; }
-    }
-
-    public CardOutOfRangeException(Cards sourceDeckContents)
-        :base("There are only 52 cards in the deck.")
-    {
-        deckContents = sourceDeckContents;
-    }
-}
-</code>
-				</pre>
-			</div>
-
-			<div class="title">异常对性能的影响</div>
-			<div class="content closed">
-				<a href="http://www.mamicode.com/info-detail-99312.html">网上资料</a>
-			</div>
 		</div>
     </div>
 </div>

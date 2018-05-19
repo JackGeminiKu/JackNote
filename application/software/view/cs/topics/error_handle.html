@@ -1,6 +1,23 @@
 {include file="template/header" title="C# 出错处理" /}
 
 <div class="list list-number">
+	<div class="title">异常处理原则</div>
+	<div class="content open">
+		<p>
+			1 如果你不能处理异常，不要捕获该异常。<br>
+			2 如果要捕获，应在离异常源近的地方捕获它。<br>
+			3 不要吞没你捕获的异常, 就是捕获的异常，但是什么也不做。<br>
+			4 除非你要重新抛出异常，否则把它log起来。<br>
+			5 当一个异常被重新包装，然后重新抛出的时候，不要打印statck trace。<br>
+			6 用自定义的异常类，不要每次需要抛出异常的时候都抛出java.lang.Exception。方法的调用者可以通过throws知道有哪些异常需要处理--所以它是自我描述的。<br>
+			7 如果你编写业务逻辑，对于终端用户无法修复的错误，系统应该抛出非检查的异常（unchecked exception）；如果你编写一个第三方的包给其他的开发人员用，对于不可修复的错误要用需要检查的异常（checked exception）。<br>
+			8 绝对不要因为写throws语句会让你用起来不舒服，而不声明需要检查的异常。<br>
+			9 应用级别的错误或不可修复的系统异常用非检查的异常（unchecked exception）抛出。<br>
+			*（注意是错误，意味着不可修复，比如配置文件错误）<br>
+			10 根据异常的粒度组织你的方法.<br>
+		</p>
+	</div>
+
     <div class="title">出错处理三大问题</div>
     <div class="content open">
 		<p>

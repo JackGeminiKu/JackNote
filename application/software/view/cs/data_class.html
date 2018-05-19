@@ -5,20 +5,23 @@
 	<div class="title">各种类</div>
 	<div class="content open">
 		<div class="list list-number">
+
+			<!--普通类-->
 			<div class="title">普通类</div>
 			<div class="content open">
-				<p>[ internal | public ] [ abstract | sealed ] class Xxx : 基类, 接口1, 接口2...<br></p>
+				<p>[ internal | public ] class 类名 : 基类, 接口1, 接口2...<br></p>
 				<p>{</p>
 				<div class="pl-4">
 					<div class="list list-square">
+						<!--继承 vs 接口-->
 						<div class="title">继承 vs 接口</div>
 						<div class="content closed">
 							<p class="text-strong">继承</p>
 							<p>
-								如果子类派生于父类, 则子类拥有父类中的所有成员字段和函数, 习继承最好是记住三句话:<br>
-								1) 子类拥有父类非private的属性和方法;<br> 
-								2) 子类具有自己的属性和方法, 极子类可以扩展父类没有的属性和方法; <br>
-								3) 子类还可以以自己的方式实现父类的功能(方法重写).
+								如果子类派生于父类, 那么:<br>
+								1) 子类自动继承父类非private的属性和方法; <br> 
+								2) 子类还可以重写继承自父类的属性和方法; <br>
+								3) 子类可以添加父类没有的属性和方法.
 							</p>
 
 							<p>在需要给现有的类型添加功能, 或许多相关的类型共享一组重要的公共功能时, 这种类型的继承是非常有效的. 但是只有当两个类之间具备"is-a"的关系时, 才能考虑使用继承!</p>
@@ -31,78 +34,347 @@
 							<p>注意: C#不支持多重继承, 但是C#又允许类型派生于多个接口.</p>
 						</div>
 
+						<!--数据-->
 						<div class="title">数据</div>
 						<div class="content closed">
 							<div class="list list-square">
 								<!--常量-->
 								<div class="title">常量</div>
 								<div class="content open">
-									<pre class="prettyprint linenums lang-cs"><code>private const double PI = 3.14;    // const型: 只能由初始化语句赋值, 在静态&非静态的类成员中均可使用.
-private [static] readonly double PI = 3.14;    // readonly型: 可以由初始化语句赋值, 也可以在构造函数中赋值. 加上static后不能混用.</code></pre>
+									<pre class="prettyprint linenums lang-cs">
+<code>
+private const double PI = 3.14;    // const型: 只能由初始化语句赋值, 在静态&非静态的类成员中均可使用.
+private readonly double PI = 3.14;    // readonly型: 可以由初始化语句赋值, 也可以在构造函数中赋值. 加上static后不能混用.
+</code>
+									</pre>
 
 								</div>
 
 								<!--字段-->
 								<div class="title">字段</div>
 								<div class="content open">
-									<pre class="prettyprint linenums"><code>private [static] double Weight [= 60];	// 字段是与类相关的变量. 可以初始化</code></pre>
-									<p>注意: 客户端使用属性和字段的语法是相同的, 但是一般情况下, 在访问状态时最好提供属性, 而不是字段. 因为这样可以更好的控制整个过程(比如判断赋的值是否非法), 这个不会影响使用对象实例的代码.</p>
+									<pre class="prettyprint linenums">
+<code>
+private double Weight [= 60];	// 字段是与类相关的变量. 可以初始化
+</code>
+									</pre>
+									<p>注意: 客户端使用属性和字段的语法是相同的, 但是一般情况下, 最好提供属性. 因为这样可以更好的控制整个过程(比如判断赋的值是否非法), 这个不会影响使用对象实例的代码.</p>
 								</div>
 
 								<!--属性-->
 								<div class="title">属性</div>
 								<div class="content open">
 									<p>属性是一个方法或方法对, 在客户端看来, 它们是一个字段, 所以属性适合以字段的方式使用方法调用的场合. 但是属性同字段相比, 可以做更多的控制, 所以属性要优于字段.</p>
-									<p>公共属性采用Pascal大小命名规则, 而私有属性采用camel大小命名规则.</p>
-									<pre class="prettyprint linenums"><code>private string foreName;
+									<pre class="prettyprint linenums">
+<code>
+private string foreName;
 
 public string ForeName
 {
     get { return foreName; }	// 访问器可以有自己的可访问性, 但是不能超过属性的可访问性. 
-    set				// value引用用户提供的属性值, 类型与属性相同.
+    set				
     {
-        if (value.Length > 20) {
+        if (value.Length > 20) {	// value引用用户提供的属性值, 类型与属性相同.
             // code here to take error recovery action
         } else {
             foreName = value;
         }
     }
-}</code></pre>
+}
+</code>
+									</pre>
 									<p class="text-danger"> 注意: 1) 可以定义只读或只写属性. 2) C#不支持属性带参数.</p>
 
 									<p class="text-strong">自动属性（Since .NET 3.5)</p>
-									<pre class="prettyprint linenums"><code>public string PetName { get; set; }  //right
-public string PetName { get; }  //wrong，必须get set同时，才可为自动的属性；</code></pre>
+									<pre class="prettyprint linenums">
+<code>
+public string PetName { get; set; }  //right
+public string PetName { get; }  //wrong，必须get set同时，才可为自动的属性；
+</code>
+									</pre>
 								</div>
 							</div>
 						</div>
 
+						<!--操作-->
 						<div class="title">操作</div>
 						<div class="content open">
 							<div class="list list-square">
-								<div class="title">构造函数&析构函数</div>
-								<div class="content open">
+								<!--构造函数-->
+								<div class="title">构造函数(不能继承)</div>
+								<div class="content closed">
+									<pre class="prettyprint linenums">
+<code>
+访问级别 Program ( 形参 )     
+{                         
+    // 构造函数是用来实例化对象的
+    // 构造函数同类同名(支持重载), 用new关键字来调用.
+}
+</code>
+									</pre>
 
+									<p class="text-strong">默认构造函数</p>
+									<p>
+										如果没有提供任何构造函数, 编译器会自动创建一个默认的构造函数(没有形参的构造函数). <br>
+										这是一个非常基本的构造函数, 它只能把所有的成员字段初始化为标准的默认值(例如, 引用类型为null, 数字数据类型为0, bool为false). 这个默认构造函数是public的.
+									</p>
+
+									<p class="text-strong">构造函数调用顺序</p>
+									<p>调用构造函数之前: 先给字段赋值(如果字段有赋值), 然后调用父类的构造函数.</p>
+
+									<p>
+										1) 如果使用base关键字指定了父类的构造函数, 就调用这个构造函数; 否则, 调用父类的默认构造函数! <br>
+										2) 也可以用this关键字指定调用本类的其他构造函数!
+									</p>
+
+									<p class="text-danger">注意: 父类还有自己的父类哦.</p>
 								</div>
 
+								<!--析构函数-->
+								<div class="title">析构函数(不能继承)</div>
+								<div class="content closed">
+									<pre class="prettyprint linenums">
+<code>
+~类名()
+{
+    // 我是析构函数!
+}
+</code>
+									</pre>
+									<p class="text-strong">默认析构函数 vs 自定义析构函数</p>
+									<p>
+										析构函数只有一个. 一般情况下, 不需要提供析构函数, 而是由默认的析构函数执行操作. <br>
+										但是, 如果在删除对象实例前, 需要完成一些重要的操作, 就应提供特定的析构函数.
+									</p>
+
+									<p class="text-strong">析构函数调用时间</p>
+									<p>程序员无法控制何时调用析构函数, 因为什么时候调用是由GC决定的, 所以我们不应该依赖析构函数来释放对象实例所使用的资源.</p>
+
+									<p class="text-strong">析构函数调用顺序</p>
+									<p>析构函数调用顺序同构造函数调用顺序相反, 即先调用子类的析构函数, 再调用父类的析构函数.</p>
+								</div>
+
+								<!--方法-->
 								<div class="title">方法</div>
 								<div class="content open">
+									<div class="list list-number">
+										<div class="title">定义</div>
+										<div class="content open">
+											<pre class="prettyprint linenums">
+<code>
+return_type MethodName([parameters])
+{
+    // 注意: 在VB, C和C++中,可以定义与类完全不相关的全局函数, 但在C#中不能这样做. 在C#中, 每个函数都必须定义在类或者结构中.
+}
+</code>
+											</pre>
 
+											<div class="list list-square">
+												<div class="title">参数传值方式</div>
+												<div class="content open">
+													<p class="text-strong">默认传参方式: 传值 </p>
+													<p>
+														在C#中, 函数参数默认是传值的: <br>
+														1) 值 类 型: 将实参变量存储的值"拷贝"给形参变量, 所以在函数中对形参变量的更改不会对实参变量造成影响. <br>
+														2) 引用类型: 将实参变量指向的地址值"拷贝"给了形参变量，所以形参变量和实参变量指向了堆中同一个对象, 在函数中使用形参变量对所指向对象所做的更改也会在实参变量中反映出来. </p>
+
+													<p>注意: 默认方式下, 对于引用类型, 在函数内重新赋值, 将使形参指向新的对象. </p>
+
+													<p class="text-strong">强制传引用: out/ref </p>
+
+													<p>
+														不管形参是值类型, 还是引用类型, 使用out/ref关键字, 都可以把实参和形参看成是同一个变量, 对形参的操作都会反应到实参上, 哪怕在函数中有对形参重新赋值! <br>
+														out: 方法返回前, 形参必须赋值. <br>
+														ref: 调用方法时, 实参必须先赋值.
+													</p>
+												</div>
+
+												<div class="title">可变参数(参数数组)</div>
+												<div class="content open">
+													<pre class="prettyprint linenums">
+<code>
+params int[ ] vals    // 参数数组, 必须是最后一个参数, 调用方式: ①数组格式: intArray ②分开格式: int1, int2, int3
+</code>
+													</pre>
+												</div>
+
+												<div class="title">默认参数</div>
+												<div class="content open">
+													<p class="text-danger">不支持!</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="title">调用</div>
+										<div class="content open">
+											<p>TBD...</p>
+										</div>
+									</div>
 								</div>
 
+								<!--运算符-->
 								<div class="title">运算符</div>
 								<div class="content open">
 
 								</div>
 
+								<!--索引器-->
 								<div class="title">索引器</div>
 								<div class="content open">
 
 								</div>
 
+								<!--事件-->
 								<div class="title">事件</div>
-								<div class="content open">
+								<div class="content closed">
 
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-6">
+												<p class="text-strong">事件全套范例</p>
+												<pre class="prettyprint linenums">
+<code>
+class Program
+{
+    static void Main(string[] args)
+    {
+        Dog dog = new Dog();
+        Host host = new Host(dog);
+        AlarmEventArgs alarmEventArgs;
+ 
+        Console.WriteLine("Program is running...");
+        Console.WriteLine("Someone is coming...");
+ 
+        alarmEventArgs = new AlarmEventArgs(3);
+        dog.OnAlarm(alarmEventArgs);	// 触发事件
+ 
+        Console.Read();
+    }
+}
+　
+// ① 定义事件参数
+class AlarmEventArgs : EventArgs
+{
+    public int numberOfThief;
+    public AlarmEventArgs(int n)
+    {
+        numberOfThief = n;
+    }
+}
+ 
+// ② 事件的发起人
+class Dog
+{
+    public event EventHandler&lt;AlarmEventArgs> Alarm;	// 声明事件
+ 
+    public void OnAlarm(AlarmEventArgs e)	// 定义事件触发函数
+    {
+        if (this.Alarm != null) {
+            Console.WriteLine("The dog is Wangwang...");
+            this.Alarm(this, e);
+        }
+    }
+}
+　
+// ③ 事件的订阅者
+class Host
+{
+    public Host(Dog dog)
+    {
+        dog.Alarm += new EventHandler&lt;AlarmEventArgs>(HostHandleEvent);	// 添加事件处理程序
+    }
+ 
+    public void HostHandleEvent(Object sender, AlarmEventArgs e)	// 定义事件处理函数
+    {
+        Console.WriteLine("Host caught the thief! The sum is " + e.numberOfThief);
+    }
+}
+</code>
+												</pre>	
+											</div>
+											<div class="col-6">
+												<div class="list list-square">
+													<div class="title">事件参数</div>
+													<div class="content open">
+														<p>所有基于EventArgs的类都负责在事件发出者和事件订阅者之间来回传送事件的信息.</p>
+														<p>在大多数情况下, EventArgs类中使用的信息都被事件处理程序中的事件订阅者对象使用, 但是, 有时事件处理程序可以把信息添加到EventArgs类中, 使之可用于事件发出者对象.</p>
+														<p>而且如果有其他的对象也处理这个事件, 它们就会看到同一个EventArgs对象.</p>
+													</div>
+
+													<div class="title">事件返回类型</div>
+													<div class="content open">
+														<p>注意: 可以为事件提供返回类型, 但这会出问题, 这是因为引发给定的事件, 可能会调用好几个事件处理程序. 如果这些处理程序都返回一个值, 那么我们该使用哪个返回值?</p>
+														<p>系统处理这个问题的方式是, 只允许访问由事件处理程序最后返回的那个值, 也就是最后一个订阅该事件的处理程序返回的值.</p>
+														<p>这个功能在某些情况下是有用的, 但最好不要使用它们. 推荐使用void类型的事件处理程序, 且避免使用out类型的参数.</p>
+													</div>
+
+													<div class="title">多引用</div>
+													<div class="content open">
+														<p>当一个对象发生某个事件时, 如果有多个引用变量指向该对象, 则多个引用变量都将接到该事件. ( 实际代码是这个样子的, 但是没有书面资料这么说)</p>
+													</div>
+
+													<div class="title">事件访问器</div>
+													<div class="content open">
+														<pre class="prettyprint linenums">
+<code>
+public class Dog
+{
+    // 声明一个delegate
+    private EventHandler _barked = null;
+
+    //激发事件
+    public void Bark()
+    {
+        if (_barked != null) {
+            _barked(null, null);
+        }
+    }
+
+    //声明事件: 使用访问器
+    public event EventHandler Barked
+    {
+        add
+        {
+            if (value != null) { _barked += value; };
+        }
+        remove
+        {
+            if (value == _barked) { _barked -= null; }
+        }
+    }
+}
+</code>
+														</pre>
+													</div>
+													<div class="title">局部变量&事件处理</div>
+													<div class="content closed">
+														<pre class="prettyprint linenums">
+<code>
+MyClass pClass = new MyClass();
+pClass.MyEvent += MyFunction;
+pClass = null;
+</code>
+														</pre>
+														<p>For the specific question "Will pClass be garbage collected": the event subscription has no effect on the collection of pClass (as the publisher).</p>
+
+														<p>For GC in general (in particular, the target): it depends whether MyFunction is static or instance-based.</p>
+
+														<p>A delegate (such as an event subscription) to an instance method includes a reference to the instance. So yes, an event subscription will prevent GC. However, as soon as the object publishing the event (pClass above) is eligible for collection, this ceases to be a problem.</p>
+
+														<p>Note that this is one-way; i.e. if we have:</p>
+
+														<p>publisher.SomeEvent += target.SomeHandler;</p>
+
+														<p>then "publisher" will keep "target" alive, but "target" will not keep "publisher" alive.</p>
+
+														<p>So no: if pClass is going to be collected anyway, there is no need to unsubscribe the listeners. However, if pClass was long-lived (longer than the instance with MyFunction), then pClass could keep that instance alive, so it would be necessary to unsubscribe if you want the target to be collected.</p>
+
+														<p>Static events, however, for this reason, are very dangerous when used with instance-based handlers.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -154,7 +426,7 @@ public string PetName { get; }  //wrong，必须get set同时，才可为自动�
 			</div>
 		</div>
 	</div>
-	
+
 	<!--高级功能-->
 	<div class="title">高级功能</div>
 	<div class="content closed">
@@ -190,7 +462,9 @@ public string PetName { get; }  //wrong，必须get set同时，才可为自动�
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-7">
-									<pre class="prettyprint linenums"><code>class Program
+									<pre class="prettyprint linenums">
+<code>
+class Program
 {
     static void Main(string[] args)
     {
@@ -218,17 +492,23 @@ public string PetName { get; }  //wrong，必须get set同时，才可为自动�
         Console.WriteLine("[{0}] [{1:D2}]: result = {2}", DateTime.Now.ToString("HH:mm:ss"),
             Thread.CurrentThread.ManagedThreadId, func.EndInvoke(result));
     }
-}</code></pre>	
+}
+</code>
+									</pre>	
 								</div>
 								<div class="col-5">
 									<p>输出结果</p>
-									<pre class="prettyprint linenums"><code>[20:08:41] [09]: main
+									<pre class="prettyprint linenums">
+<code>
+[20:08:41] [09]: main
 [20:08:41] [10]: 0 + 0
 [20:08:41] [13]: 1 + 1
 [20:08:41] [14]: 2 + 2
 [20:08:47] [10]: result = 0
 [20:08:47] [13]: result = 2
-[20:08:47] [14]: result = 4</pre></code>
+[20:08:47] [14]: result = 4
+</code>
+									</pre>
 									<p>
 										说明: 异步调用时, 函数在另外一个线程中执行, 并且回调函数也在这个新线程中执行!
 									</p>
