@@ -1,10 +1,49 @@
 {include file="../view/template/header" title="PHP 数据库编程" /}
-<ol>
-    <li>SQL Server</li>
-    <div>
-        <p>mssql_connect(), mssql_select_db()<br>
-            mssql_query(), mssql_num_row()<br>
-            mssql_fetch_array(), mssql_fetch_row(), mssql_fetch_assoc(), mssql_fetch_object()</p>
+
+<div class="list list-number">
+    <div class="title">MySQL</div>
+    <div class="content closed">
+		<p class="text-strong">PHP自带函数</p>
+		<p>
+			连接: mysqli_connect() <br>
+			执行查询: mysqli_query() <br>
+			返回结果行数: mysqli_num_rows(); <br>
+			获取数据: mysqli_fetch_array() <br>
+			关闭: mysqli_close() 
+		</p>
+		<p>备注: 较早的一组与MySQL通信的PHP函数以mysql_开头, 没有这里的"i". 这个"i"代表"改进"(improved), 现在更倾向于使用mysqli_系列函数.</p>
+
+		<p class="text-strong">mysqli范例</p>
+		<pre class="prettyprint linenums">
+<code>
+$dbc = mysqli_connect($dbserver, $user, $password, $dbname)
+    or die('Error connecting to MySQL server.');
+$result = mysqli_query($dbc, $query)
+    or die('Error querying database.');
+mysqli_close($dbc);
+</code>
+		</pre>
     </div>
-</ol>
+
+    <div class="title">MSSQL</div>
+    <div class="content closed">
+		<p class="text-strong">PHP自带函数</p>
+		<p>
+			mssql_connect(); mssql_pconnect(); mssql_select_db()<br>
+            mssql_query(); mssql_num_row()<br>
+            mssql_fetch_array(); mssql_fetch_row(); mssql_fetch_assoc(); mssql_fetch_object()
+		</p> 
+		<p class="text-danger">PHP 5.0开始移除了MSSQL的驱动和库!</p>
+
+		<p class="text-strong">如何连接到SQL Server 2000(用PHP自带的扩展php_mssql.dll连接SQL Server 2000)</p>
+		<p>
+			1) 打开PHP配置文件php.ini，找到；extension=php_mssql.dll把前面的分号去掉. <br>
+			2) 找到mssql.secure_connection = Off修改成 mssql.secure_connection = On. <br>
+			3) 把PHP文件夹下的php_mssql.dll和ntwdblib.DLL这两个文件拷贝到C:\windows\system32\文件夹下. <br>
+			4) 重启Apache，OK <br>
+		</p>
+		<p class="text-danger">注：　netwdblib.dll 文件的版本可能会造成无法启动mssql, 可尝试不同的版本.</p>
+    </div>
+</div>
+
 {include file="../view/template/footer" /}

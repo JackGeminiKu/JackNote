@@ -1,34 +1,51 @@
 {include file="template/header" title="PHP 流程控制" /}
+
 <div class="list list-number">
+	<!--条件-->
     <div class="title">条件</div>
     <div class="content open">
         <div class="containter">
             <div class="row">
                 <div class="col-3">
                     <pre class="prettyprint linenums lang-php">
-<code>//条件1
+<code>
+// if
 if (条件) {                            
     ...
 }
-// 条件2
+</code>
+					</pre>
+                </div>
+
+				<div class="col-3">
+                    <pre class="prettyprint linenums lang-php">
+<code>
+// else
 if (条件) {                            
     ...
 } else {
     ...
 }
-// 条件3
+</code>
+					</pre>
+                </div>
+
+				<div class="col-3">
+                    <pre class="prettyprint linenums lang-php">
+<code>
+// else if
 if (条件1) {                            
     ...
 } else if (条件2) {
     ...
-} else {
-    ...
-}</code></pre>
+}
+</code>
+					</pre>
                 </div>
 
-                <div class="col-4">
+                <div class="col-3">
                     <pre class="prettyprint linenums lang-php">
-<code>switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
+<code>switch (条件) {    // 条件只能是: 整型, 字符串或浮点型
     case 条件值1:
         ...
         break;
@@ -50,6 +67,7 @@ if (条件1) {
         </div>
     </div>
 
+	<!--循环-->
     <div class="title">循环</div>
     <div class="content open">
         <div class="container-fluid ml-0">
@@ -105,15 +123,28 @@ if (条件1) {
         </div>
     </div>
 
+	<!--跳转-->
     <div class="title">跳转</div>
     <div class="content open">
         <p>break; &emsp; continue; &emsp; return; &emsp; <a title="输出一个消息并且退出当前脚本" href="http://php.net/manual/zh/function.exit.php">exit()</a></p>
     </div>
 
+	<!--异常处理-->
     <div class="title">异常处理</div>
     <div class="content closed">
+		<p class="text-strong">set_error_handler (PHP4)</p>
+		<p>
+			set_error_handler: <br>
+			对于php4版本，我们可以使用set_error_handler来注册自己的错误处理方法来代替php的标准错误处理方式（输出到页面或者记录到日志），但是一些严重错误是无法通过这种方式来处理的，具体我们来看手册对该方法的介绍.
+		</p>
+
+		<p class="text-strong">set_exception_handler (PHP5)</p>
+		<p>set_exception_handler - 设置默认的异常处理程序，用于没有用 try/catch 块来捕获的异常。 在 exception_handler 调用后异常会中止。</p>
+
+		<p class="text-strong">try catch (PHP7)</p>
         <pre class="prettyprint linenums lang-php">
-<code>// 抛异常
+<code>
+// 抛异常
 throw new Exception('message',code);   
 
 // 捕获异常
@@ -121,9 +152,15 @@ try {
     // 这段代码可能会抛异常
 } catch(Exception $e) {
     // 异常处理
-}</code></pre>
+}
+</code>
+		</pre>
+
+		<p class="text-strong">错误抑制符</p>
+		<p>可以在任何PHP函数前加上@来抑制其错误报告!</p>
     </div>
 
+	<!--declare结构-->
     <div class="title">decalre结构</div>
     <div class="content closed">
         <p>declare 结构用来设定一段代码的执行指令。declare 的语法和其它流程控制结构相似：</p>
@@ -166,4 +203,10 @@ if ($a > 0) {
 
     </div>
 </div>
+
+<hr>
+<p>
+	参考: <br>
+	<a href="https://blog.csdn.net/zhang197093/article/details/75094816">PHP7的异常处理机制，set_error_handler和set_exception_handler方法介绍</a><br>
+</p>
 {include file="template/footer" /}

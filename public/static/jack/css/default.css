@@ -79,7 +79,7 @@ div.panel {
 }
 
 .text-lighter {
-	font-weight: lighter;
+	font-weight: lighter !important;
 }
 
 .table-bordered th, .table-bordered td {   
