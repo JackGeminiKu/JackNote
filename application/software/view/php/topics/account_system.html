@@ -22,7 +22,56 @@ select * from mismatch_user where password = SHA('tatlover')
 
     <div class="title">使用HTTP认证</div>
     <div class="content closed">
+		<p>
+			使用HTTP认证保证页面安全时, 在允许访问受保护的页面之前, 会弹出一个窗口请求输入用户名和口令. 
+			用户输入的用户名和口令被存储在超级全局变量中: $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'].
+		</p>
 
+		<p class="text-strong">header()函数</p>
+		<pre class="prettyprint linenums">
+<code>
+header('Content-Type: text/html');
+</code>
+		</pre>
+		<p>
+			header()函数会立即从服务器向浏览器发送一个首部, 而且这个函数必须在向浏览器发送任何具体内容之前调用. 
+			这是一个非常严格的要求, 如果在首部之前即使只是发送了一个字符或空格, 浏览器也会拒绝并报错. 所以, header()函数调用应当放在PHP脚本中的所有HTML代码之前!
+		</p>
+
+		<p class="text-strong">HTTP认证首部</p>
+		<p>发起HTTP认证必须要有两个首部, 它们完成两件非常特定的工作:</p>
+		<pre class="prettyprint linenums">
+<code>
+header('HTTP/1.1 401 Unauthorized');                      // 让浏览器知道用户没有得到查看页面的授权
+header('WWW-Authenticate: Basic realm="Guitar Wars"');    // 要求浏览器提示用户输入用户名和口令来进行认证. "Basic realm"(基本域)是用于唯一标识这个特定认证的一个短语, 它会出现在认证窗口
+</code>
+		</pre>
+
+		<p class="text-strong">范例(Authorize.php脚本)</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;?php
+    // User name and password for authentication
+    $username = 'rock';
+    $password = 'roll';
+
+    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) || ($_SERVER['PHP_AUTH_USER'] != $username) || ($_SERVER['PHP_AUTH_PW'] != $password)) {
+        // The user name/password are incorrect so send the authentication headers
+        header('HTTP/1.1 401 Unauthorized');
+        header('WWW-Authenticate: Basic realm="Guitar Wars"');
+        exit('&lt;h2>Guitar Wars&lt;/h2>Sorry, you must enter a valid user name and password to access this page.');
+    }
+?>
+</code>
+		</pre>
+		<p>
+			点击确定认证按钮: 相当于会重新请求这个网页, 所以会进行if判断, 检查用户的认证信息 ... 一旦成功输入了对应一个给定域的用户名和口令, 浏览器会记住这个用户名和口令, 而同一域中后续的认证首部就不会再显示认证窗口. 简单来说, 同一域只认证一次! <br>
+			点击取消认证按钮: 会调用exit()函数! <br>
+			备注: 调试的时候$_SERVER['PHP_AUTH_USER']没有值啊!!!
+		</p>
+
+		<p class="text-strong">注销认证</p>
+		<p>对于一个给定页面或一组页面只会完成一次HTTP认证, 只是在浏览器关闭时才会重置.</p>
     </div>
 
     <div class="title">使用cookie</div>

@@ -1,0 +1,65 @@
+{include file="template/header" title="PHP 安全" /}
+<div class="list list-number">
+	<!--SQL注入攻击-->
+    <div class="title">SQL注入攻击</div>
+    <div class="content open">
+		<div class="list list-number">
+			<!--什么是SQL注入-->
+			<div class="title">什么是SQL注入</div>
+			<div class="content closed">
+				<p>某个网站插入数据的SQL查询代码为:</p>
+				<pre class="prettyprint linenums">
+<code>
+sql = "insert into guitarwars values(0, now(), '$name', '$score', '$screenshot', 0)"
+</code>
+				</pre>
+				<p>如果恶意输入:</p>
+				<pre class="prettyprint linenums">
+<code>
+$name = "Ethel Heckel";
+$score = "100', 'ethelsscore2.gif', 1) --"
+$screenshot = "ethelssscore2.gif"
+</code>
+				</pre>	
+				<p>将导致原本的SQL字串被填为:</p>
+				<pre class="prettyprint linenums">
+<code>
+sql = "insert into guitarwars values(0, now(), 'Ethel Heckel', '100', 'ethelsssocre2.gif', 1) --', 'ethelssscore2.gif', 0)"
+</code>
+				</pre>	
+				<p>由于--是注释符号, 最后一列的0值被改为了1!!!</p>
+			</div>
+
+			<!--如何防止SQL注入-->
+			<div class="title">如何防止SQL注入</div>
+			<div class="content closed">
+				<p class="text-strong">1) 剔除危险字符</p>
+				<p>SQL注入所利用的漏洞就是: 没有验证表单域中可能出现的危险字符. "危险字符"就是任何有可能改变一个SQL查询实质的字符, 如逗号, 引号或--注释字符, 甚至一段数据最后的空格也可能是有害的. </p>
+				<p>利用trim()函数可以很容易的去除前导或末尾的空格, 利用mysqli_real_escape_string()函数可以将有危险的字符进行转义, 使它不能有意地影响查询的执行.</p>
+				<pre class="prettyprint linenums">
+<code>
+$name = mysqli_real_escape_string($dbc, trim($_POST['name']));
+</code>
+				</pre>
+
+				<p class="text-strong">2) 只显式插入需要的数据</p>
+				<p>实际上没有必要显式地插入id或apprived列, 因为id是自增的, 而approved初始时总是0. 更好的办法是只插入新分数明确需要的数据. id和approved列则可以分别默认为auto_increment和0.</p>
+				<pre class="prettyprint linenums">
+<code>
+insert into guitarwars (date, name, score, screenshot) values (now(), '$name', '$score', '$screenshot')
+</code>
+				</pre>
+
+				<p class="text-strong">3) always检查用户的输入</p>
+				<p>检查输入的是否为空, 该输入数值的输入的是否是数值等等...</p>
+			</div>
+		</div> 
+    </div>
+
+    <div class="title">XXX</div>
+    <div class="content open">
+
+    </div>
+</div>
+
+{include file="template/footer" /}
