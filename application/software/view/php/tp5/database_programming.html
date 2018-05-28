@@ -1,0 +1,53 @@
+{include file="php/tp5/template/header" title="TP5 数据库编程" /}
+
+<div class="list list-number">
+    <div class="title">准备工作</div>
+    <div class="content closed">
+		<p class="text-strong">数据库配置</p>
+		<p>
+			全局数据库配置: appliation/database.php <br>
+			模块数据库配置: application/某个模块/database.php. 只需要配置和全局数据库配置差异的部分.
+		</p>
+		<p class="text-strong">编写控制器</p>
+		<p>
+			在进行数据库查询之前, 首先必须先创建一个控制器类, 以及一个操作方法用于测试, 类似于：
+		</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;?php
+namespace app\index\controller;
+
+use think\Db;    // 引入Db类
+
+class Index
+{
+    public function index()
+    {
+        // 后面的数据库查询代码都放在这个位置.
+    }
+}
+</code>
+		</pre>
+    </div>
+
+    <div class="title">原生SQL查询( Db::query & Db::execute)</div>
+    <div class="content open">
+		<p>原生的SQL查询操作, 包括query和execute两个方法: </p>
+		<pre class="prettyprint linenums">
+<code>
+// query方法用于查询, 默认情况下返回的是数据集(二维数组)
+$result = Db::query('select * from think_data where id = 5');
+$result = Db::query('show tables from demo');
+
+// execute方法用于写操作, 返回值是影响的记录数
+$result = Db::execute('insert into think_data (id, name ,status) values (5, "thinkphp",1)');
+$result = Db::execute('update think_data set name = "framework" where id = 5 ');
+$result = Db::execute('delete from think_data where id = 5 ');
+$result = Db::execute('TRUNCATE table think_data');
+</code>
+		</pre>
+
+    </div>
+</div>
+
+{include file="php/tp5/template/footer" /}
