@@ -1,0 +1,139 @@
+{include file="template/header" title="设计模式 工厂方法" /}
+<div class="fixed-top-right">
+	<img src="__ROOT__/static/image/design_pattern/factory method.png" />
+</div>
+
+<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace 工厂方法
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IFactory operFactory = new AddFactory();    // 这里决定使用哪个工厂, 从而决定"生产"哪个类!!!
+            Operation oper = operFactory.CreateOperation();
+            oper.NumberA = 1;
+            oper.NumberB = 2;
+            double result = oper.GetResult();
+
+            Console.WriteLine(result);
+            Console.Read();
+        }
+    }
+
+    // 工厂接口
+    interface IFactory
+    {
+        Operation CreateOperation();
+    }
+
+    // 加法工厂
+    class AddFactory : IFactory
+    {
+        public Operation CreateOperation()
+        {
+            return new OperationAdd();
+        }
+    }
+
+    // 减法工厂
+    class SubFactory : IFactory
+    {
+        public Operation CreateOperation()
+        {
+            return new OperationSub();
+        }
+    }
+
+    // 乘法工厂
+    class MulFactory : IFactory
+    {
+        public Operation CreateOperation()
+        {
+            return new OperationMul();
+        }
+    }
+
+    // 除法工厂
+    class DivFactory : IFactory
+    {
+        public Operation CreateOperation()
+        {
+            return new OperationDiv();
+        }
+    }
+
+    // 运算类
+    public class Operation
+    {
+        private double _numberA = 0;
+        private double _numberB = 0;
+
+        public double NumberA
+        {
+            get { return _numberA; }
+            set { _numberA = value; }
+        }
+
+        public double NumberB
+        {
+            get { return _numberB; }
+            set { _numberB = value; }
+        }
+
+        public virtual double GetResult()
+        {
+            double result = 0;
+            return result;
+        }
+    }
+
+    // 加法类
+    class OperationAdd : Operation
+    {
+        public override double GetResult()
+        {
+            return NumberA + NumberB;
+        }
+    }
+
+    // 减法类
+    class OperationSub : Operation
+    {
+        public override double GetResult()
+        {
+            return NumberA - NumberB;
+        }
+    }
+
+    // 乘法类
+    class OperationMul : Operation
+    {
+        public override double GetResult()
+        {
+            return NumberA * NumberB;
+        }
+    }
+
+    // 除法类
+    class OperationDiv : Operation
+    {
+        public override double GetResult()
+        {
+            if (NumberB == 0) {
+                throw new Exception("除数不能为0.");
+            }
+
+            return NumberA / NumberB;
+        }
+    }
+}
+
+</code>
+</pre>
+{include file="template/footer" /}

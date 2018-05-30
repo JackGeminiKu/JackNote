@@ -85,3 +85,9 @@ div.panel {
 .table-bordered th, .table-bordered td {   
     border: 1px solid #C0C0C0 !important;  
 }  
+
+.fixed-top-right {
+    position: fixed;
+    top: 11px;
+    right: 11px;
+}

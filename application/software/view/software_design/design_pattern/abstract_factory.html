@@ -1,0 +1,208 @@
+{include file="template/header" title="设计模式 抽象工厂" /}
+
+<p class="text-danger">抽象工厂 & 工厂方法的区别是什么???</p>
+
+<div class="fixed-top-right">
+	<img src="__ROOT__/static/image/design_pattern/abstract factory.png" />
+</div>
+<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace 抽象工廠模式
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            User user = new User();
+            Department dept = new Department();
+
+            IFactory factory = new SqlserverFactory();
+            //IFactory factory = new AccessFactory();
+
+            IUser iu = factory.CreateUser();
+            iu.Insert(user);
+            iu.GetUser(1);
+
+            IDepartment id = factory.CreateDepartment();
+            id.Insert(dept);
+            id.GetDepartment(1);
+
+            Console.Read();
+        }
+    }
+
+    #region "抽象工廠"
+
+    // 工廠接口
+    interface IFactory
+    {
+        IUser CreateUser();
+        IDepartment CreateDepartment();
+    }
+
+    // SQL Server工廠
+    class SqlserverFactory : IFactory
+    {
+        public IUser CreateUser()
+        {
+            return new SqlserverUser();
+        }
+
+
+        public IDepartment CreateDepartment()
+        {
+            return new SqlserverDepartment();
+        }
+    }
+
+    // Access工廠
+    class AccessFactory : IFactory
+    {
+        public IUser CreateUser()
+        {
+            return new AccessUser();
+        }
+
+
+        public IDepartment CreateDepartment()
+        {
+            return new AccessDepartment();
+        }
+    }
+    #endregion
+
+    #region "用戶"
+
+    // 用户
+    class User
+    {
+        private int _id;
+        private string _name;
+
+
+        public int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+
+        public string name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+    }
+
+    // 用戶(表)接口
+    interface IUser
+    {
+        void Insert(User user);
+        User GetUser(int id);
+    }
+
+    // SQL Server用戶(表)
+    class SqlserverUser : IUser
+    {
+        public void Insert(User user)
+        {
+            Console.WriteLine("在SQL Server中給User表增加一條記錄");
+        }
+
+
+        public User GetUser(int id)
+        {
+            Console.WriteLine("在SQL Server中根據ID得到User表一條記錄");
+            return null;
+        }
+    }
+
+    // Access用戶(表)
+    class AccessUser : IUser
+    {
+        public void Insert(User user)
+        {
+            Console.WriteLine("在Access中給User表增加一條記錄");
+        }
+
+
+        public User GetUser(int id)
+        {
+            Console.WriteLine("在Access中根據ID得到User表一條記錄");
+            return null;
+        }
+    }
+
+    #endregion
+
+    #region "部門"
+
+    // 部門
+    class Department
+    {
+        private int _id;
+        private string _name;
+
+
+        public int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+
+        public string name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+    }
+
+    // 部門(表)接口
+    interface IDepartment
+    {
+        void Insert(Department department);
+        Department GetDepartment(int id);
+    }
+
+    // SQL Server部門(表)
+    class SqlserverDepartment : IDepartment
+    {
+        public void Insert(Department department)
+        {
+            Console.WriteLine("在SQL Server中給Department表增加一條記錄");
+        }
+
+
+        public Department GetDepartment(int id)
+        {
+            Console.WriteLine("在SQL Server中根據ID得到Department表一條記錄");
+            return null;
+        }
+    }
+
+    // Access部門(表)
+    class AccessDepartment : IDepartment
+    {
+        public void Insert(Department department)
+        {
+            Console.WriteLine("在Access中給Department表增加一條記錄");
+        }
+
+
+        public Department GetDepartment(int id)
+        {
+            Console.WriteLine("在Access中根據ID得到Department表一條記錄");
+            return null;
+        }
+    }
+
+    #endregion
+}
+</code>
+</pre>
+{include file="template/footer" /}
