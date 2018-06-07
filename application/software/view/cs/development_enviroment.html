@@ -91,5 +91,18 @@
             检查项目的目标Framework是否选的是.NET Framework X Client Profile
         </p>
     </div>
+
+	<div class="title">运行错误</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">使用Ado.Net时报错: Incorrect syntax near the keyword 'File'</div>
+			<div class="content closed">
+				<p>
+					File是SQL Server关键字, 不能作为表名, 字段名, 需要添加中括号括起来. <br>
+					怪不得SQL Sever自动生成的SQL语句会自动添加中括号!
+				</p>
+			</div>
+		</div>
+	</div>
 </div>
 {include file="template/footer" /}
