@@ -1,18 +1,22 @@
 {include file="template/header" title="C# 数据库编程" /}
 <div class="list list-number">
+	<!--ADO.NET-->
     <div class="title">ADO.NET</div>
     <div class="content closed">
         ...
     </div>
+
+	<!--ORM - Dapper-->
     <div class="title">ORM - Dapper</div>
     <div class="content closed">        
-        <a href="https://github.com/StackExchange/Dapper">官网</a>
 
         <!--Execute a query and map the results to a strongly typed List-->
         <div class="list list-square">
             <div class="title">Execute a query and map the results to a strongly typed List - Query()</div>
             <div class="content closed">
-                <pre class="prettyprint linenums lang-cs"><code>// 数据库实体类
+                <pre class="prettyprint linenums lang-cs">
+<code>
+// 数据库实体类
 public class Dog
 {
     public int? Age { get; set; }
@@ -30,25 +34,33 @@ var dog = connection.Query&lt;Dog>("select Age = @Age, Id = @Id", new { Age = (i
 Assert.Equal(1, dog.Count());
 Assert.Null(dog.First().Age);
 Assert.Equal(1, dog.ElementAt(0).Age);
-Assert.Equal(guid, dog.First().Id);</code></pre>
+Assert.Equal(guid, dog.First().Id);
+</code>
+				</pre>
             </div>
 
             <!--Execute a query and map it to a list of dynamic objects-->
             <div class="title">Execute a query and map it to a list of dynamic objects - Query()</div>
             <div class="content closed">
-                <pre class="prettyprint linenums lang-cs"><code>var guid = Guid.NewGuid();
+                <pre class="prettyprint linenums lang-cs">
+<code>
+var guid = Guid.NewGuid();
 var dog = connection.Query("select Age = @Age, Id = @Id", new { Age = (int?)null, Id = guid });
 
 Assert.Equal(1, dog.Count());
 Assert.Null(dog.First().Age);
 Assert.Equal(1, dog.ElementAt(0).Age);
-Assert.Equal(guid, dog.First().Id);</code></pre>
+Assert.Equal(guid, dog.First().Id);
+</code>
+				</pre>
             </div>
 
             <!--Execute a Command that returns no results-->
             <div class="title">Execute a Command that returns no results - Execute()</div>
             <div class="content closed">
-                <pre class="prettyprint linenums lang-cs"><code>var count = connection.Execute(@"
+                <pre class="prettyprint linenums lang-cs">
+<code>
+var count = connection.Execute(@"
   set nocount on 
   create table #t(i int) 
   set nocount off 
@@ -56,20 +68,33 @@ Assert.Equal(guid, dog.First().Id);</code></pre>
   select @a a union all select @b 
   set nocount on 
   drop table #t", new {a=1, b=2 });
-Assert.Equal(2, count);</code></pre>
+Assert.Equal(2, count);
+</code>
+				</pre>
             </div>
 
             <!--Execute a Command multiple times-->
             <div class="title">Execute a Command multiple times - Execute()</div>
             <div class="content closed">
-                <pre class="prettyprint linenums lang-cs"><code>var count = connection.Execute(@"insert MyTable(colA, colB) values (@a, @b)",
+                <pre class="prettyprint linenums lang-cs">
+<code>
+var count = connection.Execute(@"insert MyTable(colA, colB) values (@a, @b)",
     new[] { new { a=1, b=1 }, new { a=2, b=2 }, new { a=3, b=3 } }
   );
-Assert.Equal(3, count); // 3 rows inserted: "1,1", "2,2" and "3,3"</code></pre>
+Assert.Equal(3, count); // 3 rows inserted: "1,1", "2,2" and "3,3"
+</code>
+				</pre>
             </div>
         </div>
+
+		<p>
+			参考资料: 
+			<a href="https://github.com/StackExchange/Dapper">官网</a>, 
+			<a href="http://www.cnblogs.com/Sinte-Beuve/p/4231053.html">Dapper的基本使用</a>
+		</p>
     </div>
 
+	<!--ORM - Enity Framework-->
     <div class="title">ORM - Entity Framework</div>
     <div class="content closed">
         <a href="https://msdn.microsoft.com/en-us/library/aa937723(v=vs.113).aspx">官方资料</a><br>
