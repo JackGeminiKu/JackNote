@@ -675,11 +675,93 @@ pClass = null;
 			</div>
 
 			<div class="title">嵌套类</div>
-			<div class="content open">
-TBD...
+			<div class="content closed">
+				<p>除了在命名空间中定义类之外, 还可以在其他类中定义这些类 - 这种类称为嵌套类.</p>
+				<p>
+					1) 可以为嵌套类指定private访问修饰符，只有嵌套类才可以这样做。<br>
+					2) 嵌套类要想访问包容类的实例，一个办法是显式传递包容类的实例，比如通过一个构造器或方法参数。 <br>
+					3) 嵌套类能访问包容类的任何成员，甚至是私有成员。但包容类不能访问嵌套类的私有成员。<br>
+					4) 嵌套类一般很少用。除此之外，要警惕public 嵌套类，它们意味着不良的编码风格，有可能造成混淆和难以发现。
+				</p>
+
+				<pre class="prettyprint linenums">
+<code>
+public class MyClass
+{
+    public event EventHandler MyEvent;
+ 
+    public class MyNestedClass
+    {
+        public int nestedClassField;
+　
+        public void TriggerOuterEvent()
+        {
+            MyClass myClass = new MyClass();
+            myClass.MyEvent(myClass, EventArgs.Empty);        // 嵌套类可以触发外部类的事件(一般来说其他类的事件只能被订阅), 嵌套类可以访问外围类中的所有成员, 包括Private的!
+        }
+    }
+}
+</code>
+				</pre>
 			</div>
 
 			<div class="title">静态成员&静态类</div>
+			<div class="list list-number">
+				<div class="title">类的静态成员</div>
+				<div class="content open">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-5">
+								<pre class="prettyprint linenums">
+<code>
+public class Automobile
+{
+    public static int NumberOfWheels = 4;        // 静态字段
+    public static int SizeOfGasTank              // 静态属性
+    {
+        get{ ... }
+    }
+ 
+    public static void Drive() { }               // 静态方法
+    public static event EventType RunOutOfGas;   // 静态事件
+
+    static SimpleClass()   						// 静态构造函数
+    {
+        // 静态构造函数只能访问类的静态成员, 不能访问实例成员.
+    }
+ 
+    //other non-static fields and properties...
+}
+</code>
+								</pre>
+
+							</div>
+							<div class="col-6">
+								<p>静态成员可以理解为是类的成员, 而不是对象的成员! 它们不会随对象状态而变化.</p>
+
+								<p class="text-strong">调用静态成员</p>
+								<p>MyStaticClass.XXX</p>
+
+								<p class="text-strong">可访问成员</p>
+								<p>静态方法只能访问静态成员, 但是可以访问类的构造函数; 而非静态方法则可以访问所有的成员.</p>
+
+								<p class="text-strong">静态构造函数</p>
+								<p>用户不能直接调用静态构造函数, 也不能控制何时执行静态构造函数. 在创建类的第一个实例或引用任何静态成员之前, 程序将自动调用静态构造函数, 且静态构造函数只会调用一次. 所以静态构造函数用于初始化任何静态数据, 或用于执行仅需执行一次的特定操作. 静态构造函数具有如下特点: </p>
+								<p>
+									1) 静态构造函数的典型用途是: 当类使用日志文件时, 将使用这种构造函数向日志文件中写入项. <br>
+									2) 静态构造函数在为非托管代码创建包装类时也很有用, 此时该构造函数可以调用 LoadLibrary 方法. <br>
+									3) 如果静态构造函数引发异常, 运行时将不会再次调用该构造函数, 并且在程序运行所在的应用程序域的生存期内, 类型将保持未初始化.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="title">静态类</div>
+				<div class="content closed">
+
+				</div>
+			</div>
 			<div class="content open"></div>
 
 			<div class="title">抽象成员&抽象类</div>
