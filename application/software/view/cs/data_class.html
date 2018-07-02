@@ -674,6 +674,166 @@ pClass = null;
 
 			</div>
 
+			<div class="title">静态成员&静态类</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">类的静态成员</div>
+					<div class="content open">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-5">
+									<pre class="prettyprint linenums">
+<code>
+public class Automobile
+{
+    public static int NumberOfWheels = 4;        // 静态字段
+    public static int SizeOfGasTank              // 静态属性
+    {
+        get{ ... }
+    }
+ 
+    public static void Drive() { }               // 静态方法
+    public static event EventType RunOutOfGas;   // 静态事件
+
+    static SimpleClass()   						// 静态构造函数
+    {
+        // 静态构造函数只能访问类的静态成员, 不能访问实例成员.
+    }
+ 
+    //other non-static fields and properties...
+}
+</code>
+									</pre>
+
+								</div>
+								<div class="col-6">
+									<p>静态成员可以理解为是类的成员, 而不是对象的成员! 它们不会随对象状态而变化.</p>
+
+									<p class="text-strong">调用静态成员</p>
+									<p>MyStaticClass.XXX</p>
+
+									<p class="text-strong">可访问成员</p>
+									<p>静态方法只能访问静态成员, 但是可以访问类的构造函数; 而非静态方法则可以访问所有的成员.</p>
+
+									<p class="text-strong">静态构造函数</p>
+									<p>用户不能直接调用静态构造函数, 也不能控制何时执行静态构造函数. 在创建类的第一个实例或引用任何静态成员之前, 程序将自动调用静态构造函数, 且静态构造函数只会调用一次. </p>
+									<p>所以静态构造函数用于初始化任何静态数据, 或用于执行仅需执行一次的特定操作. 静态构造函数具有如下特点: 
+									</p>
+									<p>
+										1) 静态构造函数的典型用途是: 当类使用日志文件时, 将使用这种构造函数向日志文件中写入项. <br>
+										2) 静态构造函数在为非托管代码创建包装类时也很有用, 此时该构造函数可以调用 LoadLibrary 方法. <br>
+										3) 如果静态构造函数引发异常, 运行时将不会再次调用该构造函数, 并且在程序运行所在的应用程序域的生存期内, 类型将保持未初始化.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">静态类</div>
+					<div class="content open">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-5">
+									<pre class="prettyprint linenums">
+<code>
+static class CompanyInfo
+{
+    public static string GetCompanyName()
+    {
+        return "CompanyName";
+    }
+}
+</code>
+									</pre>
+								</div>
+								<div class="col-6">
+									<p>
+										类可以声明为静态, 以表明它只能包含静态成员. 静态类的主要特点如下：<br>
+										1) 只能包含静态成员. <br>
+										2) 不能被实例化, 所以不能包含实例构造函数, 但可声明静态构造函数以分配初始值或设置某个静态状态. <br>
+										3) 不能被继承.
+									</p>
+									<p>
+										静态类一般用于实现函数库, 例如System命名空间中的Math类的方法。此外，静态类能够使您的实现更简单、迅速，因为您不必创建对象就能调用其方法.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">抽象类</div>
+			<div class="content closed">
+				<p>抽象类不能实例化, 抽象类的用途是提供多个派生类可共享的基类的公共定义.</p>
+				<pre class="prettyprint linenums">
+<code>
+abstract class A
+{
+    // 非抽象部分: 抽象类可以有非抽象成员
+    public A()                                                   // 构造函数
+    {
+        // (1) 用于为继承自它的子类使用
+        // (2) 用于初始化抽象类的成员
+        // (3) 而且抽象类可以使用工厂模式, 参考XmlWriter.Create()
+    }
+ 
+    ~A() {  }                                                    // 析构函数
+ 
+    public void DoActualWork() { }                               // 普通函数
+　
+    public int MyProperty { get; set; }                          // 普通属性
+	
+    // 抽象部分: 抽象成员只能能存在于抽象类中, 并且派生类一定要实现这些抽象成员
+    public abstract void DoAbstractWork();                       // 抽象方法
+ 
+    public abstract int MyAbstractProperty { get; set; }         // 抽象属性
+}
+</code>
+				</pre>
+
+
+				<p class="text-strong">抽象类 vs 接口</p>
+				<p>使用抽象类, 可以共享代码, 但是一个类只能继承自一个基类; 而接口虽然不能实现代共享代码, 却可以实现多个!</p>
+			</div>
+
+			<div class="title">密封成员&密封类</div>
+			<div class="content closed">
+				<p>密封类不能被继承</p>
+				<pre class="prettyprint linenums">
+<code>
+public sealed class Animal
+{
+}
+</code>
+				</pre>
+
+				<p>密封成员不能被重写</p>
+				<pre class="prettyprint linenums">
+<code>
+public class Animal 
+{
+    public sealed void Shout
+}
+</code>
+				</pre>
+
+				<p>在对基类的虚成员进行重写的派生类上, 方法、字段、属性或事件可以声明为为selaed。在用于以后的派生类时，这将取消成员的虚效果.</p>
+				<pre class="prettyprint linenums">
+<code>
+public class D : C
+{
+    public sealed override void DoWork() { }
+}
+</code>
+				</pre>
+
+				<p class="text-danger">
+					把类或方法标记为sealed时, 最可能的情况是: 如果要对库, 类或自己编写的其他类进行操作, 则重写某些功能会导致错误. 也可以因商业原因把类或方法标记为sealed, 以防第三方以违反注册协议的方式扩展该类. <br>
+					一般情况下, 在把类或方法标记为sealed时要小心, 因为这么做会严重限制它的使用. 即使不希望它能继承一个类或重写类的某个成员, 仍有可能在将来的某个时刻, 有人会遇到我们没有预料到的情形.
+				</p>
+			</div>
+
 			<div class="title">嵌套类</div>
 			<div class="content closed">
 				<p>除了在命名空间中定义类之外, 还可以在其他类中定义这些类 - 这种类称为嵌套类.</p>
@@ -705,95 +865,138 @@ public class MyClass
 				</pre>
 			</div>
 
-			<div class="title">静态成员&静态类</div>
-			<div class="list list-number">
-				<div class="title">类的静态成员</div>
-				<div class="content open">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-5">
-								<pre class="prettyprint linenums">
-<code>
-public class Automobile
-{
-    public static int NumberOfWheels = 4;        // 静态字段
-    public static int SizeOfGasTank              // 静态属性
-    {
-        get{ ... }
-    }
- 
-    public static void Drive() { }               // 静态方法
-    public static event EventType RunOutOfGas;   // 静态事件
+			<div class="title">泛型类&泛型成员</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">什么是泛型</div>
+					<div class="content open">
+						<p>
+							泛型把类或方法的类型的确定, 推迟到实例化该类或方法的时候 ，也就是说刚开始定义时不指定类型，等到要使用（实例化）时再指定类型. 泛型可以用于类、方法、委托、事件等. 使用泛型的好处是: <br>
+							1) 设计更加通用的类型; <br>
+							2) 避免容器操作中的装箱和拆箱操作！
+						</p>
 
-    static SimpleClass()   						// 静态构造函数
-    {
-        // 静态构造函数只能访问类的静态成员, 不能访问实例成员.
-    }
- 
-    //other non-static fields and properties...
+						<p>但是由于"泛型把类或方法的类型的确定, 推迟到实例化类或方法的时候", 所以泛型支持的操作比较有限!</p>
+					</div>
+
+					<div class="title">定义泛型</div>
+					<div class="content open">
+						<p class="text-strong">定义泛型类</p>
+						<pre class="prettyprint linenums">
+<code>
+class MyGenericClass&lt;T>
+{
+    // 可以在类中使用泛型T, 就像使用普通数据类型一样
 }
 </code>
-								</pre>
+						</pre>
 
-							</div>
-							<div class="col-6">
-								<p>静态成员可以理解为是类的成员, 而不是对象的成员! 它们不会随对象状态而变化.</p>
+						<p class="text-strong">定义泛型方法</p>
+						<pre class="prettyprint linenums">
+<code>
+public T Get&lt;T>(string property, T defaultValue)
+{
+    // 可以在方法中使用泛型T, 就像使用普通数据类型一样
+}
+</code>
+						</pre>
 
-								<p class="text-strong">调用静态成员</p>
-								<p>MyStaticClass.XXX</p>
+						<p class="text-strong">当父类是泛型时</p>
+						<pre class="prettyprint linenums">
+<code>
+// 子类不是泛型类: 父类中的T必须显式提供.
+public class Cards : List&lt;Card>
+{ }
 
-								<p class="text-strong">可访问成员</p>
-								<p>静态方法只能访问静态成员, 但是可以访问类的构造函数; 而非静态方法则可以访问所有的成员.</p>
+// 子类也是泛型类: T在父类和子类中的约束不能冲突
+class SuperFarm&lt;T> : Farm&lt;T> where T : SuperCow
+{ }
+</code>
+						</pre>
 
-								<p class="text-strong">静态构造函数</p>
-								<p>用户不能直接调用静态构造函数, 也不能控制何时执行静态构造函数. 在创建类的第一个实例或引用任何静态成员之前, 程序将自动调用静态构造函数, 且静态构造函数只会调用一次. 所以静态构造函数用于初始化任何静态数据, 或用于执行仅需执行一次的特定操作. 静态构造函数具有如下特点: </p>
-								<p>
-									1) 静态构造函数的典型用途是: 当类使用日志文件时, 将使用这种构造函数向日志文件中写入项. <br>
-									2) 静态构造函数在为非托管代码创建包装类时也很有用, 此时该构造函数可以调用 LoadLibrary 方法. <br>
-									3) 如果静态构造函数引发异常, 运行时将不会再次调用该构造函数, 并且在程序运行所在的应用程序域的生存期内, 类型将保持未初始化.
-								</p>
-							</div>
-						</div>
+						<p class="text-strong">约束类型</p>
+						<table class="table table-bordered table-sm w-50">
+							<tbody>
+								<tr>
+									<td>约束类型</td>
+									<td>解释</td>
+								</tr>
+								<tr>
+									<td>struct / class</td>
+									<td>类型必须是值类型/引用类型</td>
+								</tr>
+								<tr>
+									<td>base class / interface</td>
+									<td>类型必须继承自指定类 / 实现了指定接口, 不能指定多个类或接口</td>
+								</tr>
+								<tr>
+									<td>new()</td>
+									<td>类型必须有一个公共的无参构造函数</td>
+								</tr>
+							</tbody>
+						</table>
+						<pre class="prettyprint linenums">
+<code>
+class MyGenericClass&lt;T> where T: 约束
+{ }
+
+class MyGenericClass&tl;T1,T2> where T1: 约束1 where T2: 约束2    // 可以使用多个where语句
+{ }
+
+class MyGenericClass&lt;T> where T: 约束1, 约束2    // 多个约束之间用逗号分隔
+{ }
+
+class MyGenericClass&lt;T1,T2> where T2: T1    // 裸类型约束
+{ }
+</code>
+						</pre>
+					</div>
+
+					<div class="title">default关键字</div>
+					<div class="content open">
+						<p>
+							在泛型类和泛型方法中产生的一个问题是，在预先未知以下情况时，如何将默认值分配给参数化类型T? 解决方案是使用default关键字: <br>
+							1) 对于引用类型会返回空(null); <br>
+							2) 对于数值类型会返回零; <br>
+							3) 对于结构体类型，此关键字将返回初始化为零或null的每个结构成员，具体取决于这些成员是值类型还是引用类型.
+						</p>
+
+						<pre class="prettyprint linenums">
+<code>
+T temp = default(T);
+</code>
+						</pre>
 					</div>
 				</div>
-
-				<div class="title">静态类</div>
-				<div class="content closed">
-
-				</div>
 			</div>
-			<div class="content open"></div>
-
-			<div class="title">抽象成员&抽象类</div>
-			<div class="content open"></div>
-
-			<div class="title">密封成员&密封类</div>
-			<div class="content open">
-			</div>
-
-			<div class="title">密封成员&密封类</div>
-			<div class="content open"></div>
 
 			<div class="title">部分类</div>
 			<div class="content closed">
+				<p>partial关键字允许把类, 结构或接口放在多个文件中. 一般情况下, 一个类存储在单个文件中. 但有时, 多个开发人员需要访问同一个类, 或者某种类型的代码生成器生成了一个类的某部分, 所以把类放在多个文件中是有益的. 在把部分类编译到类型中时, 会合并属性, XML注释, 接口, 一般类型的参数属性和成员.</p>
+
 				<pre class="prettyprint linenums">
 <code>
-    public partial class MyClass
-    {
-        // 定义在文件MyClass1.cs中
-    }
-
-    public partial class MyClass
-    {
-        // 定义在文件MyClass2.cs中
-    }
+// BigClassPart1.cs
+partial class TheBigClass
+{
+    public void MethodOne()
+    { }
+}
+ 
+// BigClassPart2.cs
+partial class TheBigClass
+{
+    public void MethodTwo()
+    { }
+}
 </code>
 				</pre>
+				<p class="text-danger">如果声明类时使用了下面的关键字, 这些关键字将应用于同一个类的所有部分: private, protected, internal, public, abstract, sealed, 基类, new, 一般约束.</p>
 			</div>
 
 			<div class="title">匿名对象</div>
 			<div class="content open">
-
+TBD...
 			</div>	
 		</div>
 	</div>
