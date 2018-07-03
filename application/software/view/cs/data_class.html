@@ -658,6 +658,24 @@ pClass = null;
 						<p>表示一个类型只继承了函数的签名, 却没有继承任何实现代码.</p>
 						<p>在需要指定该类型具有某些可用的特性时, 最好使用这种类型的继承. 例如, 某些类型可以指定从接口System.IDisposable中派生, 从而提供一种清理资源的方法Dispose(). 由于某种类型清理资源的方式可能与另一种类型完全不同, 所以定义通用的实现代码是没有意义的, 此时就适合使用接口继承.</p>
 						<p>注意: C#不支持多重继承, 但是C#又允许类型派生于多个接口.</p>
+
+						<p class="text-strong">抽象类&接口比较</p>
+						<p>
+							相同点: <br>
+							抽象类和接口都包含可以由派生类继承的成员. <br>
+							接口和抽象类都不能直接实例化, 但可以声明它们的变量, 通过多态性使用它们.
+						</p>
+						<p>
+							不同点: <br>
+							派生类只能继承一个基类, 而类可以实现任意多个接口. <br>
+							抽象类可以拥有抽象成员和非抽象成员. 而接口成员必须都在使用接口的类上实现, 它们没有代码. <br>
+							接口成员只能是公共的, 但抽象类的成员没有限制. <br>
+							接口不能包含字段, 构造函数, 析构函数, 静态成员或常量
+						</p>
+						<p>
+							这说明这两种类型用于完全不同的目的. 
+							抽象类主要用作对象系列的基类, 共享某些主要特性, 例如共同的目的和结构. 接口则主要用于类, 这些类在基础水平上有所不同, 但仍可以完成某些相同的任务. <br>
+							通俗来说, 抽象类, 本质上是一类; 接口, 只是具有相似的行为.</p>
 					</div>
 
 					<div class="title">访问修饰符</div>
@@ -994,9 +1012,51 @@ partial class TheBigClass
 				<p class="text-danger">如果声明类时使用了下面的关键字, 这些关键字将应用于同一个类的所有部分: private, protected, internal, public, abstract, sealed, 基类, new, 一般约束.</p>
 			</div>
 
+			<!--匿名对象-->
 			<div class="title">匿名对象</div>
-			<div class="content open">
-TBD...
+			<div class="content closed">
+				<p class="text-strong">一、.NET 3.0时代开始引入匿名对象概念</p>
+				<p>.NET3.0 时, 微软加入了匿名对象. 可以让我们实例化对象而不需要为该对象定义类. 如何理解“实例化对象而不需要为该对象定义类”，还是用代码来解释吧:</p>
+				<pre class="prettyprint linenums">
+<code>
+private static Object GetAnonymousObj()
+{
+    Object anonymousObj = new { UserName = "admin", Password = "1111" };
+    return anonymousObj;
+}
+</code>
+				</pre>
+
+				<p class="text-strong"> 二、.NET 4.0中将匿名对象作为函数返回值</p>
+				<p>前面很简单的一段代码, 让我们将anonymousObj这个匿名对象作为了函数返回值. 但是在调用该函数时发现了问题, 我们没法这样做:</p>
+				<pre class="prettyprint linenums">
+<code>
+Object obj = GetAnonymousObj();
+Console.WriteLine(obj.UserName); // 这里将无法编译。因为obj对象是Object类型。
+</code>
+				</pre>
+
+				<p>因此在.net3.5时，我告诉同事这个还是不要这样实现的好。换个方法吧？当.NET4.0时代来临时，我们的问题得到妥善的解决 --- 先将上文中的GetAnonymousObj函数改造成返回dynamic 类型:</p>
+				<pre class="prettyprint linenums">
+<code>
+private static dynamic GetAnonymousObj()
+{
+    dynamic anonymousObj = new { UserName = "admin", Password = "1111" };
+    return anonymousObj;
+}
+</code>
+				</pre>
+
+				<p>接着调用GetAnonymousObj()方法:</p>
+				<pre class="prettyprint linenums">
+<code>
+static void Main(string[] args)
+{
+    dynamic o = GetAnonymousObj();
+    Console.WriteLine(o.UserName);
+}
+</code>
+				</pre>
 			</div>	
 		</div>
 	</div>
@@ -1007,12 +1067,12 @@ TBD...
 		<div class="list list-number">
 			<div class="title">定义对象</div>
 			<div class="content open">
-
-			</div>
-
-			<div class="title">多态性</div>
-			<div class="content open">
-
+				<pre class="prettyprint linenums">
+<code>
+MyClass obj = new MyClass();    // ① MyClass obj声明了一个MyClass类型的变量 ② new MyClass()创建了一个MyClass类型对象 ③ 最后obj指向了这个对象
+MyClass obj = new MyClass() { 属性1 = 值1, 属性2 = 值2};    // 定义的同时给属性赋值(Since .NET 4.0)
+</code>
+				</pre>
 			</div>
 		</div>
 	</div>
@@ -1022,25 +1082,91 @@ TBD...
 	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">对象复制</div>
-			<div class="content open">
-
+			<div class="content closed">
+				<p class="text-strong">1. MemberwiseClone</p>
+				<p>调用受保护的方法: System.Object.MemberwiseClone(), 只能实现浅复制.</p>
+				<p class="text-strong">2. ICloneable</p>
+				<p>可根据需要实现深/浅复制.</p>
 			</div>
 
 			<div class="title">对象比较</div>
-			<div class="content open"></div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">给对象添加比较功能</div>
+					<div class="content open">
+						<p class="text-strong">IComparable</p>
+						<p>int CompareTo(Object obj)</p>
+						<p class="text-strong">IComparer</p>
+						<p>int Compare(Object x, Object y)</p>
+					</div>
 
-			<div class="title">使用类别库</div>
-			<div class="content open">
+					<div class="title">比较类</div>
+					<div class="content open">
+						<p class="text-strong">1. Comparer</p>
+						<p>
+							Comparer.Default: 比较过程使用当前线程的 Thread.CurrentCulture 来确定排序顺序和大小写规则. <br>
+							Comparer.DefaultInvariant: 比较过程使用 CultureInfo.InvariantCulture 确定排序顺序和大小写规则
+						</p>
+						<p>
+							使用这个类的注意事项: <br>
+							1) 传送给Comparer.Compare()的对象, 必须支持IComparable. <br>
+							2) 允许使用null值, 它表示"小于"其他对象. <br>
+							3) 字符串根据当前文化来处理. 要根据不同的文化(或语言)处理字符串, Comparer类必须使用其构造函数进行实例化, 以便传送指定文化的System.Globalization.CultureInfo对象. <br>
+							4) 字符串在处理是要区分大小写. 如果要以不区分大小写的方式来处理它们, 就需要使用下面的类 - CaseInsensitiveComparer, 该类以相同的方式工作. 
+						</p>
 
-			</div>
-
-			<div class="title">抽象类 vs 抽象接口</div>
-			<div class="content open">
+						<p class="text-strong">2. CaseInsensitiveComparer</p>
+					</div>
+				</div>
 
 			</div>
 
 			<div class="title">添加迭代器功能</div>
 			<div class="content open">
+				<div class="list list-number">
+					<div class="title">默认迭代器</div>
+					<div class="content open">
+						<p>
+							① 实现IEnumerable接口 ( 只有一个成员IEnumerator GetEnumerator() ) <br>
+							② 定义一个方法, 原型为: public IEnumerator GetEnumerator()
+						</p>
+						<pre class="prettyprint linenums">
+<code>
+// 添加迭代功能
+public IEnumerator GetEnumerator()
+{
+    for ( int i = 0; i < 10; ++i )
+        yield return i;
+}
+
+// 使用迭代器
+foreach( int i in enumerableObject ){
+    Console.WriteLine(i);
+}
+</code>
+						</pre>
+					</div>
+
+					<div class="title">命名迭代器</div>
+					<div class="content open">
+						<p>在类中定义一个方法: 只需要返回IEnumerable类型即可</p>
+						<pre class="prettyprint linenums">
+<code>
+// 添加迭代器功能	
+public IEnumerable Reverse()
+{
+    for ( int i = 9; i >=0; --i )
+         yield return i;
+}
+
+// 使用命名迭代器
+foreach( int i in enumerableObject.Reverse() ){
+    Console.WriteLine(i);
+}
+</code>
+						</pre>
+					</div>
+				</div>
 
 			</div>
 

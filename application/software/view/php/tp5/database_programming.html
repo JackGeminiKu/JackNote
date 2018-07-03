@@ -1,6 +1,7 @@
 {include file="php/tp5/template/header" title="TP5 数据库编程" /}
 
 <div class="list list-number">
+	<!--准备工作-->
     <div class="title">准备工作</div>
     <div class="content closed">
 		<p class="text-strong">数据库配置</p>
@@ -30,24 +31,187 @@ class Index
 		</pre>
     </div>
 
+	<!--原生SQL查询-->
     <div class="title">原生SQL查询( Db::query & Db::execute)</div>
-    <div class="content open">
-		<p>原生的SQL查询操作, 包括query和execute两个方法: </p>
-		<pre class="prettyprint linenums">
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">query & execute</div>
+			<div class="content closed">
+				<p>
+					原生的SQL查询操作, 包括query和execute两个方法: <br>
+					1) query方法用于查询, 默认情况下返回的是二维数组; <br>
+					2) execute方法用于写操作, 返回值是影响的记录数.
+				</p>
+				<pre class="prettyprint linenums">
 <code>
-// query方法用于查询, 默认情况下返回的是数据集(二维数组)
 $result = Db::query('select * from think_data where id = 5');
 $result = Db::query('show tables from demo');
 
-// execute方法用于写操作, 返回值是影响的记录数
 $result = Db::execute('insert into think_data (id, name ,status) values (5, "thinkphp",1)');
 $result = Db::execute('update think_data set name = "framework" where id = 5 ');
 $result = Db::execute('delete from think_data where id = 5 ');
 $result = Db::execute('TRUNCATE table think_data');
 </code>
-		</pre>
+				</pre>
+			</div>
 
+			<div class="title">切换数据库</div>
+			<div class="content closed">
+				<p>在进行数据库查询的时候, 支持切换数据库进行查询, 可以使用Db::connect()</p>
+				<pre class="prettyprint linenums">
+<code>
+$result = Db::connect([
+    'type' => 'mysql',            // 数据库类型
+    'hostname' => '127.0.0.1',    // 服务器地址
+    'database' => 'thinkphp',     // 数据库名
+    'username' => 'root',         // 数据库用户名
+    'password' => '123456',       // 数据库密码
+    'hostport' => '',             // 数据库连接端口
+    'params' => [],               // 数据库连接参数
+    'charset' => 'utf8',          // 数据库编码默认采用utf8
+    'prefix' => 'think_',         // 数据库表前缀
+])->query('select * from think_data');
+</code>
+				</pre>
+
+				<p>或者采用字符串方式定义（字符串方式无法定义数据表前缀和连接参数）, 如下：</p>
+				<pre class="prettyprint linenums">
+<code>
+$result = Db::connect('mysql://root:123456@127.0.0.1:3306/thinkphp#utf8')
+    ->query('select * from think_data where id = 1');
+</code>
+				</pre>
+
+				<p>为了简化代码, 推荐的做法是事先在配置文件中定义好多个数据库的连接配置, 例如, 我们在应用配置文件（application/config.php）中添加配置如下：</p>
+				<pre class="prettyprint linenums">
+<code>
+// 数据库配置1
+'db1' => [
+    ....
+],
+
+// 数据库配置2
+'db2' => [
+    ...
+],
+
+$result = Db::connect('db1')->query('select * from think_data where id = 1');
+$result = Db::connect('db2')->query('select * from think_data where id = 1');
+</code>
+				</pre>
+
+				<p>connect方法中的配置参数需要完整定义, 并且仅仅对当此查询有效, 下次调用Db类的时候还是使用默认的数据库连接. 如果需要多次切换数据库查询, 可以使用：</p>
+				<pre class="prettyprint linenums">
+<code>
+$db1 = Db::connect('db1');
+$db2 = Db::connect('db2');
+$db1->query('select * from think_data where id = 1');
+$db2->query('select * from think_data where id = 1');
+</code>
+				</pre>
+			</div>
+
+			<div class="title">使用占位符</div>
+			<div class="content closed">
+				<p>?占位符</p>
+				<pre class="prettyprint linenums">
+<code>
+Db::execute('insert into think_data (id, name ,status) values (?, ?, ?)', [8, 'thinkphp', 1]);    // 数字索引数组
+</code>
+				</pre>
+
+				<p>:占位符</p>
+				<pre class="prettyprint linenums">
+<code>
+Db::execute('insert into think_data (id, name , status) values (:id, :name, :status)', ['id' => 10, 'name' => 'thinkphp', 'status' => 1]);    // 字符串索引数组
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
+
+	<div class="title">查询构造器</div>
+	<div class="content open">
+		<div class="list list-number">
+			<div class="title">table(), name() & db()</div>
+			<div class="content open">
+				<p>
+					查询构造器基于PDO实现, 对不同的数据库驱动都是统一的语法. <br>
+					TP5的查询构造器使用PDO参数绑定, 以保护应用程序免于SQL注入, 因此传入的参数不需额外转义特殊字符.
+				</p>
+				<p class="text-strong">Db::table()</p>
+				<pre class="prettyprint linenums">
+<code>
+// 插入
+Db::table('think_data')
+    ->insert(['id' => 18, 'name' => 'thinkphp', 'status' => 1]);
+
+// 更新
+Db::table('think_data')
+    ->where('id', 18)
+    ->update(['name' => "hello"]);
+
+// 查询
+$list = Db::table('think_data')
+    ->where('id', 18)
+    ->select();
+
+// 删除
+Db::table('think_data')
+    ->where('id', 18)
+    ->delete();
+</code>
+				</pre>
+
+				<p class="text-strong">Db:name()</p>
+				<p>不需要表前缀, 其他同Db:table()</p>
+
+				<p class="text-strong">db()助手函数</p>
+				<p>使用助手函数db则可以进一步简化查询代码：</p>
+				<pre class="prettyprint linenums">
+<code>
+$table = db('data');
+
+// 插入记录
+$table->insert(['id' => 20, 'name' => 'thinkphp']);
+
+// 更新记录
+$table->where('id', 20)
+   ->update(['name' => "framework"]);
+
+// 查询数据
+$list = $db->where('id', 20)
+           ->select();
+
+// 删除数据
+$table->where('id', 20)
+   ->delete();
+</code>
+				</pre>
+				<p class="text-danger">备注: db助手函数默认会每次重新连接数据库, 因此应当尽量避免多次调用.</p>
+			</div>
+
+			<div class="title">查询方法</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">XXX</div>
+			<div class="content open">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="title">模型的对象化查询</div>
+	<div class="content open">
+
+	</div>
+
+	<div class="title">事物支持</div>
+	<div class="content open">
+
+	</div>
 </div>
 
 {include file="php/tp5/template/footer" /}
