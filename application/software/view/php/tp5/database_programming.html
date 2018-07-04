@@ -133,8 +133,10 @@ Db::execute('insert into think_data (id, name , status) values (:id, :name, :sta
 	<div class="title">查询构造器</div>
 	<div class="content open">
 		<div class="list list-number">
+
+			<!--table(), name() & db()-->
 			<div class="title">table(), name() & db()</div>
-			<div class="content open">
+			<div class="content closed">
 				<p>
 					查询构造器基于PDO实现, 对不同的数据库驱动都是统一的语法. <br>
 					TP5的查询构造器使用PDO参数绑定, 以保护应用程序免于SQL注入, 因此传入的参数不需额外转义特殊字符.
@@ -192,13 +194,308 @@ $table->where('id', 20)
 			</div>
 
 			<div class="title">查询方法</div>
-			<div class="content open">
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">select</div>
+					<div class="content closed">
+						<p>
+							返回满足条件的所有记录. <br>
+							如果查询成功, 返回的是一个二维数组; 否则, 返回空数组（也支持设置是否需要抛出异常）.
+						</p>
+					</div>
 
+					<div class="title">find</div>
+					<div class="content closed">
+						<p>
+							返回满足条件的第1条记录. <br>
+							如果查询成功, 返回的是一个一维数组, 否则, 返回null（也支持设置是否抛出异常）.
+						</p>
+					</div>
+
+					<div class="title">insert</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">update</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">delete</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">value</div>
+					<div class="content closed">
+						<p>返回满足条件的第一笔记录中某个字段的值. 例如: </p>
+						<pre class="prettyprint linenums">
+<code>
+$name = Db::name('data')
+    ->where('id', 8)
+    ->value('name');
+</code>
+						</pre>
+					</div>
+
+					<div class="title">column</div>
+					<div class="content closed">
+						<p>
+							返回满条件的所有记录中某个字段的值. <br>
+							如果查询成功, 返回的是一个一维数组; 否则, 返回空数组（也支持设置是否需要抛出异常）
+						</p>
+
+						<p class="text-strong">获取name列的值</p>
+						<pre class="prettyprint linenums">
+<code>
+$list = Db::name('data')
+    ->where('status', 1)
+    ->column('name');
+</code>
+						</pre>
+						<p>返回的结果类似下面:</p>
+						<pre class="prettyprint linenums">
+<code>
+array (size=5)
+    0 => string 'thinkphp' 
+    1 => string 'onethink' 
+    2 => string 'topthink'
+    3 => string 'kancloud'
+</code>
+						</pre>
+
+						<p class="text-strong">获取name列的值, 索引是id</p>
+						<pre class="prettyprint linenums">
+<code>
+$list = Db::name('data')
+    ->where('status', 1)
+    ->column('name', 'id');
+</code>
+						</pre>	
+						<p>返回的结果类似下面:</p>
+						<pre class="prettyprint linenums">
+<code>
+array (size=5)
+    1 => string 'thinkphp' 
+    2 => string 'onethink' 
+    3 => string 'topthink' 
+    4 => string 'kancloud'
+</code>
+						</pre>
+
+						<p class="text-strong">获取所有列的值, 索引是id</p>
+						<pre class="prettyprint linenums">
+<code>
+$list = Db::name('data')
+    ->where('status', 1)
+    ->column('*', 'id');
+</code>
+						</pre>	
+						<p>返回的结果类似下面:</p>
+						<pre class="prettyprint linenums">
+<code>
+array (size=5)
+    1 => array (size=3)
+        'id' => int 1
+        'name' => string 'thinkphp'
+        'status'=> int 1
+    2 => array (size=3) 
+        'id' => int 1
+        'name' => string 'onethink'
+        'status'=> int 1 
+    3 => array (size=3) 
+        'id' => int 1
+        'name' => string 'topthink'
+        'status'=> int 1 
+    4 => array (size=3) 
+        'id' => int 1
+        'name' => string 'kancloud'
+        'status'=> int 1
+</code>
+						</pre>	
+					</div>
+
+					<div class="title">chunk</div>
+					<div class="content closed">
+						<p>分块查询</p>
+					</div>
+
+					<div class="title">count</div>
+					<div class="content closed">
+						<p>聚合函数</p>
+					</div>
+				</div>
 			</div>
 
-			<div class="title">XXX</div>
-			<div class="content open">
+			<div class="title">查询条件</div>
+			<div class="content closed">
+				<p>使用表达式查询的时候, where方法的参数依次为：where(字段名,  条件表达式, 查询值).</p>
+				<p>ThinkPHP支持的查询表达式包括:</p>
+				<table class="table table-bordered table-sm">
+					<tbody>
+						<tr>
+							<th>表达式</th>
+							<th>范例</th>
+							<th>备注</th>
+						</tr>
+						<tr>
+							<td>EQ, =</td>
+							<td>where('id', '=', 1)</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>NEQ, <></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>GT, ></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>EGT, >=</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>LT, <</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>ELT, <=</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>LIKE</td>
+							<td>where('name', 'like', '%think%')</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>[NOT] BETWEEN</td>
+							<td>where('id', 'between', [1,3])</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>[NOT] IN</td>
+							<td>where('id', 'in', [1,2,3])</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>[NOT] NULL</td>
+							<td>where('id', 'null')</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>[NOT] EXISTS</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>EXP</td>
+							<td>where('id', 'exp', '>=1')</td>
+							<td>exp查询的条件不会被当成字符串，所以后面的查询条件可以使用任何SQL支持的语法，包括使用函数和字段名称。where('id', 'exp', '>=1') = where('id', '>', 1)</td>
+						</tr>
+					</tbody>
+				</table>	
+				<p class="text-danger">备注: 条件表达式不区分大小写</p>
 
+				<div class="list list-number">
+					<div class="title">多条件查询</div>
+					<div class="content closed">
+						<p class="text-strong">在一个where函数中使用多个查询表达式</p>
+						<pre class="prettyprint linenums">
+<code>
+$result = Db::name('data')
+    ->where('id', ['in', [1, 2, 3]], ['between', '5,8'], 'or')
+    ->select();
+</code>
+						</pre>
+
+						<p class="text-strong">多个where函数之间是and关系</p>
+						<pre class="prettyprint linenums">
+<code>
+$result = Db::name('data')
+    ->where('id', 'between', [1, 3])
+    ->where('name', 'like', '%think%')
+    ->select();
+</code>
+						</pre>
+
+						<p class="text-strong">快捷查询</p>
+						<p>如果你有多个字段需要使用相同的查询条件，可以使用快捷查询. 例如, 我们要查询id和status都大于0的数据, 可以使用：</p>
+						<pre class="prettyprint linenums">
+<code>
+$result = Db::name('data')
+    ->where('id&status', '>', 0)
+    ->select();
+</code>
+						</pre>
+						<p>也可以使用or方式查询, 例如:</p>
+						<pre class="prettyprint linenums">
+<code>
+$result = Db::name('data')
+    ->where('id|status', '>', 0)
+    ->select();
+</code>
+						</pre>
+					</div>
+
+					<div class="title">原生字符串查询</div>
+					<div class="content closed">
+						<p>在必要的时候, 仍然可以使用原生的字符串查询, 但建议是配合参数绑定一起使用, 可以避免注入问题, 例如：</p>
+						<pre class="prettyprint linenums">
+<code>
+$result = Db::name('data')
+    ->where('id > :id AND name IS NOT NULL', ['id' => 10])
+    ->select();
+</code>
+						</pre>
+					</div>
+
+					<div class="title">时间（日期）查询</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+$result = Db::name('data')
+    ->whereTime('create_time', '>', '2016-1-1')    // 大于某天
+    ->select();
+
+$result = Db::name('data')
+    ->whereTime('create_time', 'between', ['2016-1-1', '2016-7-1'])    // 位于某段时间内
+    ->select();
+
+$result = Db::name('data')
+    ->whereTime('create_time', '>', '-2 days')    // 最近两天添加的数据
+    ->select();
+
+$result = Db::name('data')
+    ->whereTime('create_time', 'yesterday')    // 昨天
+    ->select();
+
+$result = Db::name('data')
+    ->whereTime('create_time', 'today')    // 今天
+    ->select();
+
+$result = Db::name('data')
+    ->whereTime('create_time', 'last week')    // 上周
+    ->select()
+
+$result = Db::name('data')
+    ->whereTime('create_time', 'this week')    // 本周
+    ->select();
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">视图查询</div>
+			<div class="content closed">
+				tbd...
 			</div>
 		</div>
 	</div>

@@ -9,8 +9,10 @@
 			<!--普通类-->
 			<div class="title">普通类</div>
 			<div class="content open">
-				<p>[ internal | public ] class 类名 : 基类, 接口1, 接口2...<br></p>
-				<p>{</p>
+				<p>
+					[ internal | public ] class 类名 : 基类, 接口1, 接口2... <br>
+					{
+				</p>
 				<div class="pl-4">
 					<div class="list list-square">
 						<!--数据-->
@@ -643,16 +645,16 @@ pClass = null;
 					<div class="title">继承 vs 接口</div>
 					<div class="content closed">
 						<p class="text-strong">继承</p>
+						<p>当且仅当两个类之间是"is-a"关系时, 才能考虑使用继承! C#支持单继承!</p>
+
 						<p>
 							如果子类派生于父类, 那么:<br>
-							1) 子类自动继承父类除private外的所有属性, 事件 & 方法; <br> 
-							2) 子类可以重写继承自父类的属性,事件和方法; <br>
-							3) 子类可以添加父类没有的属性, 事件和方法.
+							1) 继承: 子类自动继承父类除private外的所有属性, 事件 & 方法; <br> 
+							2) 重写: 子类可以重写继承自父类的属性,事件和方法; <br>
+							3) 新增: 子类可以添加父类没有的属性, 事件和方法.
 						</p>
 
-						<p>当且仅当两个类之间是"is-a"关系时, 才能考虑使用继承!</p>
-
-						<p>所有的.NET类都派生于System.Object. 实际上, 如果在定义类时没有指定基类, 编译器就会自动假定这个类派生于Object.</p>
+						<p>所有的.NET类最后都派生于Object. 实际上, 如果在定义类时没有指定基类, 编译器就会自动假定这个类派生于Object.</p>
 
 						<p class="text-strong">接口</p>
 						<p>表示一个类型只继承了函数的签名, 却没有继承任何实现代码.</p>
@@ -667,15 +669,30 @@ pClass = null;
 						</p>
 						<p>
 							不同点: <br>
-							派生类只能继承一个基类, 而类可以实现任意多个接口. <br>
-							抽象类可以拥有抽象成员和非抽象成员. 而接口成员必须都在使用接口的类上实现, 它们没有代码. <br>
+							一个类只能继承一个抽象类, 但是可以实现多个接口等等.. <br>
+							抽象类可以给出一些成员的实现, 但是接口不能包含成员的实现! <br>
+							抽象类的抽象成员可以被子类部分实现, 但是接口的成员需要实现类完全实现! <br>
 							接口成员只能是公共的, 但抽象类的成员没有限制. <br>
 							接口不能包含字段, 构造函数, 析构函数, 静态成员或常量
 						</p>
 						<p>
 							这说明这两种类型用于完全不同的目的. 
 							抽象类主要用作对象系列的基类, 共享某些主要特性, 例如共同的目的和结构. 接口则主要用于类, 这些类在基础水平上有所不同, 但仍可以完成某些相同的任务. <br>
-							通俗来说, 抽象类, 本质上是一类; 接口, 只是具有相似的行为.</p>
+							通俗来说, 抽象类, 本质上是一类; 接口, 只是具有相似的行为.
+						</p>
+						<p>上面是从两者的形态上去区分的, 我觉得还有三点式能帮助我们去区分抽象类和接口的.</p>
+
+						<p>1) 类是对对象的抽象, 抽象类是对类的抽象, 接口是对行为的抽象. <br>
+							接口是对类的局部(行为)进行的抽象, 而抽象类是对类整体(字段, 属性, 方法)的抽象. 如果只关注行为抽象, 那么也可以认为接口就是抽象类. 总之, 不论是接口, 抽象类, 类甚至对象, 都是在不同层次, 不同角度进行抽象的结果, 它们的共性就是抽象.
+						</p>
+
+						<p>2) 如果行为跨越不同类的对象, 可以使用接口; 对于一些相似的类对象, 则用继承抽象类. <br>
+							比如猫啊狗啊它们其实都是动物, 它们之间有很多相似的地方, 所以我们应该让它们去继承动物这个抽象类, 而飞机, 麻雀, 超人是完全不相关的类, 叮当是动漫角色, 孙悟空是古代神话人物, 这也是不相关的类, 但它们又是有共同点的, 前三个都会飞, 而后两个都会变出东西, 所以此时让它们去实现相同的接口来达到我们的设计目的就很合适了.
+						</p>
+
+						<p>3) 从设计角度讲, 抽象类是从子类中发现了公共的东西, 泛化出父类, 然后子类继承父类, 而接口是根本不知子类的存在, 方法如何实现还不确认, 预先定义. <br>
+							这里其实说明的是抽象类和接口设计的思维过程. 回想一下我们今天刚开始讲的时候, 先是有一个Cat类, 然后再有一个Dog类, 观察后发现它们有类似之处, 于是泛化出Animal类, 这也体现了敏捷开发的思想, 通过重构改善既有代码的设计. 事实上, 只有小猫的时候, 你就去设计一个动物类, 这就极有可能会成为过度设计了. 所以说抽象类往往都是通过重构得来的, 当然, 如果你事先意识到多种分类的可能, 那么实现就设计出抽象类也是完全可以的. 而接口就完全不是一回事, 比如我们是动物运动会的主办方, 在策划时, 大家就坐在一起考虑需要组织什么样的比赛, 大家商议后, 觉得应该设置如跑得最快, 跳得最高, 飞得最远, 叫得最响, 力气最大等等比赛项目, 而此时, 主办方其实还不太清楚会有什么样的动物来参加运动会, 所有的这些比赛项目都可能是完全不相同的动物在比, 它们将如何去实现这些行为也不得而知, 此时, 能做的事就是事先定义这些比赛目的的行为接口.
+						</p>
 					</div>
 
 					<div class="title">访问修饰符</div>
@@ -1061,25 +1078,9 @@ static void Main(string[] args)
 		</div>
 	</div>
 
-	<!--定义对象-->
-	<div class="title">定义对象</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">定义对象</div>
-			<div class="content open">
-				<pre class="prettyprint linenums">
-<code>
-MyClass obj = new MyClass();    // ① MyClass obj声明了一个MyClass类型的变量 ② new MyClass()创建了一个MyClass类型对象 ③ 最后obj指向了这个对象
-MyClass obj = new MyClass() { 属性1 = 值1, 属性2 = 值2};    // 定义的同时给属性赋值(Since .NET 4.0)
-</code>
-				</pre>
-			</div>
-		</div>
-	</div>
-
 	<!--高级功能-->
 	<div class="title">高级功能</div>
-	<div class="content closed">
+	<div class="content open">
 		<div class="list list-number">
 			<div class="title">对象复制</div>
 			<div class="content closed">
@@ -1122,7 +1123,7 @@ MyClass obj = new MyClass() { 属性1 = 值1, 属性2 = 值2};    // 定义的�
 			</div>
 
 			<div class="title">添加迭代器功能</div>
-			<div class="content open">
+			<div class="content closed">
 				<div class="list list-number">
 					<div class="title">默认迭代器</div>
 					<div class="content open">
@@ -1241,29 +1242,6 @@ class Program
 			</div>
 		</div>
 	</div>
-
-	<!--对象之间的关系-->
-	<div class="title">对象之间的关系</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">继承 vs 接口</div>
-			<div class="content open">
-
-			</div>
-
-			<div class="title">包含</div>
-			<div class="content open">
-
-			</div>
-
-			<div class="title">集合</div>
-			<div class="content open">
-
-			</div>
-		</div>
-
-	</div>
-
 </div>
 
 {include file="template/footer" /}
