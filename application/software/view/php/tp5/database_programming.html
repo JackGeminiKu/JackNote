@@ -316,14 +316,40 @@ array (size=5)
 						</pre>	
 					</div>
 
-					<div class="title">chunk</div>
+					<div class="title">聚合查询</div>
 					<div class="content closed">
-						<p>分块查询</p>
+						<p>ThinkPHP为聚合查询提供了更便捷的方法, 如下:</p>
+						<pre class="prettyprint linenums">
+<code>
+$max = Db::name('user')
+    ->where('status', 1)
+    ->max('score');
+</code>
+						</pre>	
+						<p>支持的聚合查询方法包括: count(), max(), min(), avg(), sum().</p>
 					</div>
 
-					<div class="title">count</div>
+					<div class="title">限制返回记录数量</div>
 					<div class="content closed">
-						<p>聚合函数</p>
+						<p>例如获取满足要求的10个用户，如下调用即可：</p>
+						<pre class="prettyprint linenums">
+<code>
+Db::table('think_user')
+    ->where('status=1')
+    ->field('id,name')
+    ->limit(10)
+    ->select();
+</code>
+						</pre>	
+
+						<p>查询文章数据，从第10行开始的25条数据（可能还取决于where条件和order排序的影响 这个暂且不提）</p>
+						<pre class="prettyprint linenums">
+<code>
+Db::table('think_article')
+    ->limit(10,25)
+    ->select();
+</code>
+						</pre>	
 					</div>
 				</div>
 			</div>
@@ -495,7 +521,83 @@ $result = Db::name('data')
 
 			<div class="title">视图查询</div>
 			<div class="content closed">
-				tbd...
+				<p>如果需要快捷查询多个表的数据, 可以使用视图查询, 相当于在数据库创建了一个视图, 但仅仅支持查询操作, 例如:</p>
+				<pre class="prettyprint linenums">
+<code>
+$result = Db::view('user', 'id,name,status')
+    ->view('profile', ['name' => 'truename', 'phone', 'email'], 'profile.user_id = user.id')
+    ->where('status', 1)
+    ->order('id desc')
+    ->select();
+</code>
+				</pre>
+
+				<p>生成的SQL语句为:</p>
+				<pre class="prettyprint linenums">
+<code>
+SELECT user.id, user.name, user.status, profile.name AS truename, profile.phone, profile.email 
+FROM think_user user 
+INNER JOIN think_profile profile ON profile.user_id=user.id 
+WHERE user.status = 1 order by user.id desc
+</code>
+				</pre>
+			</div>
+
+
+			<div class="title">分块查询</div>
+			<div class="content closed">
+				<p>假设think_data表有超过100万条记录, 一次性查询那么大的数据会导致内存开销非常之大, 但确实又有这个需要（例如查询所有的数据并导出到excel）, 采用分块查询可以缓解这个问题.</p>
+
+				<p>下面这个例子, 系统会按照主键顺序查询, 每次查询100条.</p>
+				<pre class="prettyprint linenums">
+<code>
+Db::name('user')
+    ->where('status', '>', 0)
+    ->chunk(100, function($list){    // 第二个参数可以是有效的callback类型, 包括使用闭包函数. 
+        // 每次$list里面都有100条记录
+    });
+</code>
+				</pre>
+
+				<p>如果你不希望使用主键进行查询, 或者没有主键的话, 则需要指定查询的排序字段（但必须是唯一的）, 例如：</p>
+				<pre class="prettyprint linenums">
+<code>
+Db::name('user')
+    ->where('status', '>', 0)
+    ->chunk(100, function ($list) {
+        // 每次$list里面都有100条记录
+}, 'uid');
+</code>
+				</pre>
+
+				<p>如果你需要在中途中断后续的查询, 只需要在callback方法调用中返回false即可, 例如：</p>
+				<pre class="prettyprint linenums">
+<code>
+Db::name('data')
+    ->where('status','>',0)
+    ->chunk(100,function($list){
+        // 返回false则中断后续查询
+        return false; 
+});
+</code>
+				</pre>
+			</div>
+
+			<div class="title">链式操作</div>
+			<div class="content closed">
+				<p>使用链式操作可以完成复杂的数据库查询操作, 例如：</p>
+				<pre class="prettyprint linenums">
+<code>
+$list = Db::name('data')
+    ->where('status', 1)
+    ->field('id, name')
+    ->order('id', 'desc')
+    ->limit(10)
+    ->select();
+</code>
+				</pre>
+
+				<p class="text-danger">备注: 链式操作不分先后, 只要在查询方法（这里是select方法）之前调用就行! 基本都支持链式操作!</p>
 			</div>
 		</div>
 	</div>
@@ -506,8 +608,37 @@ $result = Db::name('data')
 	</div>
 
 	<div class="title">事物支持</div>
-	<div class="content open">
+	<div class="content closed">
+		<p>对于事务的支持, 最简单的方法就是使用transaction方法, 例如：</p>
+		<pre class="prettyprint linenums">
+<code>
+Db::transaction(function() {
+    Db::table('think_user')
+        ->delete(1);
+    Db::table('think_data')
+        ->insert(['id' => 28, 'name' => 'thinkphp', 'status' => 1]);
+});
+</code>
+		</pre>
+		<p>一旦think_data表写入失败的话, 系统会自动回滚, 写入成功的话系统会自动提交当前事务.</p>
 
+		<p>也可以手动控制事务的提交, 上面的实现代码可以改成：</p>
+		<pre class="prettyprint linenums">
+<code>
+Db::startTrans();    // 1. 启动事务
+try {
+    Db::table('think_user')
+        ->delete(1);
+    Db::table('think_data')
+        ->insert(['id' => 28, 'name' => 'thinkphp', 'status' => 1]);
+    Db::commit();    // 2. 提交事务
+} catch (\Exception $e) {
+    Db::rollback();    // 3. 回滚事务
+}
+</code>
+		</pre>
+
+		<p class="text-danger">注意: 由于需要用到事务的功能, 请先修改数据表的类型为InnoDB, 而不是MyISAM.</p>
 	</div>
 </div>
 
