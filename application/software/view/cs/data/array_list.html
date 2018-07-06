@@ -1,0 +1,68 @@
+{include file="template/header" title="C# ArrayList" /}
+
+<p>Implements the IList interface using an array whose size is dynamically increased as required.</p>
+<p>ArrayList在使用值类型数据时, 会不断地做装箱和拆箱的工作, 这显然是非常糟糕的事情.</p>
+
+<div class="list list-number">
+    <div class="title">定义</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+ArrayList animalArrayList = new ArrayList();
+</code>
+		</pre> 
+    </div>
+
+    <div class="title">操作</div>
+    <div class="content closed">
+		<p class="text-strong">添加元素</p>
+		<pre class="prettyprint linenums">
+<code>
+Add(Object);
+AddRange(ICollection);
+InsertRange(index,ICollection);
+</code>
+		</pre> 
+
+		<p class="text-strong">删除元素</p>
+		<pre class="prettyprint linenums">
+<code>
+Remove( );   
+RemoveAt( );
+</code>
+		</pre> 
+		<p class="text-danger">注: 删除当前索引的项, 会使后面的项前移一个位置.</p>
+
+		<p class="text-strong">访问元素</p>
+		<pre class="prettyprint linenums">
+<code>
+arrayList[0];    // 由于ArrayList是Object对象的集合, 所以可能需要类型转换.
+</code>
+		</pre> 
+
+		<p class="text-strong">查找</p>
+		<pre class="prettyprint linenums">
+<code>
+IndexOf( );
+</code>
+		</pre> 
+
+		<p class="text-strong">获取长度</p>
+		<pre class="prettyprint linenums">
+<code>
+arrayList.Count;
+</code>
+		</pre> 
+
+		<p class="text-strong">排序</p>
+		<pre class="prettyprint linenums">
+<code>
+arrayList.Sort();	// 使用每个元素的 IComparable 实现对整个 ArrayList 中的元素进行排序。
+aarrayList.Sort(IComparer);    // 使用指定的比较器对整个 ArrayList 中的元素进行排序。
+arrayList.Sort(Int32, Int32, IComparer);    // 使用指定的比较器对 ArrayList 中某个范围内的元素进行排序。
+</code>
+		</pre> 
+    </div>
+</div>
+
+{include file="template/footer" /}

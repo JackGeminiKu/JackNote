@@ -1,0 +1,28 @@
+{include file="template/header" title="C# CollectionBase" /}
+<pre class="prettyprint linenums">
+<code>
+public class Animals : CollectionBase
+ {
+     public Animals()
+     {
+     }
+ 
+     public Animal this[int animalIndex]    // 添加index功能
+     {
+         get { return (Animal) List[animalIndex]; }    // List属性返回Object对象.
+         set { List[animalIndex] = value; }
+     }
+ 
+     public void Add(Animal newAnimal)
+     {
+         List.Add(newAnimal);
+     }
+ 
+     public void Remove(Animal oldAnimal)
+     {
+         List.Remove(oldAnimal);
+     }
+ }
+</code>
+</pre>
+{include file="template/footer" /}
