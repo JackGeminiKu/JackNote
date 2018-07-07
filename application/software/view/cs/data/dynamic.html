@@ -1,0 +1,65 @@
+{include file="template/header" title="C# dynamic" /}
+<p>C#新增了dynamic关键字，正因为这一个小小的关键字，C#动态特性向前迈进了一大步。</a>
+
+<p>
+	dynamic是一个类型关键字，声明为dynamic的类型与"静态类型"（这里的静态类型是指编译时确定的类型，下同）相比最大的特点它是"动态类型"，它会运行时尝试调用方法，这些方法的存在与否不是在编译时检查的，而是在运行时查找，如果方法存在并且参数正确，会正常调用，否则会抛出Microsoft.CSharp.RuntimeBinder.RuntimeBinderException异常。
+</p>
+
+<div class="list list-number">
+    <div class="title">dynamic类型可以执行的操作</div>
+    <div class="content open">
+		<p>
+			赋值 <br>
+			方法调用 <br>
+			自增 <br>
+			自减 <br>
+			接受"静态类型"的构造器创建的对象
+		</p>
+    </div>
+
+    <div class="title">与关键字var的比较</div>
+    <div class="content open">
+		<p>
+			var是语法糖<br>
+			var关键字被称为：隐含类型局部变量(Local Variable Type Inference)，var只能用作局部变量，不能用于字段、参数等；声明的同时必须初始化；初始化时类型就已经明确了，并且不能再被赋值不能进行隐式类型转换的类型的数据；编译时编译器会对var定义的变量进行类型推断，这时变量的类型已经被确定。
+		</p>
+
+		<p>
+			dynamic是一种数据类型<br>
+			dynamic可用于类型的字段，方法参数，方法返回值，可用于泛型的类型参数等；可以赋值给或被赋值任何类型并且不需显式的强制类型转换，因为这些是运行时执行的，这要得益于dynamic类型的动态特性。
+		</p>
+    </div>
+
+	<div class="title">与反射的比较</div>
+    <div class="content open">
+		<p>首先能看到的是，dynamic与反射相比，执行相同操作所需的代码少的多。</p>
+
+		<p>用反射调用</p>
+		<pre class="prettyprint linenums">
+<code>
+Assembly a = Assembly.GetExecutingAssembly(); 
+object instance = a.CreateInstance("System.object"); 
+Type type = instance.GetType(); 
+MethodInfo mi = type.GetMethod("ToString"); 
+object result = mi.Invoke(instance, null);
+</code>
+		</pre>
+
+		<p>用dynamic调用</p>
+		<pre class="prettyprint linenums">
+<code>
+dynamic myInfo = new object();
+string result = myInfo.ToString();
+</code>
+		</pre>
+
+		<p class="text-danger">dynamic类型与反射相比能进行的操作要少的多. 但是目前dynamic类型对属性调用是不可用的, 而且反射还可以访问私有方法字段以及其它类型成员及取得类型及类型成员的信息等.</p>
+    </div>
+
+	<div class="title">效率问题</div>
+    <div class="content open">
+		<p>效率问题应该是大家很关心的，我的感觉：不要对动态语言有很高的效率抱有太大的希望. 但另一方面，算法的设计对效率的影响非常大，功能与性能经常存在一个平衡点.</p>
+    </div>
+</div>
+
+{include file="template/footer" /}

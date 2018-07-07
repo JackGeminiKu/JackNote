@@ -1,0 +1,32 @@
+{include file="template/header" title="C# DictionaryBase" /}
+
+<p>DictionaryBase是key&value类型集合, key&value都是object类型. 一般作为自定义Dictionary的基类.</p>
+<pre class="prettyprint linenums">
+<code>
+public class Animals : DictionaryBase
+{
+    public Animals()    // Constructor
+    {
+    }
+
+    public Animal this[string animalID]    // 添加key功能
+    {
+        get { return (Animal)Dictionary[animalID]; }
+        set { Dictionary[animalID] = value; }
+    }
+
+    public void Add(string newID, Animal newAnimal)    // Add
+    {
+        Dictionary.Add(newID,newAnimal);
+    }
+
+    public void Remove(string animalID)    // Remove
+    {
+        Dictionary.Remove(animalID);
+    }
+}
+</code>
+</pre>
+
+
+{include file="template/footer" /}
