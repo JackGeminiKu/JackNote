@@ -21,8 +21,149 @@
 	</div>
 
 	<div class="title">开发环境小技巧</div>
-	<div class="content open">
-		tbd...
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">VS 2005 OOP工具</div>
+			<div class="content closed">
+				<p>
+					1) 查看当前项目中的类: Class View窗口, Ctrl + W, C <br>
+					2) 查看当前项目&外部的类: Object Browser, Ctrl + W, J <br>
+					3) 查看UML图: 类图, 在Solution Explorer中选择相应的类文件, 单击上面的View Class Diagram按钮.
+				</p>
+			</div>
+
+			<div class="title">竖向选择</div>
+			<div class="content closed">
+				<p>按住Alt, 然后鼠标框选.</p>
+			</div>
+
+			<div class="title">自动引用命名空间</div>
+			<div class="content closed">
+				<p>右击类(或者ctrl + alt + F10), 选择解析...</p>
+			</div>
+
+			<div class="title">如何删除事件</div>
+			<div class="content closed">
+				<p>如果直接删除事件处理程式, 则会报错, 必须要再手动删除事件订阅, 但是在属性窗口中可以直接删除事件.</p>
+			</div>
+
+			<div class="title">动态帮助</div>
+			<div class="content closed">
+				<p>如果启用动态帮助, 将出现动态帮助窗口, 其中显示了一个与正在进行的工作相关的主题列表. 初学.Net时非常有用.</p>
+			</div>
+
+			<div class="title">自动保存</div>
+			<div class="content closed">
+				<p>在运行程序之前, VB 2005会自动保存程序文件.</p>
+			</div>
+
+			<div class="title">锁定控件</div>
+			<div class="content closed">
+				<p>从菜单中选择Format|Lock Controls. 可以将每个控件的Locked属性设置为True, 以防止他们不小心被移动, 改变大小或者删除.</p>
+			</div>
+
+			<div class="title">快速输入代码</div>
+			<div class="content closed">
+				<p>
+					快速添加事件处理程序: 在输入+=运算符之后, 只需按下Tab键两次, 编辑器就会完成剩余的输入工作. <br>
+					快速定义属性： 先输入prop，然后按两次Tab. <br>
+					插入代码段：Ctrl+K，X。如果你想快速的输入代码，这个必须记住。配合F2一起用，那将会成为一把利器。<br>
+					使用“Ctrl+K，S”，你可以更快速的输入像try和#Region一样的代码段。<br>
+					输入cw, 出现如下图所示, 然后按两下Tab, IDE会自动插入"Console.WriteLine()", 且光标在括号内等待输入. <br>
+					<img src="__ROOT__/static/image/cs/快速插入代码段.png"><br>
+					<span class="text-danger">备注: 出现只能提示时, 一般按两下tab键, 可以快速插入...</span>
+				</p>
+			</div>
+
+			<div class="title">在项目中快速移动文件</div>
+			<div class="content closed">
+				<p>按住shift, 鼠标拖放.</p>
+			</div>
+
+			<div class="title">Immediate窗口 - Ctrl + Alt + I</div>
+			<div class="content closed">
+				<p>可以执行源代码, 计算表达式, 还可以执行其他代码.</p>
+			</div>
+
+			<div class="title">Command窗口 - Ctrl + Alt + A</div>
+			<div class="content closed">
+				<p>可以手动执行VS操作(例如菜单和工具栏操作</p>
+			</div>
+
+			<div class="title">调用堆栈窗口 - Ctrl + Alt + C</div>
+			<div class="content closed">
+				<p>查看调用堆栈信息.</p>
+			</div>
+
+			<div class="title">更有效的剪切板</div>
+			<div class="content closed">
+				<p>
+					1. 循环剪切板: Shift + Ctrl + V . 调用这个快捷键就可以把之前多次的复制记录都粘贴出来. <br>
+					2. 整行剪切：Ctrl + X. 光标不要选中任何文字，然后按这个快捷键就可以把整行剪切下来. <br> 
+					3. 整行复制：Ctrl + C. 这个和Ctrl + X的使用方法一样.
+				</p>
+			</div>
+
+			<div class="title">选择</div>
+			<div class="content closed">
+				<p>
+					1. 基本选择：Shift + 光标（←↓↑→） . 基于光标所在的地点，按住Shift然后使用上下左右光标可以自由选择. <br>
+					2. 基于单词选择：Shift + Ctrl+（→←）. 使用这个可以跳跃单词的选，也可配合Home/End选择整行. <br>
+					3. 基于“方块”选择：Shift + Alt + (←↓↑→) 或者Alt + 鼠标. <br>
+					4. 选择一个整个单词：Shift + Ctrl + W. 把光标放在某个单词中的时候按快捷键即可.
+				</p>
+			</div>
+
+			<div class="title">搜索&查找</div>
+			<div class="content closed">
+				<p>
+					查找所有引用： Shit + F12; <br><br>
+					Ctrl + I(Incremental): 按住快捷键然后输入要查询的字符串，VS会马上定位到, 而不需要像Ctrl + F那种确认的过程. 移动到下一个匹配按Ctrl + I, 移动到上一个Shift + Ctrl + I. <br>
+					Ctrl + F(Find)：可以指定更多的条件，如是否匹配大小写、是否整词搜索、是否用正则表达式以及搜索的范围. <br>
+					Ctrl + Shift + F，这个可以实现的搜索功能与Ctrl + F 一模一样，唯一不同就是这个可以将你搜索的结果输出到查找结果窗口中，而不是一个一个显示出来.
+				</p>
+			</div>
+
+			<div class="title">全屏模式</div>
+			<div class="content closed">
+				<p>Shift + Alt + Enter. 可以让你进入全屏无干扰模式，本人很喜欢这个功能.</p>
+			</div>
+			<div class="title">更有效的只能感知</div>
+			<div class="content closed">
+				<p>
+					1. 列出成员: Ctrl + J 或者Ctrl + K + L（List Member）<br>
+					当我们需要访问对象方法的时候按, VS会自动提示出有哪些方法，但是有时候我们需要在操作符已经存在的情况下再查看. 以前我会把点删掉然后再点一次，我承认我当时很傻，后来知道这个快捷键以后就好多了. <br><br>
+
+					2. 列出选项: Ctrl + . 或者Ctrl + Shift +F10 <br>
+					当我们用到一些类型在我们工程引用的程序集里, 但是没有在当前文件引用的命名空间内时，或者我们写了一个不存在的函数时，那行代码会有错误提示，并且在左下角有一个小符号. 这个快捷键就是在不移动鼠标的情况下让其出现这个提示. <br><br>
+
+					3. 强迫显示参数信息：Ctrl-Shift-空格 <br><br>
+
+					4. 显示函数原型: Ctrl + K, Ctrl + I <br><br>
+				</p>
+			</div>
+
+			<div class="title">跳转</div>
+			<div class="content closed">
+				<p>
+					1. 基于单词的跳转：Ctrl + (←→). 此快捷键可以让光标以单词为单位左右进行跳转. <br>
+					2. 跳到上一个本单词： Shift + Ctrl +（↓↑） . 这个功能比较有用，可以将光标移动到光标所在的那个单词上次或者下次在文中出现的地方. <br>
+					3. 跳到上一个光标停留的地方： Ctrl + -（往前）；Ctrl + Shift + - （往后） <br>
+					4. 快速跳转到某一行： Ctrl + G <br>
+					5. 快速跳到文件头尾：Ctrl + Home/End <br>
+					6. 快速跳转到本行第一个非空格开头：Home. 如果要到本行最开头则按两下Home即可. <br>
+					7. 快速跳转到本行结尾：End <br>
+					8. 匹配括号移动：Ctrl + ]，适用于 (), {}, [], “” . 将光标放在需要匹配的括号然后按这个快捷键，光标会跳转到其相对于那个的括号上去. <br>
+					这个功能比较有用，但是我还有一个建议. Visual Studio本来就会将相对应的括号给特别标识出来，只是一般默认的那个颜色和背景颜色比较类似看不出来，建议将其在Font And Colors中设置成醒目的颜色. <br>
+					9. 快速跳转到函数开始/结束: Alt + ↓/↑
+				</p>
+			</div>
+
+			<div class="title">任务列表</div>
+			<div class="content closed">
+				<p>Ctrl + W + T: 写代码的时候我们往往会遇到这种情况，某一些代码我们现在不确定需求, 或者觉得可能会有问题将来需要改善，我们会加上注释：//TODO：reason. 这个任务列表的功能就是让我们可以看到我们当前工程中有多少个TODO项.</p>
+			</div>
+		</div>
 	</div>
 
 	<div class="title">调试</div>
@@ -180,7 +321,25 @@
 
 	<div class="title">常用工具&插件</div>
 	<div class="content open">
-		tbd...
+		<div class="list list-number">
+			<div class="title">Visual Assist</div>
+			<div class="content open">
+				<p>老牌插件</p>
+			</div>
+
+			<div class="title">Ildasm.exe</div>
+			<div class="content open">
+				<p>
+					微软的IL反编译实用程序——Ildasm.exe，可以对可执行文件（ex，经典的控制台Hello World 的 exe 可执行文件）抽取出 IL 代码，并且给出命名空间以及类的视图. <br>
+					在VS 2005中的路径: "C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\ildasm.exe"
+				</p>
+			</div>
+
+			<div class="title">XXX</div>
+			<div class="content open">
+
+			</div>
+		</div>
 	</div>
 
 	<div class="title">常见错误</div>
