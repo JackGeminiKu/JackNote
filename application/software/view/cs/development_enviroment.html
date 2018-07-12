@@ -3,8 +3,13 @@
 	<div class="title">自定义开发环境</div>
 	<div class="content closed">
 		<div class="list list-number">
+			<div class="title">恢复IDE设置</div>
+			<div class="content closed">
+				<p>如第一次运行VS, IDE选择了VB的设置, 但是希望改成C#的设置, 只需要单击Tools菜单上的Imports and Export Settings...</p>
+			</div>
+
 			<div class="title">字型&色彩</div>
-			<div class="content open">
+			<div class="content closed">
 				<p>
 					工具 -> 选项 -> 环境 -> 字型和色彩 ... <br>
 					字体: YaHei Consolas Hybird <br>
@@ -14,7 +19,7 @@
 			</div>
 
 			<div class="title">花括号换行</div>
-			<div class="content open">
+			<div class="content closed">
 				<p>工具 -> 选项 -> 文字编辑器 -> C# -> 新行 ...</p>
 			</div>
 		</div>
@@ -167,7 +172,7 @@
 	</div>
 
 	<div class="title">调试</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">输出调试信息</div>
 			<div class="content closed">
@@ -198,7 +203,7 @@
 	</div>
 
 	<div class="title">编译</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">自动生成版本号</div>
 			<div class="content closed">
@@ -320,7 +325,7 @@
 
 
 	<div class="title">常用工具&插件</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">Visual Assist</div>
 			<div class="content open">
@@ -334,48 +339,86 @@
 					在VS 2005中的路径: "C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\ildasm.exe"
 				</p>
 			</div>
-
-			<div class="title">XXX</div>
-			<div class="content open">
-
-			</div>
 		</div>
 	</div>
 
 	<div class="title">常见错误</div>
 	<div class="content closed">
 		<div class="list list-number">
-			<div class="title">编译出错</div>
+			<div class="title">錯誤: 名稱 'Jack4net' 不存在於目前內容中</div>
 			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">錯誤: 名稱 'Jack4net' 不存在於目前內容中</div>
-					<div class="content closed">
-						<p>
-							命名引用了参考, 却找不到相应的命名空间和类! <br>
-							确认一下项目是否使用了错误的Framework, 比如使用了.NET Framework 4 Client Profile?
-						</p>
-					</div>
-				</div>
+				<p>
+					命名引用了参考, 却找不到相应的命名空间和类! <br>
+					确认一下项目是否使用了错误的Framework, 比如使用了.NET Framework 4 Client Profile?
+				</p>
 			</div>
 
-			<div class="title">运行错误</div>
+			<div class="title">使用Ado.Net时报错: Incorrect syntax near the keyword 'File'</div>
 			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">使用Ado.Net时报错: Incorrect syntax near the keyword 'File'</div>
-					<div class="content closed">
-						<p>
-							File是SQL Server关键字, 不能作为表名, 字段名, 需要添加中括号括起来. <br>
-							怪不得SQL Sever自动生成的SQL语句会自动添加中括号!
-						</p>
-					</div>
-					<div class="title">运行Jack4net.Log.LogService报错: The type initializer for 'Jack4net.Log.LogService' threw an exception.</div>
-					<div class="content closed">
-						<p>
-							项目中引用了Jack4net.dll和log4net.dll, 把log4net.dll的引用去掉就可以了.
-						</p>
-					</div>
-				</div>
-			</div>	
+				<p>
+					File是SQL Server关键字, 不能作为表名, 字段名, 需要添加中括号括起来. <br>
+					怪不得SQL Sever自动生成的SQL语句会自动添加中括号!
+				</p>
+			</div>
+
+			<div class="title">运行Jack4net.Log.LogService报错: The type initializer for 'Jack4net.Log.LogService' threw an exception.</div>
+			<div class="content closed">
+				<p>
+					项目中引用了Jack4net.dll和log4net.dll, 把log4net.dll的引用去掉就可以了.
+				</p>
+			</div>
+
+			<div class="title">调试程式时出现there is no source code available for the current location</div>
+			<div class="content closed">
+				<p>
+					1) Clean Solution <br>
+					2) Rebuild Solution
+				</p>
+			</div>
+
+			<div class="title">剖析EntityName時發生錯誤. 第2行, 位置60.</div>
+			<div class="content closed">
+				<p>檢查一下文件(或文件夾)中是否有特殊字符, 比如: "&"</p>
+			</div>
+
+			<div class="title">Form显示出错</div>
+			<div class="content closed">
+				<p>检查路径中是否有中文字符, "&"字符等等.</p>
+			</div>
+
+			<div class="title">警告 1 無法剖析 ResX 檔 型別 'System.Collections.Generic.List`1[Simplo.TestFiles.TestItems.TestItem]' 的物件無法轉換成型別 'System.Collections.Generic.List`1[Simplo.TestFiles.TestItems.TestItem]'。 第 133 行，位置 5。。 133 0</div>
+			<div class="content closed">
+				<p>试着查看窗体/控件的.resx中是否有可疑的资源(一般是没有什么资源的), 可以删除试一下.</p>
+			</div>
+
+			<div class="title">Code Snippet titled [Method Stub - Body] failed to load. Verify that refactoring are recognized in the Code Snippet Manager and that the snippet files are valid on disk.</div>
+			<div class="content closed">
+				<p>
+					如果你在使用VS 2005,如果你不能使用它的Code Snippet功能，如果你在实现抽象类override 方法时弹出：
+				</p>
+
+				<p>
+					Code Snippet titled [Method Stub - Body] failed to load. Verify that refactoring snippets are recognized in the Code Snippet Manager and that the snippet files are valid on disk.</p>
+
+				<p>
+					这段提示信息告诉我们指定的Code Snippet块无法找到，很多人可能会由于这个原因去修复安装VS 2005。其实解决办法很简单，只要重新导入Code Snippet块就行了。找到并打开Code Snippet Manager(Ctrl + K,Ctrl + B)，然后选择要操作的语言(C#)，用Add按钮导入两个默认的文件夹：Refactoring和Visual C#，这两个文件夹一般会在VS2005安装目录下的，如：C:/Program Files/Microsoft Visual Studio 8/VC#/Snippets/1033 .
+				</p>
+			</div>
+
+			<div class="title">Function evaluation is disabled because a previous function evaluation timed out</div>
+			<div class="content closed">
+				<p>Function evaluation is disabled because a previous function evaluation timed out. To re-enable function evaluation, step again or restart debugging. In the Visual Studio debugger, an expression specifies a procedure call, but another evaluation has timed out. Possible causes for a procedure call to time out include an infinite loop or endless loop.</p>
+			</div>
+
+			<div class="title">錯誤 17 找不到型別或命名空間名稱 'Simplo' (您是否遺漏 using 指示詞或組件參考?)</div>
+			<div class="content closed">
+				<p>
+					将应用程序框架由.NET Framework 4 Client Profile改为.NET Framework 4. <br>
+					说明： <br>
+					.NET Framework 4是.net的一个完整的开发框架和运行框架 <br>
+					.NET Framework 4 Client Profile是 .NET Framework 4的一个精简，.NET Framework 4 Client Profile的目的是改进和帮助精简客户端应用的部署大小，部署时间，可靠性和总的部署体验
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
