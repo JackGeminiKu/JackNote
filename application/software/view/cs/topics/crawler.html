@@ -1,16 +1,31 @@
 {include file="template/header" title="C# 爬虫" /}
 <div class="list list-number">
-    <div class="title">Web请求</div>
-    <div class="content closed">
-        WebClient
-    </div>
+	<div class="title">HTTP编程</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">WebClient</div>
+			<div class="content open">
 
-    <div class="title">HTML处理</div>
-    <div class="content closed">
-        <a href="https://github.com/AngleSharp/AngleSharp">AngleSharp</a>
-        <p>
-            var blueListItemsLinq = document.QuerySelectorAll("*").Where(m => m.LocalName == "li" && m.ClassList.Contains("blue"));
-        </p>
-    </div>
+			</div>
+
+			<div class="title">WebRequest</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">HttpClient(Since .NET 4.5)</div>
+			<div class="content open">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="title">HTML处理</div>
+	<div class="content closed">
+		<a href="https://github.com/AngleSharp/AngleSharp">AngleSharp</a>
+		<p>
+			var blueListItemsLinq = document.QuerySelectorAll("*").Where(m => m.LocalName == "li" && m.ClassList.Contains("blue"));
+		</p>
+	</div>
 </div>
 {include file="template/footer" /}
