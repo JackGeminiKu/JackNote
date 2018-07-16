@@ -2,11 +2,11 @@
 
 <div class="list list-number">
 	<!--XML DOM XML-->
-    <div class="title">XML DOM (XML Document Object Model)</div>
+    <div class="title">XML文档介绍</div>
     <div class="content open">
 		<div class="list list-number">
 			<!--XML文档-->
-			<div class="title">XML文档</div>
+			<div class="title">XML Document</div>
 			<div class="content closed">
 				<div class="list list-none">
 					<div class="title">XML文档结构</div>
@@ -30,61 +30,12 @@
 						</p>
 					</div>
 
-					<div class="title">XML文档分类</div>
-					<div class="content open">
-						<table class="table table-bordered table-sm w-50">
-							<tbody>
-								<tr>
-									<td>XmlDocument</td>
-									<td>扩展XmlNode, W3C DOM的实现, 给出XML文档在内存中的树形表示, 可以浏览和编辑它们.</td>
-								</tr>
-								<tr>
-									<td>
-										XmlReader<br>
-										XmlTextReader
-									</td>
-									<td>
-										抽象的读取器, 提供快速, 没有缓存的XML数据, 但是只能向前.<br>
-										扩展XmlReader, 提供访问XML数据的快速只向前流.
-									</td>
-								</tr>
-								<tr>
-									<td>
-										XmlWriter<br>
-										XmlTextWriter
-									</td>
-									<td>
-										抽象的写入器类, 以流或文件的格式提供快速, 没有缓存的XML数据.<br>
-										扩展XmlWriter, 快速生成只向前的XML流.
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<p>
-							XmlReader是基于数据流的, 占用极少的内存, 是只读方式的, 所以速度极快. 只能采用遍历的模式查找数据节点.<br>
-							XmlDocument是基于树形结构的模型, 数据保存于内存中, 可以查找内存中数据的任何方面. 占用内存大, 处理方便, 可读可写, 几乎相当于一次把Xml读入内存.<br>
-							所以: 如果数据量极大,用XmlReader合适, 如果处理复杂频繁且文件不大, XmlDocument合适. 
-						</p>
-					</div>
 
-					<div class="title">XmlDocument</div>
-					<div class="content open">
-						<pre class="prettyprint linenums">
-<code>
-XmlDocument document = new XmlDocument();
-document.Load(@"D:\books.xml");
-...
-document.Save(@"D:\books.xml");
-</code>
-						</pre>
-						<p>除了加载和保存XML之外, XmlDocument类还负责维护XML结构. 所以, 这个类有许多方法可以用于创建, 修改和删除树中的节点.</p>
-					</div>
 				</div>
-
 			</div>
 
 			<!--XML声明-->
-			<div class="title">XmlDeclaration - XML声明</div>
+			<div class="title">Xml Declaration</div>
 			<div class="content closed">
 				<p>XML声明, 如果包括了它, 它就必须是文档的第一个节点. XML声明形式为:</p>
 				<pre class="prettyprint linenums">
@@ -100,9 +51,9 @@ document.Save(@"D:\books.xml");
 			</div>
 
 			<!--XML元素-->
-			<div class="title">XmlElement - XML元素</div>
+			<div class="title">Xml Element</div>
 			<div class="content closed">
-				<p>XML元素包含一个开标记(比如<myElement>), 元素中的数据, 以及闭标记(如</myElement>). 例如定义一个存储书名的元素: </p>
+				<p>XML元素包含一个开标记(比如&lt;元素名>), 元素中的数据, 以及闭标记(如&lt;/元素名>). 例如定义一个存储书名的元素: </p>
 				<pre class="prettyprint linenums">
 <code>
 &lt;book>Tristram Shandy&lt;/book>
@@ -133,75 +84,10 @@ document.Save(@"D:\books.xml");
 </code>
 				</pre>
 				<p>但是元素不允许重叠, 因此在父元素的闭标记之前必须关闭所有的子元素. </p>
-
-				<p class="text-strong">根元素</p>
-				<pre class="prettyprint linenums">
-<code>
- XmlElement element = document.DocumentElement;    // 返回根元素
-</code>
-				</pre>
-
-				<p class="text-strong">XmlElement常用操作</p>
-				<table class="table table-bordered table-sm w-75">
-					<tbody>
-						<tr>
-							<td>FirstChild</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>LastChild</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>ParentNode</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>NextSibling</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>[name]</td>
-							<td> 	
-								public virtual XmlElement this [ string name ] { get; }<br>
-								Gets the first 儿子 element with the specified Name.
-							</td>
-						</tr>
-						<tr>
-							<td>Attributes</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>HasChildNodes</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>
-								InnerXml<br>
-								OuterXml
-							</td>
-							<td>
-								Gets or sets the markup representing only the child nodes of this node.<br>
-								Gets the markup representing this node and all its child nodes. 
-							</td>
-						</tr>
-						<tr>
-							<td>InnerText</td>
-							<td>Gets or sets the concatenated values of the node and all its child nodes.</td>
-						</tr>
-						<tr>
-							<td>Value</td>
-							<td> 	
-								Gets or sets the value of the node.<br>
-								Value属性是操作文档中信息的最精炼方式, 但是, 在获取值时, 只有几个类会返回有用的信息, 这包括: XmlAttribute, XmlComment, XmlText. XmlElement则会返回null.<br>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 
 			<!--XML属性-->
-			<div class="title">XmlAttribute - XML元素属性</div>
+			<div class="title">Xml Attribute</div>
 			<div class="content closed">
 				<p>与在元素体内存储数据一样, 也可以在属性内存储数据, 属性添加到元素的开标记内. 属性的形式为: name = "value". 其中属性值必须包含在单引号或双引号内. 例如:</p>
 				<pre class="prettyprint linenums">
@@ -231,13 +117,13 @@ document.Save(@"D:\books.xml");
 			</div>
 
 			<!--XMLText-->
-			<div class="title">XMLText: 表示元素或属性的文本内容</div>
-			<div class="content open">
-
+			<div class="title">XML Text</div>
+			<div class="content closed">
+				<p>表示元素或属性的文本内容</p>
 			</div>
 
 			<!--Xml注释-->
-			<div class="title">XmlComment - XML注释</div>
+			<div class="title">Xml Comment</div>
 			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
@@ -247,9 +133,10 @@ document.Save(@"D:\books.xml");
 			</div>
 
 			<!--CDATA-->
-			<div class="title">CDATA - </div>
+			<div class="title">XML CDATA</div>
 			<div class="content closed">
 				<div class="list list-number">
+					<p>所有 XML 文档中的文本均会被解析器解析。只有 CDATA 区段（CDATA section）中的文本会被解析器忽略。</p>
 					<div class="title">实体引用</div>
 					<div class="content open">
 						<p>假如您在 XML 文档中放置了一个类似 "<" 字符，那么这个文档会产生一个错误，这是因为解析器会把它解释为新元素的开始。因此你不能这样写：</p>
@@ -318,12 +205,6 @@ function matchwo(a,b)
 
 			</div>
 
-			<!--XMLNode & XmlNodeList-->
-			<div class="title">XMLNode & XmlNodeList</div>
-			<div class="content open">
-
-			</div>
-
 			<!--XML命令空间-->
 			<div class="title">XML命名空间</div>
 			<div class="content closed">
@@ -369,12 +250,53 @@ function matchwo(a,b)
 		<div class="list list-number">
 			<div class="title">读XML文档</div>
 			<div class="content open">
-
+				<table class="table table-bordered table-sm w-50">
+					<tbody>
+						<tr>
+							<td>XmlDocument</td>
+							<td>扩展XmlNode, W3C DOM的实现, 给出XML文档在内存中的树形表示, 可以浏览和编辑它们.</td>
+						</tr>
+						<tr>
+							<td>
+								XmlReader<br>
+								XmlTextReader
+							</td>
+							<td>
+								抽象的读取器, 提供快速, 没有缓存的XML数据, 但是只能向前.<br>
+								扩展XmlReader, 提供访问XML数据的快速只向前流.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					XmlReader是基于数据流的, 占用极少的内存, 是只读方式的, 所以速度极快. 只能采用遍历的模式查找数据节点.<br>
+					XmlDocument是基于树形结构的模型, 数据保存于内存中, 可以查找内存中数据的任何方面. 占用内存大, 处理方便, 可读可写, 几乎相当于一次把Xml读入内存.<br>
+					所以: 如果数据量极大,用XmlReader合适, 如果处理复杂频繁且文件不大, XmlDocument合适. 
+				</p>
 			</div>
 
 			<div class="title">写XML文档</div>
 			<div class="content open">
-
+				<div class="list list-number">
+					<table class="table table-bordered table-sm w-50">
+						<tbody>
+							<tr>
+								<td>XmlDocument</td>
+								<td>扩展XmlNode, W3C DOM的实现, 给出XML文档在内存中的树形表示, 可以浏览和编辑它们.</td>
+							</tr>
+							<tr>
+								<td>
+									XmlWriter<br>
+									XmlTextWriter
+								</td>
+								<td>
+									抽象的写入器类, 以流或文件的格式提供快速, 没有缓存的XML数据.<br>
+									扩展XmlWriter, 快速生成只向前的XML流.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 
 			<div class="title">创建&插入新节点 - XmlDocument & XmlNode</div>
