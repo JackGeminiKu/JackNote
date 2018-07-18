@@ -187,12 +187,193 @@ try {
 </code>
 		</pre>
 	</div>
+
+	<div class="title">自定义异常</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">自定义类层次</div>
+			<div class="content closed">
+				<p>
+					The .NET Framework is a type-based system that relies on the exception type for identification, rather than
+					using method return codes such as HRESULTs. You should establish a custom hierarchy of application-specific
+					exception classes that inherit from ApplicationException, as illustrated in Figure below.
+				</p>
+				<img src="__ROOT__/static/image/cs/application_exception_hierarchy.png">
+				<p>
+					This hierarchy allows your application to benefit from the following:<br>
+					1) Easier development because you can define properties and methods on your base application exception
+					class that can be inherited by your other application exception classes.<br>
+					2) New exception classes created after your application has been deployed can derive from an existing
+					exception type within the hierarchy. Existing exception handling code that catches one of the base
+					classes of the new exception object will catch the new exception without any modifications to the
+					existing code, interpreting it as one of the object's base classes.
+				</p>
+			</div>
+
+			<div class="title">什么情况下要使用自定义类?</div>
+			<div class="content closed">
+				<p>
+					The .NET Framework provides an extensive hierarchy of exception classes. If a suitable exception class is
+					already provided by the .NET Framework, use it instead of creating a new class. You should only create a new
+					application exception class for an exception type that you need to react to and handle within your code that is
+					not already available in your application exception hierarchy or in the Framework. Most application exception
+					hierarchies should be fairly flat with grouping used for organization purposes or to allow some set of application
+					exceptions to inherit common properties or functionality.
+				</p>
+				<p>
+					As you create your hierarchy, use the following questions to help you to decide if you need to create a new
+					exception class.
+					<br>
+					<span class="text-strong">1) Does an exception exist for this condition?</span>
+					<br>
+					If an exception exists either within your current hierarchy or within the Framework, use it instead of
+					creating your own exception class.
+					<br>
+					<span class="text-strong">2) Does a particular exception need discrete handling?</span>
+					<br>
+					If so, you should create an exception class to allow your code to catch the specific exception and handle
+					it explicitly. This eliminates the need to catch a more generic exception and then use conditional logic to
+					determine what action to take.
+					<br>
+					<span class="text-strong">3) Do you need specific behavior or additional information for a particular exception?</span>
+					<br>
+					If so, you can use a new application exception class to include additional information or functionality to
+					suit a specific need.
+				</p>
+			</div>
+
+			<div class="title">范例</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+public class YourBaseApplicationException : ApplicationException
+{
+    // Default constructor
+    public YourBaseApplicationException()
+    { }
+
+    // Constructor accepting a single string message
+    public YourBaseApplicationException(string message)
+        : base(message)
+    { }
+
+    // Constructor accepting a string message and an inner exception which will be wrapped by this custom exception class
+    public YourBaseApplicationException(string message, Exception inner)
+        : base(message, inner)
+    { }
+
+    protected YourBaseApplicationException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    { }
+}
+</code>
+				</pre>	
+				<p class="text-strong">Creating a Base Application Exception Class</p>
+				<p>
+					Your application should have a single base exception class that derives from ApplicationException. This class
+					serves as the base class for all of your application's exception classes.
+				</p>
+				<p>
+					You should add fields to this base class to capture specific information, such as the date and time the exception
+					occurred, the machine name, and so on. This encapsulates the common exception details into the single base
+					class and makes this information available to your exception classes through inheritance.
+				</p>
+
+				<p class="text-strong">Remoting Custom Exceptions</p>
+				<p>
+					The Exception class implements the ISerializable interface, allowing it to manage its own serialization. To
+					allow your exceptions to be marshaled across remoting boundaries, you need to attribute your class with the
+					[Serializable] attribute and include the additional constructor shown below.
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+protected YourBaseApplicationException(SerializationInfo info, StreamingContext context)
+    : base(info, context)
+{ }
+</code>
+				</pre>
+				<p>
+					If your exceptions add fields to the base ApplicationException class, you will need to persist these values
+					programmatically into the serialized data stream. This can be done by overriding the GetObjectData method
+					and adding these values to the SerializationInfo object as shown below.
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+[Serializable]
+public class ExampleException : ApplicationException
+{
+    public ExampleException()
+        : base()
+    { }
+
+    public ExampleException(string message)
+        : base(message)
+    { }
+
+    public ExampleException(string message, Exception inner) :
+        base(message, inner)
+    { }
+
+    protected ExampleException(SerializationInfo info, StreamingContext context) :
+        base(info, context)
+    {
+        m_strMachineName = info.GetString("m_strMachineName");
+    }
+
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        info.AddValue("m_strMachineName", m_strMachineName, typeof(String));
+        base.GetObjectData(info, context);
+    }
+
+    private string m_strMachineName = Environment.MachineName;
+    public string MachineName
+    {
+        get { return m_strMachineName; }
+        set { m_strMachineName = value; }
+    }
+}
+</code>
+				</pre>
+				<p>
+					The values can be retrieved from the SerializationInfo object in the constructor of your exception object using
+					info.GetValue or one of the Get methods of the SerializationInfo object (such as the GetString method
+					shown above). Your custom exceptions should be able to maintain their state as they are marshaled across local
+					and remote boundaries. Even if your application does not currently span remoting boundaries, providing
+					serialization support ensures that exception information will not be lost if your application is later modified to do
+					so. If you do not programmatically serialize your exception's custom values, they will not be set properly when
+					they are deserialized at the client. Providing serialization support also allows your application to serialize all the
+					information about your exception and store it for logging purposes.
+				</p>
+			</div>
+		</div>
+
+		<div class="title">处理未捕捉的异常</div>
+		<div class="content closed">
+			<p>流程控制中有记录...</p>
+		</div>
+
+		<div class="title">收集信息</div>
+		<div class="content closed">
+
+		</div>
+
+		<div class="titlte">Application Instrumentation</div>
+		<div class="content cloesd">
+			<p>TBD...</p>
+		</div>
+
+		<div class="title">Specific Technology Considerations</div>
+		<div class="content closed">
+			<p>TBD...</p>	
+		</div>
+	</div>
 </div>
 
 <hr>
 <p>
 	参考: <br>
-	<a href="https://blog.csdn.net/wangxi1240/article/details/95855">Exception Management Architecture Guide 2.0</a>
+	Exception Management Architechture Guide.pdf
 </p>
 
 {include file="template/footer" /}
