@@ -1,56 +1,6 @@
 {include file="template/header" title="C# 异常管理" /}
 
 <div class="list list-number">
-	<div class="title">异常处理原则</div>
-	<div class="content open">
-		<p>
-			1 如果你不能处理异常，不要捕获该异常。<br>
-			2 如果要捕获，应在离异常源近的地方捕获它。<br>
-			3 不要吞没你捕获的异常, 就是捕获的异常，但是什么也不做。<br>
-			4 除非你要重新抛出异常，否则把它log起来。<br>
-			5 当一个异常被重新包装，然后重新抛出的时候，不要打印statck trace。<br>
-			6 用自定义的异常类，不要每次需要抛出异常的时候都抛出java.lang.Exception。方法的调用者可以通过throws知道有哪些异常需要处理--所以它是自我描述的。<br>
-			7 如果你编写业务逻辑，对于终端用户无法修复的错误，系统应该抛出非检查的异常（unchecked exception）；如果你编写一个第三方的包给其他的开发人员用，对于不可修复的错误要用需要检查的异常（checked exception）。<br>
-			8 绝对不要因为写throws语句会让你用起来不舒服，而不声明需要检查的异常。<br>
-			9 应用级别的错误或不可修复的系统异常用非检查的异常（unchecked exception）抛出。<br>
-			*（注意是错误，意味着不可修复，比如配置文件错误）<br>
-			10 根据异常的粒度组织你的方法.<br>
-		</p>
-	</div>
-
-    <div class="title">出错处理三大问题</div>
-    <div class="content open">
-		<p>
-			1) 出错处理机制: 异常或者返回值(不良代码, true/false, null...)
-		<p>
-			2) 是否要log不良信息? 怎么log?
-		</p>
-
-		<p>
-			3) 时候要提示给用户? 怎么提示?
-		</p> 
-    </div>
-
-    <div class="title">异常 vs 错误代码</div>
-    <div class="content open">
-		<p>错误代码: 出现错误时, 如果程式没有处理, 很难发现; 需要知道不同错误代码的含义.</p>
-		<p>异常: 出现异常时, 如果程式没有处理, 默认会弹出异常对话框; 通过Message属性可以获取异常的详细说明; 通过StackTrace可以知道哪一行代码出错; 抛出异常时对程式性能有影响.</p>
-		<p>异常抛出一般用于处理未预料到的错误, 比如内存异常, 常见的错误可以使用错误代码方式. int.TryParse()就比int.Parse()函数友好..</p>
-    </div>
-
-	<div class="title">异常类型层级</div>
-	<div class="content closed">
-		<p>
-			Exception是所有异常的基类, 它有两个主要的子类: <br>
-			1) SystemException <br>
-			2) ApplicationException <br>
-		</p>
-		<p>
-			SystemException
-			ApplicationException是应用程序相关异常的基类, 用户自定义的类应该继承自这个类.
-		</p>
-	</div>
-
 	<div class="title">如何处理异常?</div>
 	<div class="content closed">
 		<img src="__ROOT__/static/image/cs/exception_handling_process.png">
@@ -347,27 +297,170 @@ public class ExampleException : ApplicationException
 				</p>
 			</div>
 		</div>
-
-		<div class="title">处理未捕捉的异常</div>
-		<div class="content closed">
-			<p>流程控制中有记录...</p>
-		</div>
-
-		<div class="title">收集信息</div>
-		<div class="content closed">
-
-		</div>
-
-		<div class="titlte">Application Instrumentation</div>
-		<div class="content cloesd">
-			<p>TBD...</p>
-		</div>
-
-		<div class="title">Specific Technology Considerations</div>
-		<div class="content closed">
-			<p>TBD...</p>	
-		</div>
 	</div>
+	<div class="title">处理未捕捉的异常</div>
+	<div class="content closed">
+		<p>流程控制中有记录...</p>
+	</div>
+
+	<div class="title">如何提示异常信息?</div>
+	<div class="content closed">
+		<p class="text-strong">什么样的Audience提供什么样的信息</p>
+		<table class="table table-bordered table-sm">
+			<tbody>
+				<tr>
+					<th>Audience</th>
+					<th>Required Information</th>
+				</tr>
+				<tr>
+					<td>End users</td>
+					<td>
+						An indication of whether the request succeeded.
+						A well presented message indicating what went wrong.
+						Instructions telling them what they should do to rectify
+						the problem
+					</td>
+				</tr>
+				<tr>
+					<td>Application developers</td>
+					<td>
+						Date and time that the exception occurred.
+						The precise location of the source of the exception.
+						Exactly which exception occurred.
+						Information associated with the exception and the state
+						of the system when the exception occurred.	
+					</td>
+				</tr>
+				<tr>
+					<td>Operators</td>
+					<td>
+						Date and time the exception occurred.
+						The precise location of the source of the exception.
+						Exactly which exception occurred.
+						What resources should be notified and what information
+						needs to be given.
+						The exception type indicating whether it relates to an
+						operational or development issue.	
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p class="text-strong">Exception Information to Capture</p>
+		<table class="table table-bordered table-sm">
+			<tbody>
+				<tr>
+					<th>Data</th>
+					<th>Source</th>
+				</tr>
+				<tr>
+					<td>Date and time of exception</td>
+					<td>DateTime.Now</td>
+				</tr>
+				<tr>
+					<td>Machine name</td>
+					<td>Environment.MachineName</td>
+				</tr>
+				<tr>
+					<td>Exception source</td>
+					<td>Exception.Source</td>
+				</tr>
+				<tr>
+					<td>Exception type</td>
+					<td>Type.FullName obtained from Object.GetType</td>
+				</tr>
+				<tr>
+					<td>Exception message</td>
+					<td>Exception.Message</td>
+				</tr>
+				<tr>
+					<td>Exception stack trace</td>
+					<td>Exception.StackTrace - this trace starts at the point the exception is thrown and is populated as it propagates up the call stack.</td>
+				</tr>
+				<tr>
+					<td>Call stack</td>
+					<td>Enviroment.StackTrace - the complete call stack.</td>
+				</tr>
+				<tr>
+					<td>Application domain name</td>
+					<td>AppDomain.FriendlyName</td>
+				</tr>
+				<tr>
+					<td>Assembly name</td>
+					<td>AsssemblyName.FullName, in the System.Reflection namespace</td>
+				</tr>
+				<tr>
+					<td>Assembly version</td>
+					<td>Included in the AssemblyName.FullName</td>
+				</tr>
+				<tr>
+					<td>Thread ID</td>
+					<td>AppDomain.GetCurrentThreadId</td>
+				</tr>
+				<tr>
+					<td>Thread user</td>
+					<td>Thread.CurrentPrincipal in the System.Threading namespace</td>
+				</tr>
+			</tbody>
+		</table>	
+	</div>
+
+	<div class="title">Application Instrumentation</div>
+	<div class="content open">
+		<p>TBD...</p>
+	</div>
+
+	<div class="title">Specific Technology Considerations</div>
+	<div class="content closed">
+		<p>
+			This section examines some specific considerations for exception management when combined with certain .NET
+			technologies.
+		</p>	
+		<p class="text-strong">Interoperability</p>
+		<p>
+			The runtime provides a variety of interoperability features that allow your managed and unmanaged code to
+			work together. This also applies to exception handling. When a COM client calls a managed class that throws an
+			exception, the runtime catches and translates it into an HRESULT that can be understood by the unmanaged
+			COM code. Similarly, if a COM component returns a failed HRESULT to managed code, the runtime translates an
+			exception from the HRESULT and incorporates any additional information provided by the COM IErrorInfo
+			interface into the exception object. If the runtime does not recognize the HRESULT, it returns a generic
+			COMException object with its ErrorCode property set to the unrecognized HRESULT value.	
+		</p>
+		<p>
+			Many of the .NET Framework class library exceptions return new HRESULT values to COM components. This
+			causes existing COM code not to recognize the HRESULTs. If your COM code takes some action based on certain
+			failed HRESULTs, you should change the HRESULT value of the exception before propagating it to your COM
+			code. The HResult property of the exception object represents the HRESULT value returned to unmanaged
+			code. It is a read/write property and can be set to any value to ensure the correct operation of your COM code.
+			In addition, any application exceptions you create that interact with unmanaged COM code should override the
+			HResult property and default the value to an HRESULT value that accurately represents the exception condition.	
+		</p>
+
+		<p class="text-strong">Localization</p>
+		<p>
+			Localization is required to provide the right information to the right audience. Your application should provide
+			localization to ensure that your information is presented in a format that your audiences can understand. .NET
+			provides mechanisms, such as assembly cultures and satellite assemblies, to integrate localization features into
+			your application.
+		</p>
+		<p>
+			<span class="text-strong">Cultures</span><br>
+			A culture is part of the assembly identity and is involved in the binding process. For example, an
+			assembly could be strictly developed for a Spanish audience.<br>
+			<span class="text-strong">Satellite Assemblies</span><br>
+			These are resource-only assemblies that do not contain common intermediate language (CIL) code.
+			Satellite assemblies can specify a culture that accurately reflects the culture of the resources placed in
+			the assembly
+		</p>
+	</div>
+
+    <div class="title">异常 vs 错误代码</div>
+    <div class="content closed">
+		<p>错误代码: 出现错误时, 如果程式没有处理, 很难发现; 需要知道不同错误代码的含义.</p>
+		<p>异常: 出现异常时, 如果程式没有处理, 默认会弹出异常对话框; 通过Message属性可以获取异常的详细说明; 通过StackTrace可以知道哪一行代码出错; 抛出异常时对程式性能有影响.</p>
+		<p>异常抛出一般用于处理未预料到的错误, 比如内存异常, 常见的错误可以使用错误代码方式. int.TryParse()就比int.Parse()函数友好..</p>
+    </div>
+
 </div>
 
 <hr>
