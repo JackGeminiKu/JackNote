@@ -1,16 +1,173 @@
 {include file="php/tp5/template/header" title="TP5 View" /}
 
-<p>
-	使用模板变量 <br>
-	使用include标签 <br>
-	使用layout标签 <br>
-	指定要渲染哪个模板文件 <br>
-	分页输出 <br>
-	输出替换 <br>
-	直接渲染内容 <br>
-	助手函数 <br>
-	使用模板运算符
-</p>
+<div class="list list-number">
+    <div class="title">渲染模板</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">模板定位</div>
+			<div class="content closed">
+
+			</div>
+
+			<div class="title">模板变量</div>
+			<div class="content closed">
+				<p>(1) 先在控制器中定义模板变量</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;?php
+namespace app\index\controller;
+use app\index\model\User as UserModel;
+use think\Controller;
+
+class User extends Controller
+{
+    public function index()
+    {
+        $list = UserModel::all();
+        $this->assign('list', $list); // assign: 给模板变量赋值
+        $this->assign('count', count($list));
+        return $this->fetch(); // 渲染模板文件. 默认渲染输出的模板文件应该是当前控制器和操作对应的模板!
+    }
+}
+</code>
+				</pre>
+
+				<p>(2) 然后在视图中使用模板变量</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;h2>用户列表(｛$count｝)&lt;/h2>    // 标量类型
+｛volist name="list" id="user"｝    // 二维数组类型
+    &lt;div class="info">
+        ID：｛$user.id｝&lt;br/>
+        昵称：｛$user.nickname｝&lt;br/>
+        邮箱：｛$user.email｝&lt;br/>
+        生日：｛$user.birthday｝&lt;br/>
+    &lt;/div>
+｛/volist｝
+</code>
+				</pre>
+			</div>
+
+			<div class="title">公共模板</div>
+			<div class="content closed">
+				<div class="list list-none">
+					<div class="title">include标签</div>
+					<div class="content open ml-0">
+						<p>为了避免重复定义模板，可以把模板的公共头部和尾部分离出来，便于维护。我们把模板文件拆分为三部分：</p>
+						<pre class="prettyprint linenums lang-html">
+<code>
+// application/index/view/user/header.html
+&lt;!doctype html>
+&lt;html lang="en">
+&lt;head>
+&lt;meta charset="UTF-8">
+&lt;title>查看用户列表&lt;/title>
+&lt;link ref="stylesheet" href="common.css">
+&lt;/head>
+&lt;body>
+
+</code>
+						</pre>
+
+						<pre class="prettyprint linenums lang-html">
+<code>
+// application/index/view/user/footer.html
+&lt;div class="copyright">
+    &lt;a title="官网" href="http://www.thinkphp.cn">ThinkPHP&lt;/a> 
+    &lt;span>V5&lt;/span> 
+    &lt;span>{ 十年磨一剑-为API开发设计的高性能框架 }&lt;/span>
+&lt;/div>
+&lt;/body>
+&lt;/html>
+</code>
+						</pre>
+
+						<pre class="prettyprint linenums lang-html">
+<code>
+// application/index/view/user/index.html
+｛include file="user/header" /｝
+
+&lt;h2>用户列表（｛$count｝）&lt;/h2> 
+｛volist name="list" id="user" ｝
+    &lt;div class="info">
+        ID：｛$user.id｝&lt;br/>
+        昵称：｛$user.nickname｝&lt;br/>
+        邮箱：｛$user.email｝&lt;br/>
+    &lt;/div>
+｛/volist｝
+
+｛include file="user/footer" /｝
+</code>
+						</pre>
+
+					</div>
+
+					<div class="title">公共模板变量</div>
+					<div class="content open ml-0">
+						<p>公共模板文件中可能存在一些变量，例如这里的页面标题不同的页面会有不同，可以使用</p>
+						<pre class="prettyprint linenums">
+<code>
+｛include file="user/header" title="查看用户列表" /｝
+</code>
+						</pre>
+
+						<p>然后修改头部模板文件</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;title>[title]&lt;/title>
+</code>
+						</pre>
+
+						<p>如果需要传递多个变量，则使用多个属性即可，例如：</p>
+						<pre class="prettyprint linenums">
+<code>
+｛include file="user/header" title="查看用户列表" keywords="thinkphp" /｝
+</code>
+						</pre>
+
+						<p>也可以支持传递动态变量的方式，例如：</p>
+						<pre class="prettyprint linenums">
+<code>
+｛include file="user/header" title="$title" /｝
+</code>
+						</pre>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="title">输出替换</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">View函数</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">模板语言</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">分页输出</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">布局模板</div>
+			<div class="content open">
+
+			</div>
+		</div> 
+    </div>
+
+    <div class="title">渲染内容</div>
+    <div class="content open">
+
+    </div>
+</div>
 
 <div class="list list-number">
     <div class="title">模板输出(使用模板变量)</div>
@@ -51,56 +208,6 @@ class User extends Controller
 	// 在视图中使用模板变量
 </code>
 		</pre>
-    </div>
-
-    <div class="title">include标签</div>
-    <div class="content open">
-
-		<p>header.html</p>
-		<pre class="prettyprint linenums">
-<code>
-&lt;!doctype html>
-&lt;html lang="en">
-&lt;head>
-&lt;meta charset="UTF-8">
-&lt;title>查看用户列表&lt;/title>
-&lt;link ref="stylesheet" href="common.css">
-&lt;/head>
-&lt;body>
-</code>
-		</pre>
-
-		<p>footer.html</p>
-		<pre class="prettyprint linenums">
-<code>
-&lt;div class="copyright">
-    &lt;a title="官网" href="http://www.thinkphp.cn">ThinkPHP&lt;/a> 
-    &lt;span>V5&lt;/span> 
-    &lt;span>{ 十年磨一剑-为API开发设计的高性能框架 }&lt;/span>
-&lt;/div>
-&lt;/body>
-&lt;/html>
-</code>
-		</pre>
-
-		<p>index.html: 使用include标签</p>
-		<pre class="prettyprint linenums">
-<code>
-[include file="user/header" /]
-
-&lt;h2>用户列表（[$count]）&lt;/h2> 
-[volist name="list" id="user" ]
-    &lt;div class="info">
-        ID：[$user.id]&lt;br/>
-        昵称：[$user.nickname]&lt;br/>
-        邮箱：[$user.email]&lt;br/>
-    &lt;/div>
-[/volist]
-
-[include file="user/footer" /]
-</code>
-		</pre>
-
     </div>
 </div>
 {include file="php/tp5/template/footer" /}
