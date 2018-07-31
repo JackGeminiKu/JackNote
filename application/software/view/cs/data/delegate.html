@@ -117,13 +117,13 @@ Console.WriteLine( process(2,8) );    // 像函数一样使用
     <div class="content closed">
 		<pre class="prettyprint linenums">
 <code>
-// Action: 没有返回值的委托类型。.Net Framework提供了17个Action委托，从无参数一直到最多16个参数。定义如下：
+// Action: 没有返回值
 public delegate void Action();
 public delegate void Action&lt;in T>(T obj);
 public delegate void Action&lt;in T1,in T2>(T1 arg1, T2 arg2);
 ...
 
-// Func: 有一个返回值的委托。.Net Framework提供了17个Func委托，从无参数一直到最多16个参数。定义如下：
+// Func: 有返回值
 public delegate TResult Func&lt;out TResult>();
 public delegate TResult Func&lt;in T, out TResult>(T arg);
 ...
