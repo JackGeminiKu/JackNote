@@ -91,3 +91,7 @@ div.panel {
     top: 11px;
     right: 11px;
 }
+
+div.content > div.list-none > div.content{
+    margin-left: 0px;
+}
