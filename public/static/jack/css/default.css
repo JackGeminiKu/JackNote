@@ -82,6 +82,14 @@ div.panel {
 	font-weight: lighter !important;
 }
 
+.text-important {
+  color: #dc3545 !important;
+}
+
+.text-remark {
+  color: #dc3545 !important;
+}
+
 .table-bordered th, .table-bordered td {   
     border: 1px solid #C0C0C0 !important;  
 }  

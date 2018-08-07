@@ -2,8 +2,212 @@
 <div class="list list-number">
 	<!--ADO.NET-->
     <div class="title">ADO.NET</div>
-    <div class="content closed">
-        ...
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">数据提供者</div>
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">概述</div>
+					<div class="content open">
+						<p>数据提供者对象用于每一种类型的数据源, 专用于提供者的对象完成数据源中实际的读取和写入工作.</p>
+						<table class="table table-bordered table-sm w-50">
+							<tbody>
+								<tr>
+									<th>1. Connection</th>
+									<td>访问数据库之前, 必须先连接!</td>
+								</tr>
+								<tr>
+									<th>2. Command</th>
+									<td>可以使用此对象给数据源发出命令, 比如"select * from Customers"查询Customers表中的数据.</td>
+								</tr>
+								<tr>
+									<th>3. CommandBuilder</th>
+									<td>此对象用于构建SQL命令, 在基于单一表查询的对象中进行数据修改.</td>
+								</tr>
+								<tr>
+									<th>4. DataReader</th>
+									<td>可以从数据源中读取仅能向前和只读的数据流(比如找到的用户集合). 对于简单地读取数据来说, 此对象的性能最好. </td>
+								</tr>
+								<tr>
+									<th>5. DataAdapter</th>
+									<td>可以执行针对数据源的各种操作, 包括更新变动的数据, 填充DataSet对象以及其他操作.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="title">MS SQL Server数据提供者</div>
+					<div class="content open">
+						<div class="list list-number">
+							<div class="title">SqlConnection</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+// 对应SqlConnection对象
+SqlConnection connection = new SqlConnection("Server=localhost;Database=pubs;User ID=sa;Password=vbdotnet"); // 方法1
+SqlConnection connection = new SqlConnection(); // 方法2
+connection.ConnectionString = "Server=localhost;Database=pubs;User ID=sa;Password=vbdotnet";
+
+// 打开&关闭连接
+connection.Open();
+connection.Close();
+</code>
+								</pre>
+							</div>
+
+							<div class="title">SqlCommand</div>
+							<div class="content closed">
+								<div class="list list-number">
+									<div class="title">定义Command</div>
+									<div class="content open">
+										<pre class="prettyprint linenums">
+<code>
+SqlCommand command = new SqlCommand();
+command.Connection = connection;
+</code>
+										</pre>
+									</div>
+
+									<div class="title">各种类型Command</div>
+									<div class="content open">
+										<p class="text-strong">SQL语句</p>
+										<pre class="prettyprint linenums">
+<code>
+command.CommandType = CommandType.Text;  // 默认是Text类型            
+// 方法1: 使用字面值
+command.CommandText = "INSERT INTO authors(au_id, au_name) VALUES('123-45-6789','Barnes')";
+ // 方法2: 使用参数
+command.CommandText = "INSERT INTO authors (au_id, au_name) VALUES(@au_id,@au_name)";
+command.Parameters.Add(new SqlParameter("au_id", "123"));
+command.Parameters.AddWithValue("@au_name", "");
+</code>
+										</pre>	
+										<p class="text-remark">注: CommandText可以是多条SQL命令, 中间用";"分隔.</p>
+
+										<p class="text-strong">存储过程</p>
+										<pre class="prettyprint linenums">
+<code>
+command.CommandType = CommandType.StoredProcedure;
+command.CommandText = "usp_select_author_titles";
+</code>
+										</pre>		
+										<p class="text-remark">注: 在VS的Server Explorer中可以查看数据库中的存储过程.</p>
+
+										<p class="text-strong">表</p>
+										<pre class="prettyprint linenums">
+<code>
+command.CommandType = CommandType.TableDirect;
+command.Text = "表的名字";
+</code>
+										</pre>		
+									</div>
+
+									<div class="title">执行: ExecuteReader(), ExecuteScalar() & ExecuteNonQuery()</div>
+									<div class="content open">
+										<p>如果程序需要执行面向集合的操作, 比如删除或更新所有满足某一条件的行, 则直接使用一个SQL命令要比使用在C#代码中扩展的SQL命令更有效, 对于大型表来说尤其如此. ADO.NET为执行SQL命令提供了SqlCommand或OleDbCommand对象. 这些对象可以提供直接执行SQL命令的方法.</p>
+
+										<p class="text-strong">1) ExecuteReader: Sends the CommandText to the Connection and builds a SqlDataReader.</p>
+										<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+connection.Open();
+
+SqlCommand thisCommand = new SqlCommand("select count(*) from Customers", connection);  // 创建command对象
+SqlDataReader dataReader = thisCommand.ExecuteReader();
+connection.Close();
+</code>
+										</pre>	
+
+										<p class="text-strong">2) ExecuteScalar: 获取第一个Cell的值(第一行,第一列)</p>
+										<p>如果仅有少量数据, 或者由于某种原因在DataSet中加载了所有的行, 则可以只使用DataTable.Rows.Count. 但是, 如果要计算1 000 000行的大型表中的行数, 则使用ExecuteScalar()方法和select count(*)查询, 要比在内存中加载1 000 000行的效率高得多.</p>
+										<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+connection.Open();
+ 
+SqlCommand thisCommand = new SqlCommand("select count(*) from Customers", connection);  // 创建command对象
+Object countResult = thisCommand.ExecuteScalar();
+Console.WriteLine("Count of Customers = {0}", countResult);
+
+connection.Close();
+</code>
+										</pre>
+
+										<p class="text-strong">3) ExecuteNonQuery: 不检索数据, 返回操作影响的行数</p>
+										<p>类似SQL INSERT, UPDATE和DELETE的数据修改操作也不返回任何数据; 我们对这些命令感兴趣的是修改操作影响的行数, 这个行数使用ExecuteNonQuery()方法返回.</p>	
+										<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+connection.Open();
+ 
+SqlCommand thisCommand = new SqlCommand("update Products set UnitPrice = UnitPrice*1.05 where SupplierId = 12", connection);  // 生成command对象
+int rowsAffected = thisCommand.ExecuteNonQuery();
+Console.WriteLine("Rows Updated = {0}", rowsAffected);
+
+connection.Close();
+</code>
+										</pre>
+									</div>
+								</div>
+							</div>
+
+							<div class="title">SqlCommandBuilder</div>
+							<div class="content closed">
+								<p>命令构建器生成SQL命令, 用于根据select命令修改数据(update, insert和delete). 同时, 我们可以用CommandBuilder对象的GetUpdateCommand(), GetInsertCommand()和GetDeleteCommand()方法生成的命令.</p>
+								<pre class="prettyprint linenums">
+<code>
+SqlDataAdapter adapter = new SqlDataAdapter("select CustomerID from Customers", connection);
+SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+</code>
+								</pre>
+							</div>
+
+							<div class="title">SqlDataReader</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+connection.Open();  // 打开连接. 如果Open失败, 就会抛出SqlException异常
+ 
+SqlCommand thisCommand = connection.CreateCommand();
+thisCommand.CommandText = "SELECT CustomerID, CompanyName from Customers";
+ 
+SqlDataReader thisReader = thisCommand.ExecuteReader(); // ExeceuteReader()在数据库中运行SQL命令, 因此也在此生成所有的数据库错误; 它还创建DataReader对象, 用于读取生成的结果
+while (thisReader.Read()) { // Read()方法从查询结果中读取一行数据, 如果还有数据要读取, 则返回true; 如果没有, 则返回false
+    // DataReader对象提供索引符属性, 这个索引符是重载的, 允许把列引用为按列名称的数组引用: thisReader["CustomerID"],  或者按整数引用:thisReader[0]
+    Console.WriteLine("\t{0}\t{1}", thisReader["CustomerID"], thisReader["CompanyName"]); 
+}
+ 
+thisReader.Close(); 
+connection.Close();
+</code>
+								</pre>
+							</div>
+
+							<div class="title">SqlDataAdapter</div>
+							<div class="content closed">
+								TBD...
+							</div>
+						</div>
+					</div>
+
+					<div class="title">其他数据提供者</div>
+					<div class="content open">
+						<p>注: 在每一个.NET数据提供者中定义的对象, 其名称前带有特定提供者的名称. 因此, 用于OLE DB提供者的连接对象就是OleDbConnection, 用于SQL Server .NET提供者的类型就是SqlConnection.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">用户对象</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">XML & ADO.NET</div>
+			<div class="content open">
+
+			</div>
+		</div>
     </div>
 
 	<!--ORM - Dapper-->
@@ -100,5 +304,10 @@ Assert.Equal(3, count); // 3 rows inserted: "1,1", "2,2" and "3,3"
         <a href="https://msdn.microsoft.com/en-us/library/aa937723(v=vs.113).aspx">官方资料</a><br>
         <a href="http://www.cnblogs.com/wujingtao/p/5401113.html">Entity Framework 6快速入门</a>
     </div>
+
+	<div class="title">其他</div>
+	<div class="content closed">
+
+	</div>
 </div>
 {include file="template/footer" /}

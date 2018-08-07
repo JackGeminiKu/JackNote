@@ -181,6 +181,7 @@ try {
     // 产生异常的代码块, 发生异常时: 直接跳转到catch区域, try区域中发生异常之后的语句不会执行
 } catch ( Exception_Type e ) {
     // catch块可以使用Exception_Type, 设置为只响应特定的异常类型; 也可以省略这个参数, 设置为响应所有的异常.
+    // 捕捉当前线程的异常???
 } finally {
     // 不管是否产生异常, 都会执行的代码.
 }
@@ -242,16 +243,15 @@ public class CardOutOfRangeException : Exception
 			<!--未捕获的异常-->
 			<div class="title">未捕获的异常</div>
 			<div class="content closed">
-				<p>处理未捕获的异常时每个程式的必备功能!</p>
 				<div class="list list-number">
-					<div class="title">捕获应用程序域异常: appDomain.UnhandledExcpetion</div>
+					<div class="title">应用程序域异常: appDomain.UnhandledExcpetion</div>
 					<div class="content closed">
-						<p>AppDomain对象提供了UnhandledException事件来接收未捕获到的异常的通知。常见的应用如下：</p>
 						<pre class="prettyprint linenums">
 <code>
 static void Main(string[] args)
 {
-    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);    // 非UI异常
+    // 应用程序域中的未捕捉异常将触发UnhandledException事件!
+    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 }
 
 static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -264,21 +264,16 @@ static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEv
 						<p class="text-danger">注意: UnhandledException提供的机制并不能阻止应用程序终止，也就是说，CurrentDomain_UnhandledException方法执行后，应用程序就会被终止。</p>
 					</div>
 
-					<div class="title">WinForm异常: Application.ThreadException</div>
+					<div class="title">WinForm UI异常: Application.ThreadException</div>
 					<div class="content closed">
-						<p>
-							在windows窗体程序中，还存在ThreadException来处理Windows窗体线程中所发生的其未经处理的异常。即在windows窗体程序 中:<br>
-							1) 使用ThreadException 事件来处理 UI 线程异常;<br>
-							2) 使用 UnhandledException 事件来处理非UI线程异常.
-						</p>
 						<pre class="prettyprint linenums">
 <code>
 [STAThread]
 static void Main()
 {
-    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);    // 非UI异常
-　
-    Application.ThreadException += new ThreadExceptionEventHandler(UI_ThreadException);                                     // UI异常
+    // 启用Application.ThreadException: 对于应用程序域中的所有未捕获异常, UI线程的异常将触发ThreadException事件, 其他线程的异常将触发UnhandledException事件.
+    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+    Application.ThreadException += new ThreadExceptionEventHandler(UI_ThreadException);
     Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 　
     Application.Run(new ErrorHandlerForm());
@@ -306,13 +301,13 @@ private static void CurrentDomain_UnhandledException(object sender, UnhandledExc
 						</pre>
 					</div>
 
-					<div class="title">WPF窗体 异常: this.DispatcherUnhandledException </div>
+					<div class="title">WPF UI异常: this.DispatcherUnhandledException </div>
 					<div class="content closed">
-						<p>WPF的UI线程和Windows的UI线程有点不一样。WPF的UI线程是交给一个叫做调度器的类：Dispatcher。代码如下： </p>
 						<pre class="prettyprint linenums">
 <code>
 public App()
 {
+    // 启用this.DispatcherUnhandledException: 对于应用程序域中的所有未捕获异常, UI线程的异常将触发DispatcherUnhandledException事件, 其他线程的异常将触发UnhandledException事件.
     AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);    // 非UI异常
     this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(Application_DispatcherUnhandledException);    // WPF异常
 }
@@ -381,7 +376,7 @@ t.Start();
 					</div>
 				</div>
 
-				<p>原则上来说，每个线程自己的异常应该在自己的内部处理完毕，不过仍旧有一个办法，可以将线程内部的异常传递到主线程。</p>
+				<p class="text-important">原则上来说，每个线程自己的异常应该在自己的内部处理完毕，不过仍旧有一个办法，可以将线程内部的异常传递到主线程。</p>
 				<div class="container-fluid pl-0">
 					<div class="row">
 						<div class="col-6">
