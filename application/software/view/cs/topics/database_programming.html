@@ -186,13 +186,317 @@ connection.Close();
 
 							<div class="title">SqlDataAdapter</div>
 							<div class="content closed">
-								TBD...
+								<div class="list list-number">
+									<div class="title">从数据库中取出数据</div>
+									<div class="content closed">
+										<pre class="prettyprint linenums">
+<code>
+SqlDataAdapter adapter = new SqlDataAdapter("select CustomerID from Customers", connection);
+
+SqlDataAdapter dataAdapter = new SqlDataAdapter();
+dataAdapter.SelectCommand = SqlCommand;
+dataAdapter.Fill(dataSet, strTable);  // 现在内存中存有数据， 就可以在独立于数据源的情况下处理他们！
+</code>
+										</pre>	
+										<p class="text-remark">注意: Fill方法使用SelectCommand.Connection属性连接数据库. 如果连接已经打开, 数据适配器就使用该连接执行SelectCommand, 并在完成后仍打开连接; 如果连接被关闭, 数据适配器就会打开它, 执行SelectCommand, 完成后再关闭连接.</p>
+										<p>
+											当调用Fill()方法时, 查询到的数据都被加载到程序的内存中. 这非常适合于小型表, 但不适合于许多商业应用程序中有100 000, 甚至是1 000 000行的大型表.
+										</p>
+										<p>
+											一种方法是, 如果程序仅与一些列交互, 则通过select语句指定需要的列, 限制所使用的列数, 比如: select CustomerID, CompanyName from Customers. <br>
+											另一种方法是在SQL select语句上指定where子句, 限制所选择的行数. 例如, 下面的语句: select * from Customers where CustomerID = "ZACZI"
+										</p>
+										<p>
+											我们的目标就是确立下面两方面之间最具效率的均衡: 在运行ADO.NET程序的客户机上本地处理数据, 在运行SQL的服务器上处理搜索任务.
+											ADO.NET和C#比SQL更适合于处理复杂运算或导航逻辑. 使用希望处理的表中的数据填充DataSet, 在客户机上执行这种逻辑. 但是使用合适的条件限制从每一张表中选择的行数, 会极大地提高性能(即使数据要在网络上传输, 也是如此), 减少所用的内存.
+										</p>
+									</div>
+
+									<div class="title">用DataSet读写数据</div>
+									<div class="content closed">
+										<p>DataSet是ADO.NET中的核心对象, 所有复杂级别的操作都要使用它. DataSet包含一组DataTable对象, 它们表示所操作的数据库表. </p>
+										<div class="list list-number">
+											<div class="title">用数据填充DataSet</div>
+											<div class="content open">
+												<p>DataSet的常见操作是用DataAdapter对象的Fill()方法给它填充数据. 为什么Fill()是DataAdapter对象的方法, 而不是DataSet的方法. 因为DataSet是内存中数据的一个抽象表示, 而DataAdapter对象是把DataSet和具体数据库联系起来的对象. </p>
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+SqlDataAdapter adapter = new SqlDataAdapter("Select CustomerID,ContactName from Customers", connection);  // 创建DataAdapter对象
+DataSet dataSet = new DataSet();  // 创建要填充数据的DataSet
+　
+adapter.Fill(dataSet, "Customers");  // 填充DataSet中的DataTable， 表名为Customers
+　
+foreach (DataRow theRow in dataSet.Tables["Customers"].Rows) {
+    Console.WriteLine(theRow["CustomerID"] + "\t" + theRow["ContactName"]);
+}
+　
+// 注意在这个示例中没有明确打开和关闭连接, 因为DataAdapter对象完成了这个工作.
+// 而且DataAdapter对象不改变连接的状态， 所以, 如果在DataAdapter对象开始其工作前连接是打开的, 在DataAdapter对象完成其工作后, 连接仍是打开的.
+</code>
+												</pre>
+											</div>
+
+											<div class="title">增</div>
+											<div class="content open">
+												<p>
+													给数据库添加新行的过程如下: <br>
+													1) 调用DataAdapter对象的Fill()方法填充DataSet; <br>
+													2) 创建一个新的DataRow, 并把它添加到DataSet的Row集合中; <br>
+													3) 用DataAdapter对象的Update()方法, 把这个变化返回到数据库中.
+												</p>
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+SqlDataAdapter adapter = new SqlDataAdapter("select CustomerID,CompanyName from Customers", connection);
+SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+DataSet dataSet = new DataSet();
+ 
+adapter.Fill(dataSet, "Customers");
+ 
+DataRow thisRow = dataSet.Tables["Customers"].NewRow();    // 使用DataTable对象的NewRow()方法创建新行对象
+thisRow["CustomerID"] = "ZACZI";
+thisRow["CompanyName"] = "Zachary Zithers Ltd";
+dataSet.Tables["Customers"].Rows.Add(thisRow);            // 把新行添加到Rows集合中
+
+adapter.Update(dataSet, "Customers");    // 更新数据库
+</code>
+												</pre>
+											</div>
+
+											<div class="title">删</div>
+											<div class="content open">
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+SqlDataAdapter adapter = new SqlDataAdapter("select CustomerID, CompanyName from Customers",connection);
+SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+DataSet dataSet = new DataSet();
+ 
+adapter.Fill(dataSet, "Customers");
+ 
+// Set up keys object for defining primary key
+DataColumn[] keys = new DataColumn[1];
+keys[0] = dataSet.Tables["Customers"].Columns["CustomerID"];
+dataSet.Tables["Customers"].PrimaryKey = keys;
+DataRow findRow = dataSet.Tables["Customers"].Rows.Find("ZACZI");
+if (findRow == null) {
+    return;
+}
+findRow.Delete(); 
+
+adapter.Update(dataSet, "Customers");
+/*
+在执行了Delete()方法之后调用DataSet的AcceptChanges()方法时要小心: 这么做仅能删除DataSet中的行, 却不影响数据库中的行, 因为Update()仅影响在Rows集合中找到的行, 遗漏的行会被忽略. 这个问题也适用于Remove()方法: 仅当希望从DataSet的Rows集合中, 而不是从数据库中删除时才调用它.
+*/
+</code>
+												</pre>
+											</div>
+
+											<div class="title">查</div>
+											<div class="content open">
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+SqlDataAdapter adapter = new SqlDataAdapter("select CustomerID, CompanyName from Customers", connection);
+SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+DataSet dataSet = new DataSet();
+ 
+adapter.Fill(dataSet, "Customers");
+ 
+// Set up keys object for defining primary key
+DataColumn[] keys = new DataColumn[1];
+keys[0] = dataSet.Tables["Customers"].Columns["CustomerID"];
+dataSet.Tables["Customers"].PrimaryKey = keys;
+DataRow findRow = dataSet.Tables["Customers"].Rows.Find("ZACZI"); // Find()的参数: 可以是多列主键的对象数组; 但是在此它仅有一列, 所以只需要传递一个"ZACZI"字符串, 它是我们要查询的CustomerID.
+ 
+if (findRow == null) {
+    Console.WriteLine("ZACZI not found in database");
+}
+</code>
+												</pre>
+												<p class="text-remark">
+													另一种办法是直接从数据库中加载主键, 这不会默认完成. 而是必须在填充DataSet之前设置DataAdapter对象的MissingSchemaAction属性, 显示地告诉ADO.NET加载主键的信息, 如下所示: <br>
+													adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey; <br>
+													adapter.Fill(dataSet,"Customers"); <br>
+													这行代码通过隐式初始化DataTable的PromaryKey属性, 同样可以完成主键的构建. <br>
+												</p>
+											</div>
+
+											<div class="title">改</div>
+											<div class="content open">
+												<p>
+													在数据库上进行的操作(更新, 插入和删除记录)可以用相同的模式完成: <br>
+													1) 调用DataAdapter对象的Fill()方法填充DataSet. <br>
+													2) 修改存储在DataSet中的数据(例如, 更新, 插入和删除记录). <br>
+													3) 调用DataAdapter对象的Update()方法, 把这个变化返回到数据库中.
+												</p>
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+SqlDataAdapter adapter = new SqlDataAdapter("select CustomerID, CompanyName from Customers",connection);
+SqlCommandBuilder builder = new SqlCommandBuilder(adapter); // 创建用于更新数据库的SQL语句, 不必自己手工创建, 可以使用SqlCommandBuilder
+DataSet dataSet = new DataSet();
+　
+adapter.Fill(dataSet, "Customers");    // 将数据填充到DataSet对象中, 表名为Customers
+dataSet.Tables["Customers"].Rows[9]["CompanyName"] = "Acme, Inc...";    // 修改数据
+adapter.Update(dataSet, "Customers");    // 更新数据库
+</code>
+												</pre>
+											</div>
+
+											<div class="title">多表操作(父表&子表)</div>
+											<div class="content closed">
+												<p>DataSet的Relations属性是一个DataRelation对象的集合, DataRelation对象表示这个DataSet中表之间的关系, 用于查找和操作相关的表.</p>
+												<p>要创建一个新的DataRelation, 可以使用Relations的Add()方法:</p>
+												<pre class="prettyprint linenums">
+<code>
+DataRelation custOrderRel = dataSet.Relations.Add("CustOrders", // 关系名
+    dataSet.Tables["Customers"].Columns["CustomerID"], // 父表
+    dataSet.Tables["Orders"].Columns["CustomerID"]); // 子表
+</code>
+												</pre>
+
+												<p class="text-strong">GetChildRows</p>
+												<p>
+													给定父表中的一行, 如何获取子表中与其对象的所有行? 可以使用DataRow对象的GetChildRows()方法提取这些行. 前面在父表和子表之间创建的DataRelation对象传送给该方法, 返回一个DataRowCollection对象, 它是子表DataTable中相关DataRow对象的集合.
+												</p>
+
+												<p class="text-strong">GetParentRow & GetParentRows</p>
+												<p>给定子表中的一样, 如何获取父表中与其对象的所有行? 可以使用DataRow对象的GetParentRows()方法提取这些行. 前面在父表和子表之间创建的DataRelation对象传送给该方法, 返回一个DataRowCollection对象, 它是父表DataTable中相关DataRow对象的集合.</p>	
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+DataSet dataSet = new DataSet();
+
+// 填充Customers表
+SqlDataAdapter custAdapter = new SqlDataAdapter("select * from Customers", connection);
+custAdapter.Fill(dataSet, "Customers");
+
+// 填充Orders表
+SqlDataAdapter orderAdapter = new SqlDataAdapter("select * from Orders", connection);
+orderAdapter.Fill(dataSet, "Orders");
+ 
+// 填充Order Details表
+SqlDataAdapter detailAdapter = new SqlDataAdapter("select * from [Order Details]", connection);
+detailAdapter.Fill(dataSet, "Order Details");
+ 
+// 填充Products表
+SqlDataAdapter prodAdapter = new SqlDataAdapter("select * from Products", connection);
+prodAdapter.Fill(dataSet, "Products");
+ 
+// Customers & Orders
+DataRelation custOrderRel = dataSet.Relations.Add("CustOrders", dataSet.Tables["Customers"].Columns["CustomerID"], dataSet.Tables["Orders"].Columns["CustomerID"]);
+
+// Orders & Order Details
+DataRelation orderDetailRel = dataSet.Relations.Add("OrderDetail", dataSet.Tables["Orders"].Columns["OrderID"], dataSet.Tables["Order Details"].Columns["OrderID"]);
+
+// Products & Order Details
+DataRelation orderProductRel = dataSet.Relations.Add("OrderProducts", dataSet.Tables["Products"].Columns["ProductID"], dataSet.Tables["Order Details"].Columns["ProductID"]);
+ 
+foreach (DataRow custRow in dataSet.Tables["Customers"].Rows) {
+    Console.WriteLine("Customer ID: " + custRow["CustomerID"]);
+ 
+    foreach (DataRow orderRow in custRow.GetChildRows(custOrderRel)) {    // 获取子表记录
+        Console.WriteLine("\tOrder ID: " + orderRow["OrderID"]);
+        Console.WriteLine("\t\tOrder Date: " + orderRow["OrderDate"]);
+ 
+        foreach (DataRow detailRow in orderRow.GetChildRows(orderDetailRel)) {
+            Console.WriteLine("\t\tProduct: " + detailRow.GetParentRow(orderProductRel)["ProductName"]);    // 获取父表记录
+            Console.WriteLine("\t\tQuantity: " + detailRow["Quantity"]);
+        }
+    }
+}
+</code>
+												</pre>
+
+												<p class="text-strong">增加Where限定</p>
+												<pre class="prettyprint linenums">
+<code>
+SqlConnection thisConnection = new SqlConnection("Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True");
+DataSet dataSet = new DataSet();
+ 
+SqlDataAdapter custAdapter = new SqlDataAdapter("select * from Customers where CustomerID = 'ALFKI'", thisConnection);
+custAdapter.Fill(dataSet, "Customers");
+ 
+SqlDataAdapter orderAdapter = new SqlDataAdapter("select * from Orders where CustomerID = 'ALFKI'", thisConnection);
+orderAdapter.Fill(dataSet, "Orders");
+ 
+SqlDataAdapter detailAdapter = new SqlDataAdapter("select * from [Order Details] where OrderID in (select OrderID from Orders where CustomerID = 'ALFKI')", thisConnection);
+detailAdapter.Fill(dataSet, "Order Details");
+ 
+SqlDataAdapter prodAdapter = new SqlDataAdapter("select * from Products", thisConnection);
+prodAdapter.Fill(dataSet, "Products");
+ 
+DataRelation custOrderRel = dataSet.Relations.Add("CustOrders", dataSet.Tables["Customers"].Columns["CustomerID"], dataSet.Tables["Orders"].Columns["CustomerID"]);
+ 
+DataRelation orderDetailRel = dataSet.Relations.Add("OrderDetail", dataSet.Tables["Orders"].Columns["OrderID"], dataSet.Tables["Order Details"].Columns["OrderID"]);
+ 
+DataRelation orderProductRel = dataSet.Relations.Add("OrderProducts", dataSet.Tables["Products"].Columns["ProductID"], dataSet.Tables["Order Details"].Columns["ProductID"]);
+ 
+foreach (DataRow custRow in dataSet.Tables["Customers"].Rows) {
+    Console.WriteLine("Customer ID: " + custRow["CustomerID"]);
+ 
+    foreach (DataRow orderRow in custRow.GetChildRows(custOrderRel)) {
+        Console.WriteLine("\tOrder ID: " + orderRow["OrderID"]);
+        Console.WriteLine("\t\tOrder Date: " + orderRow["OrderDate"]);
+ 
+        foreach (DataRow detailRow in orderRow.GetChildRows(orderDetailRel)) {
+            Console.WriteLine("\t\tProduct: " + detailRow.GetParentRow(orderProductRel)["ProductName"]);
+            Console.WriteLine("\t\tQuantity: " + detailRow["Quantity"]);
+        }
+    }
+}
+ 
+dataSet.WriteXml(@"C:\tmp\nwinddata.xml");
+Console.WriteLine(@"Successfully wrote XML output to file c:\tmp\nwinddatam.xml");
+ 
+thisConnection.Close();
+Console.WriteLine("Program finished, press Enter/Return to continue");
+Console.ReadLine();
+</code>
+												</pre>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>
 
 					<div class="title">其他数据提供者</div>
-					<div class="content open">
+					<div class="content closed">
+						<p class="text-strong">Oracle .NET数据提供者</p>
+						<p>
+							如果使用的是Oracle数据库, 内置Oracle.NET驱动程序是最佳选择, .NET Framework就提供了这个驱动程序, 相关类位于System.Data.OracleClient命名空间中！
+						</p>
+						<p>Oracle本身也提供了一个.NET数据提供者, 引用为Oracle.DatAccess.Client. 它必须从Oracle中单独下载. </p>
+						<p>使用数据库销售商提供的.NET数据提供者, 还是.NET Framework提供的.NET数据提供者, 完全取决于读者自己. 一般销售商的提供者能更多地利用数据库产品的特定功能, 但对于基本或初级使用来说, 它们都不错. 两个提供者都能工作, 读者可以使用自己喜欢的那个.
+						</p>	
+
+						<p class="text-strong">OLE DB.NET提供者</p>
+						<p>对于不是SQL Server或Oracle的数据源(比如Microsoft Access)而言, 可以使用OLE DB.NET数据提供者, 相关类位于System.Data.OleDb命名空间中！</p>
+						<p>许多常见数据库的OLE DB提供者会随Windows一起安装, 例如Microsoft Access.</p>
+						<p>Access数据库注意事项</p>
+						<p>
+							SELECT [First Name], [Last Name] FROM Employees WHERE [Last Name] LIKE 'D*' ORDER BY [First Name] DESC; <br>
+							1) SQL语句在Access中应以分号结尾. 但是如果忘记添加分号, 也没有关系, 因为Access会自动添加. <br>
+							2) 需要把这些字段放在方括号中, 因为这些字段名称包含空格. <br>
+							3)　为了使结果更清晰, 可以按升序排列, 在ORDER BY子句中用ASC替代DESC即可. 实际上不需要这么做, 因为升序是默认的排序方式.
+						</p>
+
+						<p class="text-strong">ODBC.NET数据提供者</p>
+						<p>
+							如果数据源没有内置的或OLE DB提供者, 则可以使用ODBC.NET数据提供者, 因为大多数数据库都提供了ODBC接口. ODBC提供者可以通过下面的using指令来引用:
+							using System.Data.Odbc;
+						</p>
+
+						<p class="text-strong">其他内置的.NET数据提供者</p>
+						<p>
+							如果数据库有专用的内置.NET数据提供者, 就可以使用它. 其他许多数据库销售商和第三方公司也提供了内置.NET数据提供者, 选择内置提供者还是使用通用的ODBC提供者取决于程序运行的环境. 如果可移植性的要求高于性能, 就应使用通用的ODBC提供者. 如果性能要求高或者要充分利用某个数据库的功能, 就应使用内置.NET数据提供者.
+						</p>
+
 						<p>注: 在每一个.NET数据提供者中定义的对象, 其名称前带有特定提供者的名称. 因此, 用于OLE DB提供者的连接对象就是OleDbConnection, 用于SQL Server .NET提供者的类型就是SqlConnection.</p>
 					</div>
 				</div>
@@ -200,7 +504,7 @@ connection.Close();
 
 			<div class="title">用户对象</div>
 			<div class="content open">
-
+				TBD...
 			</div>
 
 			<div class="title">XML & ADO.NET</div>
