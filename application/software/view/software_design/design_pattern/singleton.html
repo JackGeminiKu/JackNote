@@ -1,0 +1,66 @@
+{include file="template/header" title="设计模式 单例模式" /}
+<p><span class="text-strong">单例模式(Singleton)</span>: 保证一个类仅有一个实例, 并提供一个访问它的全局访问点.</p>
+<p>
+	一个全局变量可以使得一个对象被访问, 但它不能防止你实例化多个对象. 一个最好的办法就是, 让类自身负责保存它的唯一实例. 这个类可以保证没有其他实例可以被创建, 并且它可以提供一个访问该实例的方法. <br>
+	单例模式除了可以保证唯一的实例外, 还有其他好处, 比如因为Singleton类封装它的唯一实例, 这样它可以严格地控制客户怎样访问它以及何时访问它. 简单地说就是对唯一实例的受控访问.
+</p>
+
+<div>
+	<img src="__ROOT__/static/image/design_pattern/singleton.png" />
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-6">
+			<p><span class="text-strong">懒汉式单例</span>: 在第一次被引用时, 才会将自己实例化, 所以称之为懒汉式单例.</p>
+			<pre class="prettyprint linenums">
+<code>
+class Singleton
+{
+    private Singleton()
+    { }
+ 
+    static Singleton instance;
+    static readonly object syncRoot = new object(); // 程序运行时创建一个静态只读的进程辅助对象
+ 
+    public static Singleton GetInstance()
+    {
+        if (instance == null) {     // 先判断实例是否存在, 不存在才加锁处理, 因为加锁对性能会有影响
+            lock (syncRoot) {
+                if (instance == null) {     // 防止instance为null时, 两个线程同时调用GetInstance()方法, 实例化两个对象
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
+</code>
+			</pre>
+		</div>
+		<div class="col-6">
+			<p><span class="text-strong">饿汉式单例</span>: 在自己被加载时就将自己实例化, 所以称之为饿汉式单例.</p>
+			<pre class="prettyprint linenums">
+<code>
+public sealed class Singleton   // 阻止发生派生, 而派生可能会增加实例
+{
+    private Singleton()
+    { }
+ 
+    // 在第一次引用类的任何成员时创建实例. 公共语言运行库负责处理变量初始化
+    static readonly Singleton instance = new Singleton();
+ 
+    public static Singleton GetInstance()
+    {
+        return instance;
+    }
+}
+</code>
+			</pre>
+		</div>
+	</div>
+</div>
+
+<p class="text-strong">懒汉 vs 饿汉</p>
+<p>由于饿汉式, 它是类一加载就实例化的对象, 所以要提前占用系统资源. 然而懒汉式, 又会面临着多线程访问的安全性问题, 需要做双重锁定这样的处理才可以保证安全. 所以到底使用哪一种方法, 取决于实际的需求.</p>
+{include file="template/footer" /}

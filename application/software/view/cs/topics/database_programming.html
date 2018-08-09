@@ -504,12 +504,81 @@ Console.ReadLine();
 
 			<div class="title">用户对象</div>
 			<div class="content open">
-				TBD...
+				<div class="list list-number">
+					<div class="title">DataSet - 数据库</div>
+					<div class="content closed">
+						<p>表示一组相关表. 有了此对象, 就可以快速从每一个表中获取所需的数据, 当与服务器断开时检查并修改数据, 然后在另一个操作中使用这些修改的数据更新服务器.</p>
+						<p>
+							<span class="text-strong">Tables属性</span><br>
+							DataSet对象有一个Tables属性, 它是DataSet中所有DataTable对象的集合. Tables的类型是DataTableCollection, 它有一个重载的索引符, 于是可以用两种方式访问每个DataTable: <br>
+							1) 按表名访问: dataSet.Tables["Customers"] <br>
+							2) 按索引访问: dataSet.Tables[0]
+						</p>	
+					</div>
+
+					<div class="title">DataTable - 表</div>
+					<div class="content closed">
+						<p>
+							表示DataSet中的一个表. DataTable对象允许访问其中的行(DataRow)和列(DataColumn)
+						</p>
+						<p>
+							<span class="text-strong">Rows属性</span><br>
+							在每个DataTable中, 都有一个Rows属性, 它是DataRow对象的集合. Rows的类型是DataRowCollection, 是一个有序列表, 按行号排序. 所以: <br>
+							myDataSet.Tables["Customers"].Rows[n]
+						</p>
+						<p>
+							<span class="text-strong">DataRow对象</span><br>
+							DataRow对象有一个重载的索引符属性, 允许按列名访问各个列. 于是: <br>
+							this.DataSet.Tables["Customers"].Rows[n]["CompanyName"]
+						</p>
+					</div>
+
+					<div class="title">DataView - 视图</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+DataView objDataView = new DataView(objDataSet.Tables("authors"));
+
+// 排序
+objDataView.Sort = "au_fname, au_lname"    升序排列
+objDataView.Sort = "au_fname, au_lname DESC"    降序排列    (类似SQL ORDER BY子句)
+
+// 过滤
+objDataView.RowFilter = "au_lname = 'Green'"    (类似SQL WHERE子句)
+objDataView.RowFilter = "au_lname <> 'Green'"
+objDataView.RowFilter = "au_lname <> 'Green' AND au_fname LIKE 'D*'"
+
+// 查找
+dataView.Sort = "au_fname";    // 先排序
+intPosition = objDataView.Find("Ann");    // 后查找(不区 だ大小写)
+
+Object[] arrValues = new Object[2] { "Simon", "Watts" };
+int intPosition = dataView.Find(arrValues);
+
+// Find方法执行字符完全匹配的查找.
+// 1) 如果找到一个匹配的数据, Find方法将返回该记录在DataView中的位置; 否则, 返回-1.
+// 2) Find方法找到一个匹配的数据后, 将停止查找, 仅仅返回第一个匹配数据的位置.
+</code>
+						</pre>	
+					</div>
+
+					<div class="title">DataRelation - 数据表关系</div>
+					<div class="content closed">
+						<p>
+							表示通过共享列而发生关系的两个表之间的关系. 例如Orders表中的CustomerID列标识发出订单的客户. 于是, 可以创建DataRelation对象, 通过共享列CustomerID建立Customers和Orders表之间的关系.
+						</p>
+					</div>
+				</div>
+
 			</div>
 
 			<div class="title">XML & ADO.NET</div>
-			<div class="content open">
-
+			<div class="content closed">
+				<p>
+					ADO.NET中的XML支持主要集中于DataSet对象, DataSet有7个用于处理XML的方法, 其中最易于使用的方法是: <br>
+					1) WriteXml(), 它将DataSet的内容以XML文档的形式写出. <br>
+					2) ReadXml()也可以用于将XML文件的内容读取到DataSet中. ReadXml()方法在DataSet中创建一个DataTable对象, 并使用XML文件中的数据填充它. 而且, 所创建的DataTable采用XML文档中的根元素命名.
+				</p>
 			</div>
 		</div>
     </div>
@@ -611,7 +680,100 @@ Assert.Equal(3, count); // 3 rows inserted: "1,1", "2,2" and "3,3"
 
 	<div class="title">其他</div>
 	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">数据访问简史</div>
+			<div class="content closed">
+				<p class="text-strong">1. 数据库专用函数组</p>
+				<p>
+					在开发第一个数据库系统时, 如Oracle或者IBM的DB2, 开发人员希望该系统可以根据需要访问数据, 使用专用于数据库系统的函数组. 每个系统都有自己的函数库, 例如Oracle的Oracle Call Interface, Sybase SQL Server的DBLib. 这样其程序就能快速访问数据, 因为它们与数据库可以直接通信. 但是, 使用数据库的程序员必须熟悉所用数据库的不同函数库, 导致数据驱动的应用程序编写起来非常复杂. 而且, 如果公司改变它使用的数据库系统, 其应用程序也必须从开开始编写.
+				</p>
 
+				<p class="text-strong">2. ODBC</p>
+				<p>
+					这个问题使用Open Database Connectivity(ODBC)得到了解决. ODBC是Microsoft联合其他公司在20世纪90年代开发的. 它提供了一个通用的函数组, 开发人员可以在任意数据库系统中使用这个函数组. 这些函数可以用特定数据库系统的驱动程序转换为专用于该数据库的函数.
+				</p>
+				<p>
+					ODBC还解决了专用数据库的主要问题, 开发人员只需要知道如何使用一组函数(ODBC函数)即可, 如果公司改变了其数据库系统, 只需在应用程序中修改用于连接数据库的代码. 但是, 还有一个问题. 目前无纸办公仍是一个理想, 公司要把大量的电子数据存储在许多地方: 电子邮件, Web页面, Project 2000文件等, ODBC适合于访问传统数据库中的数据, 但不能访问其他类型的数据, 这些数据并不存储在表格的行和列中, 可能根本就没有一致的结构.	
+				</p>
+
+				<p class="text-strong">3. OLE DB</p>
+				<p>
+					这个问题的答案由OLE DB提供.OLE DB的工作方式类似于ODBC, 它在数据库和需要访问数据的应用程序之间提供了一层抽象. 客户应用程序与数据源通信, 数据源可以是传统的数据库, 也可以存储数据的其他地方, 通过OLE DB提供者与该数据源通信. 数据源中的数据以表格的形式显示给应用程序, 就好像数据来自数据库一样. 由于OLE DB允许访问已有ODBC驱动程序提供的数据, 所以可以用于访问ODBC支持的所有数据库. 如后面所述, ADO.NET支持OLE DB和ODBC的方式非常类型.	
+				</p>
+
+				<p class="text-strong">4. ADO</p>
+				<p>
+					最后一个要提及的旧式数据访问技术是ActiveX Data Objects(ADO). ADO只是一个瘦层, 位于OLE DB的上面, 允许用高级语言如Visual Basic编写的程序访问OLE DB数据.
+				</p>
+
+				<p class="text-strong">5. ADO.NET</p>
+				<p>
+					ADO.NET是与C#和.NET Framework一起使用的类集的名称, 用于以关系型的, 面向表的格式访问数据. 这包括关系数据库, 比如Microsoft Access和SQL Server, 以及其他数据库, 甚至还包括非关系数据库. ADO.NET集成到.NET Framework中, 可用于任何.NET语言. <br>
+					ADO.NET提供了一个断开的体系结构, 也就是说, 应用程序与数据库连接后, 检索数据并把它们保存在内存中, 然后就断开与数据库的连接, 接着处理数据在内存中的副本. 如果数据库需要用对内存副本所作的修改进行更新, 就建立一个新的连接, 并更新数据库. <br>
+					使用断开的体系结构有很多好处, 其中最重要的是允许应用程序按比例增长. 这意味着数据库在支持100个用户时和支持10个用户时表现得一样好. 应用程序连接数据库的时间只是满足检索或更新数据的需要, 之后就断开连接, 因此释放了可用的数据库连接, 这样就可以实现与应用程序其他实例的连接, 或与使用同一数据库的其他应用程序的连接.
+				</p>
+			</div>
+
+			<div class="title">Server Explorer</div>
+			<div class="content closed">
+				<p>
+					在Visual Studio 2005 View菜单, 选择Server Explorer菜单, 将显示Server Explorer窗口. 在Server Explorer中可以创建数据库连接, 浏览数据.
+				</p>
+			</div>
+
+			<div class="title">数据源</div>
+			<div class="content closed">
+				<p>
+					在Visual Studio 2005 Data菜单中, 选择Show Data Sources, 将显示Data Sources窗口. Data Sources窗口中显示了当前所有的数据源, 可以在这里添加新的数据源. 数据源可以是数据库, 文件, Web服务或一般的对象.
+				</p>
+				<p>
+					直接拖放Data Sources中的对象到窗体上即可, VS会帮你处理剩下的事情.
+				</p>
+				<p>
+					一般来说, VS会自动生成一个Save按钮, 并且自动生成Save代码, 所以就不需要添加代码了. 但是, 可以添加一些代码来验证用户对数据进行的修改, 再把这些变动保存到数据库中. 例如:
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+private void customersBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+{
+    if (this.customerIDTextBox.Text.Length != 5) {
+        MessageBox.Show(this, "CustomerID must be 5 characters long", "Save");
+        return;
+    }
+ 
+    this.Validate();
+    this.customersBindingSource.EndEdit();
+    this.customersTableAdapter.Update(this.northwindDataSet.Customers);
+}
+</code>
+				</pre>	
+			</div>
+
+			<div class="title">补装Express</div>
+			<div class="content closed">
+				<p>
+					SQL Express是随着VS2005一起安装的一个软件包, 但默认情况下不安装它. 如果没有选中安装SQL Express, 就可以进入下面的目录安装它:
+					C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\BootStrapper\Packages\SqlExpress\en, 在这个位置执行安装可执行文件: Sqlexpr.exe, 来安装安装Northwind示例数据库.
+				</p>
+				<p>
+					SQL Server Northwind示例数据库包含在.NET Framework v2.0 SDK示例安装区域的Visual Studio 2005中的Quickstart示例里. 如果没有把Quickstart示例选择为要安装的内容 就要再次运行VS2005安装程序, 选择.NET Framework SDK | Quickstart Samples.
+				</p>
+				<p>
+					在安装Quickstart示例后, 要把Northwind示例安装到SQL Express中, 需要执行命令提示(Start|Run|cmd), 把目录改为示例安装区域: <br>
+					cd "C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Samples\Setup"
+				</p>
+				<p>
+					如果已在计算机上安装了SQL Express, 就运行osql实用程序(位于:C:\Program Files\Microsoflt SQL Server\90\Tools\Binn), 安装实例数据: <br>
+					osql -E -S (local)\sqlexpress -i instnwnd.sql
+				</p>
+				<p>
+					注意: <br>
+					-E标记告诉SQL(Windows登录)用作SQL Server用户.<br>
+					-S标记表示SQL Sever的名称, 其中包括服务器名称和实例名. sqlexpress是一个实例名称, 在一台机器上可能运行了SQL Server的多个版本, 它们就使用唯一的实例名来区分. sqlexpress是SQL Express安装程序创建的默认实例. 服务器名(本地)是本地服务器的通用名称, 即SQL Server在同一台机器上运行为osql或VS2005(桌面计算机). 可以用实际的机器名称代替(本地). 例如, 如果膝上型电脑称为roadrunner, 就可以用-S roadrunner\sqlexpress调用osql, 它表示运行在roadrunner机器上的SQL Server示例sqlexpress.
+
+				</p>
+			</div>
+		</div>
 	</div>
 </div>
 {include file="template/footer" /}
