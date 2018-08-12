@@ -1,0 +1,70 @@
+{include file="php/tp5/template/header" title="TP5 Controller" /}
+<div class="list list-number">
+	<div class="title">定义控制器</div>
+	<div class="content closed">
+		<pre class="prettyprint linenums lang-php">
+<code>
+&lt;?php
+namespace app\index\controller;
+
+class Index
+{
+    public function index()
+    {
+        return 'Hello,World！';
+    }
+}
+</code>
+		</pre>
+	</div>
+
+	<div class="title">访问控制器</div>
+	<div class="content closed">
+		<p>localhost/tp5/public/index.php/模块/控制器/方法/参数名/参数值/参数名/参数值...</p>
+		<p><strong>驼峰控制器</strong></p>
+		<p>如果控制器的名字采用驼峰命名法, 例如控制器名为HelloWorld, 则URL中控制器名字要写为hello_world.</p>
+		<p><strong>为什么访问路径是错的, 还可以访问?</strong></p>
+		<p>因为public目录下有一个Apache的伪静态配置文件:</p>
+		<div class="bg-light p-2">
+			&lt;IfModule mod_rewrite.c>    # 如果mode_rewrite.c模块存在, 则执行以下命令 <br>
+			Options +FollowSymlinks -Multiviews <br>
+			RewriteEngine On    # 开启 rewriteEngine <br><br>
+
+			RewriteCond %{REQUEST_FILENAME} !-d    # !-d 不是目录或目录不存在 <br>
+			RewriteCond %{REQUEST_FILENAME} !-f    # !-f 不是文件或文件不存在 <br><br>
+
+			# 转给index.php 处理. # [L] 这是最后一个匹配项, 不再往下匹配 <br>
+			RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L] <br>
+			&lt;/IfModule>
+		</div>
+	</div>
+
+	<!--带参数方法-->
+	<div class="title">带参数方法</div>
+	<div class="content closed">
+		<p>可以为操作方法定义参数, 例如：</p>
+		<pre class="prettyprint linenums lang-php">
+<code>
+&lt;?php
+namespace app\index\controller;
+
+class Index
+{
+    public function index($name = 'World')
+    {
+        return 'Hello,' . $name . '！';
+    }
+}
+</code>
+		</pre>
+		<p>当我们带name参数访问入口文件地址（例如 http://tp5.com?name=ThinkPHP）的时候, 在浏览器中可以看到如下输出：</p>
+		<pre class="prettyprint linenums lang-php"><code>Hello,ThinkPHP!</code></pre>
+	</div>
+
+	<!--private & protected方法-->
+	<div class="title">private & protected方法</div>
+	<div class="content closed">
+		<p>控制器类可以包括多个操作方法, 但如果你的操作方法是protected或者private类型的话, 是无法直接通过URL访问到该操作的, 也就是说只有public类型的操作方法才是可以通过URL访问的.</p>
+	</div>
+</div>
+{include file="php/tp5/template/footer" /}

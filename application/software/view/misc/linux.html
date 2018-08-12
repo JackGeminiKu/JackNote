@@ -1,0 +1,92 @@
+{include file="template/header" title="AHK" /}
+
+<p align="center"><b>Linux</b></p>
+
+
+
+<ol>
+	<li>Ubuntu<ol>
+		<li>安装常用软件<ul>
+			<li>试一下: sudo apt-get instal 软件名字</li>
+		</ul>
+		</li>
+		<li>安装.deb<ul>
+			<li>deb是debian linus的安装格式，跟red hat的rpm非常相似，最基本的安装命令是：dpkg -i 
+			file.deb <br>
+			dpkg 是Debian Package的简写，是为Debian 专门开发的套件管理系统，方便软件的安装、更新及移除。所有源自Debian的Linux发行版都使用dpkg，例如Ubuntu、Knoppix 
+			等。<br>
+			以下是一些 Dpkg 的普通用法：</li>
+			<li>1、dpkg -i &lt;package.deb&gt;<br>
+			安装一个 Debian 软件包，如你手动下载的文件。</li>
+			<li>2、dpkg -c &lt;package.deb&gt;<br>
+			列出 &lt;package.deb&gt; 的内容。</li>
+			<li>3、dpkg -I &lt;package.deb&gt;<br>
+			从 &lt;package.deb&gt; 中提取包裹信息。</li>
+			<li>4、dpkg -r &lt;package&gt;<br>
+			移除一个已安装的包裹。</li>
+			<li>5、dpkg -P &lt;package&gt;<br>
+			完全清除一个已安装的包裹。和 remove 不同的是，remove 只是删掉数据和可执行文件，purge 另外还删除所有的配制文件。</li>
+			<li>6、dpkg -L &lt;package&gt;<br>
+			列出 &lt;package&gt; 安装的所有文件清单。同时请看 dpkg -c 来检查一个 .deb 文件的内容。</li>
+			<li>7、dpkg -s &lt;package&gt;<br>
+			显示已安装包裹的信息。同时请看 apt-cache 显示 Debian 存档中的包裹信息，以及 dpkg -I 来显示从一个 .deb 
+			文件中提取的包裹信息。</li>
+			<li>8、dpkg-reconfigure &lt;package&gt;<br>
+			重新配制一个已经安装的包裹，如果它使用的是 debconf (debconf 为包裹安装提供了一个统一的配制界面)</li>
+		</ul>
+		</li>
+		<li>常用软件<ol>
+			<li>Sublime Text<ul>
+				<li>安装: 网站下载.deb安装文件进行安装(http://www.sublimetext.com/3)<br>
+				启动命令: subl</li>
+			</ul>
+			</li>
+			<li>MySQL<ul>
+				<li>连接MYSQL：<br>
+				格式： mysql -h主机地址 -u用户名 －p用户密码</li>
+				<li>1、例1：连接到本机上的MYSQL<br>
+				找到mysql的安装目录，一般可以直接键入命令mysql -uroot -p，回车后提示你输密码，如果刚安装好MYSQL，超级用户root是没有密码的，故直接回车即可进入到MYSQL中了，MYSQL的提示符是：mysql&gt;</li>
+				<li>2、连接到远程主机上的MYSQL<br>
+				假设远程主机的IP为：10.0.0.1，用户名为root,密码为123。则键入以下命令：<br>
+				mysql -h10.0.0.1 -uroot -p123<br>
+				（注：u与root可以不用加空格，其它也一样）</li>
+				<li>3、退出MYSQL命令<br>
+				Control + D</li>
+				<li><b>Ubuntu Server下启动/停止/重启MySQL数据库的三种方式</b><br>
+				<br>
+				系统环境：ubuntu server 12.10 x64（mysql为系统自带）<br>
+				<br>
+				当我们需要修&#8203;&#8203;改MySQL的配置文件my.cnf（windows 下为 my.ini）来进行一些设置的时候，修改完之后我们需要重启MySQL。<br>
+				<br>
+				my.cnf文件位置为：/ect/mysql/my.cnf<br>
+				<br>
+				Waring：如果该文件配置错误，MySQL将无法启动。<br>
+				<br>
+				下面介绍三种方式对MySQL进行启动/停止/重启操作：<br>
+				<br>
+				1. 启动mysql：<br>
+				方式一：sudo /etc/init.d/mysql start <br>
+				方式二：sudo start mysql<br>
+				方式三：sudo service mysql start<br>
+				<br>
+				2. 停止mysql：<br>
+				方式一：sudo /etc/init.d/mysql stop <br>
+				方式二：sudo stop mysql<br>
+				方式san：sudo service mysql stop<br>
+				<br>
+				3. 重启mysql：<br>
+				方式一：sudo/etc/init.d/mysql restart<br>
+				方式二：sudo restart mysql<br>
+				方式三：sudo service mysql restart<br>
+　</li>
+			</ul>
+			</li>
+		</ol>
+		</li>
+	</ol>
+	</li>
+</ol>
+
+
+
+{include file="template/footer" /}

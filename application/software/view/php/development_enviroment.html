@@ -28,72 +28,61 @@ DocumentRoot "C:/Program Files/Apache Software Foundation/Apache2.2/htdocs" ==> 
 
             <div class="title">安装XDebug</div>
             <div class="content open">
-                <p>
-                    下载xdebug<br>
-                    php版本和xdebug版本一定要相对应, 下载Xdebug 网址为http://xdebug.org/wizard.php.
-                </p>
-                <p><strong>配置php.ini(开发工具是PhpStorm)</strong></p>
-                <p>在该文件的最后添加以下文本（如果已存在，要把前面的分号；去掉）</p>
-                <pre class="prettyprint linenums lang-php">
-<code>zend_extension = "C:\phpStudy\php\php-5.5.38\ext\php_xdebug-2.5.4-5.5-vc11.dll"    //Xdebug存放路径，
-xdebug.remote_enable= on    //是否允许远程终端，这个必须开启
-xdebug.profiler_enable = off    //性能优化，本文用不到，选择关闭（不关闭，会以约每分钟几百M的速度产生大量日志文件，用不上一天你的硬盘就哭了）
-xdebug.idekey = PHPSTORM    //这里是调试器的关键字</code></pre>
-                保存, 重启服务器.<br>
+                <p><a href="https://www.cnblogs.com/feichengwulai/articles/6252039.html">php断点调试工具------NetBeans+Xdebug调试php方法（测试成功）</a></p>
             </div>
         </div>
     </div>
 
     <div class="title">调试</div>
     <div class="content closed">
-		<div class="list list-number">
-			<div class="title">输出调试信息</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums lang-php">
+        <div class="list list-number">
+            <div class="title">输出调试信息</div>
+            <div class="content closed">
+                <pre class="prettyprint linenums lang-php">
 <code>
 $colors = array('red', 'blue', 'green', 'yellow');
 print_r($colors);
 var_dump($colors);
 echo $colors;
 </code>
-				</pre>               
+                </pre>               
 
-				<p>
-					输出结果如下：<br>
-					Array ( [0] => red [1] => blue [2] => green [3] => yellow ) <br>
-					array(4) { [0]=> string(3) "red" [1]=> string(4) "blue" [2]=> string(5) "green" [3]=> string(6) "yellow" } <br>
-					Array <br>
-				</p>
+                <p>
+                    输出结果如下：<br>
+                    Array ( [0] => red [1] => blue [2] => green [3] => yellow ) <br>
+                    array(4) { [0]=> string(3) "red" [1]=> string(4) "blue" [2]=> string(5) "green" [3]=> string(6) "yellow" } <br>
+                    Array <br>
+                </p>
 
-				<p>
-					var_dump可以使用任何变量, 此函数显示关于一个或多个表达式的结构信息, 包括表达式的类型与值. 数组将递归展开值, 通过缩进显示其结构.<br>
-					void var_dump ( mixed expression [, mixed expression [, ...]] ) <br>
-				</p>
-				<p>
-					print_r()显示关于一个变量的易于理解的信息. 如果给出的是string, integer或float, 将打印变量值本身. 如果给出的是array, 将会按照一定格式显示键和元素. object 与数组类似.<br>
-					记住，print_r() 将把数组的指针移到最后边. <br>
-					print_r和var_dump都能输出数组和对象, 但print_r对布尔型的输出不太明显; var_dump输出比较详细, 一般调试时用得多. <br>
-				</p>
-				<p>
-					echo是语法结构, 也就是关键字, 不是函数. 使用的时候不用加括号, 加上也可以. <br>
-					只支持基本类型, 布尔型除外, echo true的时候显示1, echo false的时候啥都没有.<br>
-					显示多个值的时候可以用逗号隔开. 
-				</p>
-			</div>
+                <p>
+                    var_dump可以使用任何变量, 此函数显示关于一个或多个表达式的结构信息, 包括表达式的类型与值. 数组将递归展开值, 通过缩进显示其结构.<br>
+                    void var_dump ( mixed expression [, mixed expression [, ...]] ) <br>
+                </p>
+                <p>
+                    print_r()显示关于一个变量的易于理解的信息. 如果给出的是string, integer或float, 将打印变量值本身. 如果给出的是array, 将会按照一定格式显示键和元素. object 与数组类似.<br>
+                    记住，print_r() 将把数组的指针移到最后边. <br>
+                    print_r和var_dump都能输出数组和对象, 但print_r对布尔型的输出不太明显; var_dump输出比较详细, 一般调试时用得多. <br>
+                </p>
+                <p>
+                    echo是语法结构, 也就是关键字, 不是函数. 使用的时候不用加括号, 加上也可以. <br>
+                    只支持基本类型, 布尔型除外, echo true的时候显示1, echo false的时候啥都没有.<br>
+                    显示多个值的时候可以用逗号隔开. 
+                </p>
+            </div>
 
-			<div class="title">显示智能提示</div>
-			<div class="content closed">
-				<p>Ctrl + \</p>
-			</div>
+            <div class="title">显示智能提示</div>
+            <div class="content closed">
+                <p>Ctrl + \</p>
+            </div>
 
-			<div class="title">查看Apache日志</div>
-			<div class="content closed">
-				<p>
-					访问日志文件：/var/log/httpd/access_log
-					错误日志文件：/var/log/httpd/error_log
-				</p>
-			</div>
-		</div>
+            <div class="title">查看Apache日志</div>
+            <div class="content closed">
+                <p>
+                    访问日志文件：/var/log/httpd/access_log
+                    错误日志文件：/var/log/httpd/error_log
+                </p>
+            </div>
+        </div>
     </div>
 
     <div class="title">上传网站</div>
@@ -107,16 +96,16 @@ echo $colors;
         </p>
     </div>
 
-	<div class="title">常见错误</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">Warning: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in c:\program files\apache group\Apache\htdocs\headfirstphpmysql\ch05\index.php on line 21</div>
-			<div class="content closed">
-				<p>可能是SQL语句写的有问题!</p>
-			</div>
+    <div class="title">常见错误</div>
+    <div class="content closed">
+        <div class="list list-number">
+            <div class="title">Warning: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in c:\program files\apache group\Apache\htdocs\headfirstphpmysql\ch05\index.php on line 21</div>
+            <div class="content closed">
+                <p>可能是SQL语句写的有问题!</p>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
 {include file="template/footer" /}

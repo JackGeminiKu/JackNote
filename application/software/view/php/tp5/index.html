@@ -1,210 +1,138 @@
 {include file="php/tp5/template/header" title="TP5" /}
 
 <div class="list list-number">
-	<!--TP5安装&配置-->
+    <!--TP5安装&配置-->
     <div class="title">TP5安装&配置</div>
     <div class="content closed">
-		<!--TP5运行环境要求-->
-		<p><strong>TP5运行环境要求</strong></p>
-		<p>
-			PHP >= 5.4.0 (完美支持PHP7)<br>
-			PDO PHP Extension<br>
-			MBstring PHP Extension<br>
-			CURL PHP Extension<br>
-		</p>
+        <!--TP5运行环境要求-->
+        <p><strong>TP5运行环境要求</strong></p>
+        <p>
+            PHP >= 5.4.0 (完美支持PHP7)<br>
+            PDO PHP Extension<br>
+            MBstring PHP Extension<br>
+            CURL PHP Extension<br>
+        </p>
 
-		<!--配置Apache(以phpStudy为例)-->
-		<p><strong>配置Apache(以phpStudy为例)</strong></p>
+        <!--配置Apache(以phpStudy为例)-->
+        <p><strong>配置Apache(以phpStudy为例)</strong></p>
 
-		<p>修改hosts文件(C:\Windows\System32\drivers\hosts)</p>
-		<pre class="prettyprint linenums lang-php"><code>127.0.0.1 tp5.com</code></pre>
+        <p>修改hosts文件(C:\Windows\System32\drivers\hosts)</p>
+        <pre class="prettyprint linenums lang-php"><code>127.0.0.1 tp5.com</code></pre>
 
-		<p>修改httpd.conf文件(C:\phpStudy\Apache\conf)</p>
-		<pre class="prettyprint linenums lang-php"><code># Virtual hosts
+        <p>修改httpd.conf文件(C:\phpStudy\Apache\conf)</p>
+        <pre class="prettyprint linenums lang-php"><code># Virtual hosts
 Include conf/extra/httpd-vhosts.conf</code></pre>
 
-		<p>修改httpd-vhosts.conf文件(C:\phpStudy\Apache\conf\extra)</p>
-		<pre class="prettyprint linenums lang-php">
+        <p>修改httpd-vhosts.conf文件(C:\phpStudy\Apache\conf\extra)</p>
+        <pre class="prettyprint linenums lang-php">
 <code>
 &lt;VirtualHost *:80>
     DocumentRoot "C:\phpStudy\WWW\tp5\public"
     ServerName tp5.com
 &lt;/VirtualHost>
 </code>
-		</pre>
+        </pre>
 
-		<p class="text-danger">改完重新启动Apache!</p>
+        <p class="text-danger">改完重新启动Apache!</p>
     </div>
 
-	<!--入口文件-->
+    <!--入口文件-->
     <div class="title">入口文件</div>
     <div class="content closed">
-		<p>TP5默认入口文件位于public/index.php（实际部署的时候public目录为你的应用对外访问目录）, 入口文件内容如下：</p>	
-		<pre class="prettyprint linenums lang-php"><code>// 定义应用目录
+        <p>TP5默认入口文件位于public/index.php（实际部署的时候public目录为你的应用对外访问目录）, 入口文件内容如下：</p>	
+        <pre class="prettyprint linenums lang-php"><code>// 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';</code></pre>
-		<p>我们可以在浏览器中访问入口文件: http://localhost/tp5/public/</p>
+        <p>我们可以在浏览器中访问入口文件: http://localhost/tp5/public/</p>
     </div>
 
-	<!--资源访问-->
-	<div class="title">资源访问</div>
-	<div class="content closed">
-		<p>
-			网站的资源文件访问不会影响正常的操作访问, 只有当访问的资源文件不存在的时候才会解析到入口文件, 一般就会提示模块不存在的错误.
-		</p>
+    <!--资源访问-->
+    <div class="title">资源访问</div>
+    <div class="content closed">
+        <p>
+            网站的资源文件访问不会影响正常的操作访问, 只有当访问的资源文件不存在的时候才会解析到入口文件, 一般就会提示模块不存在的错误.
+        </p>
 
-		<!--放置在哪里?-->
-		<p><strong>放置在哪里?</strong></p>
-		<p>
-			网站的资源文件一般放入public目录的子目录下面, 例如下面是一个建议规范：
-		</p>
-		<div class="bg-light p-2">
-			public<br>
-			├─index.php 应用入口文件<br>
-			├─static 静态资源目录<br> 
-			│ ├─css 样式目录<br>
-			│ ├─js 脚本目录<br>
-			│ └─img 图像目录<br>
-		</div>
-		<p>记住, 千万不要在public目录之外的任何位置放置资源文件, 包括application目录.</p>
+        <!--放置在哪里?-->
+        <p><strong>放置在哪里?</strong></p>
+        <p>
+            网站的资源文件一般放入public目录的子目录下面, 例如下面是一个建议规范：
+        </p>
+        <div class="bg-light p-2">
+            public<br>
+            ├─index.php 应用入口文件<br>
+            ├─static 静态资源目录<br> 
+            │ ├─css 样式目录<br>
+            │ ├─js 脚本目录<br>
+            │ └─img 图像目录<br>
+        </div>
+        <p>记住, 千万不要在public目录之外的任何位置放置资源文件, 包括application目录.</p>
 
-		<!--怎么访问-->
-		<p><strong>怎么访问?</strong></p>
+        <!--怎么访问-->
+        <p><strong>怎么访问?</strong></p>
 
-		<p>访问资源文件的URL路径是：</p>
-		<div class="bg-light p-2">
-			http://tp5.com/static/css/style.css<br>
-			http://tp5.com/static/js/common.js<br>
-			http://tp5.com/static/img/picture.jpg<br>
-		</div>
+        <p>访问资源文件的URL路径是：</p>
+        <div class="bg-light p-2">
+            http://tp5.com/static/css/style.css<br>
+            http://tp5.com/static/js/common.js<br>
+            http://tp5.com/static/img/picture.jpg<br>
+        </div>
 
-		<p>如果你没有设置域名绑定, 而是使用子目录方式访问的话, 那么可能的资源访问地址是：</p>
-		<div class="bg-light p-2">
-			http://localhost/public/static/css/style.css<br>
-			http://localhost/public/static/js/common.js<br>
-			http://localhost/public/static/img/picture.jpg<br>
-		</div>
-		<p>网站的入口文件就是资源文件的起始位置, 如果你的入口文件不是在public目录下面的话, 还需要自行调整. 如果不清楚当前的入口文件位置, 可以使用phpinfo()在页面输出中查看DOCUMENT_ROOT的值.</p>
-	</div>
+        <p>如果你没有设置域名绑定, 而是使用子目录方式访问的话, 那么可能的资源访问地址是：</p>
+        <div class="bg-light p-2">
+            http://localhost/public/static/css/style.css<br>
+            http://localhost/public/static/js/common.js<br>
+            http://localhost/public/static/img/picture.jpg<br>
+        </div>
+        <p>网站的入口文件就是资源文件的起始位置, 如果你的入口文件不是在public目录下面的话, 还需要自行调整. 如果不清楚当前的入口文件位置, 可以使用phpinfo()在页面输出中查看DOCUMENT_ROOT的值.</p>
+    </div>
 
-	<!--调试-->
-	<div class="title">调试</div>
-	<div class="content closed">
-		<p>ThinkPHP支持调试模式, 默认情况下是开启状态. 调试模式以除错方便优先, 而且在异常的时候可以显示尽可能多的信息, 所以对性能有一定的影响.</p>
-		<p>我们强烈建议在使用ThinkPHP开发的过程中使用调试模式, 开发完成后, 我们实际进行项目部署的时候, 修改应用配置文件（application/config.php）中的app_debug配置参数：</p>
-		<div class="bg-light p-2">
-			// 关闭调试模式<br>
-			'app_debug' => false,
-		</div>
-		<p class="text-danger">注意: 为了安全考虑, 避免泄露你的服务器WEB目录信息等资料, 一定记得正式部署的时候关闭调试模式.</p>
-	</div>
+    <!--调试-->
+    <div class="title">调试</div>
+    <div class="content closed">
+        <p>ThinkPHP支持调试模式, 默认情况下是开启状态. 调试模式以除错方便优先, 而且在异常的时候可以显示尽可能多的信息, 所以对性能有一定的影响.</p>
+        <p>我们强烈建议在使用ThinkPHP开发的过程中使用调试模式, 开发完成后, 我们实际进行项目部署的时候, 修改应用配置文件（application/config.php）中的app_debug配置参数：</p>
+        <div class="bg-light p-2">
+            // 关闭调试模式<br>
+            'app_debug' => false,
+        </div>
+        <p class="text-danger">注意: 为了安全考虑, 避免泄露你的服务器WEB目录信息等资料, 一定记得正式部署的时候关闭调试模式.</p>
+    </div>
 
-	<!--模块&控制器&方法-->
-	<div class="title">模块&控制器&方法</div>	
-	<div class="content closed">
-		<div class="list list-number">
-			<!--新建模块-->
-			<div class="title">新建模块</div>
-			<div class="content closed">
-				<p>默认的Application目录下面只有一个index模块目录, 如果要添加新的模块可以使用控制台命令来生成, 切换到命令行模式下, 进入到应用根目录(tp5的目录, 而不是application那个目录)并执行如下指令：</p>
-				<div class="bg-light p-2">
-					php think build --module demo
-				</div>
-				<p>就会生成一个默认的demo模块, 包括如下目录结构：</p>
-				<div class="bg-light p-2">
-					├─demo <br> 
-					│ ├─controller 控制器目录 <br>
-					│ ├─model 模型目录 <br>
-					│ ├─view 视图目录 <br>
-					│ ├─config.php 模块配置文件 <br>
-					│ └─common.php 模块公共文件
-				</div>
-			</div>
+    <!--模块&控制器&方法-->
+    <div class="title">新建模块</div>	
+    <div class="content closed">
+        <p>默认的Application目录下面只有一个index模块目录, 如果要添加新的模块可以使用控制台命令来生成, 切换到命令行模式下, 进入到应用根目录(tp5的目录, 而不是application那个目录)并执行如下指令：</p>
+        <div class="bg-light p-2">
+            php think build --module demo
+        </div>
+        <p>就会生成一个默认的demo模块, 包括如下目录结构：</p>
+        <div class="bg-light p-2">
+            ├─demo <br> 
+            │ ├─controller 控制器目录 <br>
+            │ ├─model 模型目录 <br>
+            │ ├─view 视图目录 <br>
+            │ ├─config.php 模块配置文件 <br>
+            │ └─common.php 模块公共文件
+        </div> 
+    </div>
 
-			<!--控制器-->
-			<div class="title">控制器</div>
-			<div class="content closed">
-				<div class="list list-number">
+    <!--项目配置-->
+    <div class="title">项目配置</div>
+    <div class="content closed">
+        <p>application\config.php</p>
+    </div>
 
-					<div class="title">定义控制器</div>
-					<div class="content open">
-						<pre class="prettyprint linenums lang-php"><code>&lt;?php
-namespace app\index\controller;
-
-class Index
-{
-    public function index()
-    {
-        return 'Hello,World！';
-    }
-}</code></pre>
-					</div>
-
-					<div class="title">访问控制器</div>
-					<div class="content open">
-						<p>localhost/tp5/public/index.php/模块/控制器/方法/参数名/参数值/参数名/参数值...</p>
-						<p><strong>驼峰控制器</strong></p>
-						<p>如果控制器的名字采用驼峰命名法, 例如控制器名为HelloWorld, 则URL中控制器名字要写为hello_world.</p>
-						<p><strong>为什么访问路径是错的, 还可以访问?</strong></p>
-						<p>因为public目录下有一个Apache的伪静态配置文件:</p>
-						<div class="bg-light p-2">
-							&lt;IfModule mod_rewrite.c>    # 如果mode_rewrite.c模块存在, 则执行以下命令 <br>
-							Options +FollowSymlinks -Multiviews <br>
-							RewriteEngine On    # 开启 rewriteEngine <br><br>
-
-							RewriteCond %{REQUEST_FILENAME} !-d    # !-d 不是目录或目录不存在 <br>
-							RewriteCond %{REQUEST_FILENAME} !-f    # !-f 不是文件或文件不存在 <br><br>
-
-							# 转给index.php 处理. # [L] 这是最后一个匹配项, 不再往下匹配 <br>
-							RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L] <br>
-							&lt;/IfModule>
-						</div>
-					</div>
-
-					<!--带参数方法-->
-					<div class="title">带参数方法</div>
-					<div class="content open">
-						<p>可以为操作方法定义参数, 例如：</p>
-						<pre class="prettyprint linenums lang-php"><code>&lt;?php
-namespace app\index\controller;
-
-class Index
-{
-    public function index($name = 'World')
-    {
-        return 'Hello,' . $name . '！';
-    }
-}</code></pre>
-						<p>当我们带name参数访问入口文件地址（例如 http://tp5.com?name=ThinkPHP）的时候, 在浏览器中可以看到如下输出：</p>
-						<pre class="prettyprint linenums lang-php"><code>Hello,ThinkPHP!</code></pre>
-					</div>
-
-					<!--private & protected方法-->
-					<div class="title">private & protected方法</div>
-					<div class="content open">
-						<p>控制器类可以包括多个操作方法, 但如果你的操作方法是protected或者private类型的话, 是无法直接通过URL访问到该操作的, 也就是说只有public类型的操作方法才是可以通过URL访问的.</p>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
-
-	<!--项目配置-->
-	<div class="title">项目配置</div>
-	<div class="content closed">
-		<p>application\config.php</p>
-	</div>
-
-	<!--命令空间-->
-	<div class="title">命名空间</div>
-	<div class="content closed">
-		<p>
-			根据类的命名空间可以快速定位文件位置, 在ThinkPHP5.0的规范里面, 命名空间其实对应了文件的所在目录:</p>
-		<p>1) app命名空间通常代表了文件的起始目录为application, </p>
-		<p>2) 而think命名空间则代表了文件的起始目录为thinkphp/library/think,</p>
-		<p>后面的命名空间则表示从起始目录开始的子目录.</p>
-	</div>
+    <!--命令空间-->
+    <div class="title">命名空间</div>
+    <div class="content closed">
+        <p>
+            根据类的命名空间可以快速定位文件位置, 在ThinkPHP5.0的规范里面, 命名空间其实对应了文件的所在目录:</p>
+        <p>1) app命名空间通常代表了文件的起始目录为application, </p>
+        <p>2) 而think命名空间则代表了文件的起始目录为thinkphp/library/think,</p>
+        <p>后面的命名空间则表示从起始目录开始的子目录.</p>
+    </div>
 </div>
 
 {include file="php/tp5/template/footer" /}
