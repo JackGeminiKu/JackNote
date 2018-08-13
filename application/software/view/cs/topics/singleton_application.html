@@ -1,0 +1,84 @@
+{include file="template/header" title="C# 单例应用程序" /}
+<div class="list list-number">
+    <div class="title">扫描进程法</div>
+    <div class="content closed">
+		<p>这是最容易想到的方法, 实现起来也比较简单. 扫描的代码如下:</p>
+		<pre class="prettyprint linenums">
+<code>
+[DllImport("user32.dll")]
+private static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+[DllImport("user32.dll")]
+private static extern bool SetForegroundWindow(IntPtr hwnd);
+[DllImport("user32.dll")]
+private static extern long GetWindowLong(IntPtr hwnd, int nIndex);
+ 
+private const int SW_SHOWNOACTIVATE = 4;
+const int GWL_STYLE = -16;
+const long WS_MINIMIZE = 0x20000000L;
+ 
+static void Main(string[] args)
+{
+    Process[] processes = Process.GetProcessesByName("SingleApp");
+    if (processes.Length > 0) {
+        // 激活正在运行的实例
+        IntPtr hwnd = processes[0].MainWindowHandle;
+        // NOTE: ensure the first intance handle selected
+        if (Process.GetCurrentProcess().MainWindowHandle == hwnd) {
+            hwnd = processes[1].MainWindowHandle;
+        }
+ 
+        long style = GetWindowLong(hwnd, GWL_STYLE);
+ 
+        if ((style & WS_MINIMIZE) == WS_MINIMIZE) {
+            ShowWindow(hwnd, SW_SHOWNOACTIVATE);
+        }
+        SetForegroundWindow(hwnd);
+        return;
+    }
+ 
+    Console.Read();
+}
+</code>
+		</pre>
+    </div>
+
+    <div class="title">使用WindowsFormsApplicationBase方案</div>
+    <div class="content closed">
+		<p>
+			当然我们有更加简单, 更加专业的方法 -- 使用Microsoft提供的接口 -- WindowsFormsApplicationBase(位于命名空间Microsoft.VisualBasic.ApplicationServices下). MS提供了Application基类, 我们要做的就是实现该类, 并且设置属性IsSingleInstance = True. 
+		</p>
+		<p>运行效果同上, 关键是代码简洁, 面向对象!</p>
+		<pre class="prettyprint linenums">
+<code>
+static class Program
+{
+    [STAThread]
+    static void Main(string[] args)
+    {
+        //Application.EnableVisualStyles();
+        //Application.SetCompatibleTextRenderingDefault(false);
+        //Application.Run(new Form1());
+ 
+        MySingleInstanceApplication app = new MySingleInstanceApplication();
+        app.Run(args);
+    }
+}
+ 
+internal sealed class MySingleInstanceApplication : WindowsFormsApplicationBase
+{
+    public MySingleInstanceApplication()
+    {
+        base.IsSingleInstance = true;
+        base.EnableVisualStyles = true;
+    }
+ 
+    protected override void OnCreateMainForm()
+    {
+        this.MainForm = new Form1();
+    }
+}
+</code>
+		</pre>
+    </div>
+</div>
+{include file="template/footer" /}
