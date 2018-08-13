@@ -1,0 +1,220 @@
+{include file="template/header" title="C# 程序部署" /}
+<div class="list list-number">
+    <div class="title">ClickOnce</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">ClickOnce部署优缺点</div>
+			<div class="content closed">
+				<p class="text-strong">优点</p>
+				<p>
+					1) ClickOnce安装可以在网站, UNC共享或文件位置(例如CD)上进行. <br>
+					2) 利用ClickOnce, 应用程序会安装在客户系统上, 可以从"Start"菜单上启动, 使用"Add/Remove Programs"对话框卸载. <br>
+					3) ClickOnce部署应用程序, 可以通过单击Web页面中的一个链接来安装. <br>
+					4) 客户系统上的用户不需要有管理权限, 因为应用程序安装在用户特定的目录下. <br>
+					5) 应用程序安装在客户机上, 所以在安装完成后, 可以不需要保留与客户系统的连接. 换言之, 应用程序可以离线使用. <br>
+					6) ClickOne的一个功能是, 当客户应用程序启动时, 更新过程会自动进行, 或者在客户应用程序的运行过程中, 更新过程会作为一个后台任务来执行. 
+				</p>
+				<p class="text-strong">	缺点</p>
+				<p>
+					但是, ClickOnce部署也有一些限制: 如果需要在全局程序集缓存上安装共享组件, 或者应用程序所需的COM组件需要注册表设置, 或者希望用户来决定安装应用程序的目录, 就不能使用ClickOnce. 在这些情况下, 必须使用Windows安装程序. Windows安装程序是安装Windows应用程序的传统方式.
+				</p>
+			</div>
+
+			<div class="title">ClickOnce发行步骤</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">添加证书</div>
+					<div class="content open">
+						<p>
+							Solution Explorer -> 项目Properties -> Signing选项卡, 选中Sign the ClickOnce manifests复选框. 单击Create Test Certificate按钮, 创建一个与清单相关的测试证书.
+						</p>
+						<p>
+							安装应用程序的用户可以使用证书来辨识安装软件包的创建者. 阅读证书的内容, 可以确定是否能信任此安装软件包, 从而满足安全要求. 创建好测试证书后, 用户并没有获得正真值得信任的消息, 而是会收到一个警告, 说明这个证书不能信任, 如后面所述. 这个证书只用于测试. 在应用程序只在内联网中部署, 还可以从安装在本地网路的本地证书服务器处获得一个证书.
+						</p>
+					</div>
+
+					<div class="title">安全许可设置</div>
+					<div class="content open">
+						<p>Solution Explorer -> 项目Properties -> Security选刊卡, 设置安全许可:</p>
+						<p>
+							1) 选中Enable ClickOnce Security Settings复选框. <br>
+							2) 选中This is a partial trust application单选按钮. <br>
+							3) 选择zone(Custome), 作为应用程序需要的特定安全许可. <br>
+							4) 单击Calculate Permissions按钮, 计算应用程序需要的许可.
+						</p>
+					</div>
+
+					<div class="title">发布程序</div>
+					<div class="content open">
+						<p>Solution Explorer -> 项目Properties -> Publish选刊卡...</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">常见错误</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">发布完成, 客户端安装程式时报错: 无法继续。此应用程序格式不正确</div>
+					<div class="content open">
+						<p>发布时选择该应用程序可以联机或脱机使用.</p>
+					</div>
+
+					<div class="title">Cannot download the application. The application is missing required files. Contact application vendor for assistance.</div>
+					<div class="content open">
+						<p>
+							Go to Command promt and run this... <br>
+							For 32 Bit Machine <br>
+							C:\WINNT\Microsoft.NET\Framework\v2.0.50727\ aspnet_regiis.exe -i <br>
+							For 64 Bit Machine <br>
+							C:\WINNT\Microsoft.NET\Framework64\v2.0.50727\ aspnet_regiis.exe -i
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    <div class="title">Windows Installer</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">Windwos Installer优点</div>
+			<div class="content closed">
+				<p>
+					1) 可以安装功能, 卸载或通知. 有了通知, 软件包的功能会在首次使用时安装. 或许您在使用Microsoft Word时已经注意到了Windows Installer的用法. 如果未安装Word的广告功能, 只要您使用此功能, 就会自动安装Word. <br>
+					2) 如果应用程序损坏, 可以通过Windows Installer软件包的修复功能自我修复. <br>
+					3) 如果安装失败, 就会自动回滚, 所有的内容都保持原样: 在系统上没有附加的注册表项, 没有文件等. <br>
+					4) 使用卸载功能, 可以清除所有的文件, 注册表项等. 这样就可以完全卸载应用程序. 也不会留下临时文件, 注册表也可以恢复原样.
+				</p>
+			</div>
+
+			<div class="title">创建安装软件包</div>
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">添加Setup类型Project</div>
+					<div class="content closed">
+						<p>在Solution中添加Setup Project</p>
+						<p>右击Setup项目, 选择Properties...</p>
+						<p>选中Setup项目, 然后按下F4键...</p>
+					</div>
+
+					<div class="title">File System编辑器</div>
+					<div class="content closed">
+						<p>使用File System编辑器, 可以向安装软件包添加文件, 并配置安装它们的位置. 通过View | Editor | File System菜单可以打开此编辑器. </p>
+						<p class="text-strong">预定义文件夹</p>
+						<p>
+							Application Folder <br>
+							用于存储可执行文件和库. 其位置定义为[ProgramFilesFolder]\[Manufacturer]\[ProductName]. 在English语言系统上, [ProgramFilesFolder]解析为C:\Program Files. [Manufacture]和[ProductName]的目录由Manufacturer和ProductName项目属性定义. <br><br>
+
+							User's Desktop <br>
+							如果希望在桌面上放置图标, 可以使用User's Desktop文件夹. 此文件夹的默认路径是C:\Documents and Settings\[username]\Desktop或C:\Documents and Settings\All Users\Desktop, 这取决于安装是用于单个用户还是所有的用户. <br><br>
+
+							User's Programs Menu <br>
+							用户通常在All Programs菜单中启动程序. 默认路径是C:\Documents and Settings\[username]\Start Menu\[Programs]. 在此菜单中把快捷方式放到应用程序上. <br><br>
+
+							Global Assembly Cache Folder <br>
+							表示安装共享程序集的文件夹. Global Assembly Cache用于在多个程序之间共享程序集. <br><br>
+
+							User Personal Data Folder <br>
+							是用户的默认文件夹, 其中存储了文档. C:\Documents and Settings\[username]\My Documents是默认路径. 此路径是Visual Studio.NET用于存储项目的默认目录. <br><br>
+
+							当选择文件时, User Send To Menu <br>
+							当选择文件时, User Send To Menu中的快捷方式可以扩展Send To关联菜单. 使用才关联菜单, 用户通常可以将文件发送到目标位置, 比如软驱, 邮件接受者或My Documents文件夹.
+						</p>
+
+						<p class="text-strong">向文件夹添加项目</p>
+						<p>
+							可以选择项目输出, 文件夹, 文件或程序集. <br>
+							注意: 给文件夹添加项目输出, 会自动添加生成的输出文件, 以及一个.Dll或.EXE, 这取决于所添加的项目是组件库还是应用程序.
+						</p>
+
+						<p class="text-strong">设置文件属性</p>
+						<p>在文件夹中选择文件的属性, 就可以设置文件的属性, 根据文件类型, 一些属性不能应用, 常用属性如下;</p>
+						<p>
+							Condition <br>
+							可以使用此属性定义一个条件, 确定是否选择应安装的文件. 如果仅在特定的操作系统版本上添加该文件, 或者用户必须在对话框中进行一些选择, 该属性就非常有用. <br>
+							例如, 将文件的Condition属性设置为CHECKBOXDEMO. CHECKBOXDEMO是用户可以设置得条件, 其值必须大写. 此条件必须设置为TRUE, 才能安装此文件. <br><br>
+
+							Exclude <br>
+							如果不安装此文件, 则该属性设置为true. 这样文件就可以保留在项目中, 而不会安装. 如果可以肯定它不是相关文件, 或它已存在于要部署应用程序的每个系统中, 则可以排除该文件. <br><br>
+
+							PackageAs <br>
+							利用PackageAs可以重写文件添加到安装软件包的默认方式: 例如, 如果项目配置是In Setup File, 就可以使用此选项将特定文件的软件包配置改为Loose, 这样此文件就不会添加到MSI数据库文件中. 如果希望添加用户在开始安装之前读取的Readme文件, 这就非常有用. 显然, 即使压缩了其他文件, 也不应压缩此文件. <br><br>
+
+							Permanent <br>
+							将此属性设置为True意味着, 在卸载之后文件仍然会保留在目标计算机上. 这可以用于配置文件. 例如, 安装Microsoft Outlook的新版本时, 如果配置了Microsoft Outlook, 则在卸载并再次安装它时, 就不需要再次配置它, 因为上一次的安装配置并没有删除. <br><br>
+
+							Readonly <br>
+							此属性在安装时设置为制度文件属性. <br><br>
+
+							Vital <br>
+							此属性表示, 此文件对于此产品的安装至关重要. 如果此文件的安装失败, 就终止安装进程, 只能回退.
+						</p>
+					</div>
+
+					<div class="title">File Types编辑器</div>
+					<div class="content closed">
+						<p>如果应用程序使用了定制的文件类型, 并注册文件扩展名, 希望用户双击带有扩展名的文件时就启动应用程序, 就可以使用File Types编辑器. 此编辑器可以使用View | Editor | File Types启动.</p>
+
+						<p class="text-strong">文件扩展名</p>
+						<p>利用File Types编辑器可以配置文件扩展名, 在应用程序中可以处理带有该扩展名的文件, 文件扩展名具有下表所示的属性.</p>
+						<p>
+							Name <br>
+							在此添加描述文件类型的有效名称. 此名称显示在File Type Editor中, 并写入到注册表中. 名称应该是唯一的. .doc文件类型的示例是Word.Document.8. 无须像在Word中那样使用ProgID, 也可以为.dochtml文件扩展名使用简单的文本, 比如wordhtmlfile. <br><br>
+
+							Command <br>
+							使用Command属性可以指定可执行文件, 当用户打开此类型的文件时, 就会启动这个可执行文件. <br><br>
+
+							Description <br>
+							在此可以添加说明. <br><br>
+
+							Extensions <br>
+							应用程序可以进行注册的文件扩展名, 在注册表的部分中注册的文件扩展名. <br><br>
+
+							Icon <br>
+							为文件扩展名规定要显示的图标. 
+						</p>
+
+						<p class="text-strong">创建动作</p>
+						<p>
+							在File Types编辑器中创建了文件类型后, 就可以添加动作. 自动添加的默认动作是Open. 也可以添加其他动作, 比如New和Print, 或者是程序可以对文件执行的任何动作.
+						</p>
+
+						<p>
+							对于动作, 必须定义Arguments和Verb属性. Argument属性规定传递给应用程序的参数, 例如"%1"的意思是, 文件名传递给应用程序. Verb属性规定要发生的动作. 如果应用程序支持的话, 对于打印动作可以添加/print.
+						</p>
+					</div>
+
+					<div class="title">Launch Condition编辑器</div>
+					<div class="content closed">
+						<p>
+							通过Launch Condition编辑器, 可以在安装之前对目标系统指定一些要求. 选择菜单View | Editor | Launch Conditions, 启动Condition编辑器.
+						</p>
+						<p>
+							<span class="text-strong">Search Target Machine</span><br>
+							File Launch Condition在安装开始之前在目标系统上搜索文件. <br>
+							Registry Launch Condition允许在安装之前查找注册表项. <br>
+							Windows Installer Launch Condition可以搜索必须有的Windows Installer组件.
+						</p>
+						<p>
+							<span class="text-strong">Launch Conditions</span><br>
+							.NET Framework Launch Condition检查目标系统是否已经安装了.NET Framework. (默认已添加) <br>
+							Internet Information Services Launch Condtion检查已经安装的Internet Information Server. 在Internet Information Services 已安装的情况下. 添加这个启动条件, 会搜索定义好的特定注册表项, 并添加检查特定版本的条件. 
+
+						</p>
+					</div>
+
+					<div class="title">User Interfaces编辑器</div>
+					<div class="content closed">
+						<p>使用User Interfaces编辑器, 可以定义用户在配置安装时看到的对话框. 通过它可以给用户显示许可协议, 询问安装路径和配置应用程序的其他信息. 选择菜单View | Editor | User Interface, 启动User Interfaces编辑器.</p>
+						<p>
+							两种安装模式: <br>
+							1) Install模式一般用于在目标系统上安装应用程序. <br>
+							2) Administrator Install模式可以在网路共享上安装应用程序的图像, 然后用户就可以在网路上安装应用程序.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+{include file="template/footer" /}
