@@ -28,9 +28,9 @@
 					<!--开发语言基础-->
 					<div class="col-6">
 						<div class="container-fluid">
-							<!--C#基础-->
+							<!--C#语言基础-->
 							<div class="row">
-								<div class="col-12"><strong>C#基础</strong></div>
+								<div class="col-12"><strong>C#语言基础</strong></div>
 							</div>
 							<div class="row">
 								<div class="col-2"><a href="{:url('software/cs/index', 'template=data')}">数据</a></div>
@@ -39,20 +39,44 @@
 								<div class="col-2"><a href="{:url('software/cs/index', 'template=development_enviroment')}">开发环境</a></div>
 							</div>
 
-							<!--Java基础-->
+							<!--Java语言基础-->
 							<div class="row">
-								<div class="col-12"><strong>Java基础</strong></div>
+								<div class="col-12"><strong>Java语言基础</strong></div>
 							</div>
 							<div class="row">
-								<div class="col-2">数据</div>
-								<div class="col-2">表达式</div>
-								<div class="col-2">流程</div>
-								<div class="col-2">开发环境</div>
+								<div class="col-2"><a href="{:url('software/java/index', 'template=data')}">数据</a></div>
+								<div class="col-2"><a href="{:url('software/java/index', 'template=expression')}">表达式</a></div>
+								<div class="col-2"><a href="{:url('software/java/index', 'template=flow')}">流程</a></div>
+								<div class="col-2"><a href="{:url('software/java/index', 'template=development_enviroment')}">开发环境</a></div>
 							</div>
 
-							<!--PHP基础-->
+							<!--JavaScript语言基础-->
 							<div class="row">
-								<div class="col-12"><strong>PHP基础</strong></div>
+								<div class="col-12"><strong>JavaScript语言基础</strong></div>
+							</div>
+							<div class="row">
+								<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=data')}">数据</a></div>
+								<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=expression')}">表达式</a></div>
+								<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=flow')}">流程</a></div>
+								<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=function')}">函数</a></div>
+								<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=development_enviroment')}">开发环境</a></div>
+							</div>
+
+							<!--Python语言基础-->
+							<div class="row">
+								<div class="col-12"><strong>Python语言基础</strong></div>
+							</div>
+							<div class="row">
+								<div class="col-2"><a href="{:url('software/python/index', 'template=data')}">数据</a></div>
+								<div class="col-2"><a href="{:url('software/python/index', 'template=expression')}">表达式</a></div>
+								<div class="col-2"><a href="{:url('software/python/index', 'template=flow')}">流程</a></div>
+								<div class="col-2"><a href="{:url('software/python/index', 'template=function')}">函数</a></div>
+								<div class="col-2"><a href="{:url('software/python/index', 'template=development_enviroment')}">开发环境</a></div>
+							</div>
+
+							<!--PHP语言基础-->
+							<div class="row">
+								<div class="col-12"><strong>PHP语言基础</strong></div>
 							</div>
 							<div class="row">
 								<div class="col-2"><a href="{:url('software/php/index', 'template=data')}">数据</a></div>
@@ -60,31 +84,6 @@
 								<div class="col-2"><a href="{:url('software/php/index', 'template=flow')}">流程</a></div>
 								<div class="col-2"><a href="{:url('software/php/index', 'template=function')}">函数</a></div>
 								<div class="col-2"><a href="{:url('software/php/index', 'template=development_enviroment')}">开发环境</a></div>
-							</div>
-
-							<!--前端基础-->
-							<div class="row">
-								<div class="col-12"><strong>前端基础</strong></div>
-							</div>
-							<div class="row">
-								<div class="col-2">数据</div>
-								<div class="col-2">表达式</div>
-								<div class="col-2">流程</div>
-								<div class="col-2">函数</div>
-								<div class="col-2"><a href="{:url('software/front_end/index', 'template=html_css')}">HTML&CSS</a></div>
-								<div class="col-2">开发环境</div>                            
-							</div>
-
-							<!--Python基础-->
-							<div class="row">
-								<div class="col-12"><strong>Python基础</strong></div>
-							</div>
-							<div class="row">
-								<div class="col-2">数据</div>
-								<div class="col-2">表达式</div>
-								<div class="col-2">流程</div>
-								<div class="col-2"><a href="{:url('software/python/index', 'template=function')}">函数</a></div>
-								<div class="col-2"><a href="{:url('software/python/index', 'template=development_enviroment')}">开发环境</a></div>
 							</div>
 						</div>
 					</div>
@@ -102,15 +101,15 @@
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="#php" data-toggle="tab"> PHP高级 </a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link" href="#front_end" data-toggle="tab">前端高级</a>
+								<a class="nav-link" href="#java_script" data-toggle="tab">JavaScript高级</a>
 							</li>
 
 							<li class="nav-item">
 								<a class="nav-link" href="#python" data-toggle="tab"> Python高级 </a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="#php" data-toggle="tab"> PHP高级 </a>
 							</li>
 
 							<li class="nav-item">
@@ -174,7 +173,46 @@
 							<div class="tab-pane fade" id="java">
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-12"><strong>Java专题</strong></div>
+										<div class="col-12"><strong>精通</strong></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>掌握</strong></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>了解</strong></div>
+									</div>
+								</div>
+							</div>
+
+							<!--JavaScript专题--> 
+							<div class="tab-pane fade" id="java_script">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-12"><strong>精通</strong></div>
+										<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=html_css')}">HTML&CSS</a></div>
+										<div class="col-12"><a href="{:url('software/java_script/index', 'template=java_script-bootstrap-index')}">bootstrap</a></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>掌握</strong></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>了解</strong></div>
+									</div>
+								</div>
+							</div>
+
+							<!--Python专题--> 
+							<div class="tab-pane fade" id="python">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-12"><strong>精通</strong></div>
+										<div class="col-2"><a href="{:url('software/python/index', 'template=scrapy')}">Scrapy爬虫</a></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>掌握</strong></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>了解</strong></div>
 									</div>
 								</div>
 							</div>
@@ -183,6 +221,7 @@
 							<div class="tab-pane fade" id="php">
 								<div class="container-fluid">
 									<div class="row">
+										<div class="col-12"><strong>精通</strong></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-database_programming')}">数据库编程</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-regular_expression')}">正则表达式</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-form_operation')}">表单处理</a></div>
@@ -193,34 +232,17 @@
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-graphic_programming')}">图像编程</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-email')}">邮件编程</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-account_system')}">账户体系</a></div>
+										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tp5-index')}">ThinkPHP</a></div>
+										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tpadmin-index')}">tpAdmin</a></div>
+									</div>
+									<div class="row">
+										<div class="col-12"><strong>掌握</strong></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-http')}">HTTP</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-security')}">安全</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-http_header')}">HTTP头信息</a></div>
 									</div>
 									<div class="row">
-										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tp5-index')}">ThinkPHP</a></div>
-										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tpadmin-index')}">tpAdmin</a></div>
-									</div>
-								</div>
-							</div>
-
-							<!--web前端专题--> 
-							<div class="tab-pane fade" id="front_end">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-12"><strong>前端专题</strong></div>
-									</div>
-									<div class="row">
-										<div class="col-12"><a href="{:url('software/php/index', 'template=front_end-bootstrap-index')}">bootstrap</a></div>
-									</div>
-								</div>
-							</div>
-
-							<!--Python专题--> 
-							<div class="tab-pane fade" id="python">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-2"><a href="{:url('software/python/index', 'template=scrapy')}">Scrapy爬虫</a></div>
+										<div class="col-12"><strong>了解</strong></div>
 									</div>
 								</div>
 							</div>

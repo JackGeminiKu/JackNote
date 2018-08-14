@@ -3,7 +3,7 @@ namespace app\software\controller;
 
 use think\Controller;
 
-class FrontEnd extends Controller
+class JavaScript extends Controller
 {
     public function index($template = '')
     {       
