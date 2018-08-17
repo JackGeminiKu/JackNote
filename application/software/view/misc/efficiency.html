@@ -136,8 +136,50 @@
 			</div>
 
 			<div class="title">配置</div>
-			<div class="content open">
+			<div class="content closed">
+				<p class="text-strong">设置为英文界面</p>
+				<p>在vim的安装根目录下找到名为“_vimrc”的文件，在第"source $VIMRUNTIME/vimrc_example.vim"前面添加：</p>
+				<pre class="prettyprint linenums">
+<code>
+let $LANG = 'en'  "set message language
+set langmenu=en   "set menu's language of gvim. no spaces beside '='
+</code>
+				</pre>
 
+				<p class="text-strong">常用设置</p>
+				<p>在vim的安装根目录下找到名为“_vimrc”的文件，在文件最后添加如下常用设置:</p>
+				<pre class="prettyprint linenums">
+<code>
+" 设置字符编码(解决显示中文乱码问题)
+set encoding=utf-8
+
+" 设置字体
+set guifont=Consolas:h10
+
+" 设置tab宽
+set ts=4
+" 缩进设置
+set shiftwidth=4
+
+" 取消撤销文件(形似: xxx.html.un~)
+set noundofile
+" 取消备份文件(形似xxx.html~)
+set nobackup
+
+" 显示行号
+set number
+
+" 设置启动时默认窗口大小
+set lines=40
+set columns=150
+
+" 设置默认进行大小写不敏感查找
+set ignorecase
+
+" 如果有一个大写字母，则切换到大小写敏感查找
+set smartcase
+</code>
+				</pre>
 			</div>
 
 			<div class="title">插件</div>
