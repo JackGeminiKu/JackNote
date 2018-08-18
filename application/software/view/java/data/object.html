@@ -1,4 +1,20 @@
 {include file="template/header" title="Java Object" /}
-<p>Object这个类是所有类的源头, 它是所有类的父类. 没有直接继承过其他类的类会是隐含的继承自Object类. </p>
-内容...
+<p>Object这个类是所有类的源头, 它是所有类的父类. 没有直接继承过其他类的类会隐含的继承自该类! </p>
+<div class="list list-number">
+    <div class="title">常用操作</div>
+    <div class="content closed">
+		<p>
+			boolean	equals (Object obj): 指示某个其他对象是否与此对象"相等". (是否引用了同一个对象)<br>
+			Class&lt;?> getClass():  	返回一个对象的运行时类.<br>
+			int	hashCode(): 返回该对象的哈希码值.<br>
+			String	toString(): 返回该对象的字符串表示.
+		</p>
+    </div>
+</div>
+
+<hr>
+<p>
+	参考资料<br>
+	<a href="https://docs.oracle.com/javase/10/docs/api/java/lang/Object.html">API文档</a>
+</p>
 {include file="template/footer" /}

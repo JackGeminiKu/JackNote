@@ -1,3 +1,63 @@
 {include file="template/header" title="Java 值包装类型" /}
-内容...
+<pre class="prettyprint linenums">
+<code>
+int x = 32;
+ArrayList list = new ArrayList( );
+list.add( x );
+</code>
+</pre>
+<p>除非是用Java 5.0或以上的版本, 否则上面这段代码会报错. 因为在5.0之前的Java版本上, 你无法直接把 值类型放进ArrayList或HashMap中.</p>
+<p>
+	在Java 5.0中, 每一个primitive类型都有一个对应的包装类( 这些包装类都在java.lang这个包中, 所以你无需去import它们), 每个包装类都很好辨识, 因为它的名称是照着所包装的类型设定的, 只是将第一个字母改为大写以符合命名惯例.
+</p>
+
+<div class="list list-number">
+    <div class="title">所有包装类</div>
+    <div class="content open">
+		<p>
+			Boolean <br>
+			Character <br>
+			Byte / Short / Integer / Long <br>
+			Float / Double
+		</p>
+    </div>
+
+    <div class="title">包装 & 解包装</div>
+    <div class="content open">
+		<pre class="prettyprint linenums">
+<code>
+// 包装
+int i = 288;
+Integer iWarp = new Integer(i);
+
+// 解包装
+int unWrapped = iWarp.intValue();
+</code>
+		</pre>
+    </div>
+
+    <div class="title">自动包装 & 解包</div>
+    <div class="content open">
+		<p>primitive类型和对应的包装类之间会根据情况自动包装和解包装.</p>
+		<pre class="prettyprint linenums">
+<code>
+ArrayList&lt;Integer> listOfNumbers = new ArrayList&lt;Integer>( );
+listOfNumbers.add( 3 );
+int num = listOfNumbers.get( 0 ); 	
+// 虽然ArrayList没有add(int)这样的方法, 但编译器会自动帮你包装.
+// 编译器也会自动地解开Integer对象的包装, 因此可以直接复制给int.
+</code>
+		</pre>
+    </div>
+
+    <div class="title">包装类的不变性</div>
+    <div class="content open">
+		<pre class="prettyprint linenums">
+<code>
+Integer iWrap = new Integer(42);
+</code>
+		</pre>
+		<p>当你创建如下这个包装对象时: 它的值永远会是42. 包装对象没有setter. 你当然还是能够让iWrap引用别的包装对象, 但是会产生两个对象. 包装对象创建后无法改变该对象的值!</p>
+    </div>
+</div>
 {include file="template/footer" /}

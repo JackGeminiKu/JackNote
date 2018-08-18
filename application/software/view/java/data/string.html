@@ -1,3 +1,65 @@
 {include file="template/header" title="Java 字符串" /}
-内容...
+<div class="list list-number">
+    <div class="title">char - 采用UTF-16编码</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">字面值</div>
+			<div class="content open">
+				<p>
+					'C': 表示字符C <br>
+					'\n': 转义字符, 这里表示的是换行符, 常用于不可打印字符. <br>
+					'\u0061': 十六进制编码表示, 所有字符都可以用这种方式表示.
+				</p>
+			</div>
+		</div>
+    </div>
+
+    <div class="title">String - 不可变字符串</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">字面值</div>
+			<div class="content closed">
+				<p>"在双引号内的是字符串"</p>
+			</div>
+
+			<div class="title">常用操作</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">String的不变性</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+String s = "0";
+for ( int x = 1; x < 10; x++ ) {
+    s = s + x;
+}
+</code>
+				</pre>
+				<p>
+					实际上会创建出10个String对象("0", "01", "012", ... "0123456789"). 最后会引用到"0123456789"这个值, 但此时会存在10个String.
+				</p>
+				<p>
+					创建新的String对象时, Java虚拟机会把它放到称为"String Pool"的特殊存储区中. 如果已经出现同值的String, Java虚拟机就不会重复建立, 只会引用已存在的String. 这是因为String是不变的, 引用变量无法改变其他参考变量引用到的同一个String.
+				</p>
+			</div>
+		</div>
+    </div>
+    <div class="title">StringBuffer - 可变字符串</div>
+    <div class="content closed">
+		<p>StringBuffer和String类似, 但是StringBuffer可以对其字符串进行改变.</p>
+    </div>
+
+    <div class="title">StringBuilder - 可变字符串</div>
+    <div class="content closed">
+		<p>一个可变的字符序列。此类提供一个与 StringBuffer 兼容的 API，但不保证同步。该类被设计用作 StringBuffer 的一个简易替换，用在字符串缓冲区被单个线程使用的时候（这种情况很普遍）。如果可能，建议优先采用该类，因为在大多数实现中，它比 StringBuffer 要快。 </p>
+    </div>
+</div>
+
+<hr>
+<p>
+	参考资料<br>
+	<a href="https://docs.oracle.com/javase/10/docs/api/java/lang/String.html">String API文档</a><br>
+</p>
 {include file="template/footer" /}
