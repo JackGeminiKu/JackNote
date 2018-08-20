@@ -1,10 +1,14 @@
-{include file="template/header" title="XX XX" /}
+{include file="template/header" title="C# 可空类型" /}
 <p>Nullable&lt;T>表示可分配null的值类型.T 可以是包括 struct 在内的任何值类型；但不能是引用类型。</p>
 <div class="list list-number">
     <div class="title">定义变量</div>
     <div class="content open">
-        <pre class="prettyprint linenums lang-php"><code>Nullable<int> nullableInt;
-int? nullableInt;    // 简写</code></pre>
+        <pre class="prettyprint linenums lang-php">
+<code>
+Nullable&lt;int> nullableInt;
+int? nullableInt;    // 简写
+</code>
+		</pre>
     </div>
 
     <div class="title">常用操作</div>
@@ -38,13 +42,13 @@ int? nullableInt;    // 简写</code></pre>
             <div class="title">op_Implicit</div>
             <div class="content open">
                 <p>T值可以隐式转换为Nullable<T>, 但是Nullable<T>不能隐式转换为T.</p>
-            </div>
+						</div>
 
-            <div class="title">op_Explicit</div>
-            <div class="content open">
-                <p>显式转换.</p>
-            </div>
-        </div>
-    </div>
-</div>
-{include file="template/footer" /}
+						<div class="title">op_Explicit</div>
+						<div class="content open">
+							<p>显式转换.</p>
+						</div>
+						</div>
+						</div>
+						</div>
+						{include file="template/footer" /}
