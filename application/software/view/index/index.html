@@ -276,7 +276,7 @@
 				<div class="row">
 					<div class="col-2">SQL Server</div>
 					<div class="col-2">MySQL</div>
-					<div class="col-2"></div>
+					<div class="col-2">SQLite</div>
 				</div>
 				<div class="row">
 					<div class="col-2"><strong>NoSQL</strong></div>
@@ -318,14 +318,33 @@
 	</tr>
 </table>
 
-<div class="container ml-0 fixed-bottom">
+<div class="container-fluid ml-0 fixed-bottom">
 	<div class="row">
-		<div class="col-1"><strong>杂七杂八</strong></div>
-		<div class="col-1"><a href="{:url('software/misc/index', 'template=efficiency')}">效率</a></div>
-		<div class="col-1"><a href="{:url('software/misc/index', 'template=linux')}">Linux</a></div>
-		<div class="col-1"><a href="__ROOT__/static/My Bookshelf.xls">bookshelf</a></div>
-		<div class="col-1"></div>
-	</div>	
+		<div class="col-6">
+			<div class="container">
+				<div class="row">
+					<div class="col-2"><strong>杂七杂八</strong></div>
+					<div class="col-1"><a href="{:url('software/misc/index', 'template=efficiency')}">效率</a></div>
+					<div class="col-1"><a href="{:url('software/misc/index', 'template=linux')}">Linux</a></div>
+					<div class="col-1"><a href="__ROOT__/static/My Bookshelf.xls">bookshelf</a></div>
+					<div class="col-1"></div>
+					<div class="col-1"></div>
+				</div>
+			</div>	
+		</div>
+		<div class="col-6">
+			<div class="container">
+				<div class="row">
+					<div class="col-2"><strong>使用手册</strong></div>
+					<div class="col-1"><a href="{:url('software/manual/index', 'template=wireshark')}">Wireshark</a></div>
+					<div class="col-1"><a href="{:url('software/misc/index', 'template=linux')}"></a></div>
+					<div class="col-1"><a href="__ROOT__/static/My Bookshelf.xls"></a></div>
+					<div class="col-1"></div>
+					<div class="col-1"></div>
+				</div>
+			</div>		
+		</div>
+	</div>
 </div>
 
 {include file="template/footer" /}

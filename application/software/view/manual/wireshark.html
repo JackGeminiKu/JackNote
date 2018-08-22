@@ -1,0 +1,28 @@
+{include file="template/header" title="使用手册 Wireshark" /}
+<div class="list list-number">
+    <div class="title">过滤查询</div>
+    <div class="content open">
+		<p>掌握过滤技巧很重要，刚进行抓包时，会得到很多冗余的数据，使用过滤，会简单、直观地得到我们需要的信息</p>
+
+		<p>过滤器有两种：<br>
+			一种是显示过滤器，就是主界面上那个，用来在捕获的记录中找到所需要的记录<br>
+			一种是捕获过滤器，用来过滤捕获的封包，以免捕获太多的记录。 在Capture -> Capture Filters 中设置
+		</p> 
+
+		<p>
+			表达式规则<br>
+			1. 协议过滤<br>
+			比如TCP，只显示TCP协议。<br>
+			2. IP 过滤<br>
+			比如 ip.src ==192.168.1.102 显示源地址为192.168.1.102，<br>
+			ip.dst==192.168.1.102, 目标地址为192.168.1.102<br>
+			3. 端口过滤<br>
+			tcp.port ==80,  端口为80的<br>
+			tcp.srcport == 80,  只显示TCP协议的原端口为80的。<br>
+			4. Http模式过滤<br>
+			http.request.method=="GET",   只显示HTTP GET方法的。<br>
+			5. 逻辑运算符为 AND/ OR
+		</p>
+    </div>
+</div>
+{include file="template/footer" /}
