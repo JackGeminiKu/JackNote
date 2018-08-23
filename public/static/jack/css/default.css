@@ -20,6 +20,11 @@ body {
     display: table-cell;
 } */
 
+/*颜色*/
+.bg-default {
+	background-color: #CCE8CF;
+}
+
 /* 外边距 */
 body {
     margin: 10px;

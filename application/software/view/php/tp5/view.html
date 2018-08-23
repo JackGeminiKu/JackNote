@@ -6,7 +6,59 @@
 		<div class="list list-number">
 			<div class="title">模板定位</div>
 			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+class User extends Controller
+{
+    // 获取用户数据列表并输出
+    public function index()
+    {
+        $list = UserModel::all();
+        $this->assign('list', $list);
+        $this->assign('count', count($list));
+        return $this->fetch();
+    }
+}
+</code>
+				</pre>	
+				<p>fetch方法的第一个参数表示渲染的模板文件或者模板表达式。通常我们都是使用的模板表达式，而不需要使用完整的文件名。</p>
+				<table class="table table-bordered table-sm w-75">
+					<tbody>
+						<tr>
+							<td>return $this->fetch();</td>
+							<td>默认渲染输出的模板文件应该是当前控制器和操作对应的模板, 也就是: application/index/view/user/index.html</td>
+						</tr>
+						<tr>
+							<td>return $this->fetch('list');</td>
+							<td>application/index/view/user/list.html</td>
+						</tr>
+						<tr>
+							<td>return $this->fetch('index/list');</td>
+							<td>application/index/view/index/list.html</td>
+						</tr>
+						<tr>
+							<td>return $this->fetch('one/two/three/list');</td>
+							<td>application/index/view/one/two/three/list.html</td>
+						</tr>
+					</tbody>
+				</table>
 
+				<p class="text-strong">模板文件相关配置</p>
+				<p>模板相关的参数可以直接在配置文件中配置template参数，默认的配置如下：</p>	
+				<pre class="prettyprint linenums">
+<code>
+'template' => [
+    'type' => 'Think',           // 模板引擎类型 支持 php think 支持扩展
+    'view_path' => '',           // 设置模板文件的根目录，如果没有设置的话系统会默认使用当前模块的视图目录view
+    'view_suffix' => '.html',    // 模板文件后缀名
+    'view_depr' => DS,           // 模板文件名分隔符
+    'tpl_begin' => '{',          // 模板引擎普通标签开始标记
+    'tpl_end' => '}',            // 模板引擎普通标签结束标记
+    'taglib_begin' => '{',       // 标签库标签开始标记
+    'taglib_end' => '}',         // 标签库标签结束标记
+],
+</code>
+				</pre>	
 			</div>
 
 			<div class="title">模板变量</div>
@@ -19,14 +71,16 @@ namespace app\index\controller;
 use app\index\model\User as UserModel;
 use think\Controller;
 
-class User extends Controller
+class User extends Controller // 继承了think\Controller类
 {
     public function index()
     {
         $list = UserModel::all();
-        $this->assign('list', $list); // assign: 给模板变量赋值
-        $this->assign('count', count($list));
-        return $this->fetch(); // 渲染模板文件. 默认渲染输出的模板文件应该是当前控制器和操作对应的模板!
+        // 给模板变量赋值
+        $this->assign('list', $list); // 二维数组
+        $this->assign('count', count($list)); // 标量
+        // 渲染模板文件. 默认渲染输出的模板文件应该是当前控制器和操作对应的模板!
+        return $this->fetch(); 
     }
 }
 </code>
@@ -51,12 +105,11 @@ class User extends Controller
 			<div class="title">公共模板</div>
 			<div class="content closed">
 				<div class="list list-none">
-					<div class="title">include标签</div>
 					<div class="content open ml-0">
-						<p>为了避免重复定义模板，可以把模板的公共头部和尾部分离出来，便于维护。我们把模板文件拆分为三部分：</p>
+						<p>为了避免重复定义模板，可以把模板的公共头部和尾部分离出来，便于维护。</p>
 						<pre class="prettyprint linenums lang-html">
 <code>
-// application/index/view/user/header.html
+&lt;!--application/index/view/user/header.html-->
 &lt;!doctype html>
 &lt;html lang="en">
 &lt;head>
@@ -71,7 +124,7 @@ class User extends Controller
 
 						<pre class="prettyprint linenums lang-html">
 <code>
-// application/index/view/user/footer.html
+&lt;!--application/index/view/user/footer.html-->
 &lt;div class="copyright">
     &lt;a title="官网" href="http://www.thinkphp.cn">ThinkPHP&lt;/a> 
     &lt;span>V5&lt;/span> 
@@ -82,9 +135,10 @@ class User extends Controller
 </code>
 						</pre>
 
+						<p>然后使用include标签, 套用公共模板文件.</p>
 						<pre class="prettyprint linenums lang-html">
 <code>
-// application/index/view/user/index.html
+&lt;!--application/index/view/user/index.html-->
 ｛include file="user/header" /｝
 
 &lt;h2>用户列表（｛$count｝）&lt;/h2> 
@@ -104,7 +158,7 @@ class User extends Controller
 
 					<div class="title">公共模板变量</div>
 					<div class="content open ml-0">
-						<p>公共模板文件中可能存在一些变量，例如这里的页面标题不同的页面会有不同，可以使用</p>
+						<p>公共模板文件中可能存在一些变量，例如这里的页面标题, 不同的页面会有不同，可以使用</p>
 						<pre class="prettyprint linenums">
 <code>
 ｛include file="user/header" title="查看用户列表" /｝
@@ -136,24 +190,271 @@ class User extends Controller
 
 			</div>
 
-			<div class="title">输出替换</div>
-			<div class="content open">
+			<div class="title">布局模板</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">定义模板布局文件</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+&lt;!--application/index/view/layout.html-->
+&#123;include file="user/header" /}
+&#123;__CONTENT__}
+&#123;include file="user/footer" /}
+</code>
+						</pre>		
+					</div>
 
+					<div class="title">套用到某个模板文件: 使用Layout标签</div>
+					<div class="content closed">
+						<p>使用Layout标签套用模板布局文件</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;!--application/index/view/user/index.html-->
+&#123;layout name="layout" /}    // 套用模板布局文件: /view/layout.html
+
+&lt;h2>用户列表（&#123;$count}）&lt;/h2>    // 这里开始就是&#123;__CONTENT__}内容
+&#123;volist name="list" id="user" }
+    &lt;div class="info">
+        ID：&#123;$user.id}&lt;br/>
+        昵称：&#123;$user.nickname}&lt;br/>
+        邮箱：&#123;$user.email}&lt;br/>
+    &lt;/div>
+&#123;/volist}
+</code>
+						</pre>	
+
+						<p>如果你的布局模板中不是使用{__CONTENT__}的话，需要使用replace属性: </p>
+						<pre class="prettyprint linenums">
+<code>
+&#123;layout name="layout/newlayout" replace="[__REPLACE__]" /}
+</code>
+						</pre>		
+					</div>
+
+					<div class="title">套用到所有模板文件: 使用全局模板布局</div>
+					<div class="content closed">
+						<p>如果所有的模板文件都使用同一个模板布局文件，那么可以统一配置而不需要在模板文件中使用layout标签定义。</p>
+						<p>在应用配置或者模块配置中添加如下设置参数：</p>
+						<pre class="prettyprint linenums">
+<code>
+'template' => [
+     'layout_on' => true,    // 开启全局模板布局
+     'layout_name' => 'layout',    // 使用模板布局文件: layout.html
+     'layout_item' => '[__CONTENT__]'    // layout_item关键字
+ ]
+</code>
+						</pre>	
+						<p class="text-strong">如果使用配置方式开启了全局模板布局，也可以临时关闭，例如：</p>
+						<p>(1) 在控制器中使用layout()函数</p>	
+						<pre class="prettyprint linenums">
+<code>
+// 获取用户数据列表
+public function index()
+{
+    $list = UserModel::all();
+    $this->assign('list', $list);
+    $this->assign('count', count($list));
+    $this->view->engine->layout(false);    // 临时关闭布局
+    return $this->fetch();
+}
+</code>
+						</pre>	
+						<p>(2) 或者直接在模板文件的开头加上{__NOLAYOUT__}标签：</p>
+						<pre class="prettyprint linenums">
+<code>
+&#123;__NOLAYOUT__}
+&lt;h2>用户列表（&#123;$count}）&lt;/h2>
+&#123;volist name="list" id="user" mod="2" }
+&lt;div class="info">
+ID：&#123;$user.id}&lt;br/>
+昵称：&#123;$user.nickname}&lt;br/>
+邮箱：&#123;$user.email}&lt;br/>
+生日：&#123;$user.birthday}&lt;br/>
+&lt;/div>
+&#123;/volist}
+</code>
+						</pre>	
+					</div>
+
+					<div class="title">使用动态模板布局</div>
+					<div class="content closed">
+						<p>如果想动态控制模板文件使用布局，则可以在控制器中使用：</p>	
+						<pre class="prettyprint linenums">
+<code>
+// 获取用户数据列表
+public function index()
+{
+    $list = UserModel::all();
+    $this->assign('list', $list);
+    $this->assign('count', count($list));
+    $this->view->engine->layout('layout','[__REPLACE__]');    // 动态使用布局
+    return $this->fetch();
+}
+</code>
+						</pre>	
+					</div>
+				</div>
+
+			</div>
+
+			<div class="title">输出替换</div>
+			<div class="content closed">
+				<p>可以在输出之前(输出到浏览器?)对解析后的内容进行替换，使用replace()函数：</p>
+				<pre class="prettyprint linenums">
+<code>
+// 读取用户数据
+public function read($id='')
+{
+    $user = UserModel::get($id);
+    $this->assign('user',$user);
+    $this->view->replace([
+        '__PUBLIC__' => '/static',
+    ]);
+    return $this->fetch();
+}
+</code>
+				</pre>	
+				<p>模板文件改为:</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;html>
+&lt;head>
+&lt;meta charset="UTF-8">
+&lt;title>[title]&lt;/title>
+&lt;link charset="utf-8" rel="stylesheet" href="__PUBLIC__/common.css">    // 最终输出的时候，__PUBLIC__会自动替换为'/static'
+&lt;/head>
+&lt;body>
+</code>
+				</pre>
 			</div>
 
 			<div class="title">View函数</div>
-			<div class="content open">
+			<div class="content closed">
+				<p>
+					可以使用系统提供的助手函数view简化模板渲染输出（注意不适用于内容渲染输出）.
+					前面的模板渲染代码可以改为
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;?php
+namespace app\index\controller;
 
+use app\index\model\User as UserModel;
+
+class User
+{
+    // 读取用户数据
+    public function read($id='')
+    {
+        $user = UserModel::get($id);
+        // 使用view助手函数，不需要继承think\Controller类。该方法的第一个参数就是渲染的模板表达式。		
+        return view('', ['user' => $user], ['__PUBLIC__' => '/static']);
+    }
+}
+</code>
+				</pre>
 			</div>
 
 			<div class="title">模板语言</div>
-			<div class="content open">
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">使用运算符</div>
+					<div class="content open">
+						<p>我们可以对模板输出使用运算符，包括对“+”“-” “*” “/”和“%”的支持。</p>
+						<div class="list list-number">
+							<div class="title">算术运算符</div>
+							<div class="content open">
+								<pre class="prettyprint linenums">
+<code>
+// +, -, *, /, %
+&#123;$a + $b}
+// ++, --
+&#123;$a++}
+&#123;++$a}
+// 综合运算
+&#123;$a + $b * 10}
+</code>
+								</pre>
+								<p>在使用运算符的时候，不再支持常规函数用法，例如：</p>
+								<pre class="prettyprint linenums">
+<code>
+&#123;$user.score+10} //正确的
+&#123;$user['score']+10} //正确的
+&#123;$user['score']*$user['level']} //正确的
+&#123;$user['score']|myFun*10} //错误的
+&#123;$user['score']+myFun($user['level'])} //正确的
+</code>
+								</pre>	
+							</div>
 
+							<div class="title">?运算符</div>
+							<div class="content open">
+								<pre class="prettyprint linenums">
+<code>
+&#123;$status? '正常' : '错误'}
+&#123;$info['status']? $info['msg'] : $info['error']}
+&#123;$info.status? $info.msg : $info.error }
+</code>
+								</pre>	
+							</div>
+
+							<div class="title">??运算符</div>
+							<div class="content open">
+								<pre class="prettyprint linenums">
+<code>
+&#123;$varname.aa ?? 'xxx'}
+</code>
+								</pre>	
+							</div>
+
+							<div class="title">比较运算符</div>
+							<div class="content open">
+								<pre class="prettyprint linenums">
+<code>
+&#123;volist name="failures" id="failure"}
+    &#123;if condition="$failure['id'] eq $current_failure_id"}
+        &lt;option value="&#123;$failure.id}" selected>&#123;$failure.name}&lt;/option>
+    &#123;else/}
+        &lt;option value="&#123;$failure.id}">&#123;$failure.name}&lt;/option>
+    &#123;/if}
+&#123;/volist}
+</code>
+								</pre>	
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="title">分页输出</div>
-			<div class="content open">
-
+			<div class="content closed">
+				<p>(1) 先将控制器index方法修改为：</p>
+				<pre class="prettyprint linenums">
+<code>
+// 获取用户数据列表
+public function index()
+{
+    // 分页输出列表 每页显示3条数据
+    $list = UserModel::paginate(3);
+    $this->assign('list',$list);
+    return $this->fetch();
+}
+</code>
+				</pre>	
+				<p>(2) 然后将视图文件修改为：</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;h2>用户列表（&#123;$list->total()}&lt;/h2>
+&#123;volist name="list" id="user"}
+    ID：&#123;$user.id}&lt;br/>
+    昵称：&#123;$user.nickname}&lt;br/>
+    邮箱：&#123;$user.email}&lt;br/>
+    ------------------------&lt;br/>
+&#123;/volist}
+&#123;$list->render()}    // render干什么用的???
+</code>
+				</pre>		
 			</div>
 
 			<div class="title">布局模板</div>
@@ -163,9 +464,92 @@ class User extends Controller
 		</div> 
     </div>
 
-    <div class="title">渲染内容</div>
-    <div class="content open">
+	<div class="title">渲染模板</div>
+	<div class="content closed">
 
+	</div>
+
+    <div class="title">渲染内容</div>
+    <div class="content closed">
+		<p>有时候，并不需要模板文件，而是直接渲染内容或者读取数据库中存储的内容，控制器方法修改如下：</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;?php
+namespace app\index\controller;
+
+use app\index\model\User as UserModel;
+use think\Controller;
+
+class User extends Controller
+&#123;
+    // 获取用户数据列表并输出
+    public function index()
+    &#123;
+        $list = UserModel::all();
+        $this->assign('list', $list);
+        $this->assign('count', count($list));
+        // 关闭布局
+        $this->view->engine->layout(false);
+		
+        $content = &lt;&lt;&lt;EOT
+&lt;style>
+body&#123;
+color: #333;
+font: 16px Verdana, "Helvetica Neue", helvetica, Arial, 'Microsoft YaHei', sans-serif;
+margin: 0px;
+padding: 20px;
+}
+
+a&#123;
+color: #868686;
+cursor: pointer;
+}
+a:hover&#123;
+text-decoration: underline;
+}
+h2&#123;
+color: #4288ce;
+font-weight: 400;
+padding: 6px 0;
+margin: 6px 0 0;
+font-size: 28px;
+border-bottom: 1px solid #eee;
+}
+div&#123;
+margin:8px;
+}
+.info&#123;
+padding: 12px 0;
+border-bottom: 1px solid #eee;
+}
+
+.copyright&#123;
+margin-top: 24px;
+padding: 12px 0;
+border-top: 1px solid #eee;
+}
+&lt;/style>
+&lt;h2>用户列表（&#123;\$count}）&lt;/h2>
+&lt;div>
+&#123;volist name="list" id="user" }
+ID：&#123;\$user.id}&lt;br/>
+昵称：&#123;\$user.nickname}&lt;br/>
+邮箱：&#123;\$user.email}&lt;br/>
+生日：&#123;\$user.birthday}&lt;br/>
+------------------------&lt;br/>
+&#123;/volist}
+&lt;/div>
+&lt;div class="copyright">
+&lt;a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP&lt;/a>
+&lt;span>V5&lt;/span>
+&lt;span>&#123; 十年磨一剑-为API开发设计的高性能框架 }&lt;/span>
+&lt;/div>
+EOT;
+        return $this->display($content);    // display方法用于渲染内容而不是模板文件输出，和直接使用echo输出的区别是display方法输出的内容支持模板标签的解析。
+    }
+}
+</code>
+		</pre>		
     </div>
 </div>
 

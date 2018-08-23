@@ -232,6 +232,8 @@
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-graphic_programming')}">图像编程</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-email')}">邮件编程</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-account_system')}">账户体系</a></div>
+									</div>
+									<div class="row">
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tp5-index')}">ThinkPHP</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tpadmin-index')}">tpAdmin</a></div>
 									</div>
@@ -318,33 +320,39 @@
 	</tr>
 </table>
 
-<div class="container-fluid ml-0 fixed-bottom">
-	<div class="row">
-		<div class="col-6">
-			<div class="container">
-				<div class="row">
-					<div class="col-2"><strong>杂七杂八</strong></div>
-					<div class="col-1"><a href="{:url('software/misc/index', 'template=efficiency')}">效率</a></div>
-					<div class="col-1"><a href="{:url('software/misc/index', 'template=linux')}">Linux</a></div>
-					<div class="col-1"><a href="__ROOT__/static/My Bookshelf.xls">bookshelf</a></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
+<!--底部菜单条-->
+<nav class="navbar navbar-expand-sm navbar-light fixed-bottom">
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<!--Linux-->
+			<li class="nav-item active">
+				<span class="nav-link">杂七杂八</span>	
+			</li>
+
+			<!--效率-->
+			<li class="nav-item">
+				<a class="nav-link" href="{:url('software/misc/index', 'template=efficiency')}">效率</a>
+			</li>
+
+			<!--使用手册-->
+			<li class="nav-item dropup">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					使用手册
+				</a>
+				<div class="dropdown-menu bg-default" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="{:url('software/manual/index', 'template=ahk')}">AHK</a>
+					<a class="dropdown-item" href="{:url('software/manual/index', 'template=linux')}">Linux</a>
+					<a class="dropdown-item" href="#">VIM</a>
+					<a class="dropdown-item" href="{:url('software/manual/index', 'template=wireshark')}">Wireshark</a>
 				</div>
-			</div>	
-		</div>
-		<div class="col-6">
-			<div class="container">
-				<div class="row">
-					<div class="col-2"><strong>使用手册</strong></div>
-					<div class="col-1"><a href="{:url('software/manual/index', 'template=wireshark')}">Wireshark</a></div>
-					<div class="col-1"><a href="{:url('software/misc/index', 'template=linux')}"></a></div>
-					<div class="col-1"><a href="__ROOT__/static/My Bookshelf.xls"></a></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-				</div>
-			</div>		
-		</div>
+			</li>
+
+			<!--Bookshelf-->
+			<li class="nav-item">
+				<a class="nav-link" href="__ROOT__/static/My Bookshelf.xls">bookshelf</a>	
+			</li>
+		</ul>
 	</div>
-</div>
+</nav>
 
 {include file="template/footer" /}
