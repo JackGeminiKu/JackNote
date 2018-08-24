@@ -1,66 +1,9 @@
 {include file="php/tp5/template/header" title="TP5 View" /}
 
 <div class="list list-number">
-    <div class="title">渲染模板</div>
+    <div class="title">模板语言</div>
     <div class="content open">
 		<div class="list list-number">
-			<div class="title">模板定位</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-class User extends Controller
-{
-    // 获取用户数据列表并输出
-    public function index()
-    {
-        $list = UserModel::all();
-        $this->assign('list', $list);
-        $this->assign('count', count($list));
-        return $this->fetch();
-    }
-}
-</code>
-				</pre>	
-				<p>fetch方法的第一个参数表示渲染的模板文件或者模板表达式。通常我们都是使用的模板表达式，而不需要使用完整的文件名。</p>
-				<table class="table table-bordered table-sm w-75">
-					<tbody>
-						<tr>
-							<td>return $this->fetch();</td>
-							<td>默认渲染输出的模板文件应该是当前控制器和操作对应的模板, 也就是: application/index/view/user/index.html</td>
-						</tr>
-						<tr>
-							<td>return $this->fetch('list');</td>
-							<td>application/index/view/user/list.html</td>
-						</tr>
-						<tr>
-							<td>return $this->fetch('index/list');</td>
-							<td>application/index/view/index/list.html</td>
-						</tr>
-						<tr>
-							<td>return $this->fetch('one/two/three/list');</td>
-							<td>application/index/view/one/two/three/list.html</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<p class="text-strong">模板文件相关配置</p>
-				<p>模板相关的参数可以直接在配置文件中配置template参数，默认的配置如下：</p>	
-				<pre class="prettyprint linenums">
-<code>
-'template' => [
-    'type' => 'Think',           // 模板引擎类型 支持 php think 支持扩展
-    'view_path' => '',           // 设置模板文件的根目录，如果没有设置的话系统会默认使用当前模块的视图目录view
-    'view_suffix' => '.html',    // 模板文件后缀名
-    'view_depr' => DS,           // 模板文件名分隔符
-    'tpl_begin' => '{',          // 模板引擎普通标签开始标记
-    'tpl_end' => '}',            // 模板引擎普通标签结束标记
-    'taglib_begin' => '{',       // 标签库标签开始标记
-    'taglib_end' => '}',         // 标签库标签结束标记
-],
-</code>
-				</pre>	
-			</div>
-
 			<div class="title">模板变量</div>
 			<div class="content closed">
 				<p>(1) 先在控制器中定义模板变量</p>
@@ -100,6 +43,74 @@ class User extends Controller // 继承了think\Controller类
 ｛/volist｝
 </code>
 				</pre>
+			</div>
+
+			<div class="title">运算符</div>
+			<div class="content closed">
+				<div class="content open">
+					<p>我们可以对模板输出使用运算符，包括对“+”“-” “*” “/”和“%”的支持。</p>
+					<div class="list list-number">
+						<div class="title">算术运算符</div>
+						<div class="content open">
+							<pre class="prettyprint linenums">
+<code>
+// +, -, *, /, %
+&#123;$a + $b}
+// ++, --
+&#123;$a++}
+&#123;++$a}
+// 综合运算
+&#123;$a + $b * 10}
+</code>
+							</pre>
+							<p>在使用运算符的时候，不再支持常规函数用法，例如：</p>
+							<pre class="prettyprint linenums">
+<code>
+&#123;$user.score+10} //正确的
+&#123;$user['score']+10} //正确的
+&#123;$user['score']*$user['level']} //正确的
+&#123;$user['score']|myFun*10} //错误的
+&#123;$user['score']+myFun($user['level'])} //正确的
+</code>
+							</pre>	
+						</div>
+
+						<div class="title">?运算符</div>
+						<div class="content open">
+							<pre class="prettyprint linenums">
+<code>
+&#123;$status? '正常' : '错误'}
+&#123;$info['status']? $info['msg'] : $info['error']}
+&#123;$info.status? $info.msg : $info.error }
+</code>
+							</pre>	
+						</div>
+
+						<div class="title">??运算符</div>
+						<div class="content open">
+							<pre class="prettyprint linenums">
+<code>
+&#123;$varname.aa ?? 'xxx'}
+</code>
+							</pre>	
+						</div>
+
+						<div class="title">比较运算符</div>
+						<div class="content open">
+							<pre class="prettyprint linenums">
+<code>
+&#123;volist name="failures" id="failure"}
+    &#123;if condition="$failure['id'] eq $current_failure_id"}
+        &lt;option value="&#123;$failure.id}" selected>&#123;$failure.name}&lt;/option>
+    &#123;else/}
+        &lt;option value="&#123;$failure.id}">&#123;$failure.name}&lt;/option>
+    &#123;/if}
+&#123;/volist}
+</code>
+							</pre>	
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="title">公共模板</div>
@@ -187,10 +198,9 @@ class User extends Controller // 继承了think\Controller类
 						</pre>
 					</div>
 				</div>
-
 			</div>
 
-			<div class="title">布局模板</div>
+			<div class="title">模板布局</div>
 			<div class="content closed">
 				<div class="list list-number">
 					<div class="title">定义模板布局文件</div>
@@ -295,136 +305,6 @@ public function index()
 						</pre>	
 					</div>
 				</div>
-
-			</div>
-
-			<div class="title">输出替换</div>
-			<div class="content closed">
-				<p>可以在输出之前(输出到浏览器?)对解析后的内容进行替换，使用replace()函数：</p>
-				<pre class="prettyprint linenums">
-<code>
-// 读取用户数据
-public function read($id='')
-{
-    $user = UserModel::get($id);
-    $this->assign('user',$user);
-    $this->view->replace([
-        '__PUBLIC__' => '/static',
-    ]);
-    return $this->fetch();
-}
-</code>
-				</pre>	
-				<p>模板文件改为:</p>
-				<pre class="prettyprint linenums">
-<code>
-&lt;html>
-&lt;head>
-&lt;meta charset="UTF-8">
-&lt;title>[title]&lt;/title>
-&lt;link charset="utf-8" rel="stylesheet" href="__PUBLIC__/common.css">    // 最终输出的时候，__PUBLIC__会自动替换为'/static'
-&lt;/head>
-&lt;body>
-</code>
-				</pre>
-			</div>
-
-			<div class="title">View函数</div>
-			<div class="content closed">
-				<p>
-					可以使用系统提供的助手函数view简化模板渲染输出（注意不适用于内容渲染输出）.
-					前面的模板渲染代码可以改为
-				</p>
-				<pre class="prettyprint linenums">
-<code>
-&lt;?php
-namespace app\index\controller;
-
-use app\index\model\User as UserModel;
-
-class User
-{
-    // 读取用户数据
-    public function read($id='')
-    {
-        $user = UserModel::get($id);
-        // 使用view助手函数，不需要继承think\Controller类。该方法的第一个参数就是渲染的模板表达式。		
-        return view('', ['user' => $user], ['__PUBLIC__' => '/static']);
-    }
-}
-</code>
-				</pre>
-			</div>
-
-			<div class="title">模板语言</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">使用运算符</div>
-					<div class="content open">
-						<p>我们可以对模板输出使用运算符，包括对“+”“-” “*” “/”和“%”的支持。</p>
-						<div class="list list-number">
-							<div class="title">算术运算符</div>
-							<div class="content open">
-								<pre class="prettyprint linenums">
-<code>
-// +, -, *, /, %
-&#123;$a + $b}
-// ++, --
-&#123;$a++}
-&#123;++$a}
-// 综合运算
-&#123;$a + $b * 10}
-</code>
-								</pre>
-								<p>在使用运算符的时候，不再支持常规函数用法，例如：</p>
-								<pre class="prettyprint linenums">
-<code>
-&#123;$user.score+10} //正确的
-&#123;$user['score']+10} //正确的
-&#123;$user['score']*$user['level']} //正确的
-&#123;$user['score']|myFun*10} //错误的
-&#123;$user['score']+myFun($user['level'])} //正确的
-</code>
-								</pre>	
-							</div>
-
-							<div class="title">?运算符</div>
-							<div class="content open">
-								<pre class="prettyprint linenums">
-<code>
-&#123;$status? '正常' : '错误'}
-&#123;$info['status']? $info['msg'] : $info['error']}
-&#123;$info.status? $info.msg : $info.error }
-</code>
-								</pre>	
-							</div>
-
-							<div class="title">??运算符</div>
-							<div class="content open">
-								<pre class="prettyprint linenums">
-<code>
-&#123;$varname.aa ?? 'xxx'}
-</code>
-								</pre>	
-							</div>
-
-							<div class="title">比较运算符</div>
-							<div class="content open">
-								<pre class="prettyprint linenums">
-<code>
-&#123;volist name="failures" id="failure"}
-    &#123;if condition="$failure['id'] eq $current_failure_id"}
-        &lt;option value="&#123;$failure.id}" selected>&#123;$failure.name}&lt;/option>
-    &#123;else/}
-        &lt;option value="&#123;$failure.id}">&#123;$failure.name}&lt;/option>
-    &#123;/if}
-&#123;/volist}
-</code>
-								</pre>	
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 
 			<div class="title">分页输出</div>
@@ -457,17 +337,119 @@ public function index()
 				</pre>		
 			</div>
 
-			<div class="title">布局模板</div>
-			<div class="content open">
-
+			<div class="title">输出替换</div>
+			<div class="content closed">
+				<p>可以在输出之前(输出到浏览器?)对解析后的内容进行替换，使用replace()函数：</p>
+				<pre class="prettyprint linenums">
+<code>
+// 读取用户数据
+public function read($id='')
+{
+    $user = UserModel::get($id);
+    $this->assign('user',$user);
+    $this->view->replace([
+        '__PUBLIC__' => '/static',
+    ]);
+    return $this->fetch();
+}
+</code>
+				</pre>	
+				<p>模板文件改为:</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;html>
+&lt;head>
+&lt;meta charset="UTF-8">
+&lt;title>[title]&lt;/title>
+&lt;link charset="utf-8" rel="stylesheet" href="__PUBLIC__/common.css">    // 最终输出的时候，__PUBLIC__会自动替换为'/static'
+&lt;/head>
+&lt;body>
+</code>
+				</pre>
 			</div>
-		</div> 
+		</div>
     </div>
 
-	<div class="title">渲染模板</div>
-	<div class="content closed">
+    <div class="title">渲染模板</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+class User extends Controller
+{
+    // 获取用户数据列表并输出
+    public function index()
+    {
+        $list = UserModel::all();
+        $this->assign('list', $list);
+        $this->assign('count', count($list));
+        return $this->fetch();
+    }
+}
+</code>
+		</pre>	
+		<p>fetch方法的第一个参数表示渲染的模板文件或者模板表达式。通常我们都是使用的模板表达式，而不需要使用完整的文件名。</p>
+		<table class="table table-bordered table-sm w-75">
+			<tbody>
+				<tr>
+					<td>return $this->fetch();</td>
+					<td>默认渲染输出的模板文件应该是当前控制器和操作对应的模板, 也就是: application/index/view/user/index.html</td>
+				</tr>
+				<tr>
+					<td>return $this->fetch('list');</td>
+					<td>application/index/view/user/list.html</td>
+				</tr>
+				<tr>
+					<td>return $this->fetch('index/list');</td>
+					<td>application/index/view/index/list.html</td>
+				</tr>
+				<tr>
+					<td>return $this->fetch('one/two/three/list');</td>
+					<td>application/index/view/one/two/three/list.html</td>
+				</tr>
+			</tbody>
+		</table>
 
-	</div>
+		<p class="text-strong">模板文件相关配置</p>
+		<p>模板相关的参数可以直接在配置文件中配置template参数，默认的配置如下：</p>	
+		<pre class="prettyprint linenums">
+<code>
+'template' => [
+    'type' => 'Think',           // 模板引擎类型 支持 php think 支持扩展
+    'view_path' => '',           // 设置模板文件的根目录，如果没有设置的话系统会默认使用当前模块的视图目录view
+    'view_suffix' => '.html',    // 模板文件后缀名
+    'view_depr' => DS,           // 模板文件名分隔符
+    'tpl_begin' => '{',          // 模板引擎普通标签开始标记
+    'tpl_end' => '}',            // 模板引擎普通标签结束标记
+    'taglib_begin' => '{',       // 标签库标签开始标记
+    'taglib_end' => '}',         // 标签库标签结束标记
+],
+</code>
+		</pre>	
+		<p class="text-strong">View函数</p>
+		<p>
+			可以使用系统提供的助手函数view简化模板渲染输出（注意不适用于内容渲染输出）.
+			前面的模板渲染代码可以改为
+		</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;?php
+namespace app\index\controller;
+
+use app\index\model\User as UserModel;
+
+class User
+{
+    // 读取用户数据
+    public function read($id='')
+    {
+        $user = UserModel::get($id);
+        // 使用view助手函数，不需要继承think\Controller类。该方法的第一个参数就是渲染的模板表达式。		
+        return view('', ['user' => $user], ['__PUBLIC__' => '/static']);
+    }
+}
+</code>
+		</pre>
+    </div>
 
     <div class="title">渲染内容</div>
     <div class="content closed">
@@ -553,45 +535,4 @@ EOT;
     </div>
 </div>
 
-<div class="list list-number">
-    <div class="title">模板输出(使用模板变量)</div>
-    <div class="content closed">
-		<p class="text-strong">1) 先在控制器中定义模板变量</p>
-		<pre class="prettyprint linenums">
-<code>
-&lt;?php
-namespace app\index\controller;
-
-use app\index\model\User as UserModel;
-use think\Controller;
-
-class User extends Controller
-{
-    // 获取用户数据列表并输出
-    public function index()
-    {
-        $list = UserModel::all();
-        $this->assign('list', $list);
-        $this->assign('count', count($list));
-        return $this->fetch();
-    }
-}
-</code>
-		</pre>
-		<p>
-			这里的User控制器继承了系统的\think\Controller类，该类对视图类的方法进行了封装，所以可以在无需实例化视图类的情况下，直接调用视图类的相关方法，这些方法包括：<br>
-			assign: 模板变量赋值 <br>
-			fetch: 渲染模板文件 默认渲染输出的模板文件应该是当前控制器和操作对应的模板 <br>
-			display: 渲染内容 <br>
-			engine: 初始化模板引擎
-		</p>
-
-		<p class="text-strong">2) 然后在视图中使用模板变量</p>
-		<pre class="prettyprint linenums">
-<code>
-	// 在视图中使用模板变量
-</code>
-		</pre>
-    </div>
-</div>
 {include file="php/tp5/template/footer" /}
