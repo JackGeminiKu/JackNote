@@ -1,3 +1,134 @@
 {include file="template/header" title="使用手册 AHK" /}
-内容...
+
+<div class="list list-number">
+	<div class="title">基础知识</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">按键</div>
+			<div class="content closed">
+				<p>
+					# 	Win键<br>
+					! 	Alt<br>
+					^ 	Control<br>
+					+ 	Shift
+				</p>
+			</div>
+
+			<div class="title">函数</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">IfWinExist / IfWinNotExist</div>
+					<div class="content closed">
+						<p>Checks if the specified window exists.</p>
+					</div>
+
+					<div class="title">SetTitleMatchMode</div>
+					<div class="content closed">
+						<p>Sets the matching behavior of the WinTitle parameter in commands such as WinWait.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">常用脚本</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">应用程序快捷键</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+; This is a working hotkey example.  Since the hotkey has the tilde (~)
+; prefix, its own keystroke will pass through to the active window
+; (except on Win9x).  Thus, if you type [btw (or one of the other match
+; phrases) in any editor, the script will automatically perform an
+; action of your choice (such as replacing the typed text):
+
+~[::
+Input, UserInput, V T5 L4 C, {enter}.{esc}{tab}, btw,otoh,fl,ahk,ca
+if ErrorLevel = Max
+{
+    MsgBox, You entered "%UserInput%", which is the maximum length of text.
+    return
+}
+if ErrorLevel = Timeout
+{
+    MsgBox, You entered "%UserInput%" at which time the input timed out.
+    return
+}
+if ErrorLevel = NewInput
+    return
+IfInString, ErrorLevel, EndKey:
+{
+    MsgBox, You entered "%UserInput%" and terminated the input with %ErrorLevel%.
+    return
+}
+; Otherwise, a match was found.
+SetKeyDelay, -1  ; Most editors can handle the fastest speed.
+if UserInput = btw
+    Send, {backspace 4}by the way
+else if UserInput = otoh
+    Send, {backspace 5}on the other hand
+else if UserInput = fl
+    Send, {backspace 3}Florida
+else if UserInput = ca
+    Send, {backspace 3}California
+else if UserInput = ahk
+    Run, www.autohotkey.com
+return
+</code>
+				</pre>
+			</div>
+
+			<div class="title">打开或者激活程序</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+#C::
+IfWinExist, 小算盤
+    WinActivate     ; use the window found above
+else
+    Run calc
+return
+</code>
+				</pre>
+			</div>
+
+			<div class="title">特殊字符</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+#!1:: Send {①}
+#!2:: Send {②}
+#!3:: Send {③}
+#!4:: Send {④}
+#!5:: Send {⑤}
+#!6:: Send {⑥}
+#!7:: Send {⑦}
+#!8:: Send {⑧}
+#!9:: Send {⑨}
+
+#![:: Send {【}
+#!]:: Send {】}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">运行指定的ahk文件</div>
+			<div class="content closed">
+				<p>
+					① 使用快捷方式, 并指定ahk文件, 如: "D:\Program Files\AutoHotkey\AutoHotkey.exe" E:\我的脚本\AutoHotKey\XP.ahk.<br>
+					② 将AutoHotKey和.ahk文件关联, 直接运行指定的ahk文件.
+
+				</p>
+			</div>
+
+			<div class="title">运行命令, 并跳转到指定目录</div>
+			<div class="content closed">
+				<p>#F1:: Run cmd /k cd /d Z:\D\Workspace\1. Study\C++\C++ Primer</p>
+			</div>
+		</div>
+    </div>
+</div>
+
 {include file="template/footer" /}

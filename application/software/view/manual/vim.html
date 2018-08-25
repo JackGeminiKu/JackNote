@@ -1,0 +1,647 @@
+{include file="template/header" title="VIM" /}
+
+<div class="list list-number">
+	<div class="title">各种模式</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">正常模式</div>
+			<div class="content open">
+				<p>
+					正常模式一般用于浏览文件，也包括一些复制、粘贴、删除等操作。这时击键时，一般的键/键组合会被当成功能键，而不会键入对应的字符。<br>
+					启动vim后默认位于正常模式。不论位于什么模式，按下(Esc)键(有时需要按两下）都会进入正常模式.
+				</p>
+			</div>
+
+			<div class="title">正常模式 ==> 插入模式</div>
+			<div class="content open">
+				<p>
+					在正常模式中按下i, I, a, A, o, O等键，会进入插入模式。<br>
+					插入模式中，击键时会写入相应的字符。
+				</p>
+				<p>
+					i(I): 在光标左侧(行首)输入正文<br>
+					a(A): 在光标右侧(行尾)输入正文<br>
+					o(O): 在光标所在行下一行(上一行)添加新行
+				</p>
+			</div>
+
+			<div class="title">正常模式 ==> 命令模式</div>
+			<div class="content open">
+				<p>
+					在正常模式中，<br>
+					1) 按下：（冒号）键，会进入命令模式.<br>
+					2) 按下.符号, 会重复执行上一次的命令.
+				</p>
+			</div>
+
+			<div class="title">正常模式 ==> 可视模式</div>
+			<div class="content open">
+				<p>
+					在正常模式按下v, V, (Ctrl) + v，可以进入可视模式。<br>
+					可视模式中的操作有点像拿鼠标进行操作，选择文本的时候有一种鼠标选择的即视感，有时候会很方便。
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="title">常用操作</div>
+	<div class="content open">
+		<div class="list list-number">
+			<div class="title">光标操作</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">简单方向移动</div>
+					<div class="content open">
+						<p>
+							h: 左移<br>
+							l: 右移<br>
+							j: 下移<br>
+							k: 上移
+						</p>
+						<p class="text-remark">前面都可以加数字, 代表执行操作的次数.</p>
+					</div>
+
+					<div class="title">行移动</div>
+					<div class="content open">
+						<p>
+							gg: 移动到文件头<br>
+							G: 移动到文件尾<br>
+							nG: 移动到第n行<br>
+							H: 移动到当前窗口第一行(head)<br>
+							M: 移动到当前窗口中间行(middle)<br>
+							L: 移动到当前窗口最后一行(last)
+						</p>
+						<p>
+							0: 移动到行首<br>
+							$: 移动到行尾
+						</p>
+						<p>
+							ctrl + b: 向上翻页(b为backward)<br>
+							ctrl + f: 向下翻页(f为forward)
+						</p>
+					</div>
+
+					<div class="title">单词移动</div>
+					<div class="content open">
+						<p>
+							w: 移动到下一个单词的首字母<br>
+							b: 移动到前一个单词的首字母<br>
+							e: 移动到下一个单词的尾字母
+						</p>
+						<p class="text-remark">前面可以加数字, 代表执行操作的次数</p>
+					</div>
+
+					<div class="title">标记移动</div>
+					<div class="content open">
+						<p>
+							ma: 为当前行设置一个标记, 名字为a. 标记名可以为a~z, A~Z<br>
+							'a: 返回到标记名为a的那一行<br>	
+							:delmarks a: 删除标记a<br>
+							:marks: 列出所有的标记
+						</p>
+					</div>
+
+					<div class="title">句子</div>
+					<div class="content open">
+						<p>
+							): 下一句<br>
+							(: 上一句
+						</p>
+						<p class="text-remark">前面可以加数字, 代表执行操作的次数</p>
+					</div>
+
+					<div class="title">光标跳转</div>
+					<div class="content open">
+						<p>
+							ctrl + o: 返回上一次光标的位置<br>
+							ctrl + i: 同上相反
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">语法高亮</div>
+			<div class="content closed">
+				<p>
+					启用自动语法高亮命令: syntax on<br>
+					手动设置文件类型命令: set filetype=xml
+				</p>
+			</div>
+
+			<div class="title">查找</div>
+			<div class="content closed">
+				<div class="list list-square">
+					<div class="title">正常模式</div>
+					<div class="content open">
+						<p>输入/something&lt;回车>, Vim会跳转到第一个匹配. 按下 n 查找下一个, 按下 N 查找上一个.</p>	
+					</div>
+
+					<div class="title">命令模式</div>
+					<div class="content open">
+						<p>:/something</p>
+					</div>
+
+					<div class="title">支持正则表达式</div>
+					<div class="content open">
+						<p>Vim查找支持正则表达式，例如 /vim$ 匹配行尾的 "vim" 。 需要查找特殊字符需要转义，例如 /vim\$ 匹配 "vim$" </p>
+					</div>
+
+					<div class="title">查找当前单词</div>
+					<div class="content open">
+						<p>
+							在正常模式下按下 * 即可查找光标所在单词, 要求每次出现的前后为空白字符或标点符号. 例如当前为 foo ， 可以匹配 foo bar 中的 foo, 但不可匹配 foobar 中的 foo.  这在查找函数名、变量名时非常有用.
+						</p>
+
+						<p>
+							按下 g* 即可查找光标所在单词的字符序列, 每次出现前后字符无要求. 即 foo bar 和 foobar 中的 foo 均可被匹配到.
+						</p>
+					</div>
+
+					<div class="title">配对括号的查找</div>
+					<div class="content open">
+						<p>
+							输入 % 可以查找配对的括号 ), ], }.<br>
+							1. 把光标放在一个 (, [ 或 { 处.<br>
+							2. 接着按 % 字符。<br>
+							3. 此时光标的位置应当是在配对的括号处。<br>
+							4. 再次按 % 就可以跳回配对的第一个括号处。
+						</p>
+					</div>
+
+					<div class="title">大小写敏感(默认不敏感)</div>
+					<div class="content open">
+						<p>
+							默认是大小写敏感的, 为了方便可以设置:<br>
+							:set ic    " 不敏感, 或者:set ignorecase<br>
+							:set noic  " 敏感, 或者:set noignorecase<br>
+						</p>
+						<p>
+							在查找模式中加入 \c 表示大小写不敏感查找, \C 表示大小写敏感查找.<br>
+							例如：/foo\c<br>
+							将会查找所有的 "foo" , "FOO" , "Foo" 等字符串.
+						</p>
+					</div>
+
+					<div class="title">高亮设置(默认开启)</div>
+					<div class="content open">
+						<P>
+							:set hls    " 高亮, 或者:set hlsearch<br>
+							:set nohls  " 不高亮, 或者:set nohlsearch
+						</P>
+					</div>
+
+					<div class="title">即时查找(默认开启)</div>
+					<div class="content open">
+						<p>
+							:set is    " 开启, 或者:set incsearch<br>
+							:set nois  " 关闭, 或者:set noincsearch
+						</p>
+					</div>
+
+					<div class="title">反向查找</div>
+					<div class="content open">
+						<p>如果您想逆向查找字符串，请使用 ? 代替 / 进行.</p>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="title">删除</div>
+			<div class="content closed">
+				<div class="list list-square">
+					<div class="title">正常模式</div>
+					<div class="content open">
+						<p>
+							x: 	删除光标所在的字符<br>
+							de/dne: 	从当前光标当前位置开始删除, 直到单词末尾，包括最后一个字符<br>
+							dw/dnw: 	从当前光标当前位置开始删除, 直到下一个单词起始处，不包括它的第一个字符<br>
+							d$/dn$: 	可以从光标处删除到这一行的末尾<br>
+							dd/dnd/ndd: 	删除光标所在的行
+						</p>
+					</div>
+
+					<div class="title">命令模式</div>
+					<div class="content open">
+						<p>:1,10d // 删除1到10行</p>
+					</div>
+
+					<div class="title">可视模式</div>
+					<div class="content open">
+						<p>
+							1. V/v "进入行可视模式<br>
+							2. {motion} "移动到需要删除的最后一行<br>
+							3. d "删除选中的
+						</p>
+						<p>注意: Shift + v进去可视模式, 选中的是行, v 选中的是你左右上下移动选中的块.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">修改</div>
+			<div class="content closed">
+				<p>
+					r: 替换光标处的那个字符<br>
+					R: 连续替换多个字符, 直到按&lt;ESC>回到正常模式<br>
+					ce/cw/cne/cnw: 要改变文本直到一个单词的末尾，请输入ce(或cw)<br>
+					c$/cn$:	要改变文本直到行末
+				</p>
+				<p>请注意: ce(或cw) 命令不仅仅是删除了一个单词，它也让您进入插入模式了!</p>
+			</div>
+
+			<div class="title">替换</div>
+			<div class="content closed">
+				<p>
+					当前行头一个字符串 	:s/old/new
+					当前行 	:s/old/new/gc
+					全文 	:%s/old/new/gc
+					2-11行 	:5,12s/old/new/gc
+					当前行 . 与接下来两行 +2 	:.,+2s/old/new/gc
+				</p>
+				<p>
+					选区，在Visual模式下选择区域后输入 : ，Vim即可自动补全为 :'<,'> 。,br>
+					:'<,'>s/foo/bar/g
+				</p>
+			</div>
+
+			<div class="title">撤销&反撤销</div>
+			<div class="content closed">
+				<p>
+					正常模式下: <br>
+					u: 撤消最后一次执行的命令<br>
+					U: 撤消对整行的修改<br>
+					Ctrl + R: 反撤消
+				</p>
+			</div>
+
+			<div class="title">复制&黏贴文本</div>
+			<div class="content closed">
+				<p>
+					复制: 可视模式下, 选择要赋值的文本, 按y进行复制,<br>
+					粘贴: 正常模式下, 移动到要粘贴的位置, 按p进行粘贴.
+				</p>
+			</div>
+
+			<div class="title">折叠</div>
+			<div class="content closed">
+				<p>
+					<span class="text-strong">设置为手动折叠</span><br>
+					:set foldmethod=manual<br><br>
+
+					<span class="text-strong">折叠选中文本:</span><br>
+					在可视化模式下，使用zf命令，将折叠选中的文本：<br><br>
+
+					<span class="text-strong">折叠指定行</span><br>
+					使用zf70j命令，将折叠光标之后的70行；<br>
+					使用5zF命令，将当前行及随后4行折叠起来；<br>
+					使用zf7G命令，将当前行至全文第7行折叠起来。<br><br>
+
+					<span class="text-strong">折叠区块</span><br>
+					我们也可以使用以下命令，折叠括号（比如()、[]、{}、>&lt;等）包围的区域：<br>
+					zfa(<br><br>
+
+					<span class="text-strong">保存&载入折叠状态</span><br>
+					Vim并不会自动记忆手工折叠。但你可以使用以下命令，来保存当前的折叠状态：<br>
+					:mkview<br>
+					在下次打开文档时，使用以下命令，来载入记忆的折叠信息：<br>
+					:loadview<br><br>
+
+					<span class="text-strong">查看折叠命令</span><br>
+					可以使用以下命令，查看关于手工折叠的帮助信息：<br>
+					:help fold-manual<br><br>
+
+					<span class="text-strong">命令小结</span><br>
+					zc 关闭当前折叠<br>
+					zo 打开当前折叠<br>
+					zm 关闭所有折叠<br>
+					zM 关闭所有折叠及其嵌套的折叠<br>
+					zr 打开所有折叠<br>
+					zR 打开所有折叠及其嵌套的折叠<br>
+					zj 移动至下一个折叠<br>
+					zk 移动至上一个折叠<br>
+					zd 删除当前折叠<br>
+					zE 删除所有折叠<br>
+					zn 禁用折叠<br>
+					zN 启用折叠
+				</p>
+			</div>
+
+			<div class="title">缩进</div>
+			<div class="content closed">
+				<p>
+					<span class="text-strong">可视模式</span><br>
+					待补充
+				</p>
+
+				<p>
+					<span class="text-strong">设置每层缩进空格大小</span><br>
+					:set shiftwidth=4<br>
+				</p>
+				<p>	
+					<span class="text-strong">当前行缩进</span>
+					当前行向右缩进一次：操作 » 或者输入命令 :><br>
+					当前行向左缩进一次：操作 « 或者输入命令 :&lt;<br>
+				</p>
+				<p>
+					<span class="text-strong">多行缩进</span><br>
+					:1,10>    " 1到10行右缩进1次<br>
+					:1,10<    " 1到10行左缩进1次<br>
+					:1>10    " 从第1行开始, 共10行, 向右缩进1次<br>
+					:1<10    " 从第1行开始, 共10行, 向左缩进1次<br>
+					可视模式下: 选择要缩进的行, 输入<或>进行左右缩进
+				</p>
+			</div>
+
+			<div class="title">标签</div>
+			<div class="content closed">
+				<p>
+					新建标签 	:tabnew<br>
+					前一个标签 	:tabp    gt(标准模式)<br>
+					后一个标签 	:tabn    gT(标准模式)<br>
+					关闭标签 	:tabc (关闭当前tab), :tabo (关闭所有其他tab)
+				</p>
+				<p>
+					使用alt+数字键来切换tab (vim7+)<br>
+					把下面这些放进_vimrc配置文件里.	
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+:nn &lt;M-1> 1gt
+:nn &lt;M-2> 2gt
+:nn &lt;M-3> 3gt
+:nn &lt;M-4> 4gt
+:nn &lt;M-5> 5gt
+:nn &lt;M-6> 6gt
+:nn &lt;M-7> 7gt
+:nn &lt;M-8> 8gt
+:nn &lt;M-9> 9gt
+:nn &lt;M-0> :tablast&lt;CR>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">列编辑</div>
+			<div class="content closed">
+				<p>
+					1，进入正常模式<br>
+					2，把光标放在要列编辑的开始的地方<br>
+					3，按ctrl+q, 然后输入4j（就是你要列编辑的行数啦，比如5j，8j，10j，30j之类的）。光标变成一列竖的了，这就是列编辑的初始状态.<br>
+					4，按shift+i，也就是大写的I了。光标会又回到列编辑最开始的地方（步骤2那里）<br>
+					5，在所在光标那儿输入你想插入的字符。这时你只能看见第一行改变了.<br>
+					6，再按esc退出列编辑模式，就可以看见选定的行都相应的变了!
+				</p>
+			</div>
+
+			<div class="title">执行外部Shell命令</div>
+			<div class="content closed">
+				<p>
+					正常模式下输入:<br>
+					:!dir<回车>
+				</p>
+			</div>
+
+			<div class="title">重复执行以前的命令</div>
+			<div class="content closed">
+				<p>
+					1，使用 . 在normal模式下重复上一次的动作<br><br>
+
+					2，在命令模式下，使用方向键选择以前的动作，<br>
+					:!! Repeat last system command.<br>
+					:! ↑ select a previous system command<br>
+					: ↑ select a previous command<br><br>
+					输入前几个字母，再使用tab或者导航↑ 键即可在以前的命令中自动补全
+
+					3，以上都是单个的命令记录，一个另外的方法是记录一连串的动作<br>
+					(1)。使用"q{register}"命令开始，后续的动作将被记录进名为register的寄存器中。给出的寄存器名字必需是a到z之间的一个字母<br>
+					(2)。执行你要执行的操作。<br>
+					(3)。按下q以结束对命令的记录(注意仅仅是q一个字符，不要键入多余的字符).现在你可以通过"@{recording}"命令来执行刚刚记录<br><br>
+
+					下来的记录宏了。<br>
+					就象绝大多数VIM命令一样，@{recording}前加数字，可以让命令重复多次数.
+				</p>
+			</div>
+
+			<div class="title">文件操作</div>
+			<div class="content closed">
+				<p>
+					:new sendemail.php 	新建文件<br>
+					:open sendemail.php 	打开文件<br>
+					:w 	保存文件<br>
+					:w new_file_name 	另存文件<br>
+					v motion<br>
+					:w filename 	选择性另存<br>
+					:wq 	退出并保存<br>
+					:q! 	退出不保存<br>
+					:q 	安全退出, 仅当未改动文件时才可以用来退出vi<br>
+					:r filename 	插入其他文件内容<br>
+					:r !dir 	插入命令输出
+				</p>
+			</div>
+
+			<div class="title">窗口操作</div>
+			<div class="content closed">
+				<p>CTRL-W: 在窗口间切换</p>
+			</div>
+
+			<div class="title">命令补全</div>
+			<div class="content closed">
+				<p>
+					1. 请确保 Vim 不是在以兼容模式运行： :set nocp<br>
+					2. 查看一下当前目录下已经存在哪些文件，输入：:!dir<br>
+					3. 现在输入一个目录的起始部分，例如输入： :e<br>
+					4. 接着按 CTRL-D 键，Vim 会显示以 e 开始的命令的列表。<br>
+					5. 然后按 &lt;TAB> 键，Vim 会补全命令为 :edit 。<br>
+					6. 现在添加一个空格，以及一个已有文件的文件名的起始部分，例如： :edit FIL<br>
+					7. 接着按 &lt;TAB> 键，Vim 会补全文件名(如果它是惟一匹配的)。<br>
+					提示：补全对于许多命令都有效。您只需尝试按 CTRL-D 和 &lt;TAB>。它对于 :help 命令非常有用
+				</p>
+			</div>
+
+			<div class="title">帮助</div>
+			<div class="content closed">
+				<p>
+					打开在线帮助系统:
+					按下&lt;F1>键, 或者输入:help(回车)
+				</p>
+				<p>
+					打开专题, 例如:
+					:help user-manual    " Vim用户手册
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="title">配置</div>
+	<div class="content closed">
+		<p class="text-strong">设置为英文界面</p>
+		<p>在vim的安装根目录下找到名为“_vimrc”的文件，在第"source $VIMRUNTIME/vimrc_example.vim"前面添加：</p>
+		<pre class="prettyprint linenums">
+<code>
+let $LANG = 'en'  "set message language
+set langmenu=en   "set menu's language of gvim. no spaces beside '='
+</code>
+		</pre>
+
+		<p class="text-strong">常用设置</p>
+		<p>在vim的安装根目录下找到名为“_vimrc”的文件，在文件最后添加如下常用设置:</p>
+		<pre class="prettyprint linenums">
+<code>
+" 设置字符编码(解决显示中文乱码问题)
+set encoding=utf-8
+
+" 设置字体
+set guifont=Consolas:h10
+
+" 设置tab宽
+set ts=4
+" 缩进设置
+set shiftwidth=4
+
+" 取消撤销文件(形似: xxx.html.un~)
+set noundofile
+" 取消备份文件(形似xxx.html~)
+set nobackup
+
+" 显示行号
+set number
+
+" 设置启动时默认窗口大小
+set lines=40
+set columns=150
+
+" 设置默认进行大小写不敏感查找
+set ignorecase
+
+" 如果有一个大写字母，则切换到大小写敏感查找
+set smartcase
+</code>
+		</pre>
+	</div>
+
+	<div class="title">插件</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">Vundle</div>
+			<div class="content closed">
+				<p>
+					1) 安装: Git, cURL<br>
+					2) git clone https://github.com/gmarik/vundle "C:\Program Files\Vim\vimfiles\bundle\vundle"<br>
+					3) 配置
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+filetype off
+" 此处规定Vundle的路径
+set rtp+=$VIM/vimfiles/bundle/vundle/
+call vundle#rc('$VIM/vimfiles/bundle/')
+Bundle 'gmarik/vundle'
+filetype plugin indent on
+
+" original repos on github<br>Bundle 'mattn/zencoding-vim'
+Bundle 'drmingdrmer/xptemplate'
+
+" vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'bufexplorer.zip'
+Bundle 'taglist.vim'
+Bundle 'Mark'
+Bundle 'The-NERD-tree'
+Bundle 'matrix.vim'
+Bundle 'closetag.vim'
+Bundle 'The-NERD-Commenter'
+Bundle 'matchit.zip'
+Bundle 'AutoComplPop'
+Bundle 'jsbeautify'
+Bundle 'YankRing.vim'
+
+filetype plugin indent on " required! 
+</code>
+				</pre>
+				<p>4) 打开vim, 输入: :PluginInstall</p>
+
+				<p><a href="https://github.com/VundleVim/Vundle.vim/wiki/Vundle-for-Windows">安装教程</a></p>
+			</div>
+
+			<div class="title">mark</div>
+			<div class="content closed">
+				<p>
+					\m 高亮或反高亮一个单词<br>
+					\n 清除当前的单词高亮(光标处)若光标处无高亮的单词就清除所有的单词高亮显示<br>
+					\r 按照输入的正则表达式高亮单词<br><br>
+
+					搜索<br>
+					\* 跳转到当前高亮的下一个单词<br>
+					\# 跳转到当前高亮的上一个单词<br>
+					\/ 跳转到任一下一个高亮单词<br>
+					/? 跳转到任一上一高亮单词
+				</p>
+			</div>
+
+			<div class="title">TagList</div>
+			<div class="content closed">
+				<p>
+					打开: TlistOpen<br>
+					关闭: TlistClose<br>
+					默认打开, 在配置文件中添加:  let Tlist_Auto_Open=1
+				</p>
+			</div>
+
+			<div class="title">Solarized</div>
+			<div class="content closed">
+				<p>
+					在vim配置文件中添加:<br>
+					set background=dark<br>
+					colorscheme Solarized	
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="title">窗口控制: 最大化, 最小化</div>
+	<div class="content closed">
+		<p>
+			最大化命令 :simalt ~x<br>
+			恢复命令 :simalt ~r<br>
+			最小化命令 :simalt ~n<br>
+		</p>
+	</div>
+
+	<div class="title">自动切换输入法</div>
+	<div class="content closed">
+		<p>
+			在 Windows 下，用 AutoHotkey 的脚本来处理。<br>
+
+			按 ESC 时，将输入法切换为为美式键盘。<br>
+
+			脚本如下（保存为 vim.ahk）<br>
+
+			~esc::<br>
+
+			Send, {ESC}<br>
+
+			; 下方代码可只保留一个<br>
+			SwitchIME(0x04090409) ; 英语(美国) 美式键盘<br>
+			SwitchIME(0x08040804) ; 中文(中国) 简体中文-美式键盘<br>
+			return<br>
+
+			SwitchIME(dwLayout){<br>
+			HKL:=DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)<br>
+			ControlGetFocus,ctl,A<br>
+			SendMessage,0x50,0,HKL,%ctl%,A<br>
+			}<br>
+			发布于 2018-0<br>
+		</p>
+	</div>
+
+	<div class="title">删除</div>
+	<div class="content closed">
+		<p>
+			删除光标前按键 d0 <br>
+			删除光标后按键 D <br> 
+		</p>
+	</div>
+</div>
+
+{include file="template/footer" /}
