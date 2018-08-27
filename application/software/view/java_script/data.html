@@ -40,12 +40,39 @@
 
     <div class="title">变量 / 常量</div>
     <div class="content open">
+		<pre class="prettyprint linenums">
+<code>
+// 局部变量(在函数内定义, 进入函数时创建, 退出函数时销毁)
+var winner;                      // 变量的值为underfined
+var language = "Java Script";    // 变量的类型由所赋的值决定
+
+// 全局变量(在函数外定义, 加载页面时创建, 关闭页面时销毁)
+var test = 5;
+vindow.test = 5;
+</code>
+		</pre>
+		<p class="text-remark">备注: 同名局部变量会遮挡全局变量.</p>
+		<div class="list list-none">
+			<div class="title">全局对象...</div>
+			<div class="content closed">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-window')}">window</a></div>
+						<div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-document')}">document</a></div>
+					</div>	
+				</div>
+			</div>
+		</div>
+    </div>
+
+    <div class="title">作用域</div>
+    <div class="content open">
 
     </div>
 
-    <div class="title">XXX</div>
-    <div class="content open">
-
+	<div class="title">数据类型判断</div>
+    <div class="content closed">
+		<p><a href="https://www.cnblogs.com/a546558309/p/3608194.html">js判断各种数据类型</a></p>
     </div>
 </div>
 {include file="template/footer" /}

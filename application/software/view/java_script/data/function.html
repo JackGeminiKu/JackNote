@@ -1,3 +1,78 @@
-{include file="template/header" title="XX XX" /}
-内容...
+{include file="template/header" title="JS 函数" /}
+
+<div class="list list-number">
+    <div class="title">定义</div>
+    <div class="content closed">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-6">
+					<p class="text-strong">定义函数</p>
+					<pre class="prettyprint linenums">
+<code>
+function fn1(){
+    alert("Hello World!");
+}
+var fn = Fn1;    // 定义函数变量
+</code>
+					</pre>
+
+					<p class="text-strong">匿名函数</p>
+					<pre class="prettyprint linenums">
+<code>
+var Fn2 = function(){    // 符号"="后面的是匿名函数
+    alert("Hello wild!");
+} 
+</code>
+					</pre>
+				</div>
+				<div class="col-6">
+					<p class="text-strong">带参函数</p>
+					<pre class="prettyprint linenums">
+<code>
+function bark ( dogName, dogWeight ) {
+    if ( dogWeight <= 10 ) {
+        return dogName + " says Yip";
+    } else {
+        return dogName + " says Woof";
+    }
+}
+</code>
+					</pre>
+				</div>
+			</div>	
+
+			<div class="row">
+				<div class="col-12">
+					<p><span class="text-strong">函数覆盖</span>: 使用多个外部JavaScript文件时有一点要记住, 如果不同文件中有两个同名的函数, 后面的函数将覆盖前面函数的定义!</p>
+				</div>
+			</div>
+		</div>
+
+    </div>
+
+    <div class="title">函数调用</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+bark("Tom", 30);
+</code>
+		</pre>
+
+		<p class="text-strong">匿名函数 + 立即调用</p>
+		<pre class="prettyprint linenums">
+<code>
+(function(x){
+    alert(2* x); 
+})(3);
+</code>
+		</pre>
+		<p>在一个块(文件)中，函数可以先调用, 后进行“定义式”定义；但在两个块中，必须先定义, 后调用.</p>
+    </div>
+
+	<div class="title">库函数</div>
+    <div class="content closed">
+
+    </div>
+</div>
+
 {include file="template/footer" /}

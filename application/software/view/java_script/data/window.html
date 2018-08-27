@@ -1,0 +1,72 @@
+{include file="template/header" title="JS window" /}
+
+<p>window对象相当于你的全局环境, 所有即使没有在前面加上window, window的属性或方法名也能顺利解析.</p>
+<p>另外, 你定义的所有全局变量都会放在window命名空间中, 所以可以作为window.myvariablename来引用.</p>
+<p>任何一个全局函数或变量都是window的属性.</p>
+
+<div class="list list-number">
+    <div class="title">属性</div>
+    <div class="content closed">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-1">location</div>
+				<div class="col-11">表示页面的URL. 如果改变这个属性, 浏览器就会访问新的URL.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">status</div>
+				<div class="col-11">表示显示在浏览器状态区的字符串.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">onload</div>
+				<div class="col-11">页面加载完后要调用的函数.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">document</div>
+				<div class="col-11">document属性包含了DOM.</div>
+			</div>	
+		</div>
+    </div>
+
+    <div class="title">方法</div>
+    <div class="content closed">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-1">alert()</div>
+				<div class="col-11">弹出提醒对话框.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">prompt()</div>
+				<div class="col-11">类似于alert(), 只不过会从用户得到信息.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">open()</div>
+				<div class="col-11">打开一个新的浏览器窗口.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">close()</div>
+				<div class="col-11">关闭浏览器窗口.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">setTimeout()</div>
+				<div class="col-11">指定的时间间隔后调用一个处理程序.</div>
+			</div>	
+			<div class="row">
+				<div class="col-1">setInterval()</div>
+				<div class="col-11">以一个指定的时间间隔反复调用一个处理程序.</div>
+			</div>	
+		</div>
+    </div>
+
+	<div class="title">子对象</div>
+    <div class="content closed">
+
+    </div>
+</div>
+
+<hr>
+<p>
+	参考资料:<br>
+	<a href="__manual_js__/window/window">window api</a><br>
+</p>
+
+{include file="template/footer" /}
