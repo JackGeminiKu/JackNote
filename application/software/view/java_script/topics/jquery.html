@@ -1,0 +1,252 @@
+{include file="template/header" title="JS jQuery" /}
+
+<div class="list list-number">
+    <div class="title">jQuery</div>
+    <div class="content closed">
+
+    </div>
+
+    <div class="title">ready vs onload</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">选择元素</div>
+    <div class="content closed">
+		<table class="table table-bordered table-sm w-50">
+			<tbody>
+				<tr>
+					<td>Selecting Elements by ID</td>
+					<td>$( "#myId" ); // Note IDs must be unique per page.</td>
+				</tr>
+				<tr>
+					<td>Selecting Elements by Class Name</td>
+					<td>$( ".myClass" );</td>
+				</tr>
+				<tr>
+					<td>Selecting Elements by Attribute</td>
+					<td>$( "input[name='first_name']" );</td>
+				</tr>
+				<tr>
+					<td>Selecting Elements by Compound CSS Selector</td>
+					<td>$( "#contents ul.people li" );</td>
+				</tr>
+				<tr>
+					<td>Selecting Elements with a Comma-separated List of Selectors</td>
+					<td>$( "div.myClass, ul.people" );</td>
+				</tr>
+				<tr>
+					<td>Pseudo-Selectors: </td>
+					<td>
+						$( "a.external:first" );<br>
+						$( "tr:odd" );<br><br>
+
+						// Select all input-like elements in a form (more on this below).<br>
+						$( "#myForm:input" );<br>
+						$( "div:visible" );<br><br>
+
+						// All except the first three divs.<br>
+						$( "div:gt(2)" );<br><br>
+
+						// All currently animated divs.<br>
+						$( "div:animated" );
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="list list-square">
+			<div class="title">Selecting Form Elements</div>
+			<div class="content closed">
+				<p>
+					jQuery offers several pseudo-selectors that help find elements in forms. These are especially helpful because it can be difficult to distinguish between form elements based on their state or type using standard CSS selectors.
+				</p>
+				<table class="table table-bordered table-sm w-75">
+					<tbody>
+						<tr>
+							<td>:checked</td>
+							<td>
+								<p>Not to be confused with :checkbox, :checked targets checked checkboxes, but keep in mind that this selector works also for checked radio buttons, and &lt;select> elements (for &lt;select> elements only, use the :selected selector):</p>
+								<pre class="prettyprint linenums w-50">
+<code>
+$( "form :checked" );
+</code>
+								</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								:disabled<br>
+								:enabled
+							</td>
+							<td>
+								<p>Using the :disabled pseudo-selector targets any &lt;input> elements with the disabled attribute:</p>
+								<pre class="prettyprint linenums w-50">
+<code>
+$( "form :disabled" );
+</code>
+								</pre>
+
+								<p>Basically the inverse of the :disabled pseudo-selector, the :enabled pseudo-selector targets any elements that do not have a disabled attribute:</p>
+								<pre class="prettyprint linenums w-50">
+<code>
+$( "form :enabled" );
+</code>
+								</pre>
+								<p>In order to get the best performance using :disabled, first select elements with a standard jQuery selector, then use .filter( ":disabled" ), or precede the pseudo-selector with a tag name or some other selector.</p>
+							</td>
+						</tr>
+						<tr>
+							<td>:input</td>
+							<td>
+								<p>Using the :input selector selects all &lt;input>, &lt;textarea>, &lt;select>, and &lt;button> elements:</p>	
+								<pre class="prettyprint linenums w-50">
+<code>
+$( "form :input" );
+</code>
+								</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>:selected</td>
+							<td>
+								<p>Using the :selected pseudo-selector targets any selected items in &lt;option> elements:</p>
+								<pre class="prettyprint linenums w-50">
+<code>
+$( "form :selected" );
+</code>
+								</pre>	
+								<p>
+									In order to get the best performance using :selected, first select elements with a standard jQuery selector, then use .filter( ":selected" ), or precede the pseudo-selector with a tag name or some other selector.
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>Selecting by type</td>
+							<td>
+								<p>jQuery provides pseudo selectors to select form-specific elements according to their type:</p>	
+								<p>
+									:password 
+									:reset 
+									:radio 
+									:text 
+									:submit 
+									:checkbox 
+									:button 
+									:image 
+									:file	
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="title">When using the :visible and :hidden pseudo-selectors:</div>
+			<div class="content closed">
+				<p>
+					1) jQuery tests the actual visibility of the element, not its CSS visibility or display properties. jQuery looks to see if the element's physical height and width on the page are both greater than zero.
+				</p>
+				<p>
+					2) However, this test doesn't work with <tr> elements. In the case of <tr> jQuery does check the CSS display property, and considers an element hidden if its display property is set to none.
+					</p>
+				<p>
+					3) Elements that have not been added to the DOM will always be considered hidden, even if the CSS that would affect them would render them visible. 
+				</p>
+			</div>
+
+			<div class="title">Refining & Filtering Selections</div>
+			<div class="content closed">
+				<p>Sometimes the selection contains more than what you're after. jQuery offers several methods for refining and filtering selections.</p>
+				<pre class="prettyprint linenums">
+<code>
+$( "div.foo" ).has( "p" ); // div.foo elements that contain &lt;op> tags
+$( "h1" ).not( ".bar" ); // h1 elements that don't have a class of bar
+$( "ul li" ).filter( ".current" ); // unordered list items with class of current
+$( "ul li" ).first(); // just the first unordered list item
+$( "ul li" ).eq( 5 ); // the sixth
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Does My Selection Contain Any Elements?</div>
+			<div class="content closed">
+				<p>Once you've made a selection, you'll often want to know whether you have anything to work with. A common mistake is to use:</p>
+				<pre class="prettyprint linenums">
+<code>
+// Doesn't work!
+if ( $( "div.foo" ) ) {
+    ...
+}
+</code>
+				</pre>
+				<p>
+					This won't work. When a selection is made using $(), an object is always returned, and objects always evaluate to true. Even if the selection doesn't contain any elements, the code inside the if statement will still run.	
+				</p>
+				<p>
+					The best way to determine if there are any elements is to test the selection's .length property, which tells you how many elements were selected. If the answer is 0, the .length property will evaluate to false when used as a boolean value:
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+// Testing whether a selection contains elements.
+if ( $( "div.foo" ).length ) {
+    ...
+}
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">避免和其他类库冲突</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">创建元素</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">操作元素</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">Special Effects</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">Callback & Functions</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">The jQuery Object</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">Traversing(Parents, Children, Siblings)</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">CSS, Styling & Dimensions</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">Data Methods</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">Utility Methods</div>
+    <div class="content closed">
+
+    </div>
+</div>
+
+{include file="template/footer" /}
