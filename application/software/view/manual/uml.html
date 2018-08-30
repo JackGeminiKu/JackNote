@@ -1,0 +1,114 @@
+{include file="template/header" title="UML" /}
+
+<div class="list list-number">
+	<!--类&接口-->
+    <div class="title">类&接口</div>
+    <div class="content closed">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-3">
+					<p class="text-strong">类</p>
+					<img src="__STATIC__/image/uml/uml_class.png" />
+					<p>
+						第1层: 类的名字, 如果是抽象类, 则用斜体表示.<br>
+						第2层: 字段和属性.<br>
+						第3层: 方法或行为.<br>
+						注: '+'表示Public, '-'表示Private, '#'表示Protected.
+					</p>
+				</div>
+				<div class="col-3">
+					<p class="text-strong">接口</p>
+					<img src="__STATIC__/image/uml/uml_interface.png" />
+				</div>
+			</div>	
+		</div>
+    </div>
+
+	<!--关系-->
+    <div class="title">关系</div>
+    <div class="content open">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-3">
+					<p><span class="text-strong">继承关系</span>: 鸟is-a动物</p>
+					<img src="__STATIC__/image/uml/uml_继承.png" />
+					<p></p>
+				</div>
+				<div class="col-3">
+					<p><span class="text-strong">实现关系</span>: 大雁具有飞翔功能</p>
+					<img src="__STATIC__/image/uml/uml_实现接口.png" />
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col-3">
+					<p class="text-strong">聚合关系</p>
+					<img src="__STATIC__/image/uml/uml_聚合关系.png" />
+					<p>大雁是群居动物, 每只大雁都是属于一个雁群, 一个雁群可以有多只大雁. 所以它们之间就满足聚合(Aggregation)关系. 聚合表示一种弱的"拥有"关系, 体现的是A对象可以包含B对象, 但B对象不是A对象的一部分.</p>
+					<pre class="prettyprint linenums">
+<code>
+class WideGooseAggregate
+{
+    private WideGoose[] arrayWideGoose;
+}
+</code>
+					</pre>
+				</div>
+				<div class="col-3">
+					<p class="text-strong">组合关系</p>
+					<img src="__STATIC__/image/uml/uml_合成关系.png" />
+					<p>合成(Composition, 也有翻译成"组合"的)是一种强的"拥有"关系, 体现了严格的部分和整体的关系, 部分和整体的生命周期一样. 在这里鸟和其翅膀就是合成(组合)关系, 因为它们是部分和整体的关系, 而且翅膀和鸟的生命周期是相同的.</p>
+					<pre class="prettyprint linenums">
+<code>
+class Bird
+{
+    private Wing wing;
+    public Bird()
+    { 
+        wing = new Wing(); 
+    }
+}
+</code>
+					</pre>		
+				</div>
+				<div class="col-3">
+					<p class="text-strong">关联关系</p>
+					<img src="__STATIC__/image/uml/uml_合成关系.png" />
+					<p>企鹅是很特别的鸟, 会游不会飞. 重要的是, 它与气候有很大的关联, 需要"了解"气候规律. 当一个类"知道"另一个类时, 可以用关联(association). </p>
+					<pre class="prettyprint linenums">
+<code>
+class Penguin : Bird
+{
+    private Climate climate;
+}
+</code>
+					</pre>	
+				</div>
+				<div class="col-3">
+					<p class="text-strong">依赖关系</p>
+					<img src="__STATIC__/image/uml/uml_依赖关系.png" />
+					<p>动物依赖于氧气和水. 他们之间是依赖关系(Dependency).</p>
+					<pre class="prettyprint linenums">
+<code>
+abstract class Animal
+{
+    public Metabolism (Oxygen xoygen, Water water)
+}
+</code>
+					</pre>
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<!--UML工具-->
+	<div class="title">URL工具</div>
+    <div class="content closed">
+		<p>
+			<a href="http://staruml.io/download">StartUML</a><br>
+			<a href="https://www.processon.com/">ProcessOn</a>
+		</p>
+
+    </div>
+</div>
+
+{include file="template/footer" /}
