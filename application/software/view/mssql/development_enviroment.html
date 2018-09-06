@@ -1,0 +1,90 @@
+{include file="template/header" title="MSSQL 开发环境" /}
+
+<div class="list list-number">
+	<div class="title">Microsoft SQL Server Management Studio</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">实用工具</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">Template Explorer</div>
+					<div class="content closed">
+						<p>
+							在【Microsoft SQL Server Management】中, 点击【View】菜单, 选择Template Explorer命令.
+						</p>
+						<p>
+							Template Explorer包含数以百计的SQL Server, 分析服务器和SQL Mobile脚本. 模板脚本可以通过拖曳进一个打开的查询窗口打开. 如果没有查询窗口打开, 可以双击模板, 使用Edit菜单, 或者右击一个上下文菜单, 这些都会打开一个新的查询窗口.
+						</p>
+						<p>
+							一旦在查询编辑器中打开了一个模板, 通过开启Specify Values for Template Parameters对话框, 模板的参数可以使用真实值代替. 该对话框可以从SQL Editor工具栏上或通过Query菜单启动.
+						</p>
+					</div>
+
+					<div class="title">Log File Viewer</div>
+					<div class="content closed">
+						<p>
+							Log File Viewer在SQL Management Studio里面启动. 按如下步骤打开:<br>
+							1) 在【Object Explorer】中展开【Management】节点<br>
+							2) 展开【SQL Server Logs】<br>
+							3) 右击一个日志, 然后选择 【Veiw SQL Server Log】
+						</p>
+					</div>
+
+					<div class="title">数据库引擎优化顾问</div>
+					<div class="content closed">
+						<p>开始 -> 所有程序 -> Microsoft SQL Server 2005 -> 性能工具 -> 数据库引擎优化顾问.</p>
+					</div>
+
+					<div class="title">SQL Server Profiler</div>
+					<div class="content closed">
+						<p>
+							要启动SQL Server Profiler, 可以使用SQL Server Management Studio的Tools菜单启动, 也可以利用All Programs|Microsoft SQL Server 2005|Performance Tools菜单启动.
+						</p>
+						<p>
+							Profiler可以监控和记录SQL Server活动的几乎所有方面.  当创建一个新的跟踪时, Profiler会提示您该跟踪会在哪台服务器上运行. 记住Profiler仅仅是SQL Trace的一个图形化界面, 其背后发生的是在您连接上的服务器上执行存储过程和函数. 如果服务器太忙且接近全负荷运转, 在其上运行SQL Trace的额外负荷可能会使其超负荷.
+						</p>
+					</div>
+
+					<div class="title">sqlcmd命令</div>
+					<div class="content closed">
+						<p>
+							sqlcmd是可以执行T-SQL语句, 存储过程和SQL脚本文件的命令行工具. 可以输入sqlcmd /?命令查看使用说明. 若要结束 sqlcmd 会话, 请在 sqlcmd 提示符处键入 EXIT.
+						</p>
+						<p>
+							1) 运行脚本文件
+							sqlcmd -S myServer\instanceName -i C:\myScript.sql
+						</p>
+						<p>
+							2) 将此输出保存到文本文件中
+							sqlcmd -S myServer\instanceName -i C:\myScript.sql -o C:\EmpAdds.txt
+						</p>
+					</div>
+
+					<div class="title">BCP命令</div>
+					<div class="content closed">
+						<p>
+							BCP实用工具用来导入平面文件数据至一个SQL Server表, 输出表至平面文件, 或者输出T-SQL查询结果至一个平面文件. 除此之外, 它还可以用来创建导入导出操作中使用的格式文件. 可以输入bcp /?命令查看使用说明.
+						</p>
+					</div>
+
+					<div class="title"></div>
+					<div class="content closed">
+
+					</div>
+				</div>
+			</div>
+
+			<div class="title">XXX</div>
+			<div class="content closed">
+
+			</div>
+		</div>
+    </div>
+
+    <div class="title">XXX</div>
+    <div class="content closed">
+
+    </div>
+</div>
+
+{include file="template/footer" /}

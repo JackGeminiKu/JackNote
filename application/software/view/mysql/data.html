@@ -1,0 +1,84 @@
+{include file="template/header" title="MySQL 数据" /}
+
+<table class="table table-bordered table-sm w-50">
+    <tbody>
+        <tr>
+            <th colspan="2">数据类型</th>
+            <th>解释</th>
+            <th>字面值</th>
+        </tr>
+        <tr>
+            <td rowspan="4">字符串</td>
+            <td>VARCHAR(n)</td>
+            <td>变长字符串, 最大长度只有65535个字符</td>
+            <td rowspan="4" class="align-middle">'我是字符串'</td>
+        </tr>
+        <tr>
+            <td>CHAR(n)</td>
+            <td>定长字符串, 最大长度只有255个字符</td>
+        </tr>
+        <tr>
+            <td>TINYBLOB/BLOB/MEDIUMBLOB/LONGBLOG</td>
+            <td>海量字节字符串</td>
+        </tr>
+        <tr>
+            <td>TINYTEXT/TEXT/MEDIUMTEXT/LONGTEXT</td>
+            <td>海量字节字符串</td>
+        </tr>
+        <tr>
+            <td>浮点数</td>
+            <td>DEC(3,2)</td>
+            <td>decimal的缩写, 表示浮点数. DEC(3,2)表示一共有3位数字, 其中2位是小数</td>
+            <td>3.14</td>
+        </tr>
+        <tr>
+            <td rowspan="4">整数</td>
+            <td>tinyint</td>
+            <td>1字节整数, 表示0~255</td>
+            <td rowspan="4" class="align-middle">100</td>
+        </tr>
+        <tr>
+            <td>smallint</td>
+            <td>2字节整数</td>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>4字节整数</td>
+        </tr>
+        <tr>
+            <td>bigint</td>
+            <td>8字节整数</td>
+        </tr>
+        <tr>
+            <td rowspan="3">日期时间</td>
+            <td>DATE</td>
+            <td>年-月-日</td>
+            <td>'1978-9-15'</td>
+        </tr>
+        <tr>
+            <td>TIME</td>
+            <td>时:分:秒</td>
+            <td>'08:56:00'</td>
+        </tr>
+        <tr>
+            <td>DATETIME</td>
+            <td>年-月-日 时:分:秒</td>
+            <td>'1978-9-15 08:56:00'</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+	备注:<br>
+	1) NULL: NULL好比一个还没打开的盒子, 盒子里可能装有任何事物, 也可能是个空盒子. 所以无法比较两个NULL, 因为我们根本不知道盒子里有什么!<br>
+	2) 单引号: 单引号是SQL中的保留字符, 字符串中的单引号要用\'来表示. '\'要用'\\'来表示, '>'要用'\>'来表示!
+</p>
+
+<br>
+<hr>
+<p>
+	参考资料:<br>
+	<a href="https://dev.mysql.com/doc/refman/5.5/en/data-types.html">Document - Data Types</a>	
+</p>
+
+{include file="template/footer" /}

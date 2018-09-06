@@ -1,0 +1,24 @@
+{include file="template/header" title="MySQL 数据库" /}
+
+<pre class="prettyprint linenums">
+<code>
+# 新建数据库
+create database [if not exists] dbtest 
+character set utf8          -- CHARACTER SET:指定数据库采用的字符集,utf8不能写成utf-8
+collate utf8_general_ci;    -- COLLATE:指定数据库字符集的排序规则,utf8的默认排序规则为utf8_general_ci（通过show character set查看）
+
+# 选择数据库
+use gregs_list;
+
+# 删除数据库
+drop database [if exists] dbtest;    -- if EXISTS用于防止数据库不存在时发生错误
+
+# 列出数据库
+show databases;
+
+# 列出表
+show tables;
+</code>
+</pre>
+
+{include file="template/footer" /}
