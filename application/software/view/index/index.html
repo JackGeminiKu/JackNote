@@ -10,6 +10,9 @@
 					<div class="col-2"><a href="{:url('software/software_design/index', 'template=oop_design')}">面向对象设计</a></div>
 				</div>
 				<div class="row">
+					<div class="col-2"><a href="{:url('software/software_design/index', 'template=database_design')}">数据库设计</a></div>
+				</div>
+				<div class="row">
 					<div class="col-2"><a href="{:url('software/software_design/index', 'template=good_code_bad_code')}">好代码vs坏代码</a></div>
 					<div class="col-1"><a href="{:url('software/software_design/index', 'template=algorithm')}">算法</a></div>
 					<div class="col-1"><a href="{:url('software/software_design/index', 'template=design_pattern')}">设计模式</a></div>
@@ -180,9 +183,6 @@
 							<div class="tab-pane fade" id="java">
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-12"><strong>精通</strong></div>
-									</div>
-									<div class="row">
 										<div class="col-12"><strong>掌握</strong></div>
 									</div>
 									<div class="row">
@@ -195,16 +195,13 @@
 							<div class="tab-pane fade" id="java_script">
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-12"><strong>精通</strong></div>
+										<div class="col-12"><strong>掌握</strong></div>
 										<div class="col-2"><a href="{:url('software/JavaScript/index', 'template=html_css')}">HTML&CSS</a></div>
 										<div class="col-2"><a href="{:url('software/java_script/index', 'template=java_script-topics-dom_programming')}">DOM操作</a></div>
 									</div>
 									<div class="row">
 										<div class="col-2"><a href="{:url('software/java_script/index', 'template=java_script-topics-jquery')}">jQuery</a></div>
 										<div class="col-2"><a href="{:url('software/java_script/index', 'template=java_script-bootstrap-index')}">bootstrap</a></div>
-									</div>
-									<div class="row">
-										<div class="col-12"><strong>掌握</strong></div>
 									</div>
 									<div class="row">
 										<div class="col-12"><strong>了解</strong></div>
@@ -216,11 +213,8 @@
 							<div class="tab-pane fade" id="python">
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-12"><strong>精通</strong></div>
-										<div class="col-2"><a href="{:url('software/python/index', 'template=scrapy')}">Scrapy爬虫</a></div>
-									</div>
-									<div class="row">
 										<div class="col-12"><strong>掌握</strong></div>
+										<div class="col-2"><a href="{:url('software/python/index', 'template=scrapy')}">Scrapy爬虫</a></div>
 									</div>
 									<div class="row">
 										<div class="col-12"><strong>了解</strong></div>
@@ -232,7 +226,7 @@
 							<div class="tab-pane fade" id="php">
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-12"><strong>精通</strong></div>
+										<div class="col-12"><strong>掌握</strong></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-database_programming')}">数据库编程</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-regular_expression')}">正则表达式</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-form_operation')}">表单处理</a></div>
@@ -245,14 +239,13 @@
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-account_system')}">账户体系</a></div>
 									</div>
 									<div class="row">
-										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tp5-index')}">ThinkPHP</a></div>
-										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tpadmin-index')}">tpAdmin</a></div>
-									</div>
-									<div class="row">
-										<div class="col-12"><strong>掌握</strong></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-http')}">HTTP</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-security')}">安全</a></div>
 										<div class="col-2"><a href="{:url('software/php/index', 'template=php-topics-http_header')}">HTTP头信息</a></div>
+									</div>
+									<div class="row">
+										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tp5-index')}">ThinkPHP</a></div>
+										<div class="col-2"><a href="{:url('software/php/index', 'template=php-tpadmin-index')}">tpAdmin</a></div>
 									</div>
 									<div class="row">
 										<div class="col-12"><strong>了解</strong></div>
@@ -278,7 +271,7 @@
 
 	<!--数据库开发-->
 	<tr>
-		<td class="pt-3" width="1%"><strong>数据库开发</strong></td>
+		<td class="pt-3" width="1%"><strong>数据库</strong></td>
 		<td colspan="3">
 			<div class="container-fluid ml-0">
 				<div class="row">
@@ -291,9 +284,7 @@
 
 							<!--MSSQL-->
 							<div class="row">
-								<div class="col-12"><strong>MSSQL</strong></div>
-							</div>
-							<div class="row">
+								<div class="col-1"><strong>MSSQL</strong></div>
 								<div class="col-1"><a href="{:url('software/mssql/index', 'template=data')}">数据</a></div>
 								<div class="col-1"><a href="{:url('software/mssql/index', 'template=expression')}">表达式</a></div>
 								<div class="col-1"><a href="{:url('software/mssql/index', 'template=flow')}">函数</a></div>
@@ -305,44 +296,21 @@
 
 							<!--MySQL-->
 							<div class="row">
-								<div class="col-12"><strong>MySQL(5.5)</strong></div>
-							</div>
-							<div class="row">
+								<div class="col-1"><strong>MySQL(5.5)</strong></div>
 								<div class="col-1"><a href="{:url('software/mysql/index', 'template=data')}">数据</a></div>
 								<div class="col-1"><a href="{:url('software/mysql/index', 'template=expression')}">表达式</a></div>
 								<div class="col-1"><a href="{:url('software/mysql/index', 'template=function')}">函数</a></div>
 								<div class="col-1"><a href="{:url('software/mysql/index', 'template=development_enviroment')}">存储过程</a></div>
 								<div class="col-1"><a href="{:url('software/mysql/index', 'template=database')}">数据库</a></div>
-								<div class="col-1"><a href="{:url('software/mysql/index', 'template=development_enviroment')}">表&视图</a></div>
+								<div class="col-1"><a href="{:url('software/mysql/index', 'template=table')}">表&视图</a></div>
 								<div class="col-1"><a href="{:url('software/mysql/index', 'template=development_enviroment')}">开发环境</a></div>
 							</div>
 
-							<!--SQLite-->
+							<!--简单数据库-->
 							<div class="row">
-								<div class="col-12"><strong>SQLite</strong></div>
-							</div>
-							<div class="row">
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=data')}">数据</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=expression')}">表达式</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=flow')}">函数</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">存储过程</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">数据库</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">表&视图</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">开发环境</a></div>
-							</div>
-
-							<!--SSDB-->
-							<div class="row">
-								<div class="col-12"><strong>SSDB</strong></div>
-							</div>
-							<div class="row">
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=data')}">数据</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=expression')}">表达式</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=flow')}">函数</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">存储过程</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">数据库</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">表&视图</a></div>
-								<div class="col-1"><a href="{:url('software/cs/index', 'template=development_enviroment')}">开发环境</a></div>
+								<div class="col-1"><strong>简单DB</strong></div>
+								<div class="col-1"><a href="{:url('software/simple_database/index', 'template=sqlite')}">SQLite</a></div>
+								<div class="col-1"><a href="{:url('software/simple_database/index', 'template=ssdb')}">SSDB</a></div>
 							</div>
 						</div>
 					</div>

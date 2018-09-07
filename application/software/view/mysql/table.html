@@ -1,0 +1,564 @@
+{include file="template/header" title="MySQL 表" /}
+
+<div class="list list-number">
+    <div class="title">Create Table</div>
+    <div class="content open">
+		<pre class="prettyprint linenums">
+<code>
+create table [if not exists] doughnut_list (
+    id 			int		not null 	auto_increment,    	# 自动递增
+    doughnut_name 	varchar(10)	not null,				# 不能为NULL
+    doughnut_type 	varchar(6)	null,					# 可以为NULL
+    doughnut_cost 	dec(3,2)	not null	default 1.00,		# 指定默认值
+    PRIMARY KEY (id)								# 指定主键
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;    # 指定数据库引擎&字符集
+</code>
+		</pre>
+
+		<div class="list list-square">
+			<div class="title">使用默认值</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+weight int default 0
+</code>
+				</pre>
+			</div>
+
+			<div class="title">使用自增</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+id int auto_increment
+</code>
+				</pre>
+			</div>
+
+			<div class="title">约束</div>
+			<div class="content closed">
+				<div class="list list-none">
+					<div class="title">not null</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+id int not null
+</code>
+						</pre>
+					</div>
+
+					<div class="title">唯一约束</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+unique key 约束名字(c1, c2, ...)
+</code>
+						</pre>
+					</div>
+
+					<div class="title">主键约束</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+PRIMARY KEY(key1, key2 ...)
+</code>
+						</pre>
+					</div>
+
+					<div class="title">外键约束</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+constraint 外键名字 foreign key(contact_id) references my_contacts(contact_id)
+</code>
+						</pre>
+					</div>
+
+					<div class="title">check约束</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+coin char(1) check (coin in ('P', 'N', 'D', 'Q'))    # check约束括号里面的是条件表达式
+</code>
+						</pre>
+						<p>很遗憾, MySQL不支持check约束, 会被它忽略!</p>
+					</div>	
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">Alter Table</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">修改表名</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+ALTER TABLE aaa
+RENAME TO bbb
+</code>
+				</pre>
+			</div>
+
+			<div class="title">重新定义列</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+ALTER TABLE my_table
+CHANGE COLUMN aaa bbb INT;
+</code>
+				</pre>
+			</div>
+
+			<div class="title">只修改列的数据类型</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+ALTER TABLE my_table
+MODIFY COLUMN aaa INT;
+</code>
+				</pre>
+				<p>
+					改变列的数据类型要谨慎:<br>
+					1) 如果你想改变的数据类型和原始类型不兼容, 则命令不会执行, SQL软件也会抱怨语句有问题.<br>
+					2) 但真正的惨剧可能发生在类型兼容的情况下, 你的数据可能会被截断. 例如: 从varchar(10)改为char(1), 数据"Bonzo"将被砍成"B".
+				</p>	
+			</div>
+
+			<div class="title">只修改列的位置</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+ALTER TABLE my_table
+MODIFY COLUMN year SIXTH
+</code>
+				</pre>
+			</div>
+
+			<div class="title">添加/删除列</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+ALTER TABLE my_contacts
+ADD COLUMN aaa INT FIRST    # 默认添加到表的最后, 也可以通过关键字指定位置, 常用关键字有: FIRST, SECOND, THIRD, LAST, AFTER xxx, BEFORE xxx ...
+
+ALTER TABLE my_table
+DROP COLUMN aaa;    # 删除要谨慎！
+</code>
+				</pre>
+			</div>
+
+			<div class="title">添加移除约束</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+# 主键约束
+ALTER TABLE my_contacts
+ADD PRIMARY KEY (contact_id)
+
+ALTER TABLE my_contacts
+DROP PRIMARY KEY
+	
+# 外键约束
+alter table xx表
+add constraint 外键名 foreign key(xx字段) references xx表(xx字段)
+
+alter table xx表
+drop constraint 外键名
+
+# unique约束
+alter table my_contacts
+add unique key 约束名字(c1, c2);
+
+alter table my_contacts
+drop index 约束名字
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">查看表信息</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+# 查看表设计"图"
+DESC my_contacts;
+# 查看表设计语言
+SHOW CREATE TABLE my_table;
+# 显示表中的列信息
+SHOW COLUMNS FROM my_table;
+# 显示表中的索引信息
+SHOW INDEX FROM my_table;
+</code>
+		</pre>
+    </div>
+
+    <div class="title">Drop Table</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+DROP TABLE my_contacts;    # 删除表和表里面的所有数据
+</code>
+		</pre>
+    </div>
+
+	<div class="title">插入记录</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+INSERT INTO your_table(column_name1, column_name2)
+values('value1', 'value2', ...);                                # 未指定列的值, 如果有指定default值, 则为default值; 否则为null
+
+INSERT INTO your_table(column_name1, column_name2)
+VALUES('value1', 'value2'), 
+      ('value3', 'value4');......................               # 同时插入多条记录
+
+INSERT INTO your_table
+values('value1', 'value2');                                     # 省略列名， 但是数据必须按照顺序全部填入
+
+INSERT INTO your_table
+values(null,'values');                                          # auto_increment列使用null值
+
+INSERT INTO profession(profession)                              # insert也可以使用子查询
+  select...
+</code>
+		</pre>
+    </div>
+
+	<div class="title">删除记录</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+DELETE FROM clown_info
+WHERE activities = 'dancing';    # 建议先用SELECT确认情况, 以免误删其他记录. 
+</code>
+		</pre>
+    </div>
+
+	<div class="title">查询记录</div>
+    <div class="content closed">
+		<table class="table table-bordered table-sm w-50">
+			<tbody>
+				<tr>
+					<td class="text-strong">一般查询</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+SELECT *
+FROM my_contacts;    # * 号代表表中的所有列
+
+SELECT first_name, last_name
+FROM my_contacts;    # 只选择需要的列, 可以加快查询速度
+</code>
+						</pre>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-strong">一般查询</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+SELECT *
+FROM my_contacts;    # * 号代表表中的所有列
+
+SELECT first_name, last_name
+FROM my_contacts;    # 只选择需要的列, 可以加快查询速度
+
+SELECT *
+FROM my_contacts
+WHERE first_name = 'Anne';	# 指定查询条件
+</code>
+						</pre>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-strong">排序</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+SELECT *
+from my_contacts
+ORDER BY last_name desc;    # 默认是升序(ASC)排序, 可以指定降序(DESC)排序
+
+SELECT *
+from my_contacts
+ORDER BY last_name, first_name;    # 多列排序: 先根据last_name排序, 再根据first_name排序
+</code>
+						</pre>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-strong">分组</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+SELECT first_name
+FROM coolie_sales
+GROUP BY first_name;    # 对查询的记录进行分组（每组只能“选出”一个值）
+
+SELECT first_name, SUM(sales)
+FROM cookie_sales
+GROUP BY first_name;    # 对分组记录套用分组函数
+</code>
+						</pre>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-strong">去除重复记录</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+SELECT DISTINCT sale_date
+FROM cookie_sales
+</code>
+						</pre>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-strong">返回多少条记录?</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+SELECT *
+FROM cookie_sales
+LIMIT 10;    # 返回前10条记录
+
+SELECT *
+FROM cookie_sales
+LIMIT 0,4;    # 返回4条记录, 从第0条开始
+</code>
+						</pre>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-strong">使用别名</td>
+					<td>
+						<pre class="prettyprint linenums">
+<code>
+select profession as mc_prof from my_contacts as mc    # 可以为列和表定义别名, 简化查询语句!
+order by mc_prof;
+</code>
+						</pre>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+	<div class="title">Join查询</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">交叉连接(cross join)</div>
+			<div class="content open">
+				<p>交叉连接返回两张表的每一行相乘的结果</p>
+				<pre class="prettyprint linenums">
+<code>
+table_A as a
+cross join table_B as b
+</code>
+				</pre>
+			</div>
+
+			<div class="title">内连接(inner join</div>
+			<div class="content open">
+				<p>内联接根据条件, 来结合两张表的记录, 只有联接符合条件时才会返回列!</p>
+				<pre class="prettyprint linenums">
+<code>
+select boys.boy, toys.toy
+from boys
+inner join toys on boys.toy_id = toys.toy_id; 
+</code>
+				</pre>	
+
+				<p><span class="text-strong">自然连接(natural join)</span>是特殊的内联接, 只有当联接列在两张表中的名称相同时才会有用.</p>
+				<pre class="prettyprint linenums">
+<code>
+select boys.boy, toys.toy
+from boys
+natural join toys;
+</code>
+				</pre>
+			</div>
+
+			<div class="title">外连接</div>
+			<div class="content open">
+				<p>外联接和内联接的区别是: 外联接一定会提供数据行, 无论该行能否在另一个表中找出相匹配的行.</p>
+				<p><span class="text-strong">左外联接</span>接收左表的所有行, 并用这些行与右表中的行匹配. 左外联接的结果集中的NULL表示右表中没有找到与左表相符的记录.</p>
+				<pre class="prettyprint linenums">
+<code>
+select g.girl, t.toy
+from girls g
+left outer join toys t on g.toy_id = t.toy_id;
+</code>
+				</pre>
+				<p><span class="text-strong">右外联接</span>与左外联接完全一样, 除了它是用右表与左表比对. </p>
+				<pre class="prettyprint linenums">
+<code>
+select g.girl, t.toy
+from toys t
+right outer join girls g on g.toy_id = t.toy_id;
+</code>
+				</pre>
+				<p>左外联接和右外联接可以完成相同的功能, 但是固定使用某一种联接的习惯会让事情更简单.</p>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">子查询</div>
+    <div class="content closed">
+		<p>子查询, 是被另一个查询包围的查询, 也可被称为内层查询!</p>
+		<div class="list list-number">
+			<div class="title">使用in(not in)运算符</div>
+			<div class="content closed">
+				<p>因为查询中使用了in运算符, 所以子查询可以返回多个值.</p>
+				<pre class="prettyprint linenums">
+<code>
+select some_column, another_column
+from table
+where column in ( select column from table );
+</code>
+				</pre>	
+			</div>
+
+			<div class="title">使用=运算符</div>
+			<div class="content closed">
+				<p>因为查询中使用了=运算符, 所以子查询只能返回一个值.</p>
+				<pre class="prettyprint linenums">
+<code>
+select some_column, another_column
+from table
+where column = ( select column from table );
+</code>
+				</pre>
+			</div>
+
+			<div class="title">作为选取列的子查询</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+select mc.first_name, mc.last_name, ( select state from zip_code where mc.zip_code = zip_code ) as state
+from my_contacts mc;
+</code>
+				</pre>
+			</div>
+
+			<div class="title">关联子查询</div>
+			<div class="content closed">
+				<p>关联子查询是指内层查询的解析需要依赖外层查询的结果, 只要逐记录的查询就行了!</p>
+				<pre class="prettyprint linenums">
+<code>
+select mc.first_name, mc.last_name
+from my_contacts as mc
+where 3 = ( select count(*) from contact_intereset where contact_id = mc.contact_id ); # 子查询依赖外层查询, 它需要来自外层查询的结果 - contacts_id的值, 才能解析内存查询
+</code>
+				</pre>
+				<p>使用exists / not exists</p>
+				<pre class="prettyprint linenums">
+<code>
+select mc.first_name firstname, mc.last_name lastname, mc.email email
+from my_contacts mc
+where not exits ( select * from job_current jc where mc.contact_id = jc.contact_id ); # 查找没有工作的人
+</code>
+				</pre>
+			</div>
+
+			<div class="title">联接&子查询转换</div>
+			<div class="content closed">
+				<p class="text-strong">子查询 -> 自连接</p>
+				<pre class="prettyprint linenums">
+<code>
+select mc.first_name, mc.last_name, mc.phone, jc.title
+from job_current as jc natural join my_contacts as mc
+where jc.title in ( select title from job_listings ); 
+
+select mc.first_name, mc.last_name, mc.phone, jc.title
+from job_current as jc natural join my_contacts as mc
+inner join job_listings jl on jc.title = jl.title;
+</code>
+				</pre>
+
+				<p class="text-strong">自连接 - > 子查询</p>
+				<pre class="prettyprint linenums">
+<code>
+select c1.name, c2.name as boss
+from clown_info c1 inner join clown_onfo c2 on c1.boss_id = c2.id;
+
+select c1.name, (select name from clown_info where c1.boss_id = id) as boss
+from clown_info c1;
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">表运算查询</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">联合(union)</div>
+			<div class="content open">
+				<p>Union根据我们在select中指定的列, 把两张或更多张表的查询结果合并到一个表中. </p>
+				<pre class="prettyprint linenums">
+<code>
+select title form job_current
+union
+select title form job_desired
+union
+select title from job_listings;
+</code>
+				</pre>
+
+				<p class="text-strong">union排序</p>
+				<p>Union只能接受一个order by, 且必须位于语句末端. 这是因为Union已经把多个select语句的查询结果串联起来并分组了.</p>
+
+				<p class="text-strong">联合规则</p>				
+				<p>
+					1) 每个select语句中列的数量必须一致. 列的数据类型必须相同或者可以相互转换.<br>
+					2) 每个select语句包含的表达式与统计函数也必须相同.<br>
+					3) SQL默认会清除联合的结果中的重复值. 如果出于某些原因而需要看到重复数据, 可以使用union all运算符. <br>
+					4) select语句的顺序不重要, 不会改变结果.	
+				</p>
+			</div>
+
+			<div class="title">交集(intersect)</div>
+			<div class="content open">
+				<p>Intersect的使用方式与Union大致相同, Intersect只会返回同时在第一个与第二个查询中的列.</p>
+				<pre class="prettyprint linenums">
+<code>
+select title from job_current
+intersect
+select title from job_desired;
+</code>
+				</pre>
+			</div>
+
+			<div class="title">差集(except)</div>
+			<div class="content open">
+				<p>Except的使用方式与Union大致相同, Except返回出现在第一个查询, 而不在第二个查询中的列.</p>
+				<pre class="prettyprint linenums">
+<code>
+select title from job_current
+except
+select title from job_desired;
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">更新记录</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+UPDATE doughnut_ratings
+SET type = 'glazed' 
+WHERE type = 'plain glazed';    # 建议先用SELECT确认情况, 以免误更新其他记录.
+
+UPDATE your_table
+SET first_column = 'newvalue', second_column = 'another_value';    # 同时更新多列
+</code>
+		</pre>
+    </div>
+</div>
+
+{include file="template/footer" /}
