@@ -1,0 +1,45 @@
+{include file="template/header" title="MSSQL 数据类型" /}
+
+<table class="table table-bordered table-sm w-50">
+    <tbody>
+        <tr>
+            <td colspan="2">数据类型</td>
+            <td>解释</td>
+            <td>字面值</td>
+        </tr>
+		<tr>
+			<td rowspan="4">整数</td>
+			<td>tinyint</td>
+			<td>单字节整数, 表示0 ~ 255</td>
+			<td rowspan="4">100</td>
+		</tr>
+		<tr>
+			<td>smallint</td>
+			<td>双字节整数, 表示-32768 ~ 32767</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>4字节整数, 表示-2<sup>31</sup> ~ 2<sup>31</sup>-1</td>
+		</tr>
+		<tr>
+			<td>bigint</td>
+			<td>8字节整数, 表示-2<sup>63</sup> ~ 2<sup>63</sup>-1</td>
+		</tr>
+		<tr>
+			<td colspan="2">实数</td>
+			<td>decimal(p,s)</td>
+			<td>p表示精度, s表示小数位数. 默认为decimal(18,0)</td>
+			<td rowspan="4">3.14</td>
+		</tr>
+		<tr>
+			<td>numeric(ps,)</td>
+			<td>精度p的取值范围是1~38, 小数位数s的取值范围为[0, p]. 所以使用最大精度时，有效值从 - 10^38 +1 到 10^38 - 1.<td>
+		</tr>
+		<tr>
+			<td>real</td>
+			<td></td>
+		</tr>
+    </tbody>
+</table>
+
+{include file="template/footer" /}
