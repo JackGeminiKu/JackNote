@@ -1,3 +1,11 @@
+/*字体*/
+body { 
+	font-family: "YaHei Consolas Hybrid"
+} 
+
+
+
+
 /* html {
     font-size: 14px;
 } */
@@ -88,11 +96,11 @@ div.panel {
 }
 
 .text-important {
-  color: #dc3545 !important;
+	color: #dc3545 !important;
 }
 
 .text-remark {
-  color: #dc3545 !important;
+	color: #dc3545 !important;
 }
 
 .table-bordered th, .table-bordered td {   
@@ -107,4 +115,11 @@ div.panel {
 
 div.content > div.list-none > div.content{
     margin-left: 0px;
+}
+
+.rm {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	opacity: 0.3;
 }

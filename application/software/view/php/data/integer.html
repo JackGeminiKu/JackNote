@@ -1,0 +1,33 @@
+{include file="template/header" title="PHP 整数" /}
+
+<p>PHP只有一种整数类型: integer</p>
+<p>
+	整型数的字长和平台有关，尽管通常最大值是大约二十亿（32 位有符号）。64 位平台下的最大值通常是大约 9E18，除了 Windows 下 PHP 7 以前的版本，总是 32 位的。 PHP 不支持无符号的 integer。
+	Integer 值的字长可以用常量 PHP_INT_SIZE来表示，自 PHP 4.4.0 和 PHP 5.0.5后，最大值可以用常量 PHP_INT_MAX 来表示，最小值可以在 PHP 7.0.0 及以后的版本中用常量 PHP_INT_MIN 表示。
+</p>
+
+<div class="list list-number">
+    <div class="title">定义整型变量</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+$a = 1234; // 十进制数
+$a = 0123; // 八进制数 (前面是数字0)
+$a = 0x1A; // 十六进制数
+$a = 0b11111111; // 二进制数字
+</code>
+		</pre>
+    </div>
+
+    <div class="title">常用操作</div>
+    <div class="content closed">
+		<div class="container ml-0">
+			<div class="row">
+				<div class="col-1"><strong>随机数</strong></div>
+				<div class="col-1">rand()</div>
+			</div>
+		</div>
+    </div>
+</div>
+
+{include file="template/footer" /}
