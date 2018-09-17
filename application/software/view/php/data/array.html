@@ -1,63 +1,35 @@
 {include file="template/header" title="PHP 数组" /}
-<ol>
-    <!-- index数组 -->
-    <li class="summary closed">index数组</li>
-    <div>
-        <ol>
-            <li>定义</li>
-            <div>
-<xmp class="prettyprint">// 方法1
-$productors = array('Tires', 'Oil', 'Spark Plugs');
-$productors = ['Tires', 'Oil', 'Spark Plugs'];    // since 5.4
-// 方法2
-$productors[0] = 'Tires';
-$productors[1] = 'Oil';
-$productors[2] = 'Spark Plugs';</xmp>
-            </div>
 
-            <li>访问</li>
-            <div>
-<xmp class="prettyprint">$productors[0];</xmp>                
-            </div>
+<p>
+	PHP可以用 array() 语言结构来新建一个数组。它接受任意数量用逗号分隔的 键（key） => 值（value）对. key 可以是 integer 或者 string。value 可以是任意类型。
+</p>
 
-            <li>遍历</li>
-            <div>
-<xmp class="prettyprint">// 方法1
-for ($i = 0; $i < 3; $i++) {
-    echo $produccts[$i];
-}
-// 方法2
-foreach ($product as $current) {
-    echo $current;
-}
-</xmp>
-            </div>
-        </ol>
-    </div>
-
-    <!-- key/value数组 -->
-    <li class="summary closed">key/value数组</li>
-    <div>
-        <ol>
-            <li>定义</li>
-            <div>
-<xmp class="prettyprint">// 方法1
+<div class="list list-number">
+    <div class="title">定义数组</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">定义</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+// 方法1
+$productors = array(0 => 'Tires', 1 => 'Oil', 2 => 'Spark Plugs');
+$productors = array('Tires', 'Oil', 'Spark Plugs');	// 如果对给出的值没有指定键名，则取当前最大的整数索引值，而新的键名将是该值加一。
 $prices = array('Tires' => 100, 'Oil' => 10, 'Spark Plugs' => 4);
 $prices = ['Tires' => 100, 'Oil' => 10, 'Spark Plugs' => 4];  // since 5.4
 // 方法2
 $prices['Tires'] = 100;
 $prices['Oil'] = 10;
-$prices['Spark Plugs'] = 4;</xmp>
-            </div>
+$prices['Spark Plugs'] = 4;
+</code>
+				</pre>
+			</div>
 
-            <li>访问</li>
-            <div>
-<xmp class="prettyprint">$prices['Tires'];</xmp>
-            </div>
-
-            <li>遍历</li>
-            <div>
-<xmp class="prettyprint">// 方法1
+			<div class="title">遍历</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+// 方法1
 foreach ($prices as $pirce)
     echo($price);
 // 方法2
@@ -70,45 +42,29 @@ while ($element = each($prices)) {
 }
 // 方法4
 reset($prices);
-while (list($product, $price) = each($prices))
-    echo "$product - $price";</xmp>                
-            </div>
-        </ol>
-    </div>
-    
-    <!-- 二维数组 -->
-    <li class="summary closed">二维数组(元素也是数组)</li>
-    <div>
-        <ol>
-            <li>定义</li>
-            <div>
-<xmp class="prettyprint">$products = array(
-    array('TIR', 'Tires', 100), 
-    array('OIL', 'Oil', 10), 
-    array('SPK', 'Spark Plugs', 4)
-);
-$productors = array(
-    array('Code' => 'TIR', 'Description' => 'Tires', 'Price' => 100),
-    array('Code' => 'OIL', 'Description' => 'Oil', 'Price' => 10),
-    array('Code' => 'SPK', 'Description' => 'Spark Plugs', 'Price' => 4)
-);</xmp>
-            </div>
-
-            <li>访问</li>
-            <div>
-<xmp class="prettyprint">$productors[0][0];
-$productors[0]['Code'];</xmp>
-            </div>
-
-        </ol>
+while (list($product, $price) = each($prices)) {
+    echo "$product - $price";
+}
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
 
-    <!-- 数组操作 -->
-    <li class="summary closed">数组操作</li>
-    <div>
-        <ol>
-            <li>数组运算</li>
-            <div>
+	<div class="title">常见操作</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">访问数组元素</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+arrayName[keyName];
+</code>
+				</pre>
+			</div>
+
+			<div class="title">数组运算</div>
+			<div class="content closed">
                 <table class="table table-bordered table-condensed table-hover table-sm w-50">
                     <tr>
                         <th>运算符</th>
@@ -147,19 +103,19 @@ $productors[0]['Code'];</xmp>
                         <td>如果$a和$b不包含相同顺序的相同元素, 则返回true; 否则, 返回false.</td>
                     </tr>
                 </table>
-            </div>
+			</div>
 
-            <li>添加&删除元素</li>
-            <div>
+			<div class="title">添加&删除元素</div>
+			<div class="content closed">
                 <p>
                     <a href="http://php.net/manual/zh/function.array-push.php" target="_blank">array_push()</a><br>
                     <a href="http://php.net/manual/zh/function.array-pop.php" target="_blank">array_pop()</a><br>
-                    $productors[] = 'Tire'; // 在数组末尾添加元素
+                    $productors[] = 'Tire'; // key 为可选项。如果未指定，PHP 将自动使用之前用过的最大 integer 键名加上 1 作为新的键名。
                 </p>
-            </div>
+			</div>
 
-            <li>排序</li>
-            <div>
+			<div class="title">排序</div>
+			<div class="content closed">
                 <p>
                     sort / rsort<br>
                     asort / rasort<br>
@@ -169,13 +125,15 @@ $productors[0]['Code'];</xmp>
                     array_reverse<br>
                     array_rand<br>
                 </p>
-            </div>
+			</div>
 
-            <li>数组&字符串互转</li>
-            <div></div>
+			<div class="title">数组&字符串互转</div>
+			<div class="content closed">
 
-            <li>其他函数</li>
-            <div>
+			</div>
+
+			<div class="title">其他函数</div>
+			<div class="content closed">
                 <a title="将一个一维数组值转换为字符串" href="http://php.net/manual/zh/function.implode.php" target="_blank">implode()</a>, 
                 <a title="将一个字符串分割为一个一维数组" href="http://php.net/manual/zh/function.explode.php" target="_blank">explode()</a>, 
                 <a title="将一个字符串转换为数组" href="http://php.net/manual/zh/function.str-split.php" target="_blank">str_split()</a><br>
@@ -197,8 +155,9 @@ $productors[0]['Code'];</xmp>
                 array_key_exists()<br>
                 range()<br>
                 <a title="切割数组" href="http://php.net/manual/zh/function.array-slice.php" target="_blank">array_slice()</a>
-            </div>
-        </ol>
+			</div>
+		</div>
     </div>
-</ol>
+</div>
+
 {include file="template/footer" /}

@@ -7,7 +7,8 @@
 		<P>
 			<a href="https://codex.wordpress.org/zh-cn:%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%B8%83%E5%B1%80">博客设计和布局</a><br>
 			WordPress的第一步<br>
-			使用WordPress的主题...
+			使用WordPress的主题<br>
+			主题、布局与设计常见问题...
 		</p>
     </div>
 
@@ -18,11 +19,6 @@
 			<div class="content closed">
 				<p><a href="https://codex.wordpress.org/zh-cn:WordPress%E7%BD%91%E7%AB%99%E4%B8%BB%E6%9C%BA">服务器要求</a></p>
 			</div>
-
-			<div class="title">XXX</div>
-			<div class="content closed">
-
-			</div>
 		</div>
     </div>
 
@@ -30,11 +26,294 @@
     <div class="content open">
 		<div class="list list-number">
 			<div class="title">主题</div>
-			<div class="content closed">
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">主题常见操作</div>
+					<div class="content closed">
+						<p>登录到WordPress中Administration Panel, 选择 Appearance 面板，然后选择Themes...</p>
+					</div>
 
+					<div class="title">创建主题</div>
+					<div class="content closed">
+						<p>
+							一个完整的WP主题通常包含以下模板文件：<br>
+							404错误页 = 404.php<br>
+							存档页 = archive.php<br>
+							存档索引页 = archives.php<br>
+							评论页 = comments.php<br>
+							底部 = footer.php<br>
+							头部 = header.php<br>
+							链接 = links.php<br>
+							首页 = index.php<br>
+							静态页 = page.php<br>
+							弹出式评论页 = comments-popup.php<br>
+							单篇博文页 = single.php<br>
+							搜索表单 = searchform.php<br>
+							搜索 = search.php<br>
+							侧栏 = sidebar.php<br>
+							样式表 = style.css
+						</p>
+					</div>
+
+					<div class="title">开发规范</div>
+					<div class="content closed">
+						<p>
+							使用结构化的、没有错误的PHP和有效的HTML代码。请看 <a href="https://codex.wordpress.org/zh-cn:WordPress_%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83">WordPress</a>代码规范。<br>
+							使用简洁的、有效的CSS。参见 <a href="https://codex.wordpress.org/CSS_Coding_Standards">CSS Coding Standards</a>。<br>
+							遵循<a href="https://codex.wordpress.org/zh-cn:%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%B8%83%E5%B1%80">设计指南</a>。
+						</p>
+					</div>
+
+					<div class="title">子主题</div>
+					<div class="content closed">
+						<p>最简单的主题可能是子主题，其仅仅包含一个style.css文件，也可以加上一些图片。之所以它能工作是因为它是以另一个主题为基础进行工作的。</p>
+					</div>
+
+					<div class="title">样式表头注释</div>
+					<div class="content closed">
+						<p>
+							CSS文件不仅定义了你的主题样式，style.css 必须 以注释的形式列出主题的详细信息。两个不同的主题是不允许拥有相同的表述的 ， 因为这样会导致主题选择出错.如果你通过拷贝一个你已经制作的主题来制作你新的主题，请确保先更改这些头部注释.
+						</p>
+						<p>下面是样式表头部注释的例子，被称作样式表头注释。比如主题"Twenty Fifteen":</p>
+						<pre class="prettyprint linenums">
+<code>
+/*
+Theme Name: Twenty Fifteen
+Theme URI: https://wordpress.org/themes/twentyfifteen/
+Author: the WordPress team
+Author URI: https://wordpress.org/
+Description: Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer.
+Version: 2.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: blog, two-columns, left-sidebar, accessibility-ready, custom-background, custom-colors, custom-header, custom-logo, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
+Text Domain: twentyfifteen
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+</code>
+						</pre>
+					</div>
+
+					<div class="title">函数文件</div>
+					<div class="content closed">
+						<p>一个主题可以使用一个函数文件，位于主题的子目录，叫做 functions.php。这个文件就像一个插件， 如果它位于你正在使用的主题里的话，他在你的主题初始化的时候就会自动加载(后台页面和前台页面都一样加载)。对于这个文件的建议：</p>
+					</div>
+
+					<div class="title">模板文件</div>
+					<div class="content closed">
+						<p>模板 是一些PHP文件，他可以输出HTML代码呈献给浏览器，决定着主题的外观.下面让我们来看一下主题的模板.</p>
+						<p>WordPress允许为你的网站定义不同的模板.他虽然不是必需的，但是这些不同的模板为你的网站添上一笔. 模板是根据Template Hierarchy的，由一个具体的主题决定.</p>
+						<p>作为一个主题开发者，你可以自由决定如何定制你的模板.比如说，极端情况下， 你甚至可以仅仅使用一个文件index.php作为模板文件，所有 页面都会使用这个模板.更多的情况是，使用不同的模板文件产生不同的结果，以达到最大定制.</p>
+
+						<div class="list list-number">
+							<div class="title">模板文件列表</div>
+							<div class="content closed">
+								<p>下面列出的文件对WordPress有特殊的意义-- 点击模板层次 查看具体情况.</p>
+								<p>
+									style.css<br>
+									主样式表，这个文件 必须 位于你的主题里面，而且必须在头部注释处写清楚你的主题的信息.<br>
+									rtl.css<br>
+									rtl 样式表。如果网站的阅读方向是自右向左的，他会自动被包含进来。你可以使用 the RTLer 插件来生成这个文件.<br>
+									index.php<br>
+									主模板.如果你的主题使用自己的模板，index.php 是必须要有的.<br>
+									comments.php<br>
+									评论模板.<br>
+									front-page.php<br>
+									首页模板，仅用于开启 静态首页 时。<br>
+									home.php<br>
+									主页模板，默认的首页。如果你开启了 静态首页 这是展现最新的文章的模板页面。<br>
+									single.php<br>
+									单独页面模板。显示单独的一篇文章时被调用。对于这个以及其他的请求模板，如果模板不存在会使用 index.php。<br>
+									single-{post-type}.php<br>
+									自定义单独页面模板。例如， single-books.php 展示自定义文章类型为 books的文章. 如果文章类型未被设置则使用index.php。<br>
+									page.php<br>
+									页面模板. 独立页面调用。<br>
+									category.php<br>
+									分类模板。 分类页面调用。<br>
+									tag.php<br>
+									标签模板。标签页面调用。<br>
+									taxonomy.php<br>
+									术语模板。请求自定义分类法的术语时使用。<br>
+									author.php<br>
+									作者模板。作者页面调用。<br>
+									date.php<br>
+									日期/时间模板，按时间查询时使用的模板。<br>
+									archive.php<br>
+									存档模板。查询分类，作者或日期时使用的模板。需要注意的是，该模板将会分别被category.php， author.php， date.php所覆盖（如果存在的话）。<br>
+									search.php<br>
+									搜索结果模板，显示搜索结果时使用的模板。<br>
+									attachment.php<br>
+									附件模板，查看单个附件时使用的模板。<br>
+									image.php<br>
+									图片附件模板。当在wordpress中查看单个图片时将调用此模板，如果不存在此模板，则调用attachment.php 模板。<br>
+									404.php<br>
+									404 错误页面 模板。当WordPress无法查找到匹配查询的日志或页面时，使用404.php文件。
+								</p>
+							</div>
+
+							<div class="title">基本模板</div>
+							<div class="content closed">
+								<p>
+									在最简单的情况下，一个WordPress主题由两个文件构成, 这些文件都位于主题目录: <br>
+									style.css<br>
+									index.php
+								</p>
+								<p>index.php 模板 是非常灵活的.他可以用来包含所有的引用 header， sidebar， footer， content， categories， archives， search， error， 和其它在WordPress产生的文件.</p>
+								<p>或者，他也可以模块化，使用单独的文件分担工作.如果你没有提供其它的模板文件，WordPress 会使用默认文件.比如说，如果你没有提供comments.php 文件， WordPress会自动使用 wp-comments.php 模板文件 Template Hierarchy. (注意: 自3.0起，那些默认的文件已经不能保证都存在或者跟以前的一样。提供你自己的模板文件会更安全。)</p>
+
+								<p>
+									典型的模板文件包括：<br>
+									comments.php<br>
+									footer.php<br>
+									header.php<br>
+									sidebar.php
+								</p>
+
+								<p>
+									使用这些模板文件，你可以把这些文件嵌入到index.php 中，最后生成的文件里.<br>
+									包含header， 使用get_header().<br>
+									包含sidebar， 使用 get_sidebar().<br>
+									包含 footer， 使用 get_footer().<br>
+									包含 search form， 使用 get_search_form().
+								</p>
+
+								<p>
+									include 用法:
+								</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;?php get_sidebar(); ?>
+&lt;?php get_footer(); ?>
+</code>
+								</pre>
+							</div>
+
+							<div class="title">自定义页面模板</div>
+							<div class="content closed">
+								<p>自定义每一个页面模板的文件都放在你的 Themes 文件夹里面。为了创建一个自定义页面你需要首先创建一个文件，假设我们的第一个自定义页面叫做snarfer.php。在snarfer.php的文件顶部，你必须要这么写：</p>
+								<pre class="prettyprint linenums">
+<code>
+ &lt;?php
+ /*
+ Template Name: Snarfer
+ */
+ ?>
+</code>
+								</pre>
+								<p>以上代码定义snarfer.php为Snarfer模板，在创建其它页面的时候Snarfer可以替换成其它名字。这个模板名字会作为一个链接出现在主题编辑器中，单击它就可以编辑这个文件。</p>
+								<p>紧接着上面五行代码之后的内容取决于你。你随后编写的代码将控制使用 Snarfer 模板的页面会如何显示。查看 Template Tags 了解你可以使用的丰富的 WordPress 模板函数。你会发现直接从其他模板文件(page.php 或者 index.php)中拷贝代码到 snarfer.php 中，然后在文件顶部添加那五行代码会更加方便。如此以来仅需替换 HTML 和 PHP 代码而不至于从零开始。展示一个例子 below。一旦你创建了页面模板并将之放在你的主题目录中，你便可以在创建和编辑页面时采用它。(提醒：当创建或编辑页面时，除非你按如上方法定义了至少一个模板，否则页面模板类型选择菜单不会出现。)</p>
+							</div>
+
+							<div class="title">基于查询的模板文件</div>
+							<div class="content closed">
+								<p>
+									WordPress 可以根据不同的查询类型加载不同的模板。 有两个办法: 根据模板层次命名你的模板文件，或者在循环中使用条件标签(if 语句).
+								</p>
+								<p>
+									为了应用模板层次，你仅需要提供特定的模板文件，它们会分别自动替代 index.php。例如，如果你提供一个 category.php 模板文件，当文章分类页面被请求时， category.php 会替代 index.php 被加载。如果 category.php 文件不存在时， index.php 被正常加载。
+								</p>
+								<p>
+									你甚至可以通过给文件定义更加准确的名字从而获得更加细致的模板层次，例如 category-6.php —— 当请求 ID 为 6 的文章分类时该模板会优先于 category.php 被加载(在WordPress 2.3及以下版本中，当以管理员登陆后，你可以在Manage > Categories找到分类ID。自WordPress 2.5开始ID栏目被移除了。你可以单击'编辑分类'然后查看浏览器的URL地址找到当前分类的ID。它看上去像这样'...categories.php?action=edit&cat_ID=3'，其中3就是分类ID)。想要了解具体的流程，参考 分类模板。
+								</p>
+								<p>较之于自动加载模板层次中提供的模板文件，如果你的主题需要自己控制想要加载的文件，你可以使用条件标签。条件标签在 The Loop In Action 中检查指定的条件是否为真，然后你可加载特定的模板，或基于条件在屏幕上显示特定内容。</p>
+								<p>举例，针对一个指定分类的文章采用特定的样式表，代码像下面这样：</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;?php
+if ( is_category( '9' ) ) {
+    get_template_part( 'single2' ); // looking for posts in category with ID of '9'
+} else {
+    get_template_part( 'single1' ); // put this on every other category post
+}
+?>
+</code>
+								</pre>
+								<p>或者使用查询，看起来像这样:</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;?php
+$post = $wp_query->post;
+if ( in_category( '9' ) ) {
+    get_template_part( 'single2' );
+} else {
+    get_template_part( 'single1' );
+}
+?>
+</code>
+								</pre>
+								<p>无论何种情况，这份示例代码会依据不同的文章分类加载显示不同的模板。然而查询条件是不仅限于分类的，查看条件标签了解所有选择。</p>
+							</div>
+
+							<div class="title">定义模板</div>
+							<div class="content closed">
+								<p>可以使用WordPress插件系统来定义你的个人模板。这项高级特性可以通过 template_redirect 动作钩子实现。想要了解关于创建插件的更多信息，参考插件API.</p>
+							</div>
+
+							<div class="title">包含模板文件</div>
+							<div class="content closed">
+								<p>为了加载其他模板(除了 header, sidebar, footer 这些已经被预先定义了加载命令的例如 get_header())到某个模板中，你可以使用 get_template_part()。这利于主题的代码重用。</p>
+							</div>
+
+							<div class="title">引用模板中的文件</div>
+							<div class="content closed">
+								<p>当在同一个主题中引用其他文件时，避免使用硬编码的 URLs 和文件路径。请使用 bloginfo() 引用 URL 和文件路径：参看从模板中引用文件.</p>
+								<p>注意样式表中使用的 URLs 是相对于样式表本身的，而不是相对于引用这个样式表的文件。例如，如果你在主题中包含 images/ 目录，你只需要在CSS中指明相对路径，像这样：</p>
+								<pre class="prettyprint linenums">
+<code>
+h1 {
+    background-image: url(images/my-background.jpg);
+}
+</code>
+								</pre>
+							</div>
+
+							<div class="title">插件API钩</div>
+							<div class="content closed">
+								<p>
+									开发主题的时候，需要注意的是你的主题最好能和用户可能安装的任何插件共存。插件可以通过“动作钩子（Action Hooks, 查看 插件API）”为wordpress增加功能。
+								</p>
+								<p>
+									大部分Action Hooks存在于wp的php核心中，所以你的主题不需要任何多余的特殊标签来让它可以正常运转。但是少数的Action Hooks需要在你的主题中做特殊处理，以使插件能够将头，尾，侧边栏等信息输出到页面中。如下是你需要包含到主题 中的Action Hooks列表：
+								</p>
+								<p>
+									wp_head()<br>
+									放在&lt;head>标签之内，在header.php文件中. 大部分插件常在这里导入javascript文件。<br>
+									wp_footer()<br>
+									在footer.php中，在&lt;/body>标签之前 . 使用举例：一些插件会在这里插入要在文档最后执行的PHP代码。更常见的用法是插入网页静态代码，比如Google Analytics。<br>
+									wp_meta()<br>
+									在主题菜单或侧边栏的&lt;li>Meta&lt;/li>节之中；sidebar.php模板. 插件使用范例: 包含一个旋转广告或标签云。<br>
+									comment_form()<br>
+									在comments.php中，在表单闭标签出现之前 (&lt;/form>). 插件使用范例: 显示评论预览。在WordPress 3.0中，你需要使用默认的评论表单，查看comment_form()了解更多信息.
+								</p>
+								<p>
+									想看看真实应用的案例？这些插件钩子就包含在默认主题的模板中。
+								</p>
+							</div>
+
+							<div class="title">不可靠的数据</div>
+							<div class="content closed">
+								<p>你应该在主题中避免使用动态生成的内容，尤其是输出到 HTML 标签属性中的内容。依照WordPress 编程规范，属性中出现的文本需要经过 esc_attr处理，这样单引号和双引号才不会影响属性值结束，否则会导致无效代码和安全问题。一般要检查的地方有 title， alt， 和 value 属性.</p>
+								<p>在少数情况下我们需要安全的输出，一个类似的例子便是当使用 the_title() 显示文章标题时需要用到 "title" 属性。为了避免安全问题，请使用 the_title_attribute()。 这里是一个正确转码的 title 属性的例子：</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;a href="&lt;?php the_permalink(); ?>" title="&lt;?php sprintf( __( 'Permanent Link to %s', 'theme-name' ), the_title_attribute( 'echo=0' ) ); ?>">&lt;?php the_title(); ?>&lt;/a>
+</code>
+								</pre>
+								<p>
+									使用推荐的转码方式代替弃用的方式：<br>
+									esc_html() 代替 wp_specialchars() 和 htmlspecialchars()<br>
+									esc_url() 代替 clean_url()<br>
+									esc_attr() 代替 attribute_escape()
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
 {include file="php/word_press/template/footer" /}

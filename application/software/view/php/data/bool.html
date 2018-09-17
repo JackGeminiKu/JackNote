@@ -1,18 +1,32 @@
 {include file="template/header" title="PHP 布尔" /}
 
-<ol>
-   <li>定义</li> 
-<xmp class="prettyprint">$hasMore = true;    // 布尔类型只有两种值: true和false.
-</xmp>
-   <li>其他类型转布尔类型</li>
-   <div>
-       <p>
-            1) 数值0<br>
-            2) 空串<br>
-            3) 空数组<br>
-            4) NULL<br>
-            仅以上4种值转换为布尔类型时, 结果是false, 其他情况均为true.
-       </p>
-   </div>
-</ol>
+<p>PHP中的布尔类型是: boolean</p>
+
+<div class="list list-number">
+    <div class="title">定义</div>
+    <div class="content open">
+		<pre class="prettyprint linenums">
+<code>
+$hasMore = true;    // 布尔类型只有两种值: true和false.
+</code>
+		</pre>
+    </div>
+
+    <div class="title">常见操作</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">其他类型转成布尔类型</div>
+			<div class="content closed">
+				<p>
+					1) 数值0<br>
+					2) 空串<br>
+					3) 空数组<br>
+					4) NULL<br>
+					仅以上4种值转换为布尔类型时, 结果是false, 其他情况均为true.
+				</p>
+			</div>
+		</div>
+    </div>
+</div>
+
 {include file="template/footer" /}

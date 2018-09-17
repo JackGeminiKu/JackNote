@@ -1,103 +1,137 @@
 {include file="template/header" title="PHP 字符串" /}
-<ol>
-    <li>单引号字符串</li>
-<xmp class="prettyprint">'我是单引号字符串'
-</xmp>
 
-    <li>双引号字符串</li>
-    <div>
-<xmp class="prettyprint">"我是双引号字符串, 我可以使用$variable";
-</xmp>
-        <p>在双引号中, 变量名将被变量值所取代. 而在单引号中, 变量名称, 或者任何其他的文本都会不经修改而发送给浏览器.</p>
+<p>
+	PHP字符串只有一种类型: string. <br>
+	一个字符串 string 就是由一系列的字符组成，其中每个字符等同于一个字节。这意味着 PHP 只能支持 256 的字符集，因此不支持 Unicode 。
+</p>
+
+<div class="list list-number">
+    <div class="title">定义</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">单引号字符串</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+'我是字符串';
+</code>
+				</pre>
+				<p>要表达一个单引号自身，需在它的前面加个反斜线（\）来转义。要表达一个反斜线自身，则用两个反斜线（\\）。其它任何方式的反斜线都会被当成反斜线本身：也就是说如果想使用其它转义序列例如 \r 或者 \n，并不代表任何特殊含义，就单纯是这两个字符本身。</p>
+				<p>不像双引号和 heredoc 语法结构，在单引号字符串中的变量和特殊字符的转义序列将不会被替换。</p>	
+			</div>
+
+			<div class="title">双引号字符串</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+"我是双引号字符串, 我可以使用$variable";
+</code>
+				</pre>
+				<p>在双引号中, 变量名将被变量值所取代. 而在单引号中, 变量名称, 或者任何其他的文本都会不经修改而发送给浏览器.</p>
+				<p>转义字符</p>
+				<pre class="prettyprint linenums">
+<code>
+			\n    // 换行
+			\'    // 单引号
+			\"    // 双引号
+			\\    // 斜杠
+</code>
+				</pre>
+				<p>注意: 单引号字符串只支持\'和\\转义字符, 双引号字符串支持所有的转义字符.</p>
+			</div>
+
+			<div class="title">heredoc字符串</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+echo &lt;&lt;&lt;theEnd
+	line 1
+	line 2
+	line 3
+	theEnd
+</code>
+				</pre>
+				<p>PHP4新增了heredoc语法(<<<): 通过一个用来结束字符串的结束标记, Heredoc语法允许指定长字符串. 如上所示的代码创建了一个3行的字符串并且回显它们. theEnd标记时非常模糊的, 它只需要保证不会出现在文本中.</p>
+			</div>
+		</div>
     </div>
 
-    <li>转义字符</li>
-    <div>
-<xmp class="prettyprint">\n    // 换行
-\'    // 单引号
-\"    // 双引号
-\\    // 斜杠
-</xmp>
+    <div class="title">常用操作</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">赋值</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$name = "Jack";
+</code>
+				</pre>
+			</div>
+
+			<div class="title">连接</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+'字符串1' . '字符串2'    // 这个点号是字符串连接符
+</code>
+				</pre>
+			</div>
+
+			<div class="title">去空格</div>
+			<div class="content closed">
+				<p>trim(), ltrim(), rtrim()</p>
+			</div>
+
+			<div class="title">格式化</div>
+			<div class="content closed">
+				<p>nl2br()</p>                
+				<p>trim() & ltrim() & rtrim()</p>
+				<p>sprintf() & strvprintf()</p>
+				<p>strtoupper() & strtolower(), ucfirst() & ucwords(), addslashes() & stripslashes()</p>
+			</div>
+
+			<div class="title">分割&合并</div>
+			<div class="content closed">
+				<p>explode() & implode() & strtok()</p>
+			</div>
+
+			<div class="title">子字符串</div>
+			<div class="content closed">
+				<p>substr()</p>
+			</div>
+
+			<div class="title">字符串比较</div>
+			<div class="content closed">
+				<p>strcmp() & strcasecmp()</p>
+			</div>
+
+			<div class="title">字符串查找</div>
+			<div class="content closed">
+				<p>strchr() & stristr() & strrchr()</p>
+				<p>strpos() & strrpos()</p>
+			</div>
+
+			<div class="title">字符串替换</div>
+			<div class="content closed">
+				<p>str_replace() & substr_replace()</p>
+			</div>
+
+			<div class="title">字符串长度</div>
+			<div class="content closed">
+				<p>strlen()</p>
+			</div>
+
+			<div class="title">X常用字符串操作函数</div>
+			<div class="content closed">
+				<p>
+					<a title="获取字符串长度" href="http://php.net/manual/zh/function.strlen.php" target="_blank">strlen()</a>, 
+					<a title="替换字符串" href="http://php.net/manual/zh/function.str-replace.php" target="_blank">str_replace()</a>, 
+					<a title="取字符串" href="http://php.net/manual/zh/function.substr.php" target="_blank">substr()</a>, 
+					<a title="整数变字符串" href="http://php.net/manual/zh/function.chr.php" target="_blank">chr()</a>
+				</p>        
+			</div>
+		</div>
     </div>
-    <p>注意: 单引号字符串只支持\'和\\转义字符, 双引号字符串支持所有的转义字符.</p>
+</div>
 
-    <li>heredoc字符串</li>
-    <div>
-<xmp class="prettyprint">echo <<<theEnd
-line 1
-line 2
-line 3
-theEnd</xmp>
-    <p>PHP4新增了heredoc语法(<<<): 通过一个用来结束字符串的结束标记, Heredoc语法允许指定长字符串. 如上所示的代码创建了一个3行的字符串并且回显它们. theEnd标记时非常模糊的, 它只需要保证不会出现在文本中.</p>
-    </div>
-
-    <li class="summary closed">常用操作</li>
-    <div>
-        <ul>
-            <li>赋值</li>
-            <div>
-<xmp class="prettyprint"> $name = "Jack";
-</xmp>                
-            </div>
-
-            <li>连接</li>
-            <div>
-<xmp class="prettyprint">'字符串1' . '字符串2'    // 这个点号是字符串连接符
-</xmp>                
-            </div>
-
-            <li>去空格</li>
-            <div>
-                <p>trim(), ltrim(), rtrim()</p>
-            </div>
-
-            <li>格式化</li>
-            <div>
-                <p>nl2br()</p>                
-                <p>trim() & ltrim() & rtrim()</p>
-                <p>sprintf() & strvprintf()</p>
-                <p>strtoupper() & strtolower(), ucfirst() & ucwords(), addslashes() & stripslashes()</p>
-            </div>
-
-            <li>分割&合并</li>
-            <div>
-                <p>explode() & implode() & strtok()</p>
-            </div>
-
-            <li>子字符串</li>
-            <div>
-                <p>substr()</p>
-            </div>
-
-            <li>字符串比较</li>
-            <div>
-                <p>strcmp() & strcasecmp()</p>
-            </div>
-
-            <li>字符串查找</li>
-            <div>
-                <p>strchr() & stristr() & strrchr()</p>
-                <p>strpos() & strrpos()</p>
-            </div>
-
-            <li>字符串替换</li>
-            <div>
-                <p>str_replace() & substr_replace()</p>
-            </div>
-
-            <li>字符串长度</li>
-            <div>
-                <p>strlen()</p>
-            </div>
-
-            <li>常用字符串操作函数</li>
-            <p>
-                <a title="获取字符串长度" href="http://php.net/manual/zh/function.strlen.php" target="_blank">strlen()</a>, 
-                <a title="替换字符串" href="http://php.net/manual/zh/function.str-replace.php" target="_blank">str_replace()</a>, 
-                <a title="取字符串" href="http://php.net/manual/zh/function.substr.php" target="_blank">substr()</a>, 
-                <a title="整数变字符串" href="http://php.net/manual/zh/function.chr.php" target="_blank">chr()</a>
-            </p>        
-        </ul>
-    </div>
-</ol>
 {include file="template/footer" /}
