@@ -1,4 +1,4 @@
-{include file="template/header" title="PHP 字符串" /}
+{include file="template/header" title="C# 字符串" /}
 <div class="list list-number">
     <div class="title">char - 表示Unocode字符</div>
     <div class="content closed">
@@ -215,6 +215,24 @@ string msg = string.Format("Hello Cnblogs, I am {0},Today is {1:yyyy-MM-dd}.", n
                     左对齐空格： string.Format("{0,-20}","左对齐20个字符");
                 </p>
             </div>
+
+			<div class="title">内插字符串</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+string name = "Mark";
+var date = DateTime.Now;
+
+// 字符串复合格式
+Console.WriteLine("Hello, {0}! Today is {1}, it's {2:HH:mm} now.", name, date.DayOfWeek, date);
+// 字符串内插
+Console.WriteLine($"Hello, {name}! Today is {date.DayOfWeek}, it's {date:HH:mm} now.");
+// Both calls produce the same output that is similar to:
+// Hello, Mark! Today is Wednesday, it's 19:40 now.
+</code>
+				</pre>
+				<a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/tokens/interpolated">字符串内插</a>	
+			</div>
 
             <div class="title">字符串转换</div>
             <div class="content open">
