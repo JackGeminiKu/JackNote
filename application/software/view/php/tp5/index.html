@@ -4,36 +4,40 @@
     <!--TP5安装&配置-->
     <div class="title">TP5安装&配置</div>
     <div class="content closed">
-        <!--TP5运行环境要求-->
-        <p><strong>TP5运行环境要求</strong></p>
-        <p>
-            PHP >= 5.4.0 (完美支持PHP7)<br>
-            PDO PHP Extension<br>
-            MBstring PHP Extension<br>
-            CURL PHP Extension<br>
-        </p>
+		<div class="list list-number">
+			<div class="title">TP5运行环境要求</div>
+			<div class="content open">
+				<p>
+					PHP >= 5.4.0 (完美支持PHP7)<br>
+					PDO PHP Extension<br>
+					MBstring PHP Extension<br>
+					CURL PHP Extension<br>
+				</p>
+			</div>
 
-        <!--配置Apache(以phpStudy为例)-->
-        <p><strong>配置Apache(以phpStudy为例)</strong></p>
+			<div class="title">配置Apache(以phpStudy为例)</div>
+			<div class="content open">
+				<p class="text-strong">使用虚拟主机</p>
+				<p>修改hosts文件(C:\Windows\System32\drivers\hosts)</p>
+				<pre class="prettyprint linenums lang-php"><code>127.0.0.1 tp5.com</code></pre>
 
-        <p>修改hosts文件(C:\Windows\System32\drivers\hosts)</p>
-        <pre class="prettyprint linenums lang-php"><code>127.0.0.1 tp5.com</code></pre>
-
-        <p>修改httpd.conf文件(C:\phpStudy\Apache\conf)</p>
-        <pre class="prettyprint linenums lang-php"><code># Virtual hosts
+				<p>修改httpd.conf文件(C:\phpStudy\Apache\conf)</p>
+				<pre class="prettyprint linenums lang-php"><code># Virtual hosts
 Include conf/extra/httpd-vhosts.conf</code></pre>
 
-        <p>修改httpd-vhosts.conf文件(C:\phpStudy\Apache\conf\extra)</p>
-        <pre class="prettyprint linenums lang-php">
+				<p>修改httpd-vhosts.conf文件(C:\phpStudy\Apache\conf\extra)</p>
+				<pre class="prettyprint linenums lang-php">
 <code>
 &lt;VirtualHost *:80>
     DocumentRoot "C:\phpStudy\WWW\tp5\public"
     ServerName tp5.com
 &lt;/VirtualHost>
 </code>
-        </pre>
+				</pre>
 
-        <p class="text-danger">改完重新启动Apache!</p>
+				<p class="text-danger">改完重新启动Apache!</p>
+			</div>
+		</div>
     </div>
 
     <!--入口文件-->
