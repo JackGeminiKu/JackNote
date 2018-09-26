@@ -1,17 +1,87 @@
 {include file="java_script/bootstrap/template/header" title="前端 Bootstrap" /}
 
+<div class="list list-number">
+    <div class="title">初学者</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+&lt;!doctype html>
+&lt;html lang="en">
+  &lt;head>
+    &lt;!-- Required meta tags -->
+    &lt;meta charset="utf-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    &lt;!-- Bootstrap CSS -->
+    &lt;link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    &lt;title>Hello, world!&lt;/title>
+  &lt;/head>
+  &lt;body>
+    &lt;h1>Hello, world!&lt;/h1>
+
+    &lt;!-- Optional JavaScript -->
+    &lt;!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    &lt;script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">&lt;/script>
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">&lt;/script>
+    &lt;script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">&lt;/script>
+  &lt;/body>
+&lt;/html>
+</code>
+		</pre>
+
+		<div class="list list-square">
+			<div class="title">HTML5 doctype</div>
+			<div class="content closed">
+				<p>Bootstrap 要求设置 HTML5 doctype。如果没有这个设置，你会看到一些奇怪的、不完整的样式，但是只要添加了这个设置就不会出现任何错误了。</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;!doctype html>
+&lt;html lang="en">
+  ...
+&lt;/html>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">响应式meta标签</div>
+			<div class="content closed">
+				<p>Bootstrap 本着 移动设备优先 的策略开发的，按照这一策略，我们优先为移动设备优化代码，然后根据每个组件的情况并利用 CSS 媒体查询（CSS media queries）技术为组件设置合适的样式。为了确保在所有设备上能够正确渲染并支持触控缩放，务必将设置 viewport 属性的 meta 标签添加到 <head> 中。如下所示。</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</code>
+				</pre>
+			</div>
+
+			<div class="title">盒模型</div>
+			<div class="content closed">
+				<p>为了在 CSS 中更直观的设置尺寸，我们将全局的 box-sizing 值从 content-box 修改为 border-box。这就确保了 padding 不会影响元素最终的宽度计算，但是这可能会导致第三方组件出现问题，例如 Google 地图和 Google 定制搜索。</p>
+				<p>在极少的情况下你需要重置 box-sizing 的值，请参考如下代码：</p>
+				<pre class="prettyprint linenums">
+<code>
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Reboot</div>
+			<div class="content closed">
+				<p>为了改善跨浏览器的渲染，我们使用 Reboot 修正跨浏览器和设备之间的不一致性，同时对常用的 HTML 元素设置统一的效果。</p>
+			</div>
+		</div>
+    </div>
+
+    <div class="title">XXX</div>
+    <div class="content closed">
+
+    </div>
+</div>
+
 <p><a href="https://getbootstrap.com/docs/4.0/utilities/borders/">边框</a></p>
 <p><a href="https://getbootstrap.com/docs/4.0/utilities/vertical-align/">垂直对齐</a></p>
-
-<p>
-	<a href="https://getbootstrap.com/docs/4.0/utilities/colors/" target="_blank">Color</a>
-
-	.............................................................................................
-	<a href="{:url('software/php/index', 'template=java_script-bootstrap-index')}" target="_self">模型</a>
-
-	<br>
-	.............
-
-</p>
+<p><a href="https://getbootstrap.com/docs/4.0/utilities/colors/" target="_blank">Color</a></p>
 
 {include file="java_script/bootstrap/template/footer" /}
