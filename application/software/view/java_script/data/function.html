@@ -9,13 +9,27 @@
 					<p class="text-strong">定义函数</p>
 					<pre class="prettyprint linenums">
 <code>
+// 无参函数	
 function fn1(){
     alert("Hello World!");
 }
-var fn = Fn1;    // 定义函数变量
+
+// 带参函数
+function bark ( dogName, dogWeight ) {
+    if ( dogWeight <= 10 ) {
+        return dogName + " says Yip";
+    } else {
+        return dogName + " says Woof";
+    }
+}
+
+// 定义函数变量
+var fn = Fn1;    
 </code>
 					</pre>
 
+				</div>
+				<div class="col-6">
 					<p class="text-strong">匿名函数</p>
 					<pre class="prettyprint linenums">
 <code>
@@ -25,25 +39,11 @@ var Fn2 = function(){    // 符号"="后面的是匿名函数
 </code>
 					</pre>
 				</div>
-				<div class="col-6">
-					<p class="text-strong">带参函数</p>
-					<pre class="prettyprint linenums">
-<code>
-function bark ( dogName, dogWeight ) {
-    if ( dogWeight <= 10 ) {
-        return dogName + " says Yip";
-    } else {
-        return dogName + " says Woof";
-    }
-}
-</code>
-					</pre>
-				</div>
 			</div>	
 
 			<div class="row">
 				<div class="col-12">
-					<p><span class="text-strong">函数覆盖</span>: 使用多个外部JavaScript文件时有一点要记住, 如果不同文件中有两个同名的函数, 后面的函数将覆盖前面函数的定义!</p>
+					<p class="text-remark"><span class="text-strong">函数覆盖</span>: 使用多个外部JavaScript文件时有一点要记住, 如果不同文件中有两个同名的函数, 后面的函数将覆盖前面函数的定义!</p>
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@ function bark ( dogName, dogWeight ) {
     </div>
 
     <div class="title">函数调用</div>
-    <div class="content closed">
+    <div class="content open">
 		<pre class="prettyprint linenums">
 <code>
 bark("Tom", 30);
