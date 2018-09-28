@@ -1,15 +1,47 @@
 {include file="template/header" title="JS 代码高亮" /}
 
 <div class="list list-number">
-    <div class="title">谷歌Prettify</div>
-    <div class="content closed">
-		<p><a href="https://github.com/google/code-prettify">Github</a></p>
-    </div>
+    <div class="title">Code Prettify(谷歌)</div>
+    <div class="content open">
+		<pre class="prettyprint linenums">
+<code>
+&lt;!doctype html>
+&lt;html lang="en">
+    &lt;head>
+        &lt;meta charset="utf-8"> 
+        &lt;link rel="stylesheet" type="text/css" href="loader/prettify.css">
+        &lt;link rel="stylesheet" type="text/css" href="loader/skins/sons-of-obsidian.css">    &lt;!-- 指定皮肤 -->
+        &lt;script type="text/javascript" src="loader/prettify.js">&lt;/script>
+        &lt;style>    &lt;!--显示行号时每行都显示, 而不是每5行显示一次-->
+            li.L0, li.L1, li.L2, li.L3,
+            li.L5, li.L6, li.L7, li.L8 {
+                list-style-type: decimal !important;
+            }
+        &lt;/style>
+        &lt;title>我是页面标题&lt;/title>
+    &lt;/head>
+    &lt;body onload="PR.prettyPrint()">    &lt;!--格式化代码-->
+        &lt;pre class="prettyprint lang-cpp linenums">    &lt;!--要格式化的代码块: C++, 显示行号-->
+class Voila {
+public:
+  // Voila
+  static const string VOILA = "Voila";
 
-    <div class="title">XXX</div>
-    <div class="content closed">
-
+  // will not interfere with embedded &lt;a href="#voila2">tags&lt;/a>.
+}
+        &lt;/pre>
+    &lt;/body>
+&lt;/html>
+</code>
+		</pre>
     </div>
 </div>
+
+<br>
+<p>
+	参考资料: <br>
+	<a href="https://github.com/google/code-prettify">Code Prettify at Github</a><br>
+	<a href="https://github.com/google/code-prettify/blob/master/docs/getting_started.md">Getting Started</a>
+</p>
 
 {include file="template/footer" /}
