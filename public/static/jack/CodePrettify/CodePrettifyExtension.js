@@ -17,18 +17,4 @@ $(function () {
 			$(this).children("li:last").remove();
 		}
 	})
-
-	// 自动替换转义字符
-	function htmlEscape(s) {
-		return s
-				.replace(/&/g, '&amp;')
-				.replace(/</g, '&lt;')
-				.replace(/>/g, '&gt;');
-	}
-
-	var codeBlocks = document.getElementsByTagName("code");
-	for (var i = 0; i < codeBlocks.length; ++i) {
-		var codeBlock = codeBlocks[i].innerHTML;
-		codeBlocks[i].innerHTML = htmlEscape(codeBlock);
-	}
 });

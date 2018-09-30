@@ -1,9 +1,34 @@
 {include file="java_script/bootstrap/template/header" title="前端 Bootstrap" /}
 
 <div class="list list-number">
-    <div class="title">Bootstrap环境安装</div>
+	<div class="title">下载Bootstrap</div>
     <div class="content closed">
-		<p><a href="https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip">下载Bootstrap</a></p>
+		<p><a href="https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip">下载链接</a></p>
+		<p class="text-strong">下载内容介绍</p>
+		<pre class="prettyprint linenums">
+<code>
+bootstrap/
+├── css/
+│   ├── bootstrap.css
+│   ├── bootstrap.css.map
+│   ├── bootstrap.min.css
+│   ├── bootstrap.min.css.map
+│   ├── bootstrap-theme.css
+│   ├── bootstrap-theme.css.map
+│   ├── bootstrap-theme.min.css
+│   └── bootstrap-theme.min.css.map
+├── js/
+│   ├── bootstrap.js
+│   └── bootstrap.min.js
+└── fonts/
+    ├── glyphicons-halflings-regular.eot
+    ├── glyphicons-halflings-regular.svg
+    ├── glyphicons-halflings-regular.ttf
+    ├── glyphicons-halflings-regular.woff
+    └── glyphicons-halflings-regular.woff2
+</code>
+		</pre>	
+		<p>上面展示的就是 Bootstrap 的基本文件结构：预编译文件可以直接使用到任何 web 项目中。我们提供了编译好的 CSS 和 JS (bootstrap.*) 文件，还有经过压缩的 CSS 和 JS (bootstrap.min.*) 文件。同时还提供了 CSS 源码映射表 (bootstrap.*.map) ，可以在某些浏览器的开发工具中使用。同时还包含了来自 Glyphicons 的图标字体，在附带的 Bootstrap 主题中使用到了这些图标。</p>
     </div>
 
     <div class="title">BootCDN</div>
@@ -11,42 +36,127 @@
 		<p>Bootstrap 中文网 为 Bootstrap 专门构建了免费的 CDN 加速服务，访问速度更快、加速效果更明显、没有速度和带宽限制、永久免费。BootCDN 还对大量的前端开源工具库提供了 CDN 加速服务，请进入BootCDN 主页查看更多可用的工具库。</p>
 		<pre class="prettyprint linenums">
 <code>
-<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+&lt;!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+&lt;link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+&lt;!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+&lt;link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+&lt;!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+&lt;script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">&lt;/script>
 </code>
 		</pre>
+    </div>
+
+	<div class="title">Boosstrap插件全部依赖jQuery</div>
+    <div class="content closed">
+		<p>Bootstrap 的所有 JavaScript 插件都依赖 jQuery，因此 jQuery 必须在 Bootstrap 之前引入，就像在基本模版中所展示的一样。在 bower.json 文件中 列出了 Bootstrap 所支持的 jQuery 版本。</p>
+    </div>	
+
+	<div class="title">基本模板</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+&lt;!DOCTYPE html>
+&lt;html lang="zh-CN">
+  &lt;head>
+    &lt;meta charset="utf-8">
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1">
+    &lt;!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	
+    &lt;title>Bootstrap 101 Template&lt;/title>
+
+    &lt;!-- Bootstrap -->
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    &lt;!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    &lt;!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    &lt;!--[if lt IE 9]>
+      &lt;script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js">&lt;/script>
+      &lt;script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js">&lt;/script>
+    &lt;![endif]-->
+  &lt;/head>
+  &lt;body>
+    &lt;h1>你好，世界！&lt;/h1>
+
+    &lt;!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    &lt;script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js">&lt;/script>
+    &lt;!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js">&lt;/script>
+  &lt;/body>
+&lt;/html>
+</code>
+		</pre>
+    </div>
+
+	<div class="title">Bootlint</div>
+    <div class="content closed">
+		<p><a href="https://github.com/twbs/bootlint">Bootlint</a> 是 Bootstrap 官方所支持的 HTML 检测工具。在使用了 Bootstrap 的页面上（没有对 Bootstrap 做修改和扩展的情况下），它能自动检查某些常见的 HTML 错误。纯粹的 Bootstrap 组件需要固定的 DOM 结构。Bootlint 就能检测你的页面上的这些“纯粹”的 Bootstrap 组件是否符合 Bootstrap 的 HTML 结构规则。建议将 Bootlint 加入到你的开发工具中，这样就能帮你在项目开发中避免一些简单的错误影响你的开发进度。</p>
+    </div>
+
+	<div class="title">禁止响应式布局</div>
+    <div class="content closed">
+		<p>Bootstrap 会自动帮你针对不同的屏幕尺寸调整你的页面，使其在各个尺寸的屏幕上表现良好。下面我们列出了如何禁用这一特性，就像这个非响应式布局实例页面一样。</p>
+		<p>禁止响应式布局有如下几步：</p>	
+		<p>
+			1) 移除 此 CSS 文档中提到的设置浏览器视口（viewport）的标签：<meta>。<br>
+			2) 通过为 .container 类设置一个 width 值从而覆盖框架的默认 width 设置，例如 width: 970px !important; 。请确保这些设置全部放在默认的 Bootstrap CSS 文件的后面。注意，如果你把它放到媒体查询中，也可以略去 !important 。<br>
+			3) 如果使用了导航条，需要移除所有导航条的折叠和展开行为。<br>
+			4) 对于栅格布局，额外增加 .col-xs-* 类或替换掉 .col-md-* 和 .col-lg-*。 不要担心，针对超小屏幕设备的栅格系统能够在所有分辨率的环境下展开。
+		</p>
+		<p>针对 IE8 仍然需要额外引入 Respond.js 文件（由于仍然利用了浏览器对媒体查询（media query）的支持，因此还需要做处理）。这样就禁用了 Bootstrap 对移动设备的响应式支持。</p>
+		<p>我们已经按照上面的步骤制作了一份<a href="https://v3.bootcss.com/examples/non-responsive/">案例</a>。仔细阅读其源码并对照上面的步骤实践一下吧。</p>	
+    </div>
+
+	<div class="title">浏览器和设备的支持情况</div>
+    <div class="content closed">
+		<p><a href="https://v3.bootcss.com/getting-started/#support">内容太多了, 还是看文档吧!</a></p>
+    </div>
+
+	<div class="title">HTML5文档类型</div>
+    <div class="content closed">
+		<p>Bootstrap 使用到的某些 HTML 元素和 CSS 属性需要将页面设置为 HTML5 文档类型。在你项目中的每个页面都要参照下面的格式进行设置。</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;!DOCTYPE html>
+&lt;html lang="zh-CN">
+  ...
+&lt;/html>
+</code>
+		</pre>	
+    </div>
+
+	<div class="title">移动设备优先</div>
+    <div class="content closed">
+		<p>Bootstrap 是移动设备优先的。为了确保适当的绘制和触屏缩放，需要在 &lt;head> 之中添加 viewport 元数据标签。</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;meta name="viewport" content="width=device-width, initial-scale=1">
+</code>
+		</pre>		
+		<p>在移动设备浏览器上，通过为视口（viewport）设置 meta 属性为 user-scalable=no 可以禁用其缩放（zooming）功能。这样禁用缩放功能后，用户只能滚动屏幕，就能让你的网站看上去更像原生应用的感觉。注意，这种方式我们并不推荐所有网站使用，还是要看你自己的情况而定！</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</code>
+		</pre>
+    </div>
+
+	<div class="title">排版&链接</div>
+    <div class="content closed">
+		<p>
+			Bootstrap 排版、链接样式设置了基本的全局样式。分别是：<br>
+			1) 为 body 元素设置 background-color: #fff;<br>
+			2) 使用 @font-family-base、@font-size-base 和 @line-height-base 变量作为排版的基本参数<br>
+			3) 为所有链接设置了基本颜色 @link-color ，并且当链接处于 :hover 状态时才添加下划线
+		</p>
+		<p>这些样式都能在 scaffolding.less 文件中找到对应的源码。</p>
     </div>
 </div>
 
 <p><a href="https://getbootstrap.com/docs/4.0/utilities/borders/">边框</a></p>
 <p><a href="https://getbootstrap.com/docs/4.0/utilities/vertical-align/">垂直对齐</a></p>
 <p><a href="https://getbootstrap.com/docs/4.0/utilities/colors/" target="_blank">Color</a></p>
-
-<!--<script type="text/javascript">
-	(function () {
-		function htmlEscape(s) {
-			return s
-					.replace(/&/g, '&amp;')
-					.replace(/</g, '&lt;')
-					.replace(/>/g, '&gt;');
-		}
-
-//		var codeList = document.getElementsByClassName("code");
-//		for (var i = 0; i < codeList.length; ++i) {
-//			var codeContent = htmlEscape(codeList[i].innerHTML);
-//			codeContent = codeContent.replace(
-//					/&lt;script src[\s\S]*?&gt;&lt;\/script&gt;|&lt;!--\?[\s\S]*?--&gt;|&lt;pre\b[\s\S]*?&lt;\/pre&gt;/g,
-//					'<span class="operative">$&<\/span>');
-//
-//			codeList[i].innerHTML = codeContent;
-//		}
-	})();
-</script>-->
 
 {include file="java_script/bootstrap/template/footer" /}
