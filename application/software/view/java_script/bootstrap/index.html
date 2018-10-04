@@ -153,6 +153,401 @@ bootstrap/
 		</p>
 		<p>这些样式都能在 scaffolding.less 文件中找到对应的源码。</p>
     </div>
+
+	<div class="title">布局容器</div>
+    <div class="content closed">
+		<p>Bootstrap 需要为页面内容和栅格系统包裹一个 .container 容器。我们提供了两个作此用处的类。注意，由于 padding 等属性的原因，这两种 容器类不能互相嵌套。</p>
+		<p>.container 类用于固定宽度并支持响应式布局的容器。</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;div class="container">
+  ...
+&lt;/div>
+</code>
+		</pre>
+		<p>.container-fluid 类用于 100% 宽度，占据全部视口（viewport）的容器。</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;div class="container-fluid">
+  ...
+&lt;/div>
+</code>
+		</pre>
+    </div>
+
+	<div class="title">栅格系统</div>
+	<div class="content closed">
+		<p>Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。它包含了易于使用的预定义类，还有强大的mixin 用于生成更具语义的布局。</p>
+		<p>栅格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局，你的内容就可以放入这些创建好的布局中。下面就介绍一下 Bootstrap 栅格系统的工作原理：</p>
+		<p>
+			1) “行（row）”必须包含在 .container （固定宽度）或 .container-fluid （100% 宽度）中，以便为其赋予合适的排列（aligment）和内补（padding）。<br>
+			2) 你的内容应当放置于“列（column）”内，并且，只有“列（column）”可以作为行（row）”的直接子元素。<br>
+			3) 类似 .row 和 .col-xs-4 这种预定义的类，可以用来快速创建栅格布局。Bootstrap 源码中定义的 mixin 也可以用来创建语义化的布局。<br>
+			4) 栅格系统中的列是通过指定1到12的值来表示其跨越的范围。例如，三个等宽的列可以使用三个 .col-xs-4 来创建。<br>
+			5) 如果一“行（row）”中包含了的“列（column）”大于 12，多余的“列（column）”所在的元素将被作为一个整体另起一行排列. <br>
+			6) 
+		</p>
+		<p class="text-strong">通过下表可以详细查看 Bootstrap 的栅格系统是如何在多种屏幕设备上工作的。</p>
+		<table class="table table-bordered table-sm w-75">
+			<tbody>
+				<tr>
+					<td></td>
+					<td>超小屏幕 手机 &lt;768px</td>
+					<td>小屏幕 平板 &gt;=768px</td>
+					<td>中等屏幕 桌面显示器 &gt;=992px</td>
+					<td>大屏幕 大桌面显示器 &gt;=1200px</td>
+				</tr>
+				<tr>
+					<td>栅格系统行为</td>
+					<td>总是水平排列</td>
+					<td colspan="3">开始是堆叠在一起的,当大于这些阀值时讲变为水平排列</td>
+				</tr>
+				<tr>
+					<td>.container最大宽度</td>
+					<td>None(自动)</td>
+					<td>750px</td>
+					<td>970px</td>
+					<td>1170px</td>
+				</tr>
+				<tr>
+					<td>类前缀</td>
+					<td>.col-xs-</td>
+					<td>.col-sm-</td>
+					<td>.col-md-</td>
+					<td>.col-lg-</td>
+				</tr>
+				<tr>
+					<td>列数</td>
+					<td colspan="4">12</td>
+				</tr>
+				<tr>
+					<td>最大列宽</td>
+					<td>自动</td>
+					<td>~62px</td>
+					<td>~81px</td>
+					<td>~97px</td>
+				</tr>
+				<tr>
+					<td>槽(gutter)宽</td>
+					<td colspan="4">30px(每列左右均有15px)</td>
+				</tr>
+				<tr>
+					<td>可嵌套</td>
+					<td colspan="4">是</td>
+				</tr>
+				<tr>
+					<td>偏移(Offsets)</td>
+					<td colspan="4">是</td>
+				</tr>
+				<tr>
+					<td>列排序</td>
+					<td colspan="4">是</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="list list-number">
+			<div class="title">列偏移</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">嵌套列</div>
+			<div class="content open">
+
+			</div>
+
+			<div class="title">列排序</div>
+			<div class="content closed">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="title">排版</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">标题</div>
+			<div class="content closed">
+				<a href="https://v3.bootcss.com/css/#type-headings">官方文档</a>
+			</div>
+
+			<div class="title">页面正文</div>
+			<div class="content closed">
+				<p>Bootstrap 将全局 font-size 设置为 14px，line-height 设置为 1.428。这些属性直接赋予 <body> 元素和所有段落元素。另外，<p> （段落）元素还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。</p>
+			</div>
+
+			<div class="title">内联文本元素</div>
+			<div class="content closed">
+				<p><mark>可以使用mark标签高亮文本</mark></p>
+				<p><del>对于被删除的文本, 可以使用del标签</del></p>
+				<p><s>对于无用的文本, 可以使用s标签</s></p>
+				<p><ins>额外插入的文本, 可以使用ins标签</ins></p>
+				<p><u>为文本添加下划线, 使用u标签</u></p>
+				<p><small>对于不需要强调的inline或block类型的文本，使用 small 标签包裹，其内的文本将被设置为父容器字体大小的 85%。 你还可以为行内元素赋予 .small 类以代替任何 small 元素。</small></p>
+				<p><strong>通过使用strong元素, 强调一段文本.</strong></p>
+				<p><em>通过使用em元素, 用斜体强调一段文本</em></p>
+			</div>
+
+			<div class="title">对齐</div>
+			<div class="content closed">
+				<p>通过文本对齐类，可以简单方便的将文字重新对齐。</p>
+				<p class="text-left">Left aligned text.</p>
+				<p class="text-center">Center aligned text.</p>
+				<p class="text-right">Right aligned text.</p>
+				<p class="text-justify">Justified text.</p>
+				<p class="text-nowrap">No wrap text.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;p class="text-left">Left aligned text.&lt;/p>
+&lt;p class="text-center">Center aligned text.&lt;/p>
+&lt;p class="text-right">Right aligned text.&lt;/p>
+&lt;p class="text-justify">Justified text.&lt;/p>
+&lt;p class="text-nowrap">No wrap text.&lt;/p>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">改变大小写</div>
+			<div class="content closed">
+				<p class="text-lowercase">Lowercased text.</p>
+				<p class="text-uppercase">Uppercased text.</p>
+				<p class="text-capitalize">Capitalized text.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;p class="text-lowercase">Lowercased text.&lt;/p>
+&lt;p class="text-uppercase">Uppercased text.&lt;/p>
+&lt;p class="text-capitalize">Capitalized text.&lt;/p>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">缩略语</div>
+			<div class="content closed">
+				<p>当鼠标悬停在缩写和缩写词上时就会显示完整内容，Bootstrap 实现了对 HTML 的 &lt;abbr> 元素的增强样式。缩略语元素带有 title 属性，外观表现为带有较浅的虚线框，鼠标移至上面时会变成带有“问号”的指针。如想看完整的内容可把鼠标悬停在缩略语上（对使用辅助技术的用户也可见）, 但需要包含 title 属性。</p>
+				<p><abbr title="HyperText Markup Language">HTML</abbr> is the best thing since sliced bread.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;abbr title="HyperText Markup Language">HTML&lt;/abbr>
+</code>
+				</pre>
+
+				<p>为缩略语添加 .initialism 类，可以让 font-size 变得稍微小些。</p>
+				<p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr> is the best thing since sliced bread.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;abbr title="HyperText Markup Language" class="initialism">HTML&lt;/abbr>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">地址</div>
+			<div class="content closed">
+				<address>
+					<strong>Twitter, Inc.</strong><br>
+					1355 Market Street, Suite 900<br>
+					San Francisco, CA 94103<br>
+					<abbr title="Phone">P:</abbr> (123) 456-7890
+				</address>
+
+				<address>
+					<strong>Full Name</strong><br>
+					<a href="mailto:#">first.last@example.com</a>
+				</address>
+				<pre class="prettyprint linenums">
+<code>
+&lt;address>
+  &lt;strong>Twitter, Inc.&lt;/strong>&lt;br>
+  1355 Market Street, Suite 900&lt;br>
+  San Francisco, CA 94103&lt;br>
+  &lt;abbr title="Phone">P:&lt;/abbr> (123) 456-7890
+&lt;/address>
+
+&lt;address>
+  &lt;strong>Full Name&lt;/strong>&lt;br>
+  &lt;a href="mailto:#">first.last@example.com&lt;/a>
+&lt;/address>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">引用</div>
+			<div class="content closed">
+				<div class="list list-square">
+					<div class="title">默认引用样式</div>
+					<div class="content open">
+						<p>将任何HTML元素包裹在blockquote元素中即可表现为引用样式。对于直接引用，我们建议用p标签。</p>
+						<blockquote>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						</blockquote>
+						<pre class="prettyprint linenums">
+<code>
+&lt;blockquote>
+  &lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.&lt;/p>
+&lt;/blockquote>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">多种引用样式</div>
+					<div class="content open">
+						<p class="text-strong">命名来源</p>
+						<p>添加 &lt;footer> 用于标明引用来源。来源的名称可以包裹进 &lt;cite>标签中。</p>
+						<blockquote>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+							<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+						</blockquote>
+						<pre class="prettyprint linenums">
+<code>
+&lt;blockquote>
+  &lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.&lt;/p>
+  &lt;footer>Someone famous in &lt;cite title="Source Title">Source Title&lt;/cite>&lt;/footer>
+&lt;/blockquote>
+</code>
+						</pre>
+
+						<p class="text-strong">右对齐</p>
+						<p>通过赋予 .blockquote-reverse 类可以让引用呈现内容右对齐的效果。</p>
+						<blockquote class="blockquote-reverse">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+							<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+						</blockquote>
+						<pre class="prettyprint linenums">
+<code>
+&lt;blockquote class="blockquote-reverse">
+  &lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.&lt;/p>
+  &lt;footer>Someone famous in &lt;cite title="Source Title">Source Title&lt;/cite>&lt;/footer>
+&lt;/blockquote>
+</code>
+						</pre>	
+					</div>
+				</div>
+			</div>
+
+			<div class="title">列表</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">无序列表</div>
+					<div class="content closed">
+						<ul>
+							<li>Web前端开发入门</li>
+							<li>PHP开发入门</li>
+						</ul>
+						<pre class="prettyprint linenums">
+<code>
+&lt;ul>
+	&lt;li>Web前端开发入门&lt;/li>
+	&lt;li>PHP开发入门&lt;/li>
+&lt;/ul>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">有序列表</div>
+					<div class="content closed">
+						<p>移除了默认的 list-style 样式和左侧外边距的一组元素（只针对直接子元素）</p>
+						<ol>
+							<li>Web前端开发入门</li>
+							<li>PHP开发入门</li>
+						</ol>
+						<pre class="prettyprint linenums">
+<code>
+&lt;ol>
+	&lt;li>Web前端开发入门&lt;/li>
+	&lt;li>PHP开发入门&lt;/li>
+&lt;/ol>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">无样式列表</div>
+					<div class="content closed">
+						<ul class="list-unstyled">
+							<li>Web前端开发入门</li>
+							<li>PHP开发入门</li>
+						</ul>
+						<pre class="prettyprint linenums">
+<code>
+&lt;ul class="list-unstyled">
+	&lt;li>Web前端开发入门&lt;/li>
+	&lt;li>PHP开发入门&lt;/li>
+&lt;/ul>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">内联列表</div>
+					<div class="content closed">
+						<p>通过设置 display: inline-block; 并添加少量的内补（padding），将所有元素放置于同一行。</p>
+						<ul class="list-inline">
+							<li>Web前端开发入门</li>
+							<li>PHP开发入门</li>
+						</ul>
+						<pre class="prettyprint linenums">
+<code>
+&lt;ul class="list-inline">
+	&lt;li>Web前端开发入门&lt;/li>
+	&lt;li>PHP开发入门&lt;/li>
+&lt;/ul>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">短语列表</div>
+					<div class="content closed">
+						<dl>
+							<dt>教程1</dt>
+							<dd>Web前端开发入门</dd>
+							<dt>教程2</dt>
+							<dd>PHP开发入门</dd>
+						</dl>
+						<pre class="prettyprint linenums">
+<code>
+&lt;dl>
+	&lt;dt>教程1&lt;/dt>
+	&lt;dd>Web前端开发入门&lt;/dd>
+	&lt;dt>教程2&lt;/dt>
+	&lt;dd>PHP开发入门&lt;/dd>
+&lt;/dl>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">短语列表(水平)</div>
+					<div class="content closed">
+						<p>.dl-horizontal 可以让 &lt;dl> 内的短语及其描述排在一行。开始是像 &lt;dl> 的默认样式堆叠在一起，随着导航条逐渐展开而排列在一行。</p>
+						<dl class="dl-horizontal">
+							<dt>教程1</dt>
+							<dd>Web前端开发入门</dd>
+							<dt>教程2</dt>
+							<dd>PHP开发入门</dd>
+						</dl>
+						<pre class="prettyprint linenums">
+<code>
+&lt;dl class="dl-horizontal">
+	&lt;dt>教程1&lt;/dt>
+	&lt;dd>Web前端开发入门&lt;/dd>
+	&lt;dt>教程2&lt;/dt>
+	&lt;dd>PHP开发入门&lt;/dd>
+&lt;/dl>
+</code>
+						</pre>
+						<p>自动截断: 通过 text-overflow 属性，水平排列的描述列表将会截断左侧太长的短语。在较窄的视口（viewport）内，列表将变为默认堆叠排列的布局方式。</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+    </div>
+
+	<div class="title">代码</div>
+	<div class="content closed">
+		<p>包括内联代码, 用户输入, 代码块, 变量 & 程序输出, 详见<a href="https://v3.bootcss.com/css/#code">官方文档</a>.</p>
+	</div>
+	
+	<div class="title">表格</div>
+    <div class="content closed">
+    </div>
 </div>
 
 <p><a href="https://getbootstrap.com/docs/4.0/utilities/borders/">边框</a></p>
