@@ -123,7 +123,7 @@ class Index
 	<!--隐藏入口文件: index.php-->
 	<div class="title">隐藏入口文件</div>
 	<div class="content closed">
-		<p>以Apache为例, 需要在入口文件的同级添加.htaccess文件(官方默认只带了改文件), 内容如下:</p>
+		<p>可以去掉URL地址里面的入口文件index.php, 但是需要额外配置WEB服务器的重写规则. 以Apache为例, 需要在入口文件的同级添加.htaccess文件(官方默认只带了改文件), 内容如下:</p>
 		<pre class="prettyprint linenums"><code>&lt;IfModule mod_rewrite.c>
 Options +FollowSymlinks -Multiviews
 RewriteEngine on
@@ -139,13 +139,13 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 	<div class="title">定义路由 - route.php</div>
 	<div class="content closed">
 		<div class="list list-number">
-	    	<div class="title">路由规则在哪定义?</div>
-	    	<div class="content closed">
+			<div class="title">路由规则在哪定义?</div>
+			<div class="content closed">
 				<p>无论是配置方式还是通过Route类的方法定义路由, 都统一放到路由配置文件application/route.php文件中!</p> 
-	    	</div>
+			</div>
 
-		    <div class="title">各种路由范例</div>
-    		<div class="content closed">
+			<div class="title">各种路由范例</div>
+			<div class="content closed">
 				<p class="text-strong">hello开头, 并且有参数</p> 
 				<pre class="prettyprint linenums lang-php"><code>return [
     'hello/:name' => 'index/index/hello',    // 所有以hello开头, 后面跟着参数的访问, 都会路由到index模组的index控制器的hello操作方法, 并且后面跟着的参数是name参数!
