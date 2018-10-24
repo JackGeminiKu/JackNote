@@ -2,7 +2,7 @@
 
 <div class="list list-number">
     <div class="title">HTML5 标签</div>
-    <div class="content open">
+    <div class="content closed">
 		<div class="container ml-0">
 			<div class="row">
 				<div class="col-12 text-strong">HTML文档</div>
@@ -326,6 +326,719 @@
     </div>
 
     <div class="title">HTML5 模板</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+&lt;!doctype html>
+&lt;html lang="en">
+    &lt;head>
+        &lt;meta charset="utf-8"> 
+        &lt;title>我是页面标题&lt;/title>
+    &lt;/head>
+    &lt;body>
+        ....
+    &lt;/body>
+&lt;/html>
+</code>
+		</pre>
+		<div class="list list-number">
+			<div class="title">指定页面文档类型: &lt;!doctype html></div>
+			<div class="content closed">
+				<p>doctype定义要放在最上面, 上面是HTML5的doctype.</p>
+				<p>备注: <br>
+					HTML不会再有版本6, 7, 8 ...指定标准的人已经把这个规范变成了一个活的标准, 它会随着技术的发展形成相应的文档. <br>
+					可以在http://validator.w3.org, http://jigasw.w3.org/css-validator/, 验证是否为标准的HTML5.</p>
+			</div>
+
+			<div class="title">指定字符编码: &lt;meta charset="utf-8"></div>
+			<div class="content closed">
+				<p>要放到&lt;head>元素中所有其他元素的上面. 采用Unicode, 一种编码就可以表示所有语言. 文档编码要和文件编码保持一致, 推荐使用UTF-8编码.</p>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">HTML5 元素</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">内联元素</div>
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">文本</div>
+					<div class="content closed">
+						<p>文本是一种特殊的内联元素. 浏览器会把它分解为适当大小的内联元素, 以适应给定的空间.</p>
+						<div class="list list-square">
+							<div class="title">字符实体</div>
+							<div class="content closed">
+								<p>
+									因为浏览器要用<和>来作为开始和结束标记, 如果在HTML内容中使用这两个字符, 就会有问题. 因此, HTML提供了一种简便的方法, 可以使用一种称为字符实体的简单缩写来指定这样一些特殊字符. <br>
+									另外, 你可能希望在Web页面中使用某个字符, 但在你的编辑器里却无法输入(比如版权符号), 也可以使用字符实体. 常用字符实体如下:
+								</p>
+								<table class="table table-bordered table-sm w-75">
+									<tbody>
+										<tr>
+											<td>字符</td>
+											<td>名称</td>
+											<td>实体名</td>
+											<td>字符</td>
+											<td>名称</td>
+											<td>实体名</td>
+										</tr>
+										<tr>
+											<td>¥</td>
+											<td>人民币符号: 元</td>
+											<td>&amp;yen;</td>
+											<td>©</td>
+											<td>版权</td>
+											<td>&amp;copy;</td>
+										</tr>
+										<tr>
+											<td>®</td>
+											<td>注册商标</td>
+											<td>&amp;reg;</td>
+											<td>™</td>
+											<td>商标TM</td>
+											<td>&amp;trade;</td>
+										</tr>
+										<tr>
+											<td>·</td>
+											<td>间隔符号</td>
+											<td>&amp;middot;</td>
+											<td>"</td>
+											<td>双引号</td>
+											<td>&amp;quot;</td>
+										</tr>
+										<tr>
+											<td>&</td>
+											<td>&符号</td>
+											<td>&amp;amp;</td>
+											<td>&lt;</td>
+											<td>左尖括号（小于号）</td>
+											<td>&amp;lt;</td>
+										</tr>
+										<tr>
+											<td>&gt;</td>
+											<td>右尖括号(大于号)</td>
+											<td>&amp;gt;</td>
+											<td>　</td>
+											<td>半角空格</td>
+											<td>&amp;nbsp;</td>
+										</tr>
+										<tr>
+											<td>×</td>
+											<td>乘号</td>
+											<td>&amp;times;</td>
+											<td>÷</td>
+											<td>除号</td>
+											<td>&amp;divide;</td>
+										</tr>
+									</tbody>
+								</table>
+								<p>
+									或者&#ascii码值(十进制); <br>
+									要详尽的字符实体清单, 则可以访问: <a href="http://www.unicode.org/charts/">http://www.unicode.org/charts/</a>
+								</p>
+							</div>
+
+							<div class="title">文件分隔符</div>
+							<div class="content closed">
+								<p>
+									不同操作系统使用不同的文件分隔符(例如, Windows使用"\"而不是"/"), 但是在Web上, 我们选择了一个通用分隔符, 所有OS都要使用这个分隔符. 所以, 不管你使用Mac, Windows, Linux还是其他OS, 在HTML的路径中都要使用"/".
+								</p>
+								<p>
+									另外, 为网站选择的文件名或文件夹名中尽量不要使用空格.
+								</p>
+							</div>
+
+							<div class="title">空白字符</div>
+							<div class="content closed">
+								<p>
+									浏览器会忽略HTML文档中的制表符, 回车和大部分空格. 实际上, 它们会根据你的标记来确定在哪里换行或分段. 
+									那么既然浏览器会忽略这些空白符, 我们为什么还要插入自己的格式呢? 这是为了帮助我们在编辑HTML时能够更容易的读懂文档.
+								</p>
+								<p>
+									空白字符, 例如换行(回车), 空格和Tab(制表符), 都被认为是空格, 但是HTML只认一个空格.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">图片</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;img src="drinks.gif" alt="如果图片没有显示, 就显示这段文字吧!" width="48" height="100">
+</code>
+						</pre>
+						<p>src属性可以使用相对路径, 绝对路径, 还可以使用URL. 对于同一网站上的链接和图像, 推荐使用相对路径.</p>
+						<p class="text-strong">图片大小</p>
+						<p>
+							可以使用width属性和height属性来调整一个图像的大小, 不过这不是一个好主意. 因为如果这么做, 浏览器仍会下载完整大小的图像, 然后浏览器会调整图像大小, 这样会浪费流量. 
+							width属性和height属性实际上是帮助浏览器, 确定要为这个图像预留多大的空间. 如果使用这两个属性, 则它们应当与图像的实际宽度和高度一致.
+						</p>
+						<p>
+							可以使用缩略图技术, 先显示小图像, 点击小图像链接后, 再跳转到大图像!
+						</p>	
+						<p class="text-danger">
+							注意: 图像与其他内联元素不同. 图像的宽度, 内边距和外边距属性都表现的更像是块元素的相应属性.
+						</p>
+						<p class="text-strong">
+							常见图片格式
+						</p>
+						<table class="table table-bordered table-sm">
+							<tbody>
+								<tr>
+									<td></td>
+									<td>JPEG</td>
+									<td>PNG</td>
+									<td>GIF</td>
+								</tr>
+								<tr>
+									<td>使用场合</td>
+									<td>适合连续色图像, 如照片.</td>
+									<td>适合单色图像和线条构成的图像, 如logo, 剪贴画和图像中的小文本</td>
+									<td>同PNG</td>
+								</tr>
+								<tr>
+									<td>支持颜色数量</td>
+									<td>1600万</td>
+									<td>包含上百万种不同颜色的图像. PNG有3种: PNG-8, PNG-24和PNG-32, 取决于你需要表示多少种颜色.</td>
+									<td>只有256种!</td>
+								</tr>
+								<tr>
+									<td>压缩格式</td>
+									<td>有损</td>
+									<td>无损</td>
+									<td>无损</td>
+								</tr>
+								<tr>
+									<td>透明支持</td>
+									<td>不支持</td>
+									<td>允许将多种颜色设置为"透明"</td>
+									<td>只允许将一种颜色设置为"透明"</td>
+								</tr>
+								<tr>
+									<td>文件大小</td>
+									<td>较小</td>
+									<td>取决于使用的颜色数</td>
+									<td>GIF一般比相应的JPEG文件大</td>
+								</tr>
+								<tr>
+									<td>动画支持</td>
+									<td>NO</td>
+									<td>NO</td>
+									<td>YES</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="title">强调文本</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;em>我是文本&lt;/em> or &lt;strong>我是文本&lt;/strong>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">引用</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;q>引用的内容&lt;/q>
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">块元素</div>
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">标题</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;h1>标题1&lt;/h1>
+&lt;h2>标题2&lt;/h2>
+&lt;h3>标题3&lt;/h3>
+&lt;h4>标题4&lt;/h4>
+&lt;h5>标题5&lt;/h5>
+&lt;h6>标题6&lt;/h6>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">段落</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;p>我是段落&lt;p>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">列表</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;!--有序列表-->
+&lt;ol>
+    &lt;li>黄&lt;/li>
+    &lt;li>绿&lt;/li>
+    &lt;li>红&lt;/li>
+&lt;/ol>
+
+&lt;!--无序列表-->
+&lt;ul>
+    &lt;li>黄&lt;/li>
+    &lt;li>绿&lt;/li>
+    &lt;li>红&lt;/li>
+&lt;ul>
+
+&lt;!--定义列表-->
+&lt;dl>
+    &lt;dt>标题&lt;/dt>
+    &lt;dd>内容&lt;/dd>
+    &lt;dt>标题&lt;/dt>
+    &lt;dd>内容&lt;/dd>
+&lt;/dl>
+</code>
+						</pre>
+						<p class="text-strong">列表样式</p>
+						<a href="https://www.w3.org/wiki/CSS/Properties/list-style-type">list-style-type</a>,
+						<a href="https://www.w3.org/community/webed/wiki/CSS/Properties/list-style-image">list-style-image</a>,
+						<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position">list-style-position</a>
+					</div>
+
+					<div class="title">Details & Summary</div>
+					<div class="content closed">
+						<p>The &lt;details> element represents a disclosure widget from which the user can obtain additional information or controls.</p>
+						<details>
+							<summary><label for="fn">Name & Extension:</label></summary>
+							<p><input type=text id="fn" name="fn" value="Pillar Magazine.pdf" /></p>
+							<p><label><input type="checkbox" name="ext" checked="checked" /> Hide extension</label></p>
+						</details>
+						<pre class="prettyprint linenums">
+<code>
+&lt;details>
+    &lt;summary>&lt;label for="fn">Name & Extension:&lt;/label>&lt;/summary>
+    &lt;p>&lt;input type=text id="fn" name="fn" value="Pillar Magazine.pdf" />&lt;/p>
+    &lt;p>&lt;label>&lt;input type="checkbox" name="ext" checked="checked" /> Hide extension&lt;/label>&lt;/p>
+&lt;/details>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">块引用</div>
+					<div class="content closed">
+						<p>&lt;q>用于短引用, 作为现有段落中的一部分, 而&lt;blockquote>元素用于较长的引用, 需要单独显示.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;blockquote>
+    Passing cars, 
+    When you can't see,
+    May get you,
+    A glimpse,
+    of eternity.
+&lt;/blockquote>
+</code>
+						</pre>
+					</div>
+
+					<div class="title">Table</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;table>
+    &lt;caption>Characteristics with positive and negative sides&lt;/caption>
+    &lt;thead>
+        &lt;tr>
+            &lt;th>Characteristic&lt;/th>
+            &lt;th>Negative&lt;/th>
+            &lt;th>Positive&lt;/th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;tr>
+            &lt;th>Mood&lt;/th>
+            &lt;td>Sad&lt;/td>
+            &lt;td>Happy&lt;/td>
+        &lt;/tr>
+        &lt;tr>
+            &lt;th>Grade&lt;/th>
+            &lt;td>Failing&lt;/td>
+            &lt;td>Passing&lt;/td>
+        &lt;/tr>
+    &lt;/tbody>
+&lt;/table>
+</code>
+						</pre>
+
+						<div class="list list-square">
+							<div class="title">表格&表格布局</div>
+							<div class="content closed">
+								<p>
+									在HTML时代, 使用表格来建立布局确实很常见, 但那是在CSS出现之前, 坦率地讲, 那时要建立复杂的布局没有更好的办法了. 不过时至今日, 利用表格建立布局实在是一种糟糕的方法. 如果采用这种方法, 不仅很难建立正确的布局, 而且还很难维护. 实际上, 使用CSS表格显示会好得多, 不仅可以得到表格布局, 而且不必真正创建一个HTML表格.
+								</p>
+								<p>
+									确实需要在页面中创建表格数据时, 就是用HTML表格. 不过, 如果只需要对其他类型的内容使用一种类似表格的表现方式, 就可以使用CSS表格显示布局.
+								</p>
+							</div>
+
+							<div class="title">单元格样式</div>
+							<div class="content closed">
+								<img src="__STATIC__/image/JavaScript/表格单元格.png">
+
+								<p class="text-strong">边框间距</p>
+								<p>表格单元格确实有内边距和边框, 但是, 表格没有外边距, 而是有一个border-spacing(边框间距)属性, 但是这是针对整个表格定义的, 不能单独地设置各个表格单元格的"外边距".</p>
+								<pre class="prettyprint linenums">
+<code>
+table {
+    border-spacing: 10px 30px;
+}
+</code>
+								</pre>
+
+								<p class="text-strong">边框折叠: border-collapse</p>
+								<p>可以使用border-collapse属性来折叠边框, 使单元格之间根本没有边框间距. 这样一来, 浏览器会忽略表格上设置的所有边框间距, 还会把紧挨着的两个边框合并成一个边框. 这样两个边框就会"折叠"为一个边框.</p>	
+								<pre class="prettyprint linenums">
+<code>
+table {
+    border-collapse: collapse;
+}
+</code>
+								</pre>
+
+								<p class="text-strong">跨越多行&多列</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;td rowspan="2">...&lt;/td>
+&lt;td colspan="2">...&lt;/td>
+</code>
+								</pre>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">Form</div>
+					<div class="content closed">
+						<p>表单实际上就是一个包含输入域的Web页面, 允许你输入信息. 提交表单时, 这些信息会打包并发送到一个Web服务器, 由一个服务器脚本处理. 处理的结果是一个全新的HTML页面, 它将返回给浏览器.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;form action="页面URL" method="POST">
+    &lt;input type="text" id="songTextInput" size="40" placeholder="Song name">
+    &lt;input type="button" id="addButton" value="Add Song">
+&lt;/form>
+</code>
+						</pre>	
+
+						<div class="list list-number">
+							<div class="title">Method: GET or POST</div>
+							<div class="content closed">
+								<p>
+									需要添加书签时, 使用GET: 如果你希望用户能够对提交表单后的结果页面加书签, 就必须使用GET, 因为如果使用POST, 返回的结果页面就无法添加书签了.
+								</p>
+								<p>
+									含有敏感数据时, 使用POST: 还有一种情况你肯定不想使用GET, 比如你的表单中的数据是私有的, 如信用卡或一个口令. 因为URL是明文可以看到, 别人只要查看你的浏览器历史, 就能看到这些信息. 或者如果将GET结果设置了标签, 别人也会很容易看到这些私有信息.
+								</p>
+								<p>
+									使用了&lt;textarea>, 使用POST: 最后, 如果你使用了一个&lt;textarea>, 就应该使用POST, 因为可能会发送大量数据. GET和POST请求对于发送的数据量都有一个限制, 不过对POST请求的限制通常要宽松得多.
+								</p>
+							</div>
+
+							<div class="title">表单输入元素</div>
+							<div class="content closed">
+								<table class="table table-bordered table-sm">
+									<tbody>
+										<tr>
+											<td colspan="3" class="text-strong">&lt;input>表单元素 (&lt;input>是一个内联函数)</td>
+										</tr>
+										<tr>
+											<td>文本输入</td>
+											<td><input type="text" name="fullname" value="初始值" maxlength="100"></td>
+											<td>&lt;input type="text" name="fullname" value="初始值" maxlength="100"></td>
+										</tr>
+										<tr>
+											<td>提交输入</td>
+											<td><input type="submit" value="按钮上显示地文字"></td>
+											<td>&lt;input type="submit" value="按钮上显示地文字"></td>
+										</tr>
+										<tr>
+											<td>单选按钮</td>
+											<td>
+												<input type="radio" name="hotornot" value="hot" checked><br>
+												<input type="radio" name="hotornot" value="not">
+											</td>
+											<td>
+												&lt;input type="radio" name="hotornot" value="hot" checked>    // 同名单选按钮组成一组<br>
+												&lt;input type="radio" name="hotornot" value="not">
+											</td>
+										</tr>
+										<tr>
+											<td>复选框</td>
+											<td>
+												<input type="checkbox" name="spice" value="Salt" checked><br>
+												<input type="checkbox" name="spice" value="Pepper">
+											</td>
+											<td>
+												&lt;input type="checkbox" name="spice" value="Salt" checked>    // 同名复选框组成一个组<br>
+												&lt;input type="checkbox" name="spice" value="Pepper">
+											</td>
+										</tr>
+										<tr>
+											<td>颜色输入</td>
+											<td><input type="color"></td>
+											<td>&lt;input type="color"></td>
+										</tr>
+										<tr>
+											<td>日期输入</td>
+											<td><input type="date"></td>
+											<td>&lt;input type="date"></td>
+										</tr>
+										<tr>
+											<td>email输入</td>
+											<td><input type="email"></td>
+											<td>&lt;input type="email"></td>
+										</tr>
+										<tr>
+											<td>url输入</td>
+											<td><input type="url"></td>
+											<td>&lt;input type="url"></td>
+										</tr>
+										<tr>
+											<td>tel输入</td>
+											<td><input type="tel"></td>
+											<td>&lt;input type="tel"></td>
+										</tr>
+										<tr>
+											<td>数字输入</td>
+											<td>
+												<input type="range" min="0" max="20" step="5"><br>
+												<input type="number" min="0" max="20">
+											</td>
+											<td>
+												&lt;input type="range" min="0" max="20" step="5"><br>
+												&lt;input type="number" min="0" max="20">
+											</td>
+										</tr>
+										<tr>
+											<td>密码输入</td>
+											<td><input type="password" name="secret"></td>
+											<td>&lt;input type="password" name="secret"></td>
+										</tr>
+										<tr>
+											<td>文件输入</td>
+											<td><input type="file" name="doc"></td>
+											<td>
+												&lt;input type="file" name="doc"><br>
+												// 创建一个文件输入控件, 允许你选择一个文件, 表单提交时, 文件内容会随其他表单数据一起发给服务器. 比如使用POST方法.
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3" class="text-strong">非&lt;input元素</td>
+										</tr>
+										<tr>
+											<td>文本区</td>
+											<td>
+												<textarea name="comments" rows="3" cols="20"></textarea>
+											</td>
+											<td>
+												&lt;textarea name="comments" rows="3" cols="20">&lt;/textarea>
+											</td>
+										</tr>
+										<tr>
+											<td>菜单</td>
+											<td>
+												<select name="characters" multiple>
+													<option value="Buckaroo">Buckaroo Banzai</option>
+													<option value="Tommy">Perrect Tommy</option>
+													<option value="Penny">Penny Priddy</option>
+												</select>
+											</td>
+											<td>
+												&lt;select name="characters" multiple>    // multiple表示可以多选<br>
+												&lt;option value="Buckaroo">Buckaroo Banzai&lt;/option><br>
+												&lt;option value="Tommy">Perrect Tommy&lt;/option><br>
+												&lt;option value="Penny">Penny Priddy&lt;/option><br>
+												&lt;/select>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="title">使用&lt;label标签</div>
+							<div class="content closed">
+								<input type="radio" name="hotornot" value="hot" id="hot">
+								<label for="hot">hot</label>
+								<input type="radio" name="hotornot" value="not" id="not">
+								<label for="not">not</label>
+								<pre class="prettyprint linenums">
+<code>
+&lt;input type="radio" name="hotornot" value="hot" id="hot">
+&lt;label for="hot">hot&lt;/label>    // for属性设置为相应的id
+</code>
+								</pre>
+								<p>默认地, 标签与普通的文本看上去并没有两样. 不过, 在可访问性方面, 它们确实有很大不同. 任何表单控件都可以使用<label>元素.</p>
+							</div>
+
+							<div class="title">元素分组</div>
+							<div class="content closed">
+								<p><fieldset>元素可以用来将公共元素组织在一起.</p>
+									<pre class="prettyprint linenums">
+<code>
+&lt;fieldset>
+    &lt;legend>Condiments&lt;/legend>
+    &lt;input type="checkbox" name="spice" value="salt"> Salt &lt;br>
+    &lt;input type="checkbox" name="spiec" value="pepper"> Pepper &lt;br>
+&lt;fieldset>
+</code>
+									</pre>	
+							</div>
+
+							<div class="title">占位文本: placeholder属性</div>
+							<div class="content closed">
+								<p>placeholder属性值会显示在控件中, 但是比增加到控件的正常内容要浅一些, 一旦单击这个文本域, 占位文本就会消失, 所以它不会与你输入的内容混杂在一起.</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;input type="text" placeholder="请输入用户名">
+</code>
+								</pre>
+							</div>
+
+							<div class="title">必要元素: required属性</div>
+							<div class="content closed">
+								<p>Require属性可以用于任何表单控件, 它指示一个域是必要的, 否则, 无法提交表单.</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;input type="text" placeholder="请输入用户名" required>
+</code>
+								</pre>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">内联&块元素</div>
+			<div class="content open">
+				<div class="list list-number">
+					<div class="title">div & span</div>
+					<div class="content open">
+						...
+					</div>
+
+					<div class="title">超链接</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">换行</div>
+					<div class="content closed">
+
+					</div>
+				</div>
+			</div>
+
+			<div class="title">未分类元素</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">源代码</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">"原味"显示</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">注释</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">文章: articel</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">导航: nav</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">figure</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">页面: header</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">页脚: footer</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">日期时间: time</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">边栏: aside</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">区块: section</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">视频: video</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">音频: audio</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">mark</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">进度条: progress</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">meter</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">画布: canvas</div>
+					<div class="content closed">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="title">样式: CSS</div>
+    <div class="content closed">
+
+    </div>
+
+	<div class="title">高级应用</div>
     <div class="content closed">
 
     </div>
