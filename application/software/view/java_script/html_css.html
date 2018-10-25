@@ -925,18 +925,65 @@ table {
 			<div class="content open">
 				<div class="list list-number">
 					<div class="title">div & span</div>
-					<div class="content open">
-						...
+					<div class="content closed">
+						<p>
+							&lt;div>和&lt;span>元素都有一个重要而实用的特性, 即它们什么事也不做, 也没有默认的样式, 它们唯一的目的就是围绕你的HTML代码中的其他元素, 这样你就可以为它们指定样式了.
+						</p>
+						<p>
+							&lt;div>和&lt;span>元素的区别是: 前者是块元素, 后者是内联元素.
+						</p>
 					</div>
 
 					<div class="title">超链接</div>
 					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;a href="elixir.html" target="_blank">elixirs&lt;/a>
+</code>
+						</pre>
+						<p>
+							href属性告诉浏览器链接指向的URL(优先使用相对路径)!  
+						</p>
+						<p>
+							target属性会告诉浏览器页面的"目标窗口": <br>
+							_blank:  在新窗口中打开<br>
+							_self:   在同一框架或窗口中打开所链接的文档. 此参数为默认值, 通常不用指定.<br>
+							_parent: 将链接的文件载入含有该链接框架的父框架集或父窗口中。如果含有该链接的框架不是嵌套的，则在浏览器全屏窗口中载入链接的文件，就象_self参数一样。<br>
+							_top:    在当前的整个浏览器窗口中打开所链接的文档，因而会删除所有框架.<br>
+							_search: 在浏览器的搜索区装载文档，注意，这个功能只在Internet Explorer 5 或者更高版本中适用。
+						</p>
 
+						<div class="list list-none">
+							<div class="title">跳转到页面上的特定目标</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+&lt;a href="index.html#chai">See Chai Tea&lt;/a>    /* 链接到同一页面上, 可以省略前面的文件名 */
+</code>
+								</pre>	
+							</div>
+
+							<div class="title">特殊样式</div>
+							<div class="content closed">
+								<p>与其他元素不同, &lt;a>元素的样式会根据它的状态改变:</p>
+								<pre class="prettyprint linenums">
+<code>
+a { ... }                       /* 套用到所有状态 */
+a:link { ... }                  /* 未访问 */
+a:visited { ... }               /* 已访问 */
+a:hover { ... }                 /* 悬停 */
+a:focus { ... }                 /* 当前焦点 */
+a:active { ... }                /* 用户第一次单击一个连接时, 就处于活动(active)状态 */
+</code>
+								</pre>	
+								<p>注: 其实link, visited, hover, focus和active都是伪类.</p>
+							</div>
+						</div>
 					</div>
 
 					<div class="title">换行</div>
 					<div class="content closed">
-
+						<p>&lt;br>是块和内联之间的一个模糊地段. 它确实会创建一个换行, 不过不会像有两个&lt;p>元素那样把文本分成单独的两块.</p>
 					</div>
 				</div>
 			</div>
@@ -946,67 +993,186 @@ table {
 				<div class="list list-number">
 					<div class="title">源代码</div>
 					<div class="content closed">
-
+						<pre class="prettyprint linenums">
+<code>
+&lt;code>我是程序代码&lt;/code>
+</code>
+						</pre>
 					</div>
 
 					<div class="title">"原味"显示</div>
 					<div class="content closed">
-
+						<pre class="prettyprint linenums">
+<code>
+&lt;pre>pre元素可定义预格式化的文本。被包围在pre元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体。&lt;/pre>
+</code>
+						</pre>
 					</div>
 
 					<div class="title">注释</div>
 					<div class="content closed">
-
+						<pre class="prettyprint linenums">
+<code>
+&lt;!--我是html中的注释, 会被浏览器忽略-->
+</code>
+						</pre>
 					</div>
 
-					<div class="title">文章: articel</div>
+					<div class="title">文章: article</div>
 					<div class="content closed">
-
 					</div>
 
 					<div class="title">导航: nav</div>
 					<div class="content closed">
-
+						<p>使用这个元素把网站中用于导航的所有链接组织在一起.</p>
 					</div>
 
 					<div class="title">figure</div>
 					<div class="content closed">
-
+						<p>这个元素用来定义类似照片, 图表, 甚至代码清单等独立的内容.</p>
 					</div>
 
-					<div class="title">页面: header</div>
+					<div class="title">页眉: header</div>
 					<div class="content closed">
-
+						<p>有部首的区块和整个文档的页眉可以使用这个元素.</p>
 					</div>
 
 					<div class="title">页脚: footer</div>
 					<div class="content closed">
-
 					</div>
 
 					<div class="title">日期时间: time</div>
 					<div class="content closed">
-
+						<pre class="prettyprint linenums">
+<code>
+&lt;time datetime="2012-02=18">2/18/2012&lt;/time>
+</code>
+						</pre>
+						<p>如果元素内容没有采用官方INTERNET日期/时间格式来写, 就必须要有datetime属性, 这时元素内容你可以写任何内容. 通常, 这可能是某个与日期或时间相关的文本, 如: "February 18, 2012"或者甚至可以是"yesterday"或"now".</p>
+						<pre class="prettyprint linenums">
+<code>
+官方日期:
+2010-02
+2012
+2012-02-18 18:00
+05:00
+2012-02-18 05:00Z
+</code>
+						</pre>	
 					</div>
 
 					<div class="title">边栏: aside</div>
 					<div class="content closed">
-
 					</div>
 
 					<div class="title">区块: section</div>
 					<div class="content closed">
-
+						<p>定义文档主要区块. 段落?</p>
 					</div>
 
 					<div class="title">视频: video</div>
 					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+&lt;video controls autoplay loop preload="none" width="512" height="288" poster="images/poster.png" src="video/tweetsip.mp4">
+&lt;/video>
+</code>
+						</pre>
+						<p>
+							control属性: 如果有control属性, 视频控件就会出现.<br>
+							autoplay属性: 如果有autoplay属性, 视频就会自动播放.<br>
+							loop属性: 如果有loop属性, 视频结束播放之后会自动重新开始播放视频.<br>
+							preload属性: none - 播放之前不下载视频; metadata - 播放前下载视频元数据, 但不下载视频内容; auto - 由浏览器来决定.<br>
+							poster属性: 提供一个可选的海报图像, 视频未播放时就会显示这个图像.
+						</p>
+						<p>
+							width & height<br>
+							width和height属性会设置视频显示区的宽度和高度. <br>
+							如果指定了一个海报, 海报图像会缩放到你指定的宽度和高度. <br>
+							视频也会缩放, 不过会保持其宽高比(例如, 4:3或16:9), 所以, 如果两边或者上下边有多余的空间, 视频会采用上下加黑边, 或左右加黑边的模式来适应显示区大小. 如果你想得到最佳的性能, 就应该尽量采用视频原本的尺寸, 这样浏览器就不用实时缩放视频了.
+						</p>
 
+						<div class="list list-square">
+							<div class="title">各种浏览器支持的视频格式</div>
+							<div class="content closed">
+								<table class="table table-bordered table-sm">
+									<tbody>
+										<tr>
+											<th>视频格式</th>
+											<th>扩展名</th>
+											<th>浏览器</th>
+										</tr>
+										<tr>
+											<td>MP4容器: H.264视频 + AAC音频</td>
+											<td>.mp4</td>
+											<td>Safari, IE9+, Chrome</td>
+										</tr>
+										<tr>
+											<td>WebM容器: VP8视频 + Vorbis音频</td>
+											<td>.webm</td>
+											<td>FireFox, Chrome, Opera</td>
+										</tr>
+										<tr>
+											<td>Ogg容器: Theora视频 + Vorbis音频</td>
+											<td>.ogv</td>
+											<td>FireFox, Chrome, Opera</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="title">lt;source>元素: 让浏览器自己选择</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+&lt;video controls autoplay width="512" height="288">
+    &lt;source src="video/tweetsip.mp4">
+    &lt;source src="video/tweetsip.webm">
+    &lt;source src="video/tweetsip.ogv">
+    &lt;p>Sorry, your browser doesn't support the video element&lt;/p>
+&lt;/video>
+</code>
+								</pre>
+							</div>
+
+							<div class="title">为source元素指定type属性, 给浏览器提供额外视频信息</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+&lt;source src="video/tweetsip.ogv" type='video/ogg; codecs="theora, vorbis"'>
+</code>
+								</pre>
+							</div>
+
+							<div class="title">Flash视频</div>
+							<div class="content closed">
+								<p>
+									&lt;div class="title">对于Flash视频, 需要一个&lt;object>元素. 在&lt;video>元素中插入&lt;object>元素, 把它放在&lt;source>标记下面. 如果浏览器不认识&lt;video>元素, 就会使用&lt;object>, 你会看到将播放Flash视频.&lt;/div>
+								</p>
+								<pre class="prettyprint linenums">
+<code>
+&lt;video poster="video.jpg" controls>
+    &lt;source src="video.mp4">
+    &lt;source src="video.webm">
+    &lt;source src="video.ogv">
+    &lt;object>...&lt;/object>
+&lt;/video>
+</code>
+								</pre>
+							</div>
+						</div>
 					</div>
 
 					<div class="title">音频: audio</div>
 					<div class="content closed">
-
+						<pre class="prettyprint linenums">
+<code>
+&lt;audio src="song.mp3" id="boombox" controls>
+    Sorry but audio is not supported in your browser
+&lt;/audio>
+</code>
+						</pre>
+						<p>很遗憾, 同样与视频类似, 音频也没有标准编码. 目前3中格式很流行: MP3, WAV和Ogg Vorbis. 你会发现, 不同浏览器对这些格式的支持会有不同.</p>
 					</div>
 
 					<div class="title">mark</div>
@@ -1016,24 +1182,447 @@ table {
 
 					<div class="title">进度条: progress</div>
 					<div class="content closed">
-
+						<p>显示任务完成进度</p>
 					</div>
 
 					<div class="title">meter</div>
 					<div class="content closed">
-
+						<p>需要显示某个范围的度量? 比如一个从0到212度的温度计.</p>
 					</div>
 
 					<div class="title">画布: canvas</div>
 					<div class="content closed">
-
+						<p>在页面中显示用JavaScript绘制的图像和动画.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="title">样式: CSS</div>
+	<div class="title">常见CSS样式</div>
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">元素盒子</div>
+			<div class="content closed">
+				<img src="__STATIC__/image/JavaScript/盒子.png" width="400">
+				<div class="list list-number">
+					<div class="title">内边距&外边距</div>
+					<div class="content closed">
+						<p>
+							可以把内边距和外边距想象成是透明的, 因为你不能对它们指定颜色, 也不能添加任何修饰. 
+						</p>
+						<p>
+							内边距和外边距之间有一个区别: 元素的背景色(或背景图片)会延伸到内边距, 但是不会延伸到外边距!
+						</p>
+					</div>
+
+					<div class="title">块元素&内联元素</div>
+					<div class="content closed">
+						<p>
+							块元素特性：总是独占一行，表现为另起一行开始，而且其后的元素也必须另起一行显示; 宽度、高度、内边距和外边距都可控制.
+						</p>
+						<p>
+							内联元素特性：和相邻的内联元素在同一行; 宽度、高度、内边距的top/bottom和外边距的top/bottom都不可改变，就是里面文字或图片的大小;
+						</p>
+					</div>
+
+					<div class="title">width & height</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+width: auto;    /* 自动: 一个块元素的默认宽度是"auto", 它允许内容填满可用的所有空间(去除内边距, 边框和外边框之后的空间). */
+width: 200px;   /* 绝对: 宽度被设置为200像素 */
+width: 50%;     /* 相对: 宽度被设置为元素所在容器宽度的50%(容器可以是&lt;body>, &lt;div>等) */
+</code>
+						</pre>
+						<p>
+							一般来讲, 一个元素的高度默认是auto: 浏览器在垂直方向上会延伸到内容区, 使所有内容都可见. <br>
+							可以显示地设置一个高度, 不过这会有风险. 如果你指定的高度不够大, 不足以放下所有内容, 内容底部有可能"溢出"到其他元素中. 所以, 一般地, 不用指定元素的高度, 就让它们默认为auto.
+						</p>
+					</div>
+
+					<div class="title">边框</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+宽度	border-width: 1px;      /*  可以使用关键字或像素来指定边框宽度. 关键字包括: thin, medium & thick.  */
+样式	border-style: solid;    /* 共有8种可用的边框样式, 包括: solid, double, groove, outset, dotted, dashed, inset & ridge. */
+颜色	border-color: black;
+圆角	border-radius: 15px;    /*  可以在四个角上都创建圆角, 或者对任意个角创建圆角. 可以使用px或em来指定半径大小. */
+简写	border: thin solid #007373;
+指定部分	border-top-width: 1px; 或者 border-top-left-radius: 15px;
+</code>
+						</pre>
+					</div>
+
+					<div class="title">内边距</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+padding: 0px 20px 30px 10px;    /* 上右下左 */
+padding: 0px 20px;              /* 上下 左右 */
+padding: 20px;                  /* 同时设置4个内边距 */
+padding-left: 20px;             /* 单独设置一边 */
+</code>
+						</pre>
+						<p>内联元素的内边距和块元素不同, 你可以对内联元素的上边和下边增加内边距, 不过这个内边距不会影响包围它的其他内联元素的间距, 所以内边距会与其他内联元素重叠!</p>
+					</div>
+
+					<div class="title">外边距</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+margin: 0px 20px 30px 10px;    /* 上右下左 */
+margin: 0px 20px;              /* 上下 左右 */
+margin: 20px;                  /* 同时设置4个外边距 */
+margin-left: 30px;             /* 单独设置一边 */
+</code>
+						</pre>
+						<p>内联元素的外边距和块元素也不一样, 如果一个内联元素四周都增加外边距, 只能看到左边和右边会增加空间!</p>
+					</div>
+
+					<div class="title">背景</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+背景色: background-color: black;
+背景图片: background-image: url(images/background.gif);
+重复: background-repeat: repeat;
+    repeat: 默认值, 水平和垂直方向上重复;
+    no-repeat: 不重复;
+    repeat-x: 图像只在水平方向上重复;
+    repeat-y: 图像只在垂直方向上重复;
+    inherit: 按父元素的设置来处理.
+位置: background-position: top left;    /* 指定图像的位置, 可以按像素指定, 也可以指定为一个百分数, 或者还可以使用关键字指定, 如top, left, right, bottom和center */
+简写: background: white url(images/cocktail.gif) repeat-x;
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">title属性</div>
+			<div class="content closed">
+				<p>如果希望某个元素上有一个工具提示, 比如一个标题, 则可以在&lt;h1>开始标记中增加一个title属性. 可以为任何元素添加title属性!</p>
+			</div>
+
+			<div class="title">class & id属性</div>
+			<div class="content closed">
+				<p>元素也可以加入一个类, 或者多个类, 只需要增加class属性... (　类名以字母开头, 其后可以是字母，数字和_字符, 不能使用空格! )</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;p class="program_code">这里是代码&lt;/p>
+</code>
+				</pre>
+				<p>为了标识元素, 可以给元素增加id属性. ( id名以字母或数字开头, 后面可以字母, 数字和_字符, 不能使用空格!)</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;h2 id="chai">Chai Tea, $1.85&lt;/h2>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">字体</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">使用哪种字体?</div>
+					<div class="content closed">
+						<p>
+							很不幸的是, 你没有办法控制用户计算机上安装了什么字体. 不仅如此, 他们还往往使用不同的操作系统. 如何处理这种情况呢?
+						</p>
+						<p>
+							一种策略是创建一个字体列表: 其中包含最适合你的页面的字体, 并希望用户已经安装了这些字体. 不过, 如果他们没有这些字体, 至少我们可以依靠浏览器来提供相同字体系列中的一种通用字体. 例如.　font-family: Verdana, Geneva, Arial, sans-serif;
+						</p>
+						<pre class="prettyprint linenums">
+<code>
+font-family: Verdana, Geneva, Arial, sans-serif;    /* 优先使用左边的字体, 最后一个表示浏览器的默认"sans-serif"字体 */
+</code>
+						</pre>
+
+						<div class="list list-square">
+							<div class="title">5大字体系列</div>
+							<div class="content open">
+								<p>
+									每个font-family包含一组有共同特征的字体. 共有5个字体系列:<br><br>
+									1) Serif是有衬线(衬线是字母末端的装饰性"小细线")的字体. 很多人一看到这种字体就想到新闻报纸的文字排版. 常见字体包括: Times, Times New Roman, Georgia...<br>
+									2) Sans-serif是没有衬线的字体. 与serif字体相比, 通常认为sans-serif字体在计算机屏幕上更容易识读. 包括: Verdana, Arial Black, Trebuchet MS, Arial, Geneva...<br>
+									3) Monospace字是等宽的字体. 这些字体主要用于显示软件代码. 常见字体包括: Courier, Courier New, Andale Mono...<br>
+									4) Cursive是看似手写的字体. 有时会看到标题中使用这些字体. 常见字体包括: Comic Sans, Apple Chancery...<br>
+									5) Fantasy是有某种风格的装饰性字体. 常见字体包括: LAST NINJA, IMPACT...
+								</p>
+								<p>注意: 含有空格的字体, 设置时需要添加引号, 例如"Courier New".</p>
+							</div>
+
+							<div class="title">使用Web字体</div>
+							<div class="content open">
+								<p>当然我们也可以使用Web字体, 只需按如下方式定义, 定义完后就可以像普通字体一样使用了.</p>
+								<pre class="prettyprint linenums">
+<code>
+@font-face {
+    font-family: "Emblema One";
+    src: url("http://wickedlysmart.com/hfhtmlcss/chapter8/journal/EmblemaOne-Regular.woff"),
+         url("http://wickedlysmart.com/hfhtmlcss/chapter8/journal/EmblemaOne-Regular.ttf");
+}
+</code>
+								</pre>
+								<p>Web字体看起来很棒, 但是也有一些缺点:</p>
+								<p>
+									1) 第一次获取Web字体时, 需要花费一些时间, 你的页面性能可能会受到影响. <br>
+									2) 管理多个字体文件也是件痛苦的事情.<br>
+									3) 移动设备和小型设备并不支持Web字体.
+								</p>
+							</div>
+
+							<div class="title">Web字体托管</div>
+							<div class="content open">
+								<p>FontSquirrel(http://www.fontsquirrel.com/)提供了很多开源, 免费的字体, 可以把这些字体上传到你的服务器. 利用他们的字体库, 可以很容易地提供一个给定字体的多个格式.</p>
+								<p>Google Web字体服务(http://www.google.com/webfonts)也很不错, 可以让Google为你完成管理字体和CSS的所有具体工作. 在这种情况下, 你只需要链接Google服务器上你想要的字体, 然后在你的CSS中使用相应的字体名就可以了!</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">怎么设置字体?</div>
+					<div class="content closed">
+						<div class="list list-number">
+							<div class="title">字体大小: font-size</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+font-size: 14px;                                                                /* 设置为14像素高 */
+font-size: 150%;                                                                /* 父元素 的150%大小 */
+font-size: 1.2em;                                                               /* 父元素的1.2倍大小, 作用同百分百是一样的! */
+font-size: xx-small | x-small | small | medium | large | x-large | xx-large;    /*  设置为预定义大小 */
+</code>
+								</pre>
+								<p>字体大小设置策略</p>
+								<p>
+									1) 选择一个关键字(推荐small或medium), 指定它作为body规则中的字体大小. 这相当于页面的默认字体大小.<br>
+									2) 使用em或百分数, 相对于body字体大小指定其他元素的字体大小.<br>
+								</p>	
+								<p>这样改变Web页面中的字体大小就会非常容易, 只需要改变body字体大小就可以了!</p>
+								<pre class="prettyprint linenums">
+<code>
+body { font-size: small; }
+h1 { font-size: 200%; }
+h2 { font-size: 150%; }
+h3 { font-size: 120%; }
+h4 { font-size: 100%; }
+h5 { font-size: 90%; }
+h6 { font-size: 60%; }
+</code>
+								</pre>
+							</div>
+
+							<div class="title">字体粗细: font-weight</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+font-weight: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit;
+</code>
+								</pre>
+								<p>
+									Initial value normal<br>
+									Applies to All elements<br>
+									Inherited Yes
+								</p>
+								<p class="text-strong">Values</p>
+								<p>
+									normal: Specifies normal characters.<br>
+									bold: Specifies thick characters.<br>
+									bolder, lighter: The 'bolder' and 'lighter' values select font weights that are relative to the weight inherited from the parent.<br>
+									100 to 900: Specifies from thin to thick characters. The keyword 'normal' is synonymous with '400', and 'bold' is synonymous with '700'.<br>
+									inherit: Takes the same specified value as the property for the element's parent.
+								</p>
+							</div>
+
+							<div class="title">字体风格: font-style</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+font-style: normal | italic | oblique;
+</code>
+								</pre>
+								<p>
+									italic: 使用斜体风格, 但是并不是所有字体都支持斜体风格.<br>
+									oblique: 浏览器将正常字体倾斜.	
+								</p>
+							</div>
+
+							<div class="title">小型大写字母: font-variant</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+font-variant: normal | small-caps | inherit;
+</code>
+								</pre>
+								<p>
+									normal: 默认值. 浏览器会显示一个标准的字体.<br>
+									small-caps: 浏览器会显示小型大写字母的字体.<br>
+									inherit: 规定应该从父元素继承font-variant属性的值.
+								</p>
+
+							</div>
+
+							<div class="title">简写: font</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+font: [font-style] [font-variant] [font-weight] font-size[/line-height] font-family;
+</code>
+								</pre>
+								<p>
+									font-style, font-variant & font-weight这3个都是可选的, 但是它们必须在font-size前面.<br>
+									line-height是可选的. 如果你想要指定一个行高, 只需要在font-size后面加一个/, 然后指定你想要的行高.<br>
+									font-family各字体之间要使用逗号分隔.	
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">颜色</div>
+			<div class="content closed">
+				<div class="list list-square">
+					<pre class="prettyprint linenums">
+<code>
+color: black;    The color property describes the foreground color of an element's text content.
+</code>
+					</pre>
+					<div class="title">按名指定颜色</div>
+					<div class="content open">
+						<p>
+							最直接的方法就是使用颜色名. 有16种基本颜色和150种扩展颜色可以采用这种方法指定. <br>
+							16中基本颜色是: Aqua, Black, Blue, Fuchsia, Gray, Green, Lime, Maroon, Navy, Olive, Purple, Red, Sliver, Teal, White, Yellow.
+						</p>
+					</div>
+
+					<div class="title">用红绿蓝指定颜色</div>
+					<div class="content open">
+						<pre class="prettyprint linenums">
+<code>
+rbg(80%, 40%, 0%) 或者 rgb(204, 102, 0) 或者 #cc600    /* 红色80%, 绿色40%, 蓝色0% */
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">行高: height</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+line-height: 14px;    /* 设置为14像素高 */
+line-height: 150%;    /* 字体高度的150% */
+line-height: 1.2em;   /* 字体高度的1.2倍 */
+line-height: normal;  /* normal允许浏览器选择一个合适的行高大小, 通常要根据字体来确定 */
+</code>
+				</pre>
+			</div>
+
+			<div class="title">对齐: text-align</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+text-align: center / left / right;    /* 只能在块元素上设置. 作用于块元素时, 它内部的块元素会继承这个属性 */
+</code>
+				</pre>
+			</div>
+
+			<div class="title">display</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+display: inline / block ... // The display property specifies the type of box used for an element.
+</code>
+				</pre>
+				<a href="https://www.w3.org/wiki/CSS/Properties/display">手册</a>
+			</div>
+
+			<div class="title">letter-spacing</div>
+			<div class="content closed">
+
+			</div>
+
+			<div class="title">left & top</div>
+			<div class="content closed">
+				<p>设置元素位置</p>
+			</div>			
+
+			<div class="title">text-decoration</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+text-decoration: none | underline | overline | line-through;	// 设置文本更多风格: 无风格, 下划线, 上划线, 删除线
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">CSS选择器</div>
+    <div class="content closed">
+		<p class="text-strong">一般</p>
+		<pre class="prettyprint linenums">
+<code>
+h1 { ... }          // 单元素选择器: 样式应用到&lt;h1>
+
+h1, h2 { ... }      // 多元素选择器: 样式应用到&lt;h1>和&lt;h2>
+div h2 { ... }      // 子孙选择器: 样式应用到&lt;div>的所有子孙&lt;h2>
+div > h2 { ... }    // 儿子选择器: 样式应用到&lt;div>的所有儿子&lt;h2>
+h1 + p { ... }      // 兄弟选择器: 选择所有&lt;p>元素, 这些&lt;p>元素紧跟在&lt;h1>元素后面
+</code>
+		</pre>
+
+		<p class="text-strong">使用class</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;p class="greentea">
+p.greentea { ... }    // 类选择器: 样式应用到类greentea中的所有&lt;p>(可以反过来理解)
+.greentea { ... }     // 类选择器: 样式应用到所有属于类greentea的元素(可以反过来理解)
+</code>
+		</pre>
+
+		<p class="text-strong">使用id</p>
+		<pre class="prettyprint linenums">
+<code>
+&lt;p id="footer">Please steal this page, it isn't copyrighted in any way&lt;/p>
+#footer { ... }     // id选择器: 选择id为footer的元素
+p#footer { ... }    // id选择器: 选择id为footer的元素&lt;p>. id本来就是用来唯一标识一个元素的, id为footer的元素只有一个, 这里个人觉得有点多余!
+</code>
+		</pre>
+
+		<p class="text-strong">使用伪类</p>
+		<pre class="prettyprint linenums">
+<code>
+// 选择偶数元素
+p:nth-child(even) { ... } 或者 p:nth-child(2n) { ... }
+
+// 选择奇数元素
+p:nth-child(odd) { ... } 或者 p:nth-child(2n+1) {
+
+// 选择第一个元素
+p:first-child { ... }
+
+// 第一个字母
+p:first-letter { ...}
+
+// 第一行
+p:first-line { ... }
+</code>
+		</pre>
+
+		<p class="text-strong">指定属性</p>
+		<pre class="prettyprint linenums">
+<code>
+img[witdh] { ... }    // 选择含有width属性的所有img元素
+img[height="300"] { ... }    // 选择height属性值为300的所有img元素
+img[alt*="flowers"] { ... }    // alt属性包含单词"flowers"的所有img元素
+</code>
+		</pre>
+    </div>
+
+	<div class="title">样式继承, 覆盖 & 层叠</div>
     <div class="content closed">
 
     </div>
