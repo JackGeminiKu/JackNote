@@ -1623,13 +1623,358 @@ img[alt*="flowers"] { ... }    // alt属性包含单词"flowers"的所有img元�
     </div>
 
 	<div class="title">样式继承, 覆盖 & 层叠</div>
-    <div class="content closed">
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">继承</div>
+			<div class="content closed">
+				<p>
+					1) 继承: 如果不指定一个元素的属性, 那么这个元素的属性将继承自它的父元素(注意: 并不是所有的属性都可以被继承); <br>
+					2) 覆盖: 当然也可以给这个元素指定属性, 此时从父元素继承的属性将会被覆盖!
+				</p>
+			</div>
 
+			<div class="title">覆盖</div>
+			<div class="content closed">
+				<p>读者可能会覆盖一个样式, 在他的属性声明最后放置一个"!important", 就像下面这样, 这会覆盖页面作者的样式.</p>	
+				<pre class="prettyprint linenums">
+<code>
+h1 {
+    font-size: 200% !important;
+}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">层叠</div>
+			<div class="content closed">
+				<p>
+					如何确定一个元素究竟应用了哪些样式呢? 实际上, 这就是在问层叠的作用.
+				</p>
+				<p>
+					在这个练习中, 你要"扮演浏览器". 假设你的页面上有一个&lt;h1>元素, 你想知道这个元素的font-size属性. 你会这么做:
+				</p>
+				<div class="list list-square">
+					<div class="title">Step 1: 收集所有样式表</div>
+					<div class="content open">
+						<p>Web页面作者写的样式表 + 读者增加的样式表 + 浏览器的默认样式</p>
+					</div>
+
+					<div class="title">Step 2: 找到所有匹配的声明</div>
+					<div class="content open">
+						<p>检查所有样式表, 找出所有匹配&lt;h1>而且有font-size属性的规则.</p>
+					</div>
+
+					<div class="title">Step 3: 对所有匹配的规则排序</div>
+					<div class="content open">
+						<p>页面作者写的样式 > 读者添加的样式 > 浏览器的默认样式.</p>
+					</div>
+
+					<div class="title">Step 4: 现在按特定性对所有声明排序</div>
+					<div class="content open">
+						<p>我们把特定性分为4个等级, 每个等级代表一类选择器, 每个等级的值为其他所代表的选择器的个数乘以这一等级的权值, 最后把所有等级的值相加得出选择器的特殊值, 得数最高者胜出!</p>
+						<p>
+							4个等级定义如下: <br>
+							第1等: 代表内联样式, 如: style = "", 权值为1000.<br>
+							第2等: 代表ID选择器, 如: #content, 权值为100.<br>
+							第3等: 代表类, 伪类和属性选择器, 如.content, 权值为10.<br>
+							第4等: 代表类型选择器和伪元素选择器，　如div, p, 权值为1.	
+						</p>
+						<p>如下图为例, 其中#NAV为二等选择器, .ACTIVE为三等选择器, UL, LI和A为四等选择器. 则整个选择器表达式的特殊性的值为1*100+1*10+3*1 = 113.</p>
+						<img src="__STATIC__/image/JavaScript/CSS选择器的权重计算规则.jpg">
+					</div>
+
+					<div class="title">Step 5: 还有冲突?</div>
+					<div class="content open">
+						<p>现在只需对冲突的规则排序, 各个样式表中后出现的规则会覆盖前面的规则!</p>
+					</div>
+
+					<div class="title">Step 6: 没有找到?</div>
+					<div class="content open">
+						<p>如果经过以上步骤, 没有找到包含特定属性声明的规则, 浏览器就会查看这个元素的祖先, 先从它的父元素开始, 尝试找到这个属性的值. 如果找到了, 这就是你要用的属性值; 如果从它的祖先中也没有找到这个属性的值, 就只能依靠浏览器样式表中设置的默认值了!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">如何将CSS加入到网页中?</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">Link CSS文件</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+&lt;head>
+    &lt;title>文档标题&lt;/title>
+    &lt;link rel="stylesheet" href="hello.css">
+&lt;/head>
+</code>
+				</pre>
+				<div class="list list-square">
+					<div class="title">使用多个样式表</div>
+					<div class="content closed">
+						<p>最下面的样式表最优先, 它会覆盖前面的样式表的设置.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;link rel="stylesheet" href="总公司.css">
+&lt;link ref="stylesheet" href="分公司.css">
+</code>
+						</pre>
+					</div>
+
+					<div class="title">不同设备使用不同的样式 - 使用media属性</div>
+					<div class="content closed">
+						<p>对于桌面PC, 笔记本电脑, 平板电脑, 手机, 你想使用不同的样式, 只需在<link>元素中添加media属性即可.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;link type="text/css" ref="stylesheet" href="lounge-mobile.css" media="screen and (max-device-width: 480px)">
+</code>
+						</pre>
+						<p>
+							screen: 有屏幕<br>
+							print: 打印页面时使用<br>
+							max-device-width: 480px;    /* 屏幕宽度最多480px(不超过480px) */<br>
+							min-device-width: 200px;    /* 屏幕宽度最小200px(不少于200px) */<br>
+							orientation: landscape 或者 portrait;    /* 横向或者纵向 */<br>
+							max-width: 480px;    /* 浏览器宽度最多480px */<br>
+							min-width: 200px;    /* 浏览器宽度最少200px */	
+						</p>
+						<p>要为CSS指定特定属性的设备, 还可以直接写在CSS中:</p>
+						<pre class="prettyprint linenums">
+<code>
+@media screen and (min-device-width: 481px) {
+   #guarantee {
+        margin-right: 30px;
+    }
+}
+
+/* 通用规则放在@media下面 */
+p.specials {
+    color: red;
+}
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">添加Style元素</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+&lt;head>
+    &lt;style type="text/css">             // 放在&lt;head>标记中
+        body { font: 10pt "Arial" }
+    &lt;/style>
+&lt;/head>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">添加Style属性</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+&lt;p style="margin-left: 0.5in; margin-right:0.5in">这一行被增加了左右的外补丁&lt;p>
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
 
 	<div class="title">高级应用</div>
-    <div class="content closed">
+    <div class="content open">
+		<div class="list list-number">
+			<div class="title">浏览器如何摆放元素?</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">流</div>
+					<div class="content closed">
+						<p>
+							流是浏览器在页面上摆放HTML元素时所用的方法:<br>
+							1) 块元素, 从上到下流, 各元素之间有一个换行. 默认的, 每个块元素会占据浏览器窗口的整个宽度.<br>
+							2) 内联元素: 从左到右流, 如果右边没有空间了, 剩下的内容会放在下一行.
+						</p>
+						<p class="text-strong">外边距折叠</p>
+						<p>正常页面流中, 两个块元素上下相邻的外边距会折叠为最大外边距的大小. 假设上面的元素下外边距为10px, 下面的元素的上外边距为20px, 折叠的外边距则为20px.</p>
+					</div>
 
+					<div class="title">float元素</div>
+					<div class="content closed">
+						<p>浏览器遇到float元素时:</p>
+						<p>
+							1) 先正常流入页面, 然后根据float属性平移到最左边/最右边.<br>
+							2) 其他块元素"不知道"浮动元素的存在; 其他内联元素会"围绕"浮动元素.
+						</p>	
+						<pre class="prettyprint linenums">
+<code>
+#amazing {
+    width: 200px;
+    float: right / left;
+}
+</code>
+						</pre>
+						<img src="__STATIC__/image/JavaScript/浮动定位.png">
+						<p class="text-strong">结局浮动定位重叠问题</p>
+						<pre class="prettyprint linenums">
+<code>
+#footer {
+  clear: right;    /* 元素会下沉, 直到它旁边没有块元素 */
+}
+</code>
+						</pre>
+						<img src="__STATIC__/image/JavaScript/浮动定位解决重叠问题.png">
+					</div>
+
+					<div class="title">使用position属性定位</div>
+					<div class="content closed">
+						<div class="list list-number">
+							<div class="title">绝对定位元素 - absolute(相对于父元素)</div>
+							<div class="content open">
+								<img src="__STATIC__/image/JavaScript/绝对定位.png">
+								<pre class="prettyprint linenums">
+<code>
+#sidebar {
+    position: absolute;
+    top: 100px;
+    right: 200px;
+    width: 280px;
+}
+</code>
+								</pre>
+								<p>
+									浏览器遇到使用绝对定位的元素时:<br>
+									1) 绝对定位元素的位置(相对于父元素)完全由top, left, right或bottom属性决定;<br>
+									2) 流中的其他元素完全不知道这个绝对定位元素, 所以流中的内联元素不会围绕在一个绝对定位元素的周围.
+								</p>
+							</div>
+
+							<div class="title">固定定位 - fixed (相对于浏览器)</div>
+							<div class="content open">
+								<p>固定定位类似于绝对定位, 只是它的位置是相对于浏览器的(而不是相对于页面), 所以固定元素永远也不会移动.</p>
+								<pre class="prettyprint linenums">
+<code>
+#coupon {
+    position: fixed;
+    top: 300px;
+    left: 100px;
+}
+</code>
+								</pre>
+							</div>
+
+							<div class="title">相对定位 - relative</div>
+							<div class="content open">
+								<p>相对定位元素首先正常流入页面, 然后按指定的量偏移.</p>
+							</div>
+
+							<div class="title">静态定位 - static(由浏览器决定)</div>
+							<div class="content open">
+								<p>position的默认值是static, 元素会放在正常的文档流中, 不是由你来指定位置, 而是由浏览器来决定这些静态定位元素放在哪里.</p>
+							</div>
+
+							<div class="title">z-index属性</div>
+							<div class="content closed">
+								<p>使用绝对定位, 相对定位或固定定位的元素有一个z-index属性, 用于确定该元素位于z轴的哪一层, 数值越大的层越在上面!</p>
+								<pre class="prettyprint linenums">
+<code>
+#div2 {
+    z-index: 1;
+}
+</code>
+								</pre>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">CSS表格</div>
+					<div class="content closed">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-4">
+									<pre class="prettyprint linenums">
+<code>
+&lt;div id="tableContainer">
+    &lt;div class="tableRow">
+        &lt;div id="main">
+            cell1
+        &lt;/div>
+        &lt;div id="sidebar">
+            cell2
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</code>
+									</pre>
+								</div>
+								<div class="col-4">
+									<pre class="prettyprint linenums">
+<code>
+div#tableContainer {
+    display: table;
+    border-spacing: 10px;
+}
+
+div.tableRow {
+    display: table-row;
+}
+
+#main {
+    display: table-cell;
+    vertical-align: top / middle / bottom;
+}
+
+#sidebar {
+    display: table-cell;
+    vertical-align: top / middle / bottom;
+}
+</code>
+									</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">布局</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">流体布局</div>
+					<div class="content open">
+						<p>默认情况下, 我们将浏览器调整到多大的宽度, 布局就会扩展, 填满整个浏览器, 使得用户能够充分利用他们的屏幕空间, 这种布局称为流体布局.</p>
+					</div>
+
+					<div class="title">冻结布局</div>
+					<div class="content open">
+						<p>内容的宽度是固定的, 不会随着浏览器窗口扩展或收缩.</p>
+						<pre class="prettyprint linenums">
+<code>
+#allcontent {
+    width: 800px;
+}
+</code>
+						</pre>
+					</div>
+
+					<div class="title">凝胶布局</div>
+					<div class="content open">
+						<p>凝胶布局是指, 其中内容宽度是固定的, 但是外边距会随着浏览器窗口扩展或收缩.</p>
+						<pre class="prettyprint linenums">
+<code>
+#allcontent {
+    width: 800px;
+    /* 外边距为auto时, 浏览器会确定正确的外边距是多少, */
+    /* 另外还会确保左和右外边距相同, 所以内容会居中. */
+    margin-left: auto;    
+    margin-right: auto;
+}
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 </div>
 
