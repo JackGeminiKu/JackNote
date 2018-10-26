@@ -58,12 +58,20 @@
                 <div class="list list-number">
                     <div class="title">定义</div>
                     <div class="content open">
-                        <pre class="prettyprint linenums lang-php"><code>define('PI', 3.14); // 常量的值只能是标量, 即布尔, 整数, 浮点数, 字符串, 这4种.</code></pre>
+                        <pre class="prettyprint linenums lang-php">
+<code>
+defined(PI) or define('PI', 3.14); // 常量的值只能是标量, 即布尔, 整数, 浮点数, 字符串, 这4种.
+</code>
+						</pre>
                     </div>
 
                     <div class="title">使用</div>
                     <div class="content open">
-                        <pre class="prettyprint linenums lang-php"><code>echo PI; // 不需要$符号</code></pre>
+                        <pre class="prettyprint linenums lang-php">
+<code>
+echo PI; // 不需要$符号
+</code>
+						</pre>
                     </div>
 
                     <div class="title">作用域</div>
@@ -145,7 +153,7 @@
                     <div class="list list-number">
                         <div class="title">变量分类</div>
                         <div class="content open">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered w-75">
                                 <tr>
                                     <th>变量分类</th>
                                     <th>局部变量</th>
@@ -156,7 +164,7 @@
                                     <th>定义</th>
                                     <td>$local_var = 1; // 在函数内部定义, 这里存放的是整数值</td>
                                     <td>$global_var = 1.0; // 在函数外部定义, 这里存放的是浮点值</td>
-                                    <td>见备注</td>
+                                    <td><a href="http://www.php.net/manual/zh/language.variables.superglobals.php">以_开头, 内置</a></td>
                                 </tr>
                                 <tr>
                                     <th>作用域</th>

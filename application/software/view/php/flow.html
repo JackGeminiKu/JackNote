@@ -132,13 +132,27 @@ if (条件1) {
 	<!--异常处理-->
     <div class="title">异常处理</div>
     <div class="content closed">
-		<p class="text-strong">set_error_handler (PHP4)</p>
+		<p class="text-strong">设置错误报告级别: error_reporting (PHP4)</p>
+		<pre class="prettyprint linenums">
+<code>
+int error_reporting ([ int $level ] )
+</code>
+		</pre>
 		<p>
-			set_error_handler: <br>
+			PHP 有诸多错误级别，使用该函数可以设置在脚本运行时的级别。 如果没有设置可选参数 level， error_reporting() 仅会返回当前的错误报告级别。
+		</p>
+
+		<p class="text-strong">设置错误处理方法: set_error_handler (PHP4)</p>
+		<pre class="prettyprint linenums">
+<code>
+mixed set_error_handler ( callable $error_handler [, int $error_types = E_ALL | E_STRICT ] )
+</code>
+		</pre>
+		<p>
 			对于php4版本，我们可以使用set_error_handler来注册自己的错误处理方法来代替php的标准错误处理方式（输出到页面或者记录到日志），但是一些严重错误是无法通过这种方式来处理的，具体我们来看手册对该方法的介绍.
 		</p>
 
-		<p class="text-strong">set_exception_handler (PHP5)</p>
+		<p class="text-strong">处理未catch的异常: set_exception_handler (PHP5)</p>
 		<p>set_exception_handler - 设置默认的异常处理程序，用于没有用 try/catch 块来捕获的异常。 在 exception_handler 调用后异常会中止。</p>
 
 		<p class="text-strong">try catch (PHP7)</p>
@@ -205,7 +219,10 @@ if ($a > 0) {
 
 	<div class="title">各种跳转函数</div>
 	<div class="content closed">
-		<p><a href="...">__callStatic</a></p>	
+		<p>
+			<a href="...">__callStatic</a><br>
+			<a href="http://php.net/manual/zh/function.register-shutdown-function.php">register_shutdown_function</a>
+		</p>	
 	</div>
 </div>
 

@@ -43,6 +43,25 @@
 			<!--静态成员 & 静态类-->
 			<div class="title">静态成员 & 静态类</div>
 			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;?php
+class Human{
+　　static public $name = "小妹";
+　　public $height = 180;
+
+　　static static public function tell(){
+　　　　echo self::$name;　　    //静态方法调用静态属性，使用self关键词!
+　　　　//echo $this->height;　　//错! 静态方法不能调用非静态属性!
+　　}
+
+　　public function say(){
+　　　　echo self::$name . "我说话了"; 　　//普通方法可以调用静态属性，同样使用self关键词
+　　　　echo $this->height;
+　　}
+}
+</code>
+				</pre>
 				<a href="https://www.cnblogs.com/moxiaoan/p/6228948.html" target="_blank">网上资料</a>
 			</div>
 
@@ -58,33 +77,38 @@
     </div>
 
     <div class="title">使用类&对象</div>
-    <div class="content closed">
+    <div class="content open">
 		<div class="list list-number">
 			<div class="title">实例化</div>
-			<div class="content open">
+			<div class="content closed">
 				<pre class="prettyprint linenums lang-php"><code>$a = new classname('First');
 $a = $b;    // 引用
 $a = clone $b;    // 拷贝</code></pre>
 			</div>
 
 			<div class="title">使用类&对象</div>
-			<div class="content open">
-				<pre class="prettyprint linenums lang-php"><code>// 调用对象成员
+			<div class="content closed">
+				<pre class="prettyprint linenums lang-php">
+<code>
+// 调用对象成员
 $a->operation($param);    // 使用对象的方法
+
 // 调用类成员
 classname::pi;    // 使用常量
-classname::squared(8);    // 调用类的静态方法</code></pre>
+classname::squared(8);    // 调用类的静态方法
+</code>
+				</pre>
 			</div>
 		</div>
     </div>
 
 	<!--高级功能-->
 	<div class="title">高级功能</div>
-	<div class="content closed">
+	<div class="content open">
 		<div class="list list-number">
 
 			<!--__autoLoad() & spl_autoload_register()-->
-			<div class="title">__autoLoad() & spl_autoload_register()</div>
+			<div class="title">自动加载: __autoLoad() & spl_autoload_register()</div>
 			<div class="content closed">
 				<p><strong>__autoLoad()</strong></p>
 				<pre class="prettyprint linenums lang-php"><code>// printit.class.php
@@ -108,8 +132,10 @@ $obj->doPrint();</code></pre>
 					运行index.php后正常输出hello world。<br>
 				</p>
 				<p><strong>spl_autoload_register()</strong></p>
-				<pre class="prettyprint linenums lang-php"><code>function loadprint( $class ) {
-$file = $class . '.class.php';
+				<pre class="prettyprint linenums lang-php">
+<code>
+function loadprint( $class ) {
+	$file = $class . '.class.php';
 	if (is_file($file)) {
 		require_once($file);
 	}
