@@ -1,0 +1,393 @@
+{include file="template/header" title="JS 地理定位" /}
+
+<div class="list list-number">
+    <div class="title">经度 & 维度</div>
+    <div class="content closed">
+		<p>你可能见过用度/分/秒指定的纬度和经度, 如(47º 38′34″ , 122º 32′22″), 还可能见过用小数值指定的经纬度, 如(47.64, -122.54). 使用地理定位API时, 都要使用小数值.</p>
+		<p>如果需要将度/分/秒转换为小数, 可以使用下面这个函数:</p>
+		<pre class="prettyprint linenums">
+<code>
+function degreesToDecimal(degress, minutes, seconds) {
+    return degrees + (minutes / 60.0) + (seconds / 3600.0);
+}
+</code>
+		</pre>
+    </div>
+
+    <div class="title">地理定位API如何确定你的位置?</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">IP地址</div>
+			<div class="content open">
+				<p>基于IP地址的位置信息使用一个外部数据库将IP地址映射到一个物理位置. 这种方法的好处是任何地方都可以使用. 不过, IP地址通常会解析为其他位置, 比如你的ISP本地分局的位置, 而不是你的具体位置. 可以认为这种方法在程城市别(甚至有时在街区级)很可靠.</p>
+			</div>
+
+			<div class="title">GPS</div>
+			<div class="content open">
+				<p>很多较新的移动设备都支持全球定位系统(Global Positioning System), 它能利用卫星提供极其精确的位置信息. 位置数据可能包括高度, 速度和朝向信息. 不过, 要使用GPS, 你的设备必须能看到天空, 而且需要花很长时间才能得到位置. 另外GPS还很耗电.</p>
+			</div>
+
+			<div class="title">Wi-Fi</div>
+			<div class="content open">
+				<p>Wi-Fi定位使用一个或多个Wi-Fi接入点完成三角定位. 这种方法可能很精确, 在室内也可以用, 而且速度很快. 显然, 这要求你想对处于静态(可能正在一家咖啡馆喝着大杯冰茶).</p>
+			</div>
+
+			<div class="title">蜂窝电话</div>
+			<div class="content open">
+				<p>蜂窝电话三角定位可以根据你与一个或多个蜂窝电话基站的距离来确定你的位置(显然, 基站越多, 位置就越准确). 这种方法可能相当精确, 在室内也能用(这与GPS不同), 而且它比GPS也快得多. 不过它也有一个缺点, 如果你的位置很偏僻, 附近只有一个蜂窝基站, 位置的精度可能就不容乐观了</p>
+			</div>
+		</div>
+		<p>有这么多办法可以知道我们在哪里, 那么, 怎么知道我的设备使用哪种方法呢? 这个问题的答案很简单: "你没办法知道", 因为要由浏览器实现来确定如何得到位置. 不过有一个好消息, 浏览器可以使用以上任意一种方法来确定你的位置!</p>
+    </div>
+
+	<div class="title">地理定位简单例子</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+window.onload = getMyLocation();    // 一旦浏览器加载页面, 我们将调用函数getMyLocation.
+
+function getMyLocation() {
+    if (navigator.geolocation) {    // 如果不支持地理定位, navigator.geolocation = null
+        navigator.geolocation.getCurrentPosition(displayLocation, displayError);    // 浏览器得到一个位置时, 就会调用displayLocation函数, 并传入当前位置
+    } else {
+        alert("Oops, no geolocation support");
+    }
+}
+
+function displayLocation(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    var div = document.getElementById("location");
+    div.innerHTML = "You are at Latitude: " + latitude + ", Longitude: " + longitude;
+}
+
+function displayError(error) {
+    var errorTypes = {
+        0: "Unknown error",
+        1: "Permission denied by user",
+        2: "Position is not avaiable",
+        3: "Request timed out"
+    };
+    var errorMessage = errorTypes[error.code];
+    if (error.code == 0 || error.code == 2) {
+        errorMessage = errorMessage + " " + error.message;
+    }
+
+    var div = document.getElementById("location");
+    div.innerHTML = errorMessage;
+}
+</code>
+		</pre>
+    </div>
+
+	<div class="title">使用Google地图API</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">入门例子</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;!doctype html>
+&lt;html>
+&lt;head>
+    &lt;title>Google Map&lt;/title>
+    &lt;script src="http://maps.google.com/maps/api/js?sensor=false">&lt;/script>
+    &lt;script>
+        var map = null;
+        var ourCoords = {
+            latitude: 47.624851,
+            longitude: -122.52099
+        };
+
+        window.onload = getMyLocation;
+
+        function getMyLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(displayLocation, displayError);
+            }
+            else {
+                alert("Oops, no geolocation support");
+            }
+        }
+
+        function displayLocation(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var div = document.getElementById("location");
+            div.innerHTML = "You are at Latitude: " + latitude + ", Longitude: " + longitude;
+
+            var km = computeDistance(position.coords, ourCoords);
+            var distance = document.getElementById("distance");
+            distance.innerHTML = "You are " + km + " km from the WickedlySmart HQ";
+
+            showMap(position.coords);
+        }
+
+        function computeDistance(startCoords, destCoords) {
+            var startLatRads = degreesToRadians(startCoords.latitude);
+            var startLongRads = degreesToRadians(startCoords.longitude);
+            var destLatRads = degreesToRadians(destCoords.latitude);
+            var destLongRads = degreesToRadians(destCoords.longitude);
+
+            var Radius = 6371; // radius of the Earth in km
+            var distance = Math.acos(Math.sin(startLatRads) * Math.sin(destLatRads) +
+                    Math.cos(startLatRads) * Math.cos(destLatRads) *
+                    Math.cos(startLongRads - destLongRads)) * Radius;
+
+            return distance;
+        }
+
+        function degreesToRadians(degrees) {
+            radians = (degrees * Math.PI) / 180;
+            return radians;
+        }
+
+        function showMap(coords) {
+            var googleLatAndLong = new google.maps.LatLng(coords.latitude,
+                coords.longitude);
+            var mapOptions = {
+                zoom: 10,
+                center: googleLatAndLong,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var mapDiv = document.getElementById("map");
+            map = new google.maps.Map(mapDiv, mapOptions);
+
+			var title = "Your Location";
+			var content = "You are here: " + coords.latitude + ", " + coords.longitude;
+			addMarker(map, googleLatAndLong, title, content);
+        }
+
+        function displayError(error) {
+            var errorTypes = {
+                0: "Unknown error",
+                1: "Permission denied",
+                2: "Position is not available",
+                3: "Request timeout"
+            };
+            var errorMessage = errorTypes[error.code];
+            if (error.code == 0 || error.code == 2) {
+                errorMessage = errorMessage + " " + error.message;
+            }
+            var div = document.getElementById("location");
+            div.innerHTML = errorMessage;
+        }
+
+		function addMarker(map, latlong, title, content) {
+			var markerOptions = {
+				position: latlong,
+				map: map,
+				title: title,
+				clickable: true
+			};
+			var marker = new google.maps.Marker(markerOptions);	// 创建标记点
+
+			var infoWindowOptions = {
+				content: content,
+				position: latlong
+			};
+			var infoWindow = new google.maps.InfoWindow(infoWindowOptions);	// 创建信息窗口
+
+			google.maps.event.addListener(marker, "click", function() {	// 点击marker时, 弹出信息窗口
+				infoWindow.open(map);
+			});
+		}
+    &lt;/script>
+    &lt;link rel="stylesheet" href="myLoc.css">
+    &lt;style type="text/css">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 10px;
+        }
+
+        div#location, div#distance {
+            padding: 5px;
+        }
+
+        div#map {
+            margin: 5px;
+            width: 1800px;
+            height: 880px;
+            border: 1px solid black;
+        }
+    &lt;/style>
+&lt;/head>
+&lt;body>
+&lt;div id="location">
+    Your location will go here.
+&lt;/div>
+&lt;div id="distance">
+    Distance from WickedlySmart HQ will go here.
+&lt;/div>
+&lt;div id="map">
+&lt;/div>
+&lt;/body>
+&lt;/html>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">跟踪&显示位置</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;!doctype html>
+&lt;html>
+&lt;head>
+    &lt;title>Google Map&lt;/title>
+    &lt;script src="http://maps.google.com/maps/api/js?sensor=false">&lt;/script>
+    &lt;script>
+        var map = null;
+        var ourCoords = {
+            latitude: 47.624851,
+            longitude: -122.52099
+        };
+
+        window.onload = getMyLocation;
+
+        function getMyLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(displayLocation, displayError);
+            }
+            else {
+                alert("Oops, no geolocation support");
+            }
+        }
+
+        function displayLocation(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var div = document.getElementById("location");
+            div.innerHTML = "You are at Latitude: " + latitude + ", Longitude: " + longitude;
+
+            var km = computeDistance(position.coords, ourCoords);
+            var distance = document.getElementById("distance");
+            distance.innerHTML = "You are " + km + " km from the WickedlySmart HQ";
+
+			if (map == null){
+				showMap(position.coords);	// 第一次: 绘制地图, 并增加第一个标记
+			} else {
+				scrollMapToPosition(position.coords);	// 地图居中, 并增加一个新的标记
+			}
+        }
+
+        function computeDistance(startCoords, destCoords) {
+            var startLatRads = degreesToRadians(startCoords.latitude);
+            var startLongRads = degreesToRadians(startCoords.longitude);
+            var destLatRads = degreesToRadians(destCoords.latitude);
+            var destLongRads = degreesToRadians(destCoords.longitude);
+
+            var Radius = 6371; // radius of the Earth in km
+            var distance = Math.acos(Math.sin(startLatRads) * Math.sin(destLatRads) +
+                    Math.cos(startLatRads) * Math.cos(destLatRads) *
+                    Math.cos(startLongRads - destLongRads)) * Radius;
+
+            return distance;
+        }
+
+        function degreesToRadians(degrees) {
+            radians = (degrees * Math.PI) / 180;
+            return radians;
+        }
+
+        function showMap(coords) {
+            var googleLatAndLong = new google.maps.LatLng(coords.latitude,
+                coords.longitude);
+            var mapOptions = {
+                zoom: 10,
+                center: googleLatAndLong,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var mapDiv = document.getElementById("map");
+            map = new google.maps.Map(mapDiv, mapOptions);
+
+			var title = "Your Location";
+			var content = "You are here: " + coords.latitude + ", " + coords.longitude;
+			addMarker(map, googleLatAndLong, title, content);
+        }
+
+        function displayError(error) {
+            var errorTypes = {
+                0: "Unknown error",
+                1: "Permission denied",
+                2: "Position is not available",
+                3: "Request timeout"
+            };
+            var errorMessage = errorTypes[error.code];
+            if (error.code == 0 || error.code == 2) {
+                errorMessage = errorMessage + " " + error.message;
+            }
+            var div = document.getElementById("location");
+            div.innerHTML = errorMessage;
+        }
+
+		function addMarker(map, latlong, title, content) {
+			var markerOptions = {
+				position: latlong,
+				map: map,
+				title: title,
+				clickable: true
+			};
+			var marker = new google.maps.Marker(markerOptions);	// 创建标记点
+
+			var infoWindowOptions = {
+				content: content,
+				position: latlong
+			};
+			var infoWindow = new google.maps.InfoWindow(infoWindowOptions);	// 创建信息窗口
+
+			google.maps.event.addListener(marker, "click", function() {	// 点击marker时, 弹出信息窗口
+				infoWindow.open(map);
+			});
+		}
+
+		function scrollMapToPosition(coords) {
+			var latitude = coords.latitude;
+			var longitude = coords.longitude;
+			var latlong = new google.maps.LatLng(latitude, longitude);
+
+			map.panTo(latlong);	// 地图的panTo方法取这个LatLng对象并滚动地图, 使你的新位置位于地图中心
+			addMarker(map, latlong, "Your new location:", "You moved to: " + latitude + ", " + longtude);
+		}
+    &lt;/script>
+    &lt;link rel="stylesheet" href="myLoc.css">
+    &lt;style type="text/css">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 10px;
+        }
+
+        div#location, div#distance {
+            padding: 5px;
+        }
+
+        div#map {
+            margin: 5px;
+            width: 1800px;
+            height: 880px;
+            border: 1px solid black;
+        }
+    &lt;/style>
+&lt;/head>
+&lt;body>
+&lt;div id="location">
+    Your location will go here.
+&lt;/div>
+&lt;div id="distance">
+    Distance from WickedlySmart HQ will go here.
+&lt;/div>
+&lt;div id="map">
+&lt;/div>
+&lt;/body>
+&lt;/html>
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+</div>
+
+{include file="template/footer" /}
