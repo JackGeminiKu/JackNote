@@ -3,12 +3,53 @@
 <div class="list list-number">
     <div class="title">jQuery</div>
     <div class="content closed">
-
+		<pre class="prettyprint linenums">
+<code>
+$(function(){
+    ...
+});
+</code>
+		</pre>
+		<p>的完整写法是: </p>
+		<pre class="prettyprint linenums">
+<code>
+$(docunemt).ready(function(){
+    ...
+});
+</code>
+		</pre>
+		<p>意思是在DOM加载完毕后执行ready()方法。</p>
     </div>
 
     <div class="title">ready vs onload</div>
     <div class="content closed">
+		<p>Code included inside $( document ).ready() will only run once the page Document Object Model (DOM) is ready for JavaScript code to execute.</p>
+		<pre class="prettyprint linenums">
+<code>
+$( document ).ready(function() {
+    console.log( "document loaded" );
+});
+</code>
+		</pre>
 
+		<p>Code included inside $( window ).on( "load", function() { ... }) will run once the entire page (images or iframes), not just the DOM, is ready.</p>
+		<pre class="prettyprint linenums">
+<code>
+window.onload = function() {
+    console.log( "window loaded" );
+};
+</code>
+		</pre>
+
+		<p>Experienced developers sometimes use the shorthand $() for $( document ).ready().</p>
+		<pre class="prettyprint linenums">
+<code>
+// Shorthand for $( document ).ready()
+$(function() {
+    console.log( "ready!" );
+});
+</code>
+		</pre>
     </div>
 
 	<div class="title">选择元素</div>
@@ -200,52 +241,434 @@ if ( $( "div.foo" ).length ) {
 
 	<div class="title">避免和其他类库冲突</div>
     <div class="content closed">
-
+		<a href="http://learn.jquery.com/using-jquery-core/avoid-conflicts-other-libraries/">http://learn.jquery.com/using-jquery-core/avoid-conflicts-other-libraries/</a>
     </div>
 
 	<div class="title">创建元素</div>
     <div class="content closed">
+		<p>jQuery offers a trivial and elegant way to create new elements using the same $() method used to make selections:</p>
+		<pre class="prettyprint linenums">
+<code>
+// Creating new elements from an HTML string.
+$( "&lt;p>This is a new paragraph&lt;/p>" );
+$( "&lt;li class=\"new\">new list item&lt;/li>" );
+</code>
+		</pre>
 
+		<pre class="prettyprint linenums">
+<code>
+// Creating a new element with an attribute object.
+$( "&lt;a/>", {
+    html: "This is a &lt;strong>new&lt;/strong> link",
+    "class": "new",
+    href: "foo.html"
+});
+</code>
+		</pre>
+		<p>Note that the attributes object in the second argument above, the property name class is quoted, although the property names html and href are not. Property names generally do not need to be quoted unless they are reserved words (as class is in this case).</p>
+
+		<div class="list list-none">
+			<div class="title">把生成的元素添加到页面...</div>
+			<div class="content closed">
+				<p>When you create a new element, it is not immediately added to the page. There are several ways to add an element to the page once it's been created.</p>
+				<pre class="prettyprint linenums">
+<code>
+var myNewElement = $( "&lt;p>New element&lt;/p>" );
+myNewElement.appendTo( "#content" );
+myNewElement.insertAfter( "ul:last" ); // This will remove the p from #content!
+$( "ul" ).last().after( myNewElement.clone() ); // Clone the p so now we have two.
+</code>
+				</pre>
+				<p>The created element doesn't need to be stored in a variable – you can call the method to add the element to the page directly after the $(). However, most of the time you'll want a reference to the element you added so you won't have to select it later.</p>
+				<pre class="prettyprint linenums">
+<code>
+// Creating and adding an element to the page at the same time.
+$( "ul" ).append( "&lt;li>list item&lt;/li>" );
+</code>
+				</pre>
+			</div>
+
+			<div class="title">性能问题...</div>
+			<div class="content closed">
+				<p>The syntax for adding new elements to the page is easy, so it's tempting to forget that there's a huge performance cost for adding to the DOM repeatedly. If you're adding many elements to the same container, you'll want to concatenate all the HTML into a single string, and then append that string to the container instead of appending the elements one at a time. Use an array to gather all the pieces together, then join them into a single string for appending:</p>
+				<pre class="prettyprint linenums">
+<code>
+var myItems = [];
+var myList = $( "#myList" );
+
+for ( var i = 0; i &lt; 100; i++ ) {
+    myItems.push( "&lt;li>item " + i + "&lt;/li>" );
+}
+
+myList.append( myItems.join( "" ) );
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
 
 	<div class="title">操作元素</div>
     <div class="content closed">
+		<div class="list list-number">
+			<div class="title">Getters & Setters</div>
+			<div class="content closed">
+				<p>
+					Some jQuery methods can be used to either assign or read some value on a selection:<br>
+					1) When the method is called with a value as an argument, it's referred to as a setter because it sets (or assigns) that value. When the method is called with no argument, it gets (or reads) the value of the element. <br>
+					2) Setters affect all elements in a selection, whereas getters return the requested value only for the first element in the selection, with the exception of .text(), which retrieves the values of all the elements.
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+// The .html() method sets all the h1 elements' html to be "hello world"
+$( "h1" ).html( "hello world" );
 
+// The .html() method returns the html of the first h1 element:
+$( "h1" ).html();
+</code>
+				</pre>
+				<p>Setters return a jQuery object, allowing you to continue calling jQuery methods on your selection. 
+					Getters return whatever they were asked to get, so you can't continue to call jQuery methods on the value returned by the getter.</p>
+				<p>Here are a few methods you can use to get and set information about elements:</p>
+				<table class="table table-bordered table-sm w-75">
+					<tbody>
+						<tr>
+							<td>.html()</td>
+							<td>Get or set the HTML contents.</td>
+						</tr>
+						<tr>
+							<td>.text()</td>
+							<td>Get or set the text contents; HTML will be stripped.</td>
+						</tr>
+						<tr>
+							<td>.attr()</td>
+							<td>Get or set the value of the provided attribute.</td>
+						</tr>
+						<tr>
+							<td>.width()</td>
+							<td>Get or set the width in pixels of the first element in the selection as an integer.</td>
+						</tr>
+						<tr>
+							<td>.height()</td>
+							<td>Get or set the height in pixels of the first element in the selection as an integer.</td>
+						</tr>
+						<tr>
+							<td>.position()</td>
+							<td>Get an object with position information for the first element in the selection, relative to its first positioned ancestor. This is a getter only.</td>
+						</tr>
+						<tr>
+							<td>.val()</td>
+							<td>Get or set the value of form elements.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="title">Chaining</div>
+			<div class="content closed">
+				<p>If you call a method on a selection and that method returns a jQuery object, you can continue to call jQuery methods on the object without pausing for a semicolon. This practice is referred to as "chaining":</p>
+				<pre class="prettyprint linenums">
+<code>
+$( "#content" )
+    .find( "h3" )
+    .eq( 2 )
+    .html( "new text for the third h3!" );
+</code>
+				</pre>
+				<p>jQuery also provides the .end() method to get back to the original selection should you change the selection in the middle of a chain:</p>
+				<pre class="prettyprint linenums">
+<code>
+$( "#content" )
+    .find( "h3" )
+    .eq( 2 )
+    .html( "new text for the third h3!" )
+    .end() // Restores the selection to all h3s in #content
+    .eq( 0 )
+    .html( "new text for the first h3!" );
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Moving Elements (insert, append, prepend)</div>
+			<div class="content closed">
+				<p>
+					jQuery provides .insertAfter() and .after(). <br>
+					1) The .insertAfter() method places the selected element(s) after the element provided as an argument. <br>
+					2) The .after() method places the element provided as an argument after the selected element. <br>
+					Several other methods follow this pattern: .insertBefore() and .before(), .appendTo() and .append(), and .prependTo() and .prepend().
+				</p>
+				<p>
+					The method that makes the most sense will depend on what elements are selected, and whether you need to store a reference to the elements you're adding to the page. If you need to store a reference, you will always want to take the first approach – placing the selected elements relative to another element – as it returns the element(s) you're placing. In this case, .insertAfter(), .insertBefore(), .appendTo(), and .prependTo() should be the tools of choice.	
+				</p>
+				<pre class="prettyprint linenums">
+<code>
+// Moving elements using different approaches.
+
+// Make the first list item the last list item:
+var li = $( "#myList li:first" ).appendTo( "#myList" );
+
+// Another approach to the same problem:
+$( "#myList" ).append( $( "#myList li:first" ) );
+
+// Note that there's no way to access the list item that we moved, as this returns the list itself.
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Cloning Elements</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+// Copy the first list item to the end of the list:
+$( "#myList li:first" )
+    .clone()
+    .appendTo( "#myList" );
+</code>
+				</pre>
+				<p>If you need to copy related data and events, be sure to pass true as an argument to .clone().</p>
+			</div>
+
+			<div class="title">Removing Elements</div>
+			<div class="content closed">
+				<p>There are two ways to remove elements from the page: .remove() and .detach().</p>
+				<p>Use .remove() when you want to permanently remove the selection from the page. While .remove() does return the removed element(s), those elements will not have their associated data and events attached to them if you return them to the page.</p>
+				<p>Use .detach() if you need the data and events to persist. Like .remove(), it returns the selection, but it also maintains the data and events associated with the selection, so you can restore the selection to the page at a later time.</p>
+				<p>If you want to leave the element on the page but remove its contents, you can use .empty() to dispose of the element's inner HTML.</p>
+			</div>
+
+			<div class="title">Manipulating Attributes</div>
+			<div class="content closed">
+				<p>jQuery's attribute manipulation capabilities are extensive. Basic changes are simple, but the .attr() method also allows for more complex manipulations. It can either set an explicit value, or set a value using the return value of a function. When the function syntax is used, the function receives two arguments: the zero-based index of the element whose attribute is being changed, and the current value of the attribute being changed.</p>
+				<pre class="prettyprint linenums">
+<code>
+// Manipulating a single attribute.
+$( "#myDiv a:first" ).attr( "href", "newDestination.html" );
+</code>
+				</pre>
+				<pre class="prettyprint linenums">
+<code>
+
+// Manipulating multiple attributes.
+$( "#myDiv a:first" ).attr({
+    href: "newDestination.html",
+    rel: "nofollow"
+});
+</code>
+				</pre>
+				<pre class="prettyprint linenums">
+<code>
+// Using a function to determine an attribute's new value.
+$( "#myDiv a:first" ).attr({
+    rel: "nofollow",
+    href: function( idx, href ) {
+        return "/new/" + href;
+    }
+});
+
+$( "#myDiv a:first" ).attr( "href", function( idx, href ) {
+    return "/new/" + href;
+});
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Adding and Removing an HTML Class - addClass() & removeClass()</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$( "a" ).addClass( "test" );
+$( "a" ).removeClass( "test" );
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
 
 	<div class="title">Special Effects</div>
     <div class="content closed">
-
+		<pre class="prettyprint linenums">
+<code>
+$( "a" ).click(function( event ) {
+    event.preventDefault();
+    $( this ).hide( "slow" );
+});
+</code>
+		</pre>
     </div>
 
 	<div class="title">Callback & Functions</div>
     <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+// 无参数
+$.get( "myhtmlpage.html", myCallBack );
 
+// 带参数
+$.get( "myhtmlpage.html", function() {
+    myCallBack( param1, param2 );
+});
+</code>
+		</pre>
     </div>
 
 	<div class="title">The jQuery Object</div>
     <div class="content closed">
+		<p>It turns out that working directly with DOM elements can be awkward. The jQuery object defines many methods to smooth out the experience for developers. Some benefits of the jQuery Object include:</p>
 
+		<div class="list list-number">
+			<div class="title">Compatibility</div>
+			<div class="content closed">
+				<p>The implementation of element methods varies across browser vendors and versions. The following snippet attempts to set the inner HTML of a <tr> element stored in target:</p>
+				<pre class="prettyprint linenums">
+<code>
+var target = document.getElementById( "target" );
+target.innerHTML = "&lt;td>Hello &lt;b>World&lt;/b>!&lt;/td>";
+</code>
+				</pre>
+				<p>This works in many cases, but it will fail in most versions of Internet Explorer. In that case, the recommended approach is to use pure DOM methods instead. By wrapping the target element in a jQuery object, these edge cases are taken care of, and the expected result is achieved in all supported browsers:</p>
+				<pre class="prettyprint linenums">
+<code>
+var target = document.getElementById( "target" );
+$( target ).html( "&lt;td>Hello &lt;b>World&lt;/b>!&lt;/td>" );
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Convenience</div>
+			<div class="content closed">
+				<p>There are also a lot of common DOM manipulation use cases that are awkward to accomplish with pure DOM methods. For instance, inserting an element stored in newElement after the target element requires a rather verbose DOM method:</p>
+				<pre class="prettyprint linenums">
+<code>
+var target = document.getElementById( "target" );
+var newElement = document.createElement( "div" );
+target.parentNode.insertBefore( newElement, target.nextSibling );
+</code>
+				</pre>	
+				<p>By wrapping the target element in a jQuery object, the same task becomes much simpler:</p>
+				<pre class="prettyprint linenums">
+<code>
+var target = document.getElementById( "target" );
+var newElement = document.createElement( "div" );
+$( target ).after( newElement );
+</code>
+				</pre>
+				<p>For the most part, these details are simply "gotchas" standing between you and your goals.</p>
+			</div>
+
+			<div class="title">Getting Elements Into the jQuery Object</div>
+			<div class="content closed">
+				<p>When the jQuery function is invoked with a CSS selector, it will return a jQuery object wrapping any element(s) that match this selector. For instance, writing:</p>
+				<pre class="prettyprint linenums">
+<code>
+var headings = $( "h1" );
+</code>
+				</pre>
+				<p>headings is now a jQuery element containing all the &lt;h1> tags already on the page.</p>
+				<p>If the goal is to select only the first heading element, another step is required. There are a number of ways to accomplish this, but the most straight-forward is the .eq() function.</p>
+				<pre class="prettyprint linenums">
+<code>
+// Selecting only the first &lt;h1> element on the page (in a jQuery object)
+var headings = $( "h1" );
+var firstHeading = headings.eq( 0 );
+</code>
+				</pre>
+				<p>Now firstHeading is a jQuery object containing only the first &lt;h1> element on the page. And because firstHeading is a jQuery object, it has useful methods like .html() and .after().</p>
+			</div>
+
+			<div class="title">获取原生DOM对象</div>
+			<div class="content closed">
+				<p>jQuery also has a method named .get() which provides a related function. Instead of returning a jQuery-wrapped DOM element, it returns the DOM element itself.</p>
+				<pre class="prettyprint linenums">
+<code>
+var firstHeadingElem = $( "h1" ).get( 0 );
+</code>
+				</pre>
+				<p>Alternatively, because the jQuery object is "array-like," it supports array subscripting via brackets:</p>
+				<pre class="prettyprint linenums">
+<code>
+var firstHeadingElem = $( "h1" )[ 0 ];
+</code>
+				</pre>
+			</div>
+
+			<div class="title">Each Wrapped Object Is Unique</div>
+			<div class="content closed">
+				<p>An important detail regarding this "wrapping" behavior is that each wrapped object is unique. This is true even if the object was created with the same selector or contain references to the exact same DOM elements.</p>
+				<pre class="prettyprint linenums">
+<code>
+var logo1 = $( "#logo" );
+var logo2 = $( "#logo" );
+
+alert( $( "#logo" ) === $( "#logo" ) ); // alerts "false"
+</code>
+				</pre>
+				<p>Although logo1 and logo2 are created in the same way (and wrap the same DOM element), they are not the same object. For example:</p>
+				<p>However, both objects contain the same DOM element. The .get() method is useful for testing if two jQuery objects have the same DOM element.</p>
+				<pre class="prettyprint linenums">
+<code>
+var logo1 = $( "#logo" );
+var logo1Elem = logo1.get( 0 );
+
+var logo2 = $( "#logo" );
+var logo2Elem = logo2.get( 0 );
+
+alert( logo1Elem === logo2Elem ); // alerts "true"
+</code>
+				</pre>
+			</div>
+
+			<div class="title">$变量</div>
+			<div class="content closed">
+				<p>Many developers prefix a $ to the name of variables that contain jQuery objects in order to help differentiate. There is nothing magic about this practice – it just helps some people keep track of what different variables contain. The previous example could be re-written to follow this convention:</p>
+				<pre class="prettyprint linenums">
+<code>
+var $logo1 = $( "#logo" );
+var logo1 = $logo1.get( 0 );
+
+var $logo2 = $( "#logo" );
+var logo2 = $logo2.get( 0 );
+
+alert( logo1 === logo2 ); // alerts "true"
+</code>
+				</pre>
+				<p>This code functions identically to the example above, but it is a little more clear to read.</p>
+			</div>
+
+			<div class="title">jQuery Objects Are Not "Live"</div>
+			<div class="content closed">
+				<p>Given a jQuery object with all the paragraph elements on the page:</p>
+				<pre class="prettyprint linenums">
+<code>
+var allParagraphs = $( "p" );
+</code>
+				</pre>
+				<p>…one might expect that the contents will grow and shrink over time as <p> elements are added and removed from the document. jQuery objects do not behave in this manner. The set of elements contained within a jQuery object will not change unless explicitly modified. This means that the collection is not "live" – it does not automatically update as the document changes. If the document may have changed since the creation of the jQuery object, the collection should be updated by creating a new one. It can be as easy as re-running the same selector:</p>
+				<pre class="prettyprint linenums">
+<code>
+allParagraphs = $( "p" );
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
 
 	<div class="title">Traversing(Parents, Children, Siblings)</div>
     <div class="content closed">
-
+		<a href="http://learn.jquery.com/using-jquery-core/traversing/">http://learn.jquery.com/using-jquery-core/traversing/</a>
     </div>
 
 	<div class="title">CSS, Styling & Dimensions</div>
     <div class="content closed">
-
+		<a href="http://learn.jquery.com/using-jquery-core/css-styling-dimensions/">http://learn.jquery.com/using-jquery-core/css-styling-dimensions/</a>
     </div>
 
 	<div class="title">Data Methods</div>
     <div class="content closed">
-
+		<a href="http://learn.jquery.com/using-jquery-core/data-methods/">http://learn.jquery.com/using-jquery-core/data-methods/</a>
     </div>
 
 	<div class="title">Utility Methods</div>
     <div class="content closed">
-
+		<a href="http://learn.jquery.com/using-jquery-core/utility-methods/">http://learn.jquery.com/using-jquery-core/utility-methods/</a>
     </div>
 </div>
 

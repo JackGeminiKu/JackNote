@@ -1,0 +1,169 @@
+{include file="template/header" title="JS Web服务" /}
+
+<div class="list list-number">
+	<!--XMLHttpRequest (必须在同一个域中)-->
+    <div class="title">XMLHttpRequest (必须在同一个域中)</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+window.onlaod = function() {
+    var url = "http://wickedlysmart.com/ifeelluckytoday";    // Web服务url
+    var request = new XMLHttpRequest();
+    request.onload = function() {    // 浏览器从远程Web服务得到一个回答时, 它会调用这个函数
+        if (request.status == 200) {    // 200是服务器码, 表示一切正常
+            displayLuck(request.responseText);
+        }
+    };
+    request.open("GET", url);    // 建立一个HTTP GET请求
+    request.send(null);    // 把请求发送到服务器. 如果不打算向远程服务发送任何数据, 就要传入null.
+}
+
+function displayLuck(luck) {
+    var p = document.getElementById("luck");
+    p.innerHTML = "Today you are " + luck;
+}
+</code>
+		</pre>
+		<p class="text-strong">浏览器安全策略</p>
+		<p>想象一下, 假设你在运行DaddyWarBucksBank.com网站, 有人闯入了你的系统, 插入一些JavaScript, 拿走了用户的个人信息, 并与服务器HackersNeedMoreMoney.com通信, 对这个信息为所欲为. 听起来不太好吧? 为了防止诸如此类的事情发生, 浏览器不允许你对原先提供页面的域以外的其他域发出XMLHttpRequest请求.</p>
+    </div>
+
+	<!--JSONP (可以跨域)-->
+    <div class="title">JSONP (可以跨域)</div>
+    <div class="content closed">
+		<p>JSONP是一种使用&lt;script>标记获取JSON对象的方法, 它可以避免XMLHttpRequest的同源安全问题.JSONP最后一个P是填充(padding)的缩写, 这里填充(padding)的含义就是在请求中返回JSON之前先用有一个函数来包装.</p>
+		<pre class="prettyprint linenums lang-html">
+<code>
+// mightygumball.html
+&lt;!doctype html>
+&lt;html lang="en">
+&lt;head>
+    &lt;title>Mighty Gumball&lt;/title>
+    &lt;meta charset="utf-8">
+    &lt;script str="mightygumball.js">&lt;/script>
+    &lt;link rel="stylesheet" href="mightygumball.css">
+&lt;/head>
+&lt;body>
+    &lt;h1>Mighty Gumball Sales&lt;/h1>
+    &lt;div id="sales">
+    &lt;/div>
+    &lt;script src="http://gumball.wickedlysmart.com/?callback=updateSales">&lt;/script>    // &lt;script>元素: Web服务提供JSON数据, callback参数提供处理函数
+&lt;/body>
+&lt;/html>
+</code>
+		</pre>
+
+		<pre class="prettyprint linenums">
+<code>
+// mightygumball.js
+function updateSales(sales) {
+    var salesDiv = document.getElementById("sales");
+    for (var i = 0; i < sales.length; i++) {
+        var sale = sales[i];
+        var div = document.createElement("div");
+        div.setAttribute("class", "saleItem");
+        div.innerHTML = sale.name + " sold" + sale.sales + " gumballs";
+        salesDiv.appendChild(div);
+    }
+}
+</code>
+		</pre>
+
+		<div class="list list-none">
+			<div class="title">Web服务允许你指定一个回调函数</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+http://gumball.wickedlysmart.com/?callback=updateSales
+</code>
+				</pre>
+				<p>MightyGumball向你发回JSON对象之前, 会调用updateSales包装这个JSON格式化对象. 一般地, Web服务将这个参数命名为callback, 不过请查看你的Web服务文档, 明确Web服务实际使用的参数名.</p>
+			</div>
+
+			<div class="title">使用&lt;script>加载JavaScript就不再安全了 </div>
+			<div class="content open">
+				<p>如果向一个恶意Web服务发出一个JSONP请求, 响应中可能会包含你不想要的JavaScript代码, 而且浏览器会执行这些恶意的代码.</p>	
+				<p>不过这与链接其他服务器上托管的库来包含JavaScript并没有不同. 只要链接到JavaScript, 不论是在文档的&lt;head>中链接到一个库, 还是使用JSONP, 都需要确保信任这个服务. 如果你要编写一个Web应用, 其中使用认证来授权用户访问敏感数据, 可能最好的办法是根本不要使用第三方或位于其他服务器的JSON数据.</p>
+			</div>
+		</div>
+	</div>
+
+	<!--JSONP - 脚本插入-->
+	<div class="title">JSONP - 脚本插入</div>
+    <div class="content closed">
+		<p>如果只是用新URL替换src属性, 浏览器不会把它看做是一个新的script元素, 所以它不会发出请求来获取JSONP. 要强制浏览器做出请求, 必须创建这个全新的script元素. 这种技术称为"脚本插入".</p>
+		<pre class="prettyprint linenums">
+<code>
+// mightygumball.html
+&lt;!doctype html>
+&lt;html lang="en">
+&lt;head>
+    &lt;title>Mighty Gumball&lt;/title>
+    &lt;meta charset="utf-8">
+    &lt;script src="mightygumball.js">&lt;/script>
+    &lt;link rel="stylesheet" href="mightygumball.css">
+&lt;/head>
+&lt;body>
+    &lt;h1>Mighty Gumball Sales&lt;/h1>
+    &lt;div id="sales">
+    &lt;/div>
+&lt;/body>
+&lt;/html>
+// mightygumball.js
+var lastReportTime = 0;
+
+window.onload = function() {
+    setInterval(handleRefresh, 3000);
+}
+
+function handleRefresh() {
+    var url = "http://gumball.wickedlysmart.com" + 
+                "?callback=updateSales" + 
+                "&lastreporttime=" +lastReportTime +     // 防止重复的数据, 详见后面解释
+                "&random=" + (new Date()).getTime();    // 防止浏览器缓存, 详见后面解释
+    var newScriptElement = document.createElement("script");    // 创建一个script元素, 以供"脚本插入"
+    newScriptElement.setAttribute("src", url);
+    newScriptElement.setAttribute("id", "jsonp");
+
+    var oldScriptElement = document.getElementById("jsonp");
+    var head = document.getElementsByTagName("head")[0];
+
+    if (oldScriptElement == null) {
+        head.appendChild(newScriptElement);
+    } else {
+        head.replaceChild(newScriptElement, oldScriptElement);
+    }
+}
+
+function updateSales(sales) {
+    var salesDiv = document.getElementById("sales");
+    for (var i = 0; i &lt;sales.length; i++) {
+        var sale = sales[i];
+        var div = document.createElement("div");
+        div.setAttribute("class", "saleItem");
+        div.innerHTML = sale.name + " sold " + sale.sales + " gumballs";
+        salesDiv.appendChild(div);
+    }
+    if (sales.length > 0) {
+        lastReportTime = sales[sales.length - 1].time;
+    }
+}
+</code>
+		</pre>
+
+		<div class="list list-none">
+			<div class="title">防止重复数据</div>
+			<div class="content closed">
+				<p>查看"糖果公司"Web服务规范, 你会看到请求URL中可以指定一个最近报告时间参数: 可以在UR的末尾增加一个lastreporttime参数, 这样只会得到这个时间之后的报告.</p>
+			</div>
+
+			<div class="title">浏览器缓存</div>
+			<div class="content closed">
+				<p>大多数浏览器都有一个有趣的特性, 如果你反复地获取同一个URL(比如我们的JSONP请求就是这样), 浏览器为了提高效率会把它缓存起来, 所以你会反复地得到同样的缓存文件(或数据). 这可不是我们想要的.</p>
+				<p>很幸运, 对于这个问题, 有一个像Web一样老的简便"疗法". 我们只需要在URL的末尾增加一个随机数, 就会诱使浏览器认为它是以前从来没有见过的一个新URL.</p>
+			</div>
+		</div>
+    </div>
+</div>
+
+{include file="template/footer" /}
