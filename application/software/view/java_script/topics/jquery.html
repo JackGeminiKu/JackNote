@@ -1,26 +1,6 @@
 {include file="template/header" title="JS jQuery" /}
 
 <div class="list list-number">
-    <div class="title">jQuery</div>
-    <div class="content closed">
-		<pre class="prettyprint linenums">
-<code>
-$(function(){
-    ...
-});
-</code>
-		</pre>
-		<p>的完整写法是: </p>
-		<pre class="prettyprint linenums">
-<code>
-$(docunemt).ready(function(){
-    ...
-});
-</code>
-		</pre>
-		<p>意思是在DOM加载完毕后执行ready()方法。</p>
-    </div>
-
     <div class="title">ready vs onload</div>
     <div class="content closed">
 		<p>Code included inside $( document ).ready() will only run once the page Document Object Model (DOM) is ready for JavaScript code to execute.</p>
@@ -54,7 +34,7 @@ $(function() {
 
 	<div class="title">选择元素</div>
     <div class="content closed">
-		<table class="table table-bordered table-sm w-50">
+		<table class="table table-bordered table-sm w-75">
 			<tbody>
 				<tr>
 					<td>Selecting Elements by ID</td>
