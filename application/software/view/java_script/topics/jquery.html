@@ -1,6 +1,125 @@
 {include file="template/header" title="JS jQuery" /}
 
 <div class="list list-number">
+	<div class="title">jQuery核心函数</div>
+    <div class="content closed">
+		<div class="list list-square">
+			<div class="title">接收函数</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+$(function() {
+    alert("hello jQuery");
+}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">接收字符串</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+// 接收一个字符串选择器
+var $box1 = $(".box1");
+</code>
+				</pre>
+				<pre class="prettyprint linenums">
+<code>
+// 返回一个jQuery对象, 对象中保存了创建的DOM元素
+var $p = $("&lt;p>我是段落&lt;/p>");
+console.log($p);
+$box1.append($p);
+</code>
+				</pre>
+			</div>
+
+			<div class="title">接收一个DOM元素</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+var span = document.getElementByTagName("span");
+console.log(span);
+var $span = $(span);    // 会被包装成一个jQuery对象返回
+console.log($span);
+</code>
+				</pre>
+			</div>
+
+			<div class="title">遍历数组: each方法</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$.each(obj, function(index, value) {    // 可以遍历数组, 可以遍历伪数组
+    console.log(index, value);
+}
+</code>
+				</pre>
+			</div>
+
+			<div class="title">map方法</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$.map(arr, function(value, index) {    // result为空数组
+	console.log(index, value);
+})
+</code>
+				</pre>
+				<pre class="prettyprint linenums">
+<code>
+var result = $.map(arr, function(value, index) {
+	console.log(index, value);    // 可以遍历数组, 可以遍历伪数组
+	return index + value;    // 默认返回一个空数组, 这里返回一个数组, 数组元素的值 = 相应的index + value
+})
+</code>
+				</pre>
+			</div>
+
+			<div class="title">trim方法</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+var str = "   js   ";
+var newStr = $.trim(str);
+console.log("---" + newStr + "---");
+</code>
+				</pre>
+			</div>
+
+			<div class="title">isWindow方法</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$.isWindow(window);    // 判断对象是否是window全局对象, 返回true / false.
+</code>
+				</pre>
+			</div>
+
+			<div class="title">isArray方法</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$.isArray(arr);    // 判断传入的对象是否是"真"数组, 返回true / false.
+</code>
+				</pre>
+			</div>
+
+			<div class="title">isFunction方法</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+$.isFunction(jQuery);    // 判断传入的对象是否是函数, 返回true / false.
+</code>
+				</pre>
+			</div>
+
+			<div class="title"></div>
+			<div class="content closed">
+			</div>
+		</div>
+
+    </div>
+
     <div class="title">ready vs onload</div>
     <div class="content closed">
 		<p>Code included inside $( document ).ready() will only run once the page Document Object Model (DOM) is ready for JavaScript code to execute.</p>
