@@ -1322,6 +1322,56 @@ margin-left: 30px;             /* 单独设置一边 */
 				</pre>
 			</div>
 
+			<div class="title">长度</div>
+			<div class="content closed">
+				<p>
+					css中长度单位有很多，可谓五花八门，但可分为这两类：<br>
+					1. 绝对长度单位: 彼此固定，不会因为其他元素的尺寸变化而变化. 主要有cm, mm, Q, in, pc, pt, px<br>
+					2. 相对长度单位: 指定相对于另一长度的长度。主要有em, ex, ch, rem, %和可视区百分比长度单位vm, vh, vmin, vmax
+				</p>
+				<p>由于各种单位比较多，我们这里只介绍常用的一些单位,其他单位的详细情况可查询<a href="https://www.w3.org/TR/css3-values/#absolute-lengths">W3C规范</a></p>
+				<div class="list list-number">
+					<div class="title">px</div>
+					<div class="content closed">
+						<p>
+							px单位名称为像素，像素是固定大小的单元,用于屏幕媒体(即在电脑屏幕上读取)。一个像素等于电脑屏幕上的一个点 (是你屏幕分辨率的最小分割)。许多网页设计师在web文档使用像素单位以生产浏览器渲染的像素完美呈现的网站。
+						</p>
+						<p>
+							像素单位的一个问题是在IE下无法用浏览器字体缩放的功能(影响不是很大)。
+						</p>
+					</div>
+
+					<div class="title">%: 相对包含块</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">em: 相对字体长度</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">rem: 相对于html元素字体</div>
+					<div class="content closed">
+
+					</div>
+
+					<div class="title">vm, vh, vmin, vmax: 视口单位</div>
+					<div class="content closed">
+						<p>视口在桌面端，指的是浏览器的可视区域；而在移动端较为复杂，它涉及到三个视口：分别是 Layout Viewport（布局视口）、 Visual Viewport（视觉视口）、Ideal Viewport。
+视口单位中的“视口”，在桌面端，毫无疑问指的就是浏览器的可视区域；但是在移动端，它指的则是Layout Viewport（布局视口） 。</p>
+						<p>
+							根据CSS3规范，视口单位主要包括以下4个：<br>
+							1) vw: 1vw等于视口宽度的1%;<br>
+							2) vh: 1vh等于视口高度的1%;<br>
+							3) vmin: 选取vw和vh中最小的那个;<br>
+							4) vmax: 选取vw和vh中最大的那个.<br>
+						</p>	
+					</div>
+					<p>在一般的PC端网页制作过程中，一般直接用px为单位，在移动端由于vw,vh单位的兼容性，目前一般采用rem + %或者rem + vw/vh。</p>
+				</div>
+			</div>
+
 			<div class="title">字体</div>
 			<div class="content closed">
 				<div class="list list-number">
