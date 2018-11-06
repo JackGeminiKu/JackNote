@@ -1,0 +1,69 @@
+{include file="template/header" title="C# UI编程" /}
+
+<div class="list list-number">
+    <div class="title">UI基础</div>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">Layout Mode</div>
+			<div class="content closed">
+				<p>分成两种: SnapLines & SnapToGrid. 选择Tools菜单上的Options选项, 在树型试图中选择Windows Forms Desinger节点, 设置Layout Mode, 就可以在两种设计模式之间切换.</p>
+			</div>
+
+			<div class="title">坐标</div>
+			<div class="content closed">
+				<p>
+					1）PointToClient 将指定屏幕点的位置计算成工作区坐标。坐标原点为黄色区域左上角，X轴方向从左到右；Y轴方向从上到下；坐标单位为像素；<br>
+					2）PointToScreen 将指定工作区点的位置计算成屏幕坐标。坐标原点在屏幕左上角，X轴方向从左到右；Y轴方向从上到下；坐标单位为像素；
+				</p>
+			</div>
+
+			<div class="title">处理事件的3种方式</div>
+			<div class="content closed">
+				<p>
+					1) 双击控件, 进入控件默认事件的处理程序, 这个事件对于不同的控件来说是不同的.<br>
+					2) 在Properties窗口中的Events列表, 双击对应的事件即可.<br>
+					3) 自己添加订阅事件的代码.
+				</p>
+			</div>
+
+			<div class="title">Invalidate、Update、Refresh的区别</div>
+			<div class="content closed">
+				<p>Invalidate marks the control (region, or rect) as in need of repainting, but doesn't immediately repaint (the repaint is triggered when everything else hasbeen taken care of and the app becomes idle).</p>
+				<p>Update causes the control to immediately repaint if any portions have been invalidated.</p>
+				<p>Refresh causes the control to invalidate, and then update (i.e. immediately repaint itself).</p>
+				<p>Most of the time Invalidate is sufficient, and advisable as you can do a bunch of invalidations (either explicit or implicit) and then let the control repaint itself when the app is idle. It is advisable to use Update or Refresh when you want the control to immediately repaint because the app will not be idle for a user-noticable period of time.</p>
+			</div>
+
+			<div class="title">如何锁定控件</div>
+			<div class="content closed">
+				<p>从菜单中选择Format | Loack Controls. 这将每个控件的Locked属性设置为True, 以防止它们不小心被移动, 改变大小或者删除.</p>
+			</div>
+
+			<div class="title">.Net自带图标</div>
+			<div class="content closed">
+				<p>C:\Program Files\Microsoft Visual Studio 8\Common7\VS2005ImageLibrary\VS2005ImageLibrary</p>
+			</div>
+
+			<div class="title">按键</div>
+			<div class="content closed">
+				<p>KeyChars: Specifies key codes and modifiers.  ( MSDN )</p>
+				<p>KeyEventArgs: </p>
+				<p>KeyCode: Gets the keyboard code for a KeyDown or KeyUp event.</p>	
+			</div>
+
+			<div class="title">OnXxx函数</div>
+			<div class="content closed">
+				<p>Raising an event invokes the event handler through a delegate. For more information, see Raising an Event.</p>
+				<p>The OnXxx method also allows derived classes to handle the event without attaching a delegate. This is the preferred technique for handling the event in a derived class.</p>
+				<p>Notes to Inheritors When overriding OnXxx in a derived class, be sure to call the base class's OnXxx method so that registered delegates receive the event.</p>
+			</div>
+		</div>
+    </div>
+
+    <div class="title">控件</div>
+    <div class="content closed">
+		...
+    </div>
+</div>
+
+{include file="template/footer" /}

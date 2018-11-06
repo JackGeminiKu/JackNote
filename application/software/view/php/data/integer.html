@@ -1,36 +1,11 @@
 {include file="template/header" title="PHP 整数" /}
 
-<p>PHP只有一种整数类型: integer, 它的表示范围同和平台有关: </p>
-<table class="table table-bordered table-sm w-50">
-    <tbody>
-        <tr>
-            <td>非windows 32位系统</td>
-            <td>32位有符号数</td>
-        </tr>
-        <tr>
-            <td>非windows 64位系统</td>
-            <td>64位有符号数</td>
-        </tr>
-        <tr>
-            <td>windows 32位系统</td>
-            <td>32位有符号数</td>
-        </tr>
-        <tr>
-            <td>windows 64位系统</td>
-            <td>PHP 7以前是32位有符号数, PHP 7以后是64位符号数</td>
-        </tr>
-    </tbody>
-</table>
 
-<p>
-	integer值的字长可以用常量PHP_INT_SIZE来表示<br>
-	integer最大值可以用常量PHP_INT_MAX来表示(since PHP 4.4.0)<br>
-	integer最小值可以用常量PHP_INT_MIN来表示(since PHP 7.0.0)<br>
-</p>
 
 <div class="list list-number">
     <div class="title">定义整型变量</div>
     <div class="content open">
+		<p>PHP只有一种整数类型: integer</p>
 		<pre class="prettyprint linenums">
 <code>
 $a = 1234; // 十进制数
@@ -39,6 +14,39 @@ $a = 0x1A; // 十六进制数
 $a = 0b11111111; // 二进制数字
 </code>
 		</pre>
+		<div class="list list-none">
+			<div class="title">integer表示范围...</div>
+			<div class="content closed">
+				<p>integer的表示范围和平台有关: </p>
+				<table class="table table-bordered table-sm w-50">
+					<tbody>
+						<tr>
+							<td>非windows 32位系统</td>
+							<td>32位有符号数</td>
+						</tr>
+						<tr>
+							<td>非windows 64位系统</td>
+							<td>64位有符号数</td>
+						</tr>
+						<tr>
+							<td>windows 32位系统</td>
+							<td>32位有符号数</td>
+						</tr>
+						<tr>
+							<td>windows 64位系统</td>
+							<td>PHP 7以前是32位有符号数, PHP 7以后是64位符号数</td>
+						</tr>
+					</tbody>
+				</table>
+				<pre class="prettyprint linenums">
+<code>
+PHP_INIT_SIZE    // 表示integer值的字长
+PHP_INT_MAX      // 表示integer的最大值 (since PHP 4.4.0)
+PHP_INIT_MIN     // 表示integer的最小值 (since PHP 7.0.0)
+</code>
+				</pre>
+			</div>
+		</div>
     </div>
 
     <div class="title">常用操作</div>

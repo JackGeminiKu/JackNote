@@ -8,36 +8,43 @@
 			<!--自定义类-->
 			<div class="title">自定义类</div>
 			<div class="content closed">
-				<pre class="prettyprint linenums lang-php"><code>[final] class Dog extends Animal implements iSay    // final关键字禁止子类继承该类
+				<pre class="prettyprint linenums lang-php">
+<code>
+[final] class Dog extends Animal implements iSay    // final关键字禁止子类继承该类
 {
-	// 常量
+    // 构造函数
+    function _construct($param) {
+    }
+
+    // 常量
     const pi = 3.14159;    // 类常量: 在定义和使用常量的时候不需要使用$符号. 常量的值必须是一个定值, 不能是变量, 类属性, 数学运算的结果或函数调用.
 	
-	// 属性
+    // 属性
     private | protected | public $attribute;    // 属性. 可重载父类属性
 
-    private | protected | public function __get($name){    // 读属性
+    private | protected | public function __get($name) {    // 读属性
         return $this->$name;
     }
-    private | protected | public function __set($name, $value){    // 写属性
+    private | protected | public function __set($name, $value) {    // 写属性
         $this->$name = $value;
     }
 
-
-
-    static function squared($input){    // 静态方法: 不能使用this关键字
-    }
-
-    [final] private | protected | public function operation($param){    // 操作: 可重载父类操作, 可调用父类的opertion操作形式如下: parent::opeartion(); 
+    // 函数
+    [final] private | protected | public function operation($param) {    
+        // 可重载父类操作, 可调用父类的opertion操作形式如下: parent::opeartion(); 
     }   
 
-	// 构造函数 & 析构函数
-    function _construct($param){    // 构造函数
+    static function squared($input) {    // 静态方法
+        // 不能使用this关键字
     }
-
-    function _destruct(){    // 析构函数, 无参数!
+	
+    // 析构函数
+    function _destruct() { 
+        // 无参数
     }
-}</code></pre>
+}
+</code>
+				</pre>
 			</div>
 
 			<!--静态成员 & 静态类-->
@@ -45,12 +52,11 @@
 			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
-&lt;?php
 class Human{
 　　static public $name = "小妹";
 　　public $height = 180;
 
-　　static static public function tell(){
+　　static public function tell(){
 　　　　echo self::$name;　　    //静态方法调用静态属性，使用self关键词!
 　　　　//echo $this->height;　　//错! 静态方法不能调用非静态属性!
 　　}
@@ -165,10 +171,14 @@ $obj->doPrint();</code></pre>
 			<!--遍历类的属性-->
 			<div class="title">遍历类的属性</div>
 			<div class="content closed">
-				<pre class="prettyprint linenums lang-php"><code>$x = new myClass;
+				<pre class="prettyprint linenums lang-php">
+<code>
+$x = new myClass;
 foreach($x as $attribute) {
-	echo $attribute;
-}</code></pre>
+    echo $attribute;
+}
+</code>
+				</pre>
 			</div>
 
 			<!--使用迭代器&迭代-->
@@ -180,8 +190,12 @@ foreach($x as $attribute) {
 			<!--反射-->
 			<div class="title">反射</div>
 			<div class="content closed">
-				<pre class="prettyprint lang-php"><code>$class = new ReflectionClass('page');
-			echo $class;</code></pre>
+				<pre class="prettyprint linenums lang-php">
+<code>
+$class = new ReflectionClass('page');
+echo $class;
+</code>
+				</pre>
 			</div>
 
 			<!--this, selft & parent-->	
