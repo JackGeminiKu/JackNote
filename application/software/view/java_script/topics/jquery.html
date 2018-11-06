@@ -126,6 +126,25 @@ $.holdReady(false);   // 恢复ready事件
 
     </div>
 
+	<div class="title">内容选择器</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+// :emmpty, 找到既没有文本内容, 也没有子元素的指定元素
+var $div = $("div:empty");
+
+// :parent, 找到有文本内容, 或者有子元素的指定元素
+var $div = $("div:parent");
+
+// :contains, 找到包含指定文本内容的指定元素
+var $div = $("div:contains('我是div')");
+
+// :has, 找到包含指定子元素的指定元素
+var $div = $("div:has('span')");
+</code>
+		</pre>
+    </div>
+
     <div class="title">ready vs onload</div>
     <div class="content closed">
 		<p>Code included inside $( document ).ready() will only run once the page Document Object Model (DOM) is ready for JavaScript code to execute.</p>
