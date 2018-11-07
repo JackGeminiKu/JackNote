@@ -21,6 +21,21 @@
 		</div>
 	</div>
 
+	<!--隐藏入口文件: index.php-->
+	<div class="title">隐藏入口文件</div>
+	<div class="content closed">
+		<p>可以去掉URL地址里面的入口文件index.php, 但是需要额外配置WEB服务器的重写规则. 以Apache为例, 需要在入口文件的同级添加.htaccess文件(官方默认只带了改文件), 内容如下:</p>
+		<pre class="prettyprint linenums"><code>&lt;IfModule mod_rewrite.c>
+Options +FollowSymlinks -Multiviews
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+&lt;/IfModule></code></pre>
+
+		<p>接下来就可以使用下面的URL地址访问了: http://tp5.com/index/index/index</p>		
+	</div>
+
 	<!-- URL默认不区分大小写 -->
 	<div class="title">URL默认不区分大小写</div>
 	<div class="content closed">
@@ -118,21 +133,6 @@ class Index
 		<p>在应用配置文件（application/config.php）中设置：</p>
 		<pre class="prettyprint linenums"><code>// 设置pathinfo分隔符
 'pathinfo_depr' => '-',</code></pre>
-	</div>
-
-	<!--隐藏入口文件: index.php-->
-	<div class="title">隐藏入口文件</div>
-	<div class="content closed">
-		<p>可以去掉URL地址里面的入口文件index.php, 但是需要额外配置WEB服务器的重写规则. 以Apache为例, 需要在入口文件的同级添加.htaccess文件(官方默认只带了改文件), 内容如下:</p>
-		<pre class="prettyprint linenums"><code>&lt;IfModule mod_rewrite.c>
-Options +FollowSymlinks -Multiviews
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
-&lt;/IfModule></code></pre>
-
-		<p>接下来就可以使用下面的URL地址访问了: http://tp5.com/index/index/index</p>		
 	</div>
 
 	<!--定义路由-->

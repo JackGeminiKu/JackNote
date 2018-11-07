@@ -474,57 +474,15 @@ class User extends Controller
         $this->view->engine->layout(false);
 		
         $content = &lt;&lt;&lt;EOT
-&lt;style>
-body&#123;
-color: #333;
-font: 16px Verdana, "Helvetica Neue", helvetica, Arial, 'Microsoft YaHei', sans-serif;
-margin: 0px;
-padding: 20px;
-}
-
-a&#123;
-color: #868686;
-cursor: pointer;
-}
-a:hover&#123;
-text-decoration: underline;
-}
-h2&#123;
-color: #4288ce;
-font-weight: 400;
-padding: 6px 0;
-margin: 6px 0 0;
-font-size: 28px;
-border-bottom: 1px solid #eee;
-}
-div&#123;
-margin:8px;
-}
-.info&#123;
-padding: 12px 0;
-border-bottom: 1px solid #eee;
-}
-
-.copyright&#123;
-margin-top: 24px;
-padding: 12px 0;
-border-top: 1px solid #eee;
-}
-&lt;/style>
-&lt;h2>用户列表（&#123;\$count}）&lt;/h2>
+&lt;h2>用户列表（&#123;$count}）&lt;/h2>
 &lt;div>
 &#123;volist name="list" id="user" }
-ID：&#123;\$user.id}&lt;br/>
-昵称：&#123;\$user.nickname}&lt;br/>
-邮箱：&#123;\$user.email}&lt;br/>
-生日：&#123;\$user.birthday}&lt;br/>
+ID：&#123;$user.id}&lt;br/>
+昵称：&#123;$user.nickname}&lt;br/>
+邮箱：&#123;$user.email}&lt;br/>
+生日：&#123;$user.birthday}&lt;br/>
 ------------------------&lt;br/>
 &#123;/volist}
-&lt;/div>
-&lt;div class="copyright">
-&lt;a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP&lt;/a>
-&lt;span>V5&lt;/span>
-&lt;span>&#123; 十年磨一剑-为API开发设计的高性能框架 }&lt;/span>
 &lt;/div>
 EOT;
         return $this->display($content);    // display方法用于渲染内容而不是模板文件输出，和直接使用echo输出的区别是display方法输出的内容支持模板标签的解析。
