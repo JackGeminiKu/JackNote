@@ -1204,8 +1204,19 @@ a:active { ... }                /* 用户第一次单击一个连接时, 就处�
 		<div class="list list-number">
 			<div class="title">元素盒子</div>
 			<div class="content closed">
-				<img src="__STATIC__/image/JavaScript/盒子.png" width="400">
+				<img src="__STATIC__/image/JavaScript/W3C盒子.jpg" width="400">
+				<img src="__STATIC__/image/JavaScript/IE盒子.jpg" width="400">
 				<div class="list list-number">
+					<div class="title">指定盒子种类</div>
+					<div class="content closed">
+						<pre class="prettyprint linenums">
+<code>
+box-sizing: content-box;   // W3C盒子
+box-sizing: border-box;    // IE盒子
+</code>
+						</pre>
+					</div>
+
 					<div class="title">内边距&外边距</div>
 					<div class="content closed">
 						<p>
@@ -1359,7 +1370,7 @@ margin-left: 30px;             /* 单独设置一边 */
 					<div class="title">vm, vh, vmin, vmax: 视口单位</div>
 					<div class="content closed">
 						<p>视口在桌面端，指的是浏览器的可视区域；而在移动端较为复杂，它涉及到三个视口：分别是 Layout Viewport（布局视口）、 Visual Viewport（视觉视口）、Ideal Viewport。
-视口单位中的“视口”，在桌面端，毫无疑问指的就是浏览器的可视区域；但是在移动端，它指的则是Layout Viewport（布局视口） 。</p>
+							视口单位中的“视口”，在桌面端，毫无疑问指的就是浏览器的可视区域；但是在移动端，它指的则是Layout Viewport（布局视口） 。</p>
 						<p>
 							根据CSS3规范，视口单位主要包括以下4个：<br>
 							1) vw: 1vw等于视口宽度的1%;<br>
@@ -1583,7 +1594,8 @@ text-align: center / left / right;    /* 只能在块元素上设置. 作用于�
 			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
-display: inline / block ... // The display property specifies the type of box used for an element.
+display: inline;    // 默认。此元素会被显示为内联元素，元素前后没有换行符。
+display: block;     // 此元素将显示为块级元素，此元素前后会带有换行符。
 </code>
 				</pre>
 				<a href="https://www.w3.org/wiki/CSS/Properties/display">手册</a>
@@ -1615,6 +1627,11 @@ text-decoration: none | underline | overline | line-through;	// 设置文本更�
 				<a href="http://www.runoob.com/cssref/css3-pr-overflow-x.html">overflow-x</a><br>
 				<a href="http://www.runoob.com/cssref/css3-pr-overflow-y.html">overflow-y</a>
 			</div>
+
+			<div class="title">::before和::after</div>
+			<div class="content closed">
+				<a href="https://www.cnblogs.com/starof/p/4459991.html">::before和::after伪元素的用法</a>
+			</div>
 		</div>
     </div>
 
@@ -1625,6 +1642,7 @@ text-decoration: none | underline | overline | line-through;	// 设置文本更�
 			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
+* { ... }           // *号表示选择所有元素
 h1 { ... }          // 单元素选择器: 样式应用到&lt;h1>
 div h2 { ... }      // 子孙选择器: 样式应用到&lt;div>的所有子孙&lt;h2>
 div > h2 { ... }    // 儿子选择器: 样式应用到&lt;div>的所有儿子&lt;h2>
