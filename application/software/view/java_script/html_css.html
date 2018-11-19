@@ -1401,7 +1401,34 @@ div.sticky {
 						</div>
 					</div>
 
-					<div class="title">CSS表格</div>
+					<div class="title">使用float属性定位</div>
+					<div class="content closed">
+						<p>浏览器遇到float元素时:</p>
+						<p>
+							1) 先正常流入页面, 然后根据float属性平移到最左边/最右边.<br>
+							2) 其他块元素"不知道"浮动元素的存在; 其他内联元素会"围绕"浮动元素.
+						</p>	
+						<pre class="prettyprint linenums">
+<code>
+#amazing {
+    width: 200px;
+    float: right / left;
+}
+</code>
+						</pre>
+						<img src="__STATIC__/image/JavaScript/浮动定位.png">
+						<p class="text-strong">结局浮动定位重叠问题</p>
+						<pre class="prettyprint linenums">
+<code>
+#footer {
+  clear: right;    /* 元素会下沉, 直到它旁边没有块元素 */
+}
+</code>
+						</pre>
+						<img src="__STATIC__/image/JavaScript/浮动定位解决重叠问题.png">
+					</div>
+
+					<div class="title">CSS表格(使用display属性)</div>
 					<div class="content closed">
 						<div class="container-fluid">
 							<div class="row">
@@ -1447,33 +1474,6 @@ div.tableRow {
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="title">float元素</div>
-					<div class="content closed">
-						<p>浏览器遇到float元素时:</p>
-						<p>
-							1) 先正常流入页面, 然后根据float属性平移到最左边/最右边.<br>
-							2) 其他块元素"不知道"浮动元素的存在; 其他内联元素会"围绕"浮动元素.
-						</p>	
-						<pre class="prettyprint linenums">
-<code>
-#amazing {
-    width: 200px;
-    float: right / left;
-}
-</code>
-						</pre>
-						<img src="__STATIC__/image/JavaScript/浮动定位.png">
-						<p class="text-strong">结局浮动定位重叠问题</p>
-						<pre class="prettyprint linenums">
-<code>
-#footer {
-  clear: right;    /* 元素会下沉, 直到它旁边没有块元素 */
-}
-</code>
-						</pre>
-						<img src="__STATIC__/image/JavaScript/浮动定位解决重叠问题.png">
 					</div>
 				</div>
 			</div>
