@@ -1806,9 +1806,10 @@ text-decoration: none | underline | overline | line-through;	// 设置文本更�
 				<a href="http://www.runoob.com/cssref/css3-pr-overflow-y.html">overflow-y</a>
 			</div>
 
-			<div class="title">::before和::after</div>
+			<div class="title">::before和::after伪元素</div>
 			<div class="content closed">
 				<a href="https://www.cnblogs.com/starof/p/4459991.html">::before和::after伪元素的用法</a>
+				<a href="https://blog.csdn.net/yangxiaoyanger/article/details/79712180">::before & :before的区别</a>
 			</div>
 
 			<div class="title">弹性布局</div>
@@ -1825,7 +1826,7 @@ flex-wrap: warp;      // 规定灵活的项目在必要的时候拆行或拆列�
     </div>
 
 	<div class="title">CSS选择器</div>
-    <div class="content closed">
+    <div class="content open">
 		<div class="list list-number">
 			<div class="title">一般</div>
 			<div class="content closed">
@@ -1875,8 +1876,10 @@ p:nth-child(even) { ... } 或者 p:nth-child(2n) { ... }
 // 选择奇数元素
 p:nth-child(odd) { ... } 或者 p:nth-child(2n+1) {
 
-// 选择第一个元素
+// p元素是他父元素的第一个子元素!
 p:first-child { ... }
+// p元素是他父元素的最后一个子元素!
+p:last-child { ... }
 
 // 第一个字母
 p:first-letter { ...}
@@ -1885,6 +1888,7 @@ p:first-letter { ...}
 p:first-line { ... }
 </code>
 				</pre>
+				<a href="http://www.runoob.com/css/css-pseudo-classes.html">所有伪类</a>
 			</div>
 
 			<div class="title">指定属性</div>
@@ -1904,6 +1908,17 @@ img[alt*="flowers"] { ... }    // alt属性包含单词"flowers"的所有img元�
 					[attribute^=value]，a[src^="https"]，选择其 src 属性值以 "https" 开头的每个 &lt;a> 元素。 最低要求：css3<br>
 					[attribute*=value]，a[src*="abc"]，选择其 src 属性中包含 "abc" 子串的每个 &lt;a> 元素。 最低要求：css3
 				</p>
+			</div>
+
+			<div class="title">not</div>
+			<div class="content closed">
+				<p>:not(selector) </p>
+				<pre class="prettyprint linenums">
+<code>
+:not(p) { ... }
+:not(.somelcass) { ... }
+</code>
+				</pre>
 			</div>
 
 			<div class="title">media查询</div>
@@ -2122,31 +2137,81 @@ p.specials {
 			<div class="content open">
 				<p><a href="https://fontawesome.com/">官网</a></p>
 				<div class="list list-number">
-					<div class="title">Set up on Your Site</div>
+					<div class="title">4.7</div>
+
 					<div class="content open">
-						<p>Copy this code into the &lt;head> of each template or page where you want to use Font Awesome.</p>
-						<pre class="prettyprint linenums">
+						<div class="list list-number">
+							<div class="title">结合before伪元素</div>
+							<div class="content closed">
+								<pre class="prettyprint linenums">
+<code>
+&lt;link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</code>
+								</pre>
+								<pre class="prettyprint linenums">
+<code>
+li.open::before {
+    content: "\f0d7";	/* book */
+    font-family: FontAwesome;
+}
+</code>
+								</pre>
+							</div>
+						</div>
+					</div>
+					<div class="title">5.5</div>
+					<div class="content open">
+						<div class="list list-number">
+							<div class="title">一般使用</div>
+							<div class="content closed">
+								<p class="text-strong">Set up on Your Site</p>
+								<p>Copy this code into the &lt;head> of each template or page where you want to use Font Awesome.</p>
+								<pre class="prettyprint linenums">
 <code>
 &lt;link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </code>
-						</pre>
-					</div>
-
-					<div class="title">Add Icons to Your UI</div>
-					<div class="content open">
-						<p>Start placing icons in your HTML's &lt;body>.</p>
-						<pre class="prettyprint linenums">
+								</pre>
+								<p class="text-strong">Set up on Your Site</p>
+								<p>Start placing icons in your HTML's &lt;body>.</p>
+								<pre class="prettyprint linenums">
 <code>
 &lt;i class="fas fa-stroopwafel">&lt;/i> &lt;!-- this icon's 1) style prefix == fas and 2) icon name == stroopwafel -->
 &lt;i class="fas fa-stroopwafel">&lt;/i> &lt;!-- using an &lt;i> element to reference the icon -->
 &lt;span class="fas fa-stroopwafel">&lt;/span> &lt;!-- using a &lt;span> element to reference the icon -->
 </code>
-						</pre>
-					</div>
+								</pre>
 
-					<div class="title">Style Your Icons</div>
-					<div class="content open">
-						<p>Easily change <a href="https://fontawesome.com/how-to-use/on-the-web/styling/sizing-icons">size</a>, <a href="https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use#with-your-styling">color</a>, and tons more. Then get advanced with our all-new <a href="https://fontawesome.com/how-to-use/on-the-web/styling/power-transforms">power transforms</a>.</p>
+								<p class="text-strong">Set up on Your Site</p>
+								<p>Easily change <a href="https://fontawesome.com/how-to-use/on-the-web/styling/sizing-icons">size</a>, <a href="https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use#with-your-styling">color</a>, and tons more. Then get advanced with our all-new <a href="https://fontawesome.com/how-to-use/on-the-web/styling/power-transforms">power transforms</a>.</p>
+							</div>
+
+							<div class="title">结合before伪元素</div>
+							<div class="content closed">
+								<p>
+									5.5相较于4.7复杂一点, 因为图标被分为三种类型: SOLID, REGULAR, LIGHT
+								</p>
+								<pre class="prettyprint linenums">
+<code>
+.element1, .element2, .element3 {
+    position: relative;
+}
+ 
+.element1::before {
+	font-family: "Font Awesome 5 Solid";   content: "\f007";
+}
+ 
+.element2::before {
+	font-family: "Font Awesome 5 Regular"; content: "\f1ea";
+}
+ 
+.element3::before {
+	font-family: "Font Awesome 5 Brands";  content: "\f099";
+}
+</code>
+								</pre>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -2160,6 +2225,7 @@ p.specials {
 		<div class="title">参考资料</div>
 		<div class="content closed">
 			<p>
+				<a href="https://www.w3.org/html/">W3C HTML</a><br>
 				<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element">HTML标签(官方)</a><br>	
 				<a href="http://www.runoob.com/csspack">CSS格式化&压缩</a>
 			</p>
