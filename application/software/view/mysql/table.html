@@ -50,6 +50,13 @@ id int not null
 					<div class="content open">
 						<pre class="prettyprint linenums">
 <code>
+CREATE TABLE table_1(
+    column_name_1  data_type UNIQUE,
+);
+</code>
+						</pre>
+						<pre class="prettyprint linenums">
+<code>
 unique key 约束名字(c1, c2, ...)
 </code>
 						</pre>
@@ -57,6 +64,8 @@ unique key 约束名字(c1, c2, ...)
 
 					<div class="title">主键约束</div>
 					<div class="content open">
+
+
 						<pre class="prettyprint linenums">
 <code>
 PRIMARY KEY(key1, key2 ...)
@@ -66,9 +75,22 @@ PRIMARY KEY(key1, key2 ...)
 
 					<div class="title">外键约束</div>
 					<div class="content open">
+						<p>在创建时添加</p>
 						<pre class="prettyprint linenums">
 <code>
-constraint 外键名字 foreign key(contact_id) references my_contacts(contact_id)
+create table my_tab1(
+    id int primary key auto_increment,
+    name varchar(10) not null,
+    class int,
+    foreign key(class)　references my_tab2(主键字段名)
+) charset utf8;
+</code>
+						</pre>
+
+						<p>在创建好的表中添加</p>
+						<pre class="prettyprint linenums">
+<code>
+alter table my_tab1 add [constraint 外键名] foreign key(外键字段名) references mytab2(主键字段名);
 </code>
 						</pre>
 					</div>
