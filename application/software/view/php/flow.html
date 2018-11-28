@@ -125,8 +125,34 @@ if (条件1) {
 
 	<!--跳转-->
     <div class="title">跳转</div>
-    <div class="content open">
-        <p>break; &emsp; continue; &emsp; return; &emsp; <a title="输出一个消息并且退出当前脚本" href="http://php.net/manual/zh/function.exit.php">exit()</a></p>
+    <div class="content closed">
+		<div class="list list-number">
+			<div class="title">break & continue</div>
+			<div class="content open">
+				<p>中断/继续循环</p>
+			</div>
+
+			<div class="title">return</div>
+			<div class="content open">
+				<a href="https://www.cnblogs.com/see7di/archive/2011/06/15/2239758.html">也能在文件中直接return</a>
+			</div>
+
+			<div class="title">exit()</div>
+			<div class="content open">
+				<a title="输出一个消息并且退出当前脚本" href="http://php.net/manual/zh/function.exit.php">exit()</a><br>
+			</div>
+
+			<div class="title">register_shutdown_function()</div>
+			<div class="content open">
+				<p>
+					注册一个会在PHP中止时执行的函数, PHP中止的情况有三种：<br>
+					1) 执行完成; <br>
+					2) exit/die导致的中止; <br>
+					3) 发生致命错误中止.
+				</p>
+
+			</div>
+		</div>
     </div>
 
 	<!--异常处理-->

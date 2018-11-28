@@ -118,56 +118,71 @@ classname::squared(8);    // 调用类的静态方法
 			<!--__autoLoad() & spl_autoload_register()-->
 			<div class="title">自动加载: __autoLoad() & spl_autoload_register()</div>
 			<div class="content closed">
-				<p><strong>__autoLoad()</strong></p>
-				<pre class="prettyprint linenums lang-php"><code>// printit.class.php
+				<p><strong>__autoLoad()</strong>是一个自动加载函数，在PHP5中，当我们实例化一个未定义的类时，就会自动调用这个函数。看下面例子：</p>
+				<pre class="prettyprint linenums lang-php">
+<code>
+// printit.class.php
 class PRINTIT {
-	function doPrint() {
-		echo 'hello world';
-	}
+    function doPrint() {
+        echo 'hello world';
+    }
 }
-
+</code>
+				</pre>
+				<pre class="prettyprint linenums">
+<code>
 // index.php
 function __autoload( $class ) {
-	$file = $class . '.class.php';
-	if ( is_file($file) ) {
-		require_once($file);
-	}
+    $file = $class . '.class.php';
+    if ( is_file($file) ) {
+        require_once($file);
+    }
 }
 
 $obj = new PRINTIT();    // 实例化printit时, 由于没有包含printit.class.php, 将自动调用__autoload函数, 参数$class的值即为类名printit, 此时printit.class.php就被引进来了.
-$obj->doPrint();</code></pre>
+$obj->doPrint();
+</code>
+				</pre>
 				<p>
-					运行index.php后正常输出hello world。<br>
+					运行index.php后正常输出hello world。
 				</p>
-				<p><strong>spl_autoload_register()</strong></p>
+				<p>
+					在面向对象中这种方法经常使用，可以避免书写过多的引用文件，同时也使整个系统更加灵活。
+				</p>
+				<p><strong>spl_autoload_register()</strong>是一个自动加载函数，在PHP5中，当我们实例化一个未定义的类时，就会自动调用这个函数指定的函数。看下面例子：</p>
 				<pre class="prettyprint linenums lang-php">
 <code>
 function loadprint( $class ) {
-	$file = $class . '.class.php';
-	if (is_file($file)) {
-		require_once($file);
-	}
+    $file = $class . '.class.php';
+    if (is_file($file)) {
+        require_once($file);
+    }
 }
 
 spl_autoload_register( 'loadprint' );    // 告诉PHP碰到没有定义的类就自动调用loadprint()
 
 $obj = new PRINTIT();
 $obj->doPrint();
-
+</code>
+				</pre>
+				<pre class="prettyprint linenums">
+<code>
 // 也可以调用静态方法
 class test {
-	public static function loadprint( $class ) {
-		$file = $class . '.class.php';
-		if (is_file($file)) {
-           require_once($file);
-		}
-	}
+    public static function loadprint( $class ) {
+        $file = $class . '.class.php';
+        if (is_file($file)) {
+            require_once($file);
+        }
+    }
 }
 
 spl_autoload_register( array('test','loadprint') );    //另一种写法：spl_autoload_register( "test::loadprint" );
 
 $obj = new PRINTIT();
-$obj->doPrint();</code></pre>
+$obj->doPrint();
+</code>
+				</pre>
 			</div>
 
 			<!--遍历类的属性-->

@@ -199,9 +199,13 @@
             <div class="list list-number">
                 <div class="title">引用操作</div>
                 <div class="content closed">
-<xmp class="prettyprint linenums lang-php">$a = 5;
+					<pre class="prettyprint linenums">
+<code>
+$a = 5;
 $b = &$b;    // 引用就像一个别名: $a和$b都指向了内存的相同地址.
-unset($b);   // 销毁变量$b</xmp>
+unset($b);   // 销毁变量$b
+</code>
+					</pre>
                 </div>
 
                 <div class="title">等于&恒等于</div>
@@ -214,7 +218,7 @@ unset($b);   // 销毁变量$b</xmp>
                         !== // 不恒等 <br>
                     </p>
                 </div>
-                
+
                 <div class="title">错误抑制</div>
                 <div class="content closed">
                     <p>
@@ -223,20 +227,41 @@ unset($b);   // 销毁变量$b</xmp>
                         如果已经启用了PHP的track_errors特性, 错误信息将会被保存在全局变量$php_errormsg中.
                     </p>
                 </div>
-                
+
                 <div class="title">执行操作符</div>
                 <div class="content closed">
                     <p>
                         执行操作符是一对反向单引号(与键盘~的相同位置) <br>
                         PHP将试着将反向单引号之间的命令当做服务器端的命令来执行, 表达式的值就是命令的执行结果.
                     </p>
-                    <pre class="prettyprint linenums lang-php">$out = `dir c:` </pre>
+					<pre class="prettyprint linenums">
+<code>
+$out = `dir c:`
+</code>
+					</pre>
                 </div>
-                
+
                 <div class="title">类型操作</div>
                 <div class="content closed">
-                    <pre class="prettyprint linenums lang-php">$myObject instranceof sampleClass;    // 检查$myObject是否是sampleClass类型</pre>
+					<pre class="prettyprint linenums">
+<code>
+$myObject instranceof sampleClass;    // 检查$myObject是否是sampleClass类型
+</code>
+					</pre>
                 </div>
+
+				<div class="title">三元运算符</div>
+				<div class="content closed">
+					<pre class="prettyprint linenums">
+<code>
+(expr1) ? (expr2) : (expr3) 
+</code>
+					</pre>
+					<p>
+						对 expr1 求值为 TRUE 时的值为 expr2，在 expr1 求值为 FALSE 时的值为 expr3。<br>
+						自 PHP 5.3 起，可以省略三元运算符中间那部分。表达式 expr1 ?: expr3 在 expr1 求值为 TRUE 时返回 expr1，否则返回 expr3。
+					</p>
+				</div>
             </div>
         </div>
     </div>
