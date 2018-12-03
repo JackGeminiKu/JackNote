@@ -1316,7 +1316,7 @@ margin-left: 30px;             /* 单独设置一边 */
 				</div>
 			</div>
 
-			<div class="title">元素定位</div>
+			<div class="title">元素layout</div>
 			<div class="content closed">
 				<div class="list list-number">
 					<div class="title">流</div>
@@ -1430,6 +1430,34 @@ div.sticky {
 </code>
 						</pre>
 						<img src="__STATIC__/image/JavaScript/浮动定位解决重叠问题.png">
+					</div>
+
+					<div class="title">display</div>
+					<div class="content closed">
+						<p class="text-strong">display:block</p>
+						<p>
+							1) block元素会独占一行;<br>
+							2) 可以设置width & height属性, 默认填满父元素宽度;<br>
+							3) 可以设置margin & padding属性.
+						</p>
+						<p class="text-strong">display: inline</p>
+						<p>
+							1) 相邻的inline元素会排列在同一行里, 直到一行排列不下, 才会新换一行;<br>
+							2) 无法设置width & height属性, 宽度随元素的内容而变化;<br>
+							3) 可以设置水平方向的margin & padding属性, 无法设置垂直方向的margin & padding属性;<br>
+						</p>
+						<p class="text-strong">display: inline-block</p>
+						<p>
+							1) inline-block元素会排列在同一行里;<br>
+							2) 可以设置width & hieght属性; <br>
+							3) 可以设置margin & padding属性.
+						</p>
+						<p class="text-strong">display: flex</p>
+						<p>
+							弹性布局
+						</p>
+						<a href="http://www.runoob.com/w3cnote/flex-grammar.html">flex布局语法教程</a><br>
+						<a href="https://www.w3.org/wiki/CSS/Properties/display">手册</a>
 					</div>
 
 					<div class="title">CSS表格(使用display属性)</div>
@@ -1758,29 +1786,6 @@ line-height: normal;  /* normal允许浏览器选择一个合适的行高大小,
 text-align: center / left / right;    /* 只能在块元素上设置. 作用于块元素时, 它内部的块元素会继承这个属性 */
 </code>
 				</pre>
-			</div>
-
-			<div class="title">display</div>
-			<div class="content closed">
-				<p class="text-strong">display:block</p>
-				<p>
-					1) block元素会独占一行;<br>
-					2) 可以设置width & height属性, 默认填满父元素宽度;<br>
-					3) 可以设置margin & padding属性.
-				</p>
-				<p class="text-strong">display: inline</p>
-				<p>
-					1) 相邻的inline元素会排列在同一行里, 直到一行排列不下, 才会新换一行;<br>
-					2) 无法设置width & height属性, 宽度随元素的内容而变化;<br>
-					3) 可以设置水平方向的margin & padding属性, 无法设置垂直方向的margin & padding属性;<br>
-				</p>
-				<p class="text-strong">display:inline-block</p>
-				<p>
-					1) inline-block元素会排列在同一行里;<br>
-					2) 可以设置width & hieght属性; <br>
-					3) 可以设置margin & padding属性.
-				</p>
-				<a href="https://www.w3.org/wiki/CSS/Properties/display">手册</a>
 			</div>
 
 			<div class="title">letter-spacing</div>
@@ -2237,11 +2242,12 @@ li.open::before {
 <div>
 	<div class="list list-none">
 		<div class="title">参考资料</div>
-		<div class="content closed">
+		<div class="content open">
 			<p>
 				<a href="https://www.w3.org/html/">W3C HTML</a><br>
 				<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element">HTML标签(官方)</a><br>	
-				<a href="http://www.runoob.com/csspack">CSS格式化&压缩</a>
+				<a href="http://www.runoob.com/csspack">CSS格式化&压缩</a><br>
+				<a href="https://www.cnblogs.com/joeychou/p/5244478.html">ID & 类选择器</a>
 			</p>
 		</div>
 	</div>
