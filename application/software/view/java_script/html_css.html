@@ -1330,16 +1330,248 @@ margin-left: 30px;             /* 单独设置一边 */
 						<p>正常页面流中, 两个块元素上下相邻的外边距会折叠为最大外边距的大小. 假设上面的元素下外边距为10px, 下面的元素的上外边距为20px, 折叠的外边距则为20px.</p>
 					</div>
 
-					<div class="title">使用position属性定位</div>
-					<div class="content closed">
+					<div class="title">display</div>
+					<div class="content open">
+						<div class="list list-number">
+							<div class="title">display:block</div>
+							<div class="content closed">
+								<p>
+									1) block元素会独占一行;<br>
+									2) 可以设置width & height属性, 默认填满父元素宽度;<br>
+									3) 可以设置margin & padding属性.
+								</p>
+							</div>
+
+							<div class="title">display: inline</div>
+							<div class="content closed">
+								<p>
+									1) 相邻的inline元素会排列在同一行里, 直到一行排列不下, 才会新换一行;<br>
+									2) 无法设置width & height属性, 宽度随元素的内容而变化;<br>
+									3) 可以设置水平方向的margin & padding属性, 无法设置垂直方向的margin & padding属性;<br>
+								</p>
+							</div>
+
+							<div class="title">display: inline-block</div>
+							<div class="content closed">
+								<p>
+									1) inline-block元素会排列在同一行里;<br>
+									2) 可以设置width & hieght属性; <br>
+									3) 可以设置margin & padding属性.
+								</p>
+							</div>
+
+							<div class="title">display: flex</div>
+							<div class="content closed">
+								<div class="list list-number">
+									<div class="title">什么是弹性布局</div>
+									<div class="content closed">
+										<p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
+										<p>任何一个容器都可以指定为Flex布局。</p>
+										<pre class="prettyprint linenums">
+<code>
+.box{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+</code>
+										</pre>
+										<p>行内元素也可以使用Flex布局。</p>
+										<pre class="prettyprint linenums">
+<code>
+.box{
+  display: inline-flex;
+}
+</code>
+										</pre>
+									</div>
+
+									<div class="title">基本概念</div>
+									<div class="content closed">
+										<p>采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。</p>
+										<img src="__STATIC__/image/JavaScript/flex.png">
+										<p>
+											容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。<br>
+											主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。
+										</p>
+										<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
+									</div>
+
+									<div class="title">容器的属性</div>
+									<div class="content open">
+										<div class="list list-number">
+											<div class="title">flex-direction: 决定项目在主轴的排列</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.box {
+  flex-direction: row | row-reverse | column | column-reverse;
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-direction.png" width="50%">
+											</div>
+
+											<div class="title">flex-wrap: 换行吗?</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.box{
+  flex-wrap: nowrap | wrap | wrap-reverse;
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-wrap.png" width="50%">
+											</div>
+
+											<div class="title">flex-flow: 简写</div>
+											<div class="content closed">
+												<p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。</p>
+												<pre class="prettyprint linenums">
+<code>
+.box {
+  flex-flow: &lt;flex-direction> &lt;flex-wrap>;
+}
+</code>
+												</pre>
+											</div>
+
+											<div class="title">justify-content: 设置项目在主轴上的对齐方式</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.box {
+  justify-content: flex-start | flex-end | center | space-between | space-around;
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-justify-content.png" width="50%">
+											</div>
+
+											<div class="title">align-items: 设置项目在交叉轴上的对齐方式</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.box {
+  align-items: flex-start | flex-end | center | baseline | stretch;
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-align-items.png" witdh="33%">
+											</div>
+
+											<div class="title">align-content: 定义了<span class="text-danger">多根轴线</span>的对齐方式。如果项目只有一根轴线，该属性不起作用</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.box {
+  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-align-content.png">
+											</div>
+										</div>
+									</div>
+
+									<div class="title">项目的属性</div>
+									<div class="content open">
+										<div class="list list-number">
+											<div class="title">order: 定义项目的排列顺序. 数值越小, 排列越靠前, 默认为0</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.item {
+  order: &lt;integer>;
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-order.png" width="50%">
+											</div>
+
+											<div class="title">flex-grow: 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.item {
+  flex-grow: &lt;number>; /* default 0 */
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-grow.png">
+											</div>
+
+											<div class="title">flex-shrink: 定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.item {
+  flex-shrink: &lt;number>; /* default 1 */
+}
+</code>
+												</pre>
+												<img src="__STATIC__/image/JavaScript/flex-shrink.png">
+												<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
+											</div>
+
+											<div class="title">flex-basis: 定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.item {
+  flex-basis: &lt;length> | auto; /* default auto */
+}
+</code>
+												</pre>
+											</div>
+
+											<div class="title">flex: flex属性是flex-grow, flex-shrink 和 flex-basis的简写</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.item {
+  flex: none | [ &lt;'flex-grow'> &lt;'flex-shrink'>? || &lt;'flex-basis'> ]
+}
+</code>
+												</pre>
+												<p>
+													默认值为0 1 auto。后两个属性可选。<br>
+													该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。<br>
+													建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
+												</p>
+											</div>
+
+											<div class="title">align-self: 允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。</div>
+											<div class="content closed">
+												<pre class="prettyprint linenums">
+<code>
+.item {
+  align-self: auto | flex-start | flex-end | center | baseline | stretch;
+}
+</code>
+												</pre>
+												<p>默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</p>
+												<p>该属性可能取6个值，除了auto，其他都与align-items属性完全一致。</p>
+												<img src="__STATIC__/image/JavaScript/flex-align-self.png" width="50%">
+											</div>
+										</div>
+									</div>
+									<a href="http://www.runoob.com/w3cnote/flex-grammar.html">flex布局语法教程</a><br>
+									<a href="https://www.w3.org/wiki/CSS/Properties/display">手册</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="title">position</div>
+					<div class="content open">
 						<div class="list list-number">
 							<div class="title">静态定位 - static(文档流, 默认值)</div>
-							<div class="content open">
+							<div class="content closed">
 								<p>HTML元素的默认值，即没有定位，元素出现在正常的流中。静态定位的元素不会受到 top, bottom, left, right影响.</p>
 							</div>
 
 							<div class="title">相对定位 - relative(相对于原位置)</div>
-							<div class="content open">
+							<div class="content closed">
 								<p>
 									先正常流入页面, 然后按指定的量偏移(<a href="http://www.runoob.com/try/try.php?filename=trycss_position_relative">范例</a>),
 									而且它原本所占的空间不会改变(<a href="http://www.runoob.com/try/try.php?filename=trycss_position_relative2">范例</a>).
@@ -1347,7 +1579,7 @@ margin-left: 30px;             /* 单独设置一边 */
 							</div>
 
 							<div class="title">绝对定位 - absolute(相对于父元素)</div>
-							<div class="content open">
+							<div class="content closed">
 								<p>absolute元素的位置相对于最近的已定位父元素. 具体位置由top, left, right 或bottom属性决定. 如果元素没有已定位的父元素，那么它的位置相对于&lt;html>.</p>
 								<p class="text-danger">
 									absolute 定位使元素的位置与文档流无关，因此不占据空间。
@@ -1355,7 +1587,7 @@ margin-left: 30px;             /* 单独设置一边 */
 							</div>
 
 							<div class="title">固定定位 - fixed(相对于浏览器)</div>
-							<div class="content open">
+							<div class="content closed">
 								<p>fixed元素的位置相对于浏览器窗口是固定位置, 具体位置由top, left, right 或bottom属性决定. 即使窗口是滚动的它也不会移动：</p>
 								<p class="text-danger">
 									Fixed定位使元素的位置与文档流无关，因此不占据空间.
@@ -1363,7 +1595,7 @@ margin-left: 30px;             /* 单独设置一边 */
 							</div>
 
 							<div class="title">粘性定位 - sticky</div>
-							<div class="content open">
+							<div class="content closed">
 								<p>
 									粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。
 								</p>
@@ -1405,7 +1637,7 @@ div.sticky {
 						</div>
 					</div>
 
-					<div class="title">使用float属性定位</div>
+					<div class="title">float</div>
 					<div class="content closed">
 						<p>浏览器遇到float元素时:</p>
 						<p>
@@ -1430,42 +1662,6 @@ div.sticky {
 </code>
 						</pre>
 						<img src="__STATIC__/image/JavaScript/浮动定位解决重叠问题.png">
-					</div>
-
-					<div class="title">display</div>
-					<div class="content closed">
-						<p class="text-strong">display:block</p>
-						<p>
-							1) block元素会独占一行;<br>
-							2) 可以设置width & height属性, 默认填满父元素宽度;<br>
-							3) 可以设置margin & padding属性.
-						</p>
-						<p class="text-strong">display: inline</p>
-						<p>
-							1) 相邻的inline元素会排列在同一行里, 直到一行排列不下, 才会新换一行;<br>
-							2) 无法设置width & height属性, 宽度随元素的内容而变化;<br>
-							3) 可以设置水平方向的margin & padding属性, 无法设置垂直方向的margin & padding属性;<br>
-						</p>
-						<p class="text-strong">display: inline-block</p>
-						<p>
-							1) inline-block元素会排列在同一行里;<br>
-							2) 可以设置width & hieght属性; <br>
-							3) 可以设置margin & padding属性.
-						</p>
-						<p class="text-strong">display: flex</p>
-						<p>
-							弹性布局
-						</p>
-						<p>flex-wrap: 让弹性盒元素在必要的时候拆行：</p>
-						<pre class="prettyprint linenums">
-<code>
-flex-wrap: nowrap;    // 默认值。规定灵活的项目不拆行或不拆列
-flex-wrap: warp;      // 规定灵活的项目在必要的时候拆行或拆列。
-</code>
-						</pre>
-
-						<a href="http://www.runoob.com/w3cnote/flex-grammar.html">flex布局语法教程</a><br>
-						<a href="https://www.w3.org/wiki/CSS/Properties/display">手册</a>
 					</div>
 
 					<div class="title">CSS表格(使用display属性)</div>
@@ -1516,6 +1712,50 @@ div.tableRow {
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<div class="title">overflow: 内容溢出怎么显示?</div>
+			<div class="content closed">
+				<p class="text-strong">overflow</p>
+				<pre class="prettyprint linenums">
+<code>
+overflow: visible | hidden | scroll | auto | inherit;
+</code>
+				</pre>
+				<p>
+					overflow 属性用于控制内容溢出元素框时显示的方式: <br>
+					visible: 默认值。内容不会被修剪，会呈现在元素框之外。<br>
+					hidden:  内容会被修剪，并且被剪切的内容是不可见的。<br>
+					scroll: 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。<br>
+					auto: 如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+				</p>
+
+				<p class="text-strong">overflow-x</p>
+				<pre class="prettyprint linenums">
+<code>
+overflow-x: visible | hidden | scroll | auto | no-display | no-content;
+</code>
+				</pre>
+				<p>
+					no-display: 如果内容不适合内容框，则删除整个框。<br>
+					no-content: 如果内容不适合内容框，则隐藏整个内容。
+				</p>
+
+				<p class="text-strong">overflow-y</p>
+				<pre class="prettyprint linenums">
+<code>
+overflow-y: visible | hidden | scroll | auto | no-display | no-content;
+</code>
+				</pre>
+				<a href="http://www.runoob.com/css/css-overflow.html">overflow</a><br>
+				<a href="http://www.runoob.com/cssref/css3-pr-overflow-x.html">overflow-x</a><br>
+				<a href="http://www.runoob.com/cssref/css3-pr-overflow-y.html">overflow-y</a>
+			</div>
+
+			<div class="title">::before和::after伪元素</div>
+			<div class="content closed">
+				<a href="https://www.cnblogs.com/starof/p/4459991.html">::before和::after伪元素的用法</a>
+				<a href="https://blog.csdn.net/yangxiaoyanger/article/details/79712180">::before & :before的区别</a>
 			</div>
 
 			<div class="title">title属性</div>
@@ -1815,20 +2055,6 @@ text-decoration: none | underline | overline | line-through;	// 设置文本更�
 				</pre>
 			</div>
 
-			<div class="title">overflow</div>
-			<div class="content closed">
-				<p>overflow 属性用于控制内容溢出元素框时显示的方式: visible, hidden, scroll, auto</p>
-				<a href="http://www.runoob.com/css/css-overflow.html">overflow</a><br>
-				<a href="http://www.runoob.com/cssref/css3-pr-overflow-x.html">overflow-x</a><br>
-				<a href="http://www.runoob.com/cssref/css3-pr-overflow-y.html">overflow-y</a>
-			</div>
-
-			<div class="title">::before和::after伪元素</div>
-			<div class="content closed">
-				<a href="https://www.cnblogs.com/starof/p/4459991.html">::before和::after伪元素的用法</a>
-				<a href="https://blog.csdn.net/yangxiaoyanger/article/details/79712180">::before & :before的区别</a>
-			</div>
-
 			<div class="title">鼠标样式</div>
 			<div class="content closed">
 				<pre class="prettyprint linenums">
@@ -1842,7 +2068,7 @@ cursor: pointer;
     </div>
 
 	<div class="title">CSS选择器</div>
-    <div class="content open">
+    <div class="content closed">
 		<div class="list list-number">
 			<div class="title">一般</div>
 			<div class="content closed">
@@ -1945,7 +2171,7 @@ img[alt*="flowers"] { ... }    // alt属性包含单词"flowers"的所有img元�
 	</div>
 
 	<div class="title">样式继承, 覆盖 & 层叠</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">继承</div>
 			<div class="content closed">
@@ -2023,7 +2249,7 @@ h1 {
 	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">Link CSS文件(head标签内)</div>
-			<div class="content open">
+			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
 &lt;head>
@@ -2081,7 +2307,7 @@ p.specials {
 			</div>
 
 			<div class="title">添加Style元素(head标签内)</div>
-			<div class="content open">
+			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
 &lt;head>
@@ -2094,7 +2320,7 @@ p.specials {
 			</div>
 
 			<div class="title">添加Style属性(添加到对应元素)</div>
-			<div class="content open">
+			<div class="content closed">
 				<pre class="prettyprint linenums">
 <code>
 &lt;p style="margin-left: 0.5in; margin-right:0.5in">这一行被增加了左右的外补丁&lt;p>
@@ -2105,7 +2331,7 @@ p.specials {
 	</div>
 
 	<div class="title">高级应用</div>
-	<div class="content open">
+	<div class="content closed">
 		<div class="list list-number">
 			<div class="title">布局</div>
 			<div class="content closed">
@@ -2146,6 +2372,7 @@ p.specials {
 			</div>
 		</div>
 	</div>
+
 	<div class="title">字体图标</div>
     <div class="content closed">
 		<div class="list list-number">
