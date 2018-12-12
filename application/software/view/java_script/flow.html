@@ -117,20 +117,18 @@ for (i in navigator) {
 	<div class="title">脚本使用位置</div>
     <div class="content open">
 		<div class="list list-number">
-			<div class="title">在head元素中</div>
-			<div class="content open">
-				<p>head脚本在页面加载之前就执行了.</p>
+			<div class="title">在head元素中: 在页面加载之前就执行了.</div>
+			<div class="content closed">
 				<p>Scripts in the header can’t create output within the HTML document, but can be referred to by other scripts. The header is often used for functions.</p>
 			</div>
 
-			<div class="title">在body元素中</div>
-			<div class="content open">
-				<p>body脚本读到即执行，写在事件触发里除外。</p>
+			<div class="title">在body元素中: 读到即执行，写在事件触发里除外。</div>
+			<div class="content closed">
 				<p>In this case, the script’s output is displayed as part of the HTML document when the browser loads the page.</p>
 			</div>
 
-			<div class="title">在HTML tag中</div>
-			<div class="content open">
+			<div class="title">在HTML tag中: 事件处理</div>
+			<div class="content closed">
 				<p>This is called an event handler and allows the script to work with HTML elements. When using JavaScript in Event handlers, you don’t need to use the &lt;script> tag.
 				</p>
 				<pre class="prettyprint linenums">
