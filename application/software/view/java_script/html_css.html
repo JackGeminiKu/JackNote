@@ -1,6 +1,8 @@
 {include file="template/header" title="JavaScript HTML 标签" /}
 
 <div class="list list-number">
+	<p class="text-strong text-center">HTML基础</p>
+	
     <div class="title">HTML5 标签</div>
     <div class="content closed">
 		<div class="container ml-0">
@@ -343,7 +345,7 @@
 		</pre>
 		<div class="list list-number">
 			<div class="title">指定页面文档类型: &lt;!doctype html></div>
-			<div class="content closed">
+			<div class="content open">
 				<p>doctype定义要放在最上面, 上面是HTML5的doctype.</p>
 				<p>备注: <br>
 					HTML不会再有版本6, 7, 8 ...指定标准的人已经把这个规范变成了一个活的标准, 它会随着技术的发展形成相应的文档. <br>
@@ -351,7 +353,7 @@
 			</div>
 
 			<div class="title">指定字符编码: &lt;meta charset="utf-8"></div>
-			<div class="content closed">
+			<div class="content open">
 				<p>要放到&lt;head>元素中所有其他元素的上面. 采用Unicode, 一种编码就可以表示所有语言. 文档编码要和文件编码保持一致, 推荐使用UTF-8编码.</p>
 			</div>
 		</div>
@@ -1199,6 +1201,9 @@ a:active { ... }                /* 用户第一次单击一个连接时, 就处�
 		</div>
 	</div>
 
+	<hr>
+	<p class="text-center text-strong">CSS基础</p>
+	
 	<div class="title">常见CSS样式</div>
     <div class="content open">
 		<div class="list list-number">
@@ -1765,7 +1770,7 @@ line-height: normal;  /* normal允许浏览器选择一个合适的行高大小,
 				<a href="https://www.imooc.com/article/34141">还是有点复杂的, 具体看这里吧</a>
 			</div>
 
-			
+
 			<div class="title">::before和::after伪元素</div>
 			<div class="content closed">
 				<a href="https://www.cnblogs.com/starof/p/4459991.html">::before和::after伪元素的用法</a>
@@ -2069,6 +2074,92 @@ cursor: pointer;
 		</div>
     </div>
 
+	<div class="title">如何将CSS加入到网页中?</div>
+	<div class="content closed">
+		<div class="list list-number">
+			<div class="title">Link CSS文件(head标签内)</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;head>
+    &lt;title>文档标题&lt;/title>
+    &lt;link rel="stylesheet" href="hello.css">
+&lt;/head>
+</code>
+				</pre>
+				<div class="list list-square">
+					<div class="title">使用多个样式表</div>
+					<div class="content closed">
+						<p>最下面的样式表最优先, 它会覆盖前面的样式表的设置.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;link rel="stylesheet" href="总公司.css">
+&lt;link ref="stylesheet" href="分公司.css">
+</code>
+						</pre>
+					</div>
+
+					<div class="title">不同设备使用不同的样式 - 使用media属性</div>
+					<div class="content closed">
+						<p>对于桌面PC, 笔记本电脑, 平板电脑, 手机, 你想使用不同的样式, 只需在<link>元素中添加media属性即可.</p>
+						<pre class="prettyprint linenums">
+<code>
+&lt;link type="text/css" ref="stylesheet" href="lounge-mobile.css" media="screen and (max-device-width: 480px)">
+</code>
+						</pre>
+						<p>
+							screen: 有屏幕<br>
+							print: 打印页面时使用<br>
+							max-device-width: 480px;    /* 屏幕宽度最多480px(不超过480px) */<br>
+							min-device-width: 200px;    /* 屏幕宽度最小200px(不少于200px) */<br>
+							orientation: landscape 或者 portrait;    /* 横向或者纵向 */<br>
+							max-width: 480px;    /* 浏览器宽度最多480px */<br>
+							min-width: 200px;    /* 浏览器宽度最少200px */	
+						</p>
+						<p>要为CSS指定特定属性的设备, 还可以直接写在CSS中:</p>
+						<pre class="prettyprint linenums">
+<code>
+@media screen and (min-device-width: 481px) {
+   #guarantee {
+        margin-right: 30px;
+    }
+}
+
+/* 通用规则放在@media下面 */
+p.specials {
+    color: red;
+}
+</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="title">添加Style元素(head标签内)</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;head>
+    &lt;style type="text/css">             // 放在&lt;head>标记中
+        body { font: 10pt "Arial" }
+    &lt;/style>
+&lt;/head>
+</code>
+				</pre>
+			</div>
+
+			<div class="title">添加Style属性(添加到对应元素)</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+&lt;p style="margin-left: 0.5in; margin-right:0.5in">这一行被增加了左右的外补丁&lt;p>
+</code>
+				</pre>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="title">CSS选择器</div>
     <div class="content closed">
 		<div class="list list-number">
@@ -2247,118 +2338,33 @@ h1 {
 		</div>
 	</div>
 
-	<div class="title">如何将CSS加入到网页中?</div>
+	<hr>
+	<p class="text-center text-strong">高级应用</p>
+
+	<div class="title">布局</div>
 	<div class="content closed">
 		<div class="list list-number">
-			<div class="title">Link CSS文件(head标签内)</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-&lt;head>
-    &lt;title>文档标题&lt;/title>
-    &lt;link rel="stylesheet" href="hello.css">
-&lt;/head>
-</code>
-				</pre>
-				<div class="list list-square">
-					<div class="title">使用多个样式表</div>
-					<div class="content closed">
-						<p>最下面的样式表最优先, 它会覆盖前面的样式表的设置.</p>
-						<pre class="prettyprint linenums">
-<code>
-&lt;link rel="stylesheet" href="总公司.css">
-&lt;link ref="stylesheet" href="分公司.css">
-</code>
-						</pre>
-					</div>
-
-					<div class="title">不同设备使用不同的样式 - 使用media属性</div>
-					<div class="content closed">
-						<p>对于桌面PC, 笔记本电脑, 平板电脑, 手机, 你想使用不同的样式, 只需在<link>元素中添加media属性即可.</p>
-						<pre class="prettyprint linenums">
-<code>
-&lt;link type="text/css" ref="stylesheet" href="lounge-mobile.css" media="screen and (max-device-width: 480px)">
-</code>
-						</pre>
-						<p>
-							screen: 有屏幕<br>
-							print: 打印页面时使用<br>
-							max-device-width: 480px;    /* 屏幕宽度最多480px(不超过480px) */<br>
-							min-device-width: 200px;    /* 屏幕宽度最小200px(不少于200px) */<br>
-							orientation: landscape 或者 portrait;    /* 横向或者纵向 */<br>
-							max-width: 480px;    /* 浏览器宽度最多480px */<br>
-							min-width: 200px;    /* 浏览器宽度最少200px */	
-						</p>
-						<p>要为CSS指定特定属性的设备, 还可以直接写在CSS中:</p>
-						<pre class="prettyprint linenums">
-<code>
-@media screen and (min-device-width: 481px) {
-   #guarantee {
-        margin-right: 30px;
-    }
-}
-
-/* 通用规则放在@media下面 */
-p.specials {
-    color: red;
-}
-</code>
-						</pre>
-					</div>
-				</div>
+			<div class="title">流体布局</div>
+			<div class="content open">
+				<p>默认情况下, 我们将浏览器调整到多大的宽度, 布局就会扩展, 填满整个浏览器, 使得用户能够充分利用他们的屏幕空间, 这种布局称为流体布局.</p>
 			</div>
 
-			<div class="title">添加Style元素(head标签内)</div>
-			<div class="content closed">
+			<div class="title">冻结布局</div>
+			<div class="content open">
+				<p>内容的宽度是固定的, 不会随着浏览器窗口扩展或收缩.</p>
 				<pre class="prettyprint linenums">
-<code>
-&lt;head>
-    &lt;style type="text/css">             // 放在&lt;head>标记中
-        body { font: 10pt "Arial" }
-    &lt;/style>
-&lt;/head>
-</code>
-				</pre>
-			</div>
-
-			<div class="title">添加Style属性(添加到对应元素)</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-&lt;p style="margin-left: 0.5in; margin-right:0.5in">这一行被增加了左右的外补丁&lt;p>
-</code>
-				</pre>
-			</div>
-		</div>
-	</div>
-
-	<div class="title">高级应用</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">布局</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">流体布局</div>
-					<div class="content open">
-						<p>默认情况下, 我们将浏览器调整到多大的宽度, 布局就会扩展, 填满整个浏览器, 使得用户能够充分利用他们的屏幕空间, 这种布局称为流体布局.</p>
-					</div>
-
-					<div class="title">冻结布局</div>
-					<div class="content open">
-						<p>内容的宽度是固定的, 不会随着浏览器窗口扩展或收缩.</p>
-						<pre class="prettyprint linenums">
 <code>
 #allcontent {
     width: 800px;
 }
 </code>
-						</pre>
-					</div>
+				</pre>
+			</div>
 
-					<div class="title">凝胶布局</div>
-					<div class="content open">
-						<p>凝胶布局是指, 其中内容宽度是固定的, 但是外边距会随着浏览器窗口扩展或收缩.</p>
-						<pre class="prettyprint linenums">
+			<div class="title">凝胶布局</div>
+			<div class="content open">
+				<p>凝胶布局是指, 其中内容宽度是固定的, 但是外边距会随着浏览器窗口扩展或收缩.</p>
+				<pre class="prettyprint linenums">
 <code>
 #allcontent {
     width: 800px;
@@ -2368,9 +2374,7 @@ p.specials {
     margin-right: auto;
 }
 </code>
-						</pre>
-					</div>
-				</div>
+				</pre>
 			</div>
 		</div>
 	</div>
@@ -2468,7 +2472,7 @@ li.open::before {
 <div>
 	<div class="list list-none">
 		<div class="title">参考资料</div>
-		<div class="content open">
+		<div class="content closed">
 			<p>
 				<a href="https://www.w3.org/html/">W3C HTML</a><br>
 				<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element">HTML标签(官方)</a><br>	
