@@ -1,0 +1,281 @@
+{include file="template/header" title="设计模式 建造者模式" /}
+<p class="text-center text-strong">建造者模式</p>
+<p class="text-strong">建造者模式(Builder), 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示.</p>
+<p>建造者模式可以将一个产品的内部表象与产品的生成过程分割开来, 从而可以使一个建造过程生成具有不同的内部表象的产品对象. 如果我们用了建造者模式, 那么用户就只需指定需要建造的类型就可以得到它们, 而具体建造的过程和细节就不需知道了.</p>
+<img src="__ROOT__/static/image/design_pattern/builder.png">
+
+<div class="list list-square">
+    <div class="title">使用场合</div>
+    <div class="content closed">
+		<p>它主要用于创建一些复杂的对象, 这些对象内部构建间的建造顺序通常都是稳定的, 但对象内部的构建通常面临着复杂的变化.</p>
+    </div>
+
+    <div class="title">有点</div>
+    <div class="content closed">
+		<p>它使得建造代码与表示代码分离, 由于建造者隐藏了该产品是如何组装的, 所以若需要改变一个产品的内部表示, 只需要再定义一个具体的建造者就可以了.</p>
+		<p>建造者模式是在当创建复杂对象的算法应该独立于该对象的组成部分以及它们的装配方式时适用的模式.</p>
+    </div>
+
+	<div class="title">代码范例</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace 建造者模式
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Director director = new Director();
+            Builder b1 = new ConcreteBuilder1();
+            Builder b2 = new ConcreteBuilder2();
+
+            director.Construct(b1);
+            Product p1 = b1.GetResult();
+            p1.Show();
+
+            director.Construct(b2);
+            Product p2 = b2.GetResult();
+            p2.Show();
+
+            Console.Read();
+        }
+    }
+
+    class Director
+    {
+        public void Construct(Builder builder)
+        {
+            builder.BuildPartA();
+            builder.BuildPartB();
+        }
+    }
+
+    abstract class Builder
+    {
+        public abstract void BuildPartA();
+        public abstract void BuildPartB();
+        public abstract Product GetResult();
+    }
+
+    class Product
+    {
+        IList&lt;string> parts = new List&lt;string>();
+
+        public void Add(string part)
+        {
+            parts.Add(part);
+        }
+
+        public void Show()
+        {
+            Console.WriteLine("\n產品 創建 ----");
+            foreach (string part in parts) {
+                Console.WriteLine(part);
+            }
+        }
+    }
+
+    class ConcreteBuilder1 : Builder
+    {
+        private Product product = new Product();
+
+        public override void BuildPartA()
+        {
+            product.Add("部件A");
+        }
+
+        public override void BuildPartB()
+        {
+            product.Add("部件B");
+        }
+
+        public override Product GetResult()
+        {
+            return product;
+        }
+    }
+
+    class ConcreteBuilder2 : Builder
+    {
+        private Product product = new Product();
+        
+        public override void BuildPartA()
+        {
+            product.Add("部件X");
+        }
+
+        public override void BuildPartB()
+        {
+            product.Add("部件Y");
+        }
+
+        public override Product GetResult()
+        {
+            return product;
+        }
+    }
+}
+</code>
+		</pre>
+	</div>
+
+	<div class="title">代码范例 - 造小人</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace 建造者模式___造小人
+{
+    public partial class MainForm : Form
+    {
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        private void btnBuild_Click(object sender, EventArgs e)
+        {
+            Pen p = new Pen(Color.Black);
+            PersonThinBuilder ptb = new PersonThinBuilder(pictureBox1.CreateGraphics(), p);
+            PersonDirector pdThin = new PersonDirector(ptb);
+            pdThin.CreatePerson();
+
+            PersonFatBuilder pfb = new PersonFatBuilder(pictureBox2.CreateGraphics(), p);
+            PersonDirector pdFat = new PersonDirector(pfb);
+            pdFat.CreatePerson();
+        }
+    }
+
+    class PersonDirector
+    {
+        private PersonBuilder pb;
+
+        public PersonDirector(PersonBuilder pb)
+        {
+            this.pb = pb;
+        }
+
+        public void CreatePerson()
+        {
+            pb.BuildHead();
+            pb.BuildBody();
+            pb.BuildArmLeft();
+            pb.BuildArmright();
+            pb.BuildLegLeft();
+            pb.BuildLegRight();
+        }
+    }
+
+    abstract class PersonBuilder
+    {
+        protected Graphics g;
+        protected Pen p;
+
+        public PersonBuilder(Graphics g, Pen p)
+        {
+            this.g = g;
+            this.p = p;
+        }
+
+        public abstract void BuildHead();
+        public abstract void BuildBody();
+        public abstract void BuildArmLeft();
+        public abstract void BuildArmright();
+        public abstract void BuildLegLeft();
+        public abstract void BuildLegRight();
+    }
+
+    class PersonThinBuilder : PersonBuilder
+    {
+        public PersonThinBuilder(Graphics g, Pen p)
+            : base(g, p)
+        {
+        }
+
+        public override void BuildHead()
+        {
+            g.DrawEllipse(p, 50, 20, 30, 30);
+        }
+
+        public override void BuildBody()
+        {
+            g.DrawEllipse(p, 60, 50, 10, 50);
+        }
+
+        public override void BuildArmLeft()
+        {
+            g.DrawLine(p, 60, 50, 40, 100);
+        }
+
+        public override void BuildArmright()
+        {
+            g.DrawLine(p, 70, 50, 90, 100);
+        }
+
+        public override void BuildLegLeft()
+        {
+            g.DrawLine(p, 60, 100, 45, 150);
+        }
+
+        public override void BuildLegRight()
+        {
+            g.DrawLine(p, 70, 100, 85, 150);
+        }
+    }
+
+    class PersonFatBuilder : PersonBuilder
+    {
+        public PersonFatBuilder(Graphics g, Pen p)
+            : base(g, p)
+        {
+        }
+
+        public override void BuildHead()
+        {
+            g.DrawEllipse(p, 50, 20, 30, 30);
+        }
+
+        public override void BuildBody()
+        {
+            g.DrawEllipse(p, 45,50,40,50);
+        }
+
+        public override void BuildArmLeft()
+        {
+            g.DrawLine(p, 50,50,30,100);
+        }
+
+        public override void BuildArmright()
+        {
+            g.DrawLine(p, 80,50,100,100);
+        }
+
+        public override void BuildLegLeft()
+        {
+            g.DrawLine(p, 60,100,45,150);
+        }
+
+        public override void BuildLegRight()
+        {
+            g.DrawLine(p, 70,100,85,150);
+        }
+    }
+}
+</code>
+		</pre>
+    </div>
+</div>
+
+{include file="template/footer" /}
