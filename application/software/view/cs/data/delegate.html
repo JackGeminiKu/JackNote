@@ -10,19 +10,19 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-6">
-					<p class="text-strong">传统方法</p>
+					<p class="text-strong">① 传统方法</p>
 					<pre class="prettyprint linenums">
 <code>
-// 先定义委托类型: 可在委托定义上添加一般的访问修饰符: private, protected和public等.
-delegate double ProcessDelegate(double value1, double value2);
-delegate T1 MyDelegate&lt;T1,T2>(T2 op1,T2 op2) where T1: T2;
+// 1. 定义委托类型: 可在委托定义上添加一般的访问修饰符: private, protected和public等.
+public delegate double ProcessDelegate(double value1, double value2);
+public delegate T1 MyDelegate&lt;T1,T2>(T2 op1,T2 op2) where T1: T2;
 
-// 在定义委托变量: 传入构造函数的那个函数, 必须匹配最初定义委托时的签名
+// 2. 定义委托变量: 传入构造函数的那个函数, 必须匹配最初定义委托时的签名!
 ProcessDelegate process = new ProcessDelegate(Multiply);    
 </code>
 					</pre>
 
-					<p class="text-strong">使用匿名方法</p>
+					<p class="text-strong">② 使用匿名方法</p>
 					<pre class="prettyprint linenums">
 <code>
 ProcessDelegatet process = delegate(double value1, double value2) {
@@ -48,16 +48,19 @@ ProcessDelegatet process = delegate {    // 可以没有参数!
 				</div>
 
 				<div class="col-6">
-					<p class="text-strong">Lambda表达式 <br>运算符"=>"读作"转到". 运算符的左边指定为输入参数, 右边是Lambda的主体.</p>
+					<p class="text-strong">③ Lambda表达式 <br>运算符"=>"读作"转到". 运算符的左边指定为输入参数, 右边是Lambda的主体.</p>
 					<pre class="prettyprint linenums">
 <code>
+// 无参数
+Action f = () => Console.WriteLine("我是无参数Lamda表达式");
+	
 // 一个参数: param => expr
 Func &lt;int, string> f = p => p.ToString();
 
-// 多个参数: 放到()中
+// 多个参数: 要放到()中
 Func &lt;int, int, int> f = (p,z) => p + z;
 
-// 主体运算比较复杂, 可以放到{}中
+// 主体运算比较复杂, 要放到{}中
 Func&lt;int, int, int> f = (p, z) => {
     if (p > z) {
         return p;
@@ -67,7 +70,6 @@ Func&lt;int, int, int> f = (p, z) => {
 };
 </code>
 					</pre>
-					<a href="https://www.cnblogs.com/chenwolong/p/5669440.html" target="_blank">Lamda表达式</a>
 				</div>
 
 				<div class="col-6">
@@ -142,6 +144,12 @@ public delegate TOutput Converter&lt;in TInput, out TOutput>(TInput input);
 	</div>
 </div>
 
-
+<hr>
+<div class="list list-none">
+    <div class="title">参考资料</div>
+    <div class="content closed">
+		<a href="https://www.cnblogs.com/chenwolong/p/5669440.html">C# Lambda表达式</a>
+    </div>
+</div>
 
 {include file="template/footer" /}

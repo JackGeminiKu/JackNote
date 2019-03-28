@@ -3,7 +3,7 @@
     <!--条件-->
     <div class="title">条件</div>
     <div class="content open">
-        <div class="containter ml-0 w-75">
+        <div class="containter ml-0" style="width: 90%">
             <div class="row">
 				<div class="col-2">
 					<pre class="prettyprint linenums lang-cs">
@@ -29,7 +29,7 @@ if (条件) {
 					</pre>	
 				</div>
 
-				<div class="col-2">
+				<div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 // else if
@@ -44,10 +44,10 @@ if (条件1) {
 					</pre>
                 </div>
 
-                <div class="col-6">
+                <div class="col-4">
                     <pre class="prettyprint linenums lang-cs">
 <code>
-switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串或浮点型
+switch (条件) {    
     case 条件值1:
         ...
         break;
@@ -58,6 +58,7 @@ switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串�
         ...
         break;
 }
+// 备注: 条件值只能是: 整型, 字符串或浮点型
 </code>
 					</pre>
                 </div>
@@ -76,19 +77,19 @@ switch (条件) {    // 条件值只能是简单数据类型: 整型, 字符串�
     <div class="content open">
         <div class="container-fluid ml-0">
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     while循环
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     do while循环
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     for循环
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 while (条件) {    
@@ -97,7 +98,7 @@ while (条件) {
 </code>
 					</pre>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 do {    
@@ -106,7 +107,7 @@ do {
 </code>
 					</pre>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 for (初始化; 条件; 更新) {    
@@ -119,14 +120,12 @@ for (初始化; 条件; 更新) {
 
             <div class="row">
                 <div class="col-12">
-                    <div class="col-3">
-                        foreach循环(实现了IEnumerable的类, 只读)
-                    </div>
+					foreach循环(实现了IEnumerable的类, 只读)
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 foreach (int item in array) {    
@@ -135,7 +134,10 @@ foreach (int item in array) {
 </code>
 					</pre>
                 </div>
-                <div class="col-3">
+			</div>
+
+			<div class="row">
+                <div class="col-5">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 foreach (KeyValuePair&lt;string, int> item in dic) {    
@@ -144,7 +146,8 @@ foreach (KeyValuePair&lt;string, int> item in dic) {
 </code>
 					</pre>
                 </div>
-                <div class="col-3">
+
+                <div class="col-5">
                     <pre class="prettyprint linenums lang-cs">
 <code>
 foreach (DictionaryEntry item in hashtable) {    
