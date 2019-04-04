@@ -611,7 +611,7 @@ set nowrap
 			<div class="content closed">
 				<p>手动安装: 直接把插件拷贝到插件目录即可.</p>
 			</div>
-			
+
 			<div class="title">xkbswitch</div>
 			<div class="content closed">
 				<p>可以解决normal模式&inset模式切换的输入法问题.</p>
@@ -696,7 +696,38 @@ filetype plugin indent on " required!
 
 	<div class="title">SpaceVim</div>
     <div class="content closed">
+		<div class="list list-number">
+			<div class="title">安装</div>
+			<div class="content closed">
+				<p>为Vim和neoVim安装SpaceVim</p>
+				<pre class="prettyprint linenums">
+<code>
+curl -sLf https://spacevim.org/install.sh | bash
+</code>
+				</pre>
+				<p>为Vim或neoVim安装SpaceVim</p>
+				<pre class="prettyprint linenums">
+<code>
+curl -sLf https://spacevim.org/install.sh | bash -s -- --install vim
+curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
+</code>
+				</pre>
+			</div>
 
+			<div class="title">卸载</div>
+			<div class="content closed">
+				<pre class="prettyprint linenums">
+<code>
+curl -sLf https://spacevim.org/install.sh | bash -s -- --uninstall
+</code>
+				</pre>
+			</div>
+		</div>
+    </div>
+
+	<div class="title">NeoVim</div>
+    <div class="content closed">
+		<p>官网: neovim.io</p>
     </div>
 </div>
 
