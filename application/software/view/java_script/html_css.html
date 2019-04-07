@@ -2,7 +2,7 @@
 
 <div class="list list-number">
 	<p class="text-strong text-center">HTML基础</p>
-	
+
     <div class="title">HTML5 标签</div>
     <div class="content closed">
 		<div class="container ml-0">
@@ -359,9 +359,49 @@
 		</div>
     </div>
 
-	<div class="title">HTML5 元素</div>
+	<div class="title">HTML5 元素(按功能分)</div>
     <div class="content closed">
 		<div class="list list-number">
+			<div class="title">引用</div>
+			<div class="content closed">
+				<p>短引用: &lt;q>是内联元素, 用于短引用, 作为现有段落中的一部分.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;p>You never know when you'll need a good quote, how about &lt;q>To be or not bo be&lt;/q>, or &lt;q>Where you go, there you are&lt;/q>.&lt;/p>
+</code>
+				</pre>
+				<p>显示效果</p>
+				<div class="bg-light">
+					<p>
+						You never know when you'll need a good quote, how about <q>To be or not bo be</q>, or <q>Where you go, there you are</q>.
+					</p>
+				</div>
+
+				<p>长引用: &lt;blockquote>是块元素, 用于较长的引用, 需要单独显示.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;blockquote>
+    Passing cars, 
+    When you can't see,
+    May get you,
+    A glimpse,
+    of eternity.
+&lt;/blockquote>
+</code>
+				</pre>
+				<p>显示效果</p>
+				<div class="bg-light">
+					<h2>July 14, 2012</h2>
+					<blockquote>
+						Passing cars, 
+						When you can't see,
+						May get you,
+						A glimpse,
+						of eternity.
+					</blockquote>
+				</div>
+			</div>
+
 			<div class="title">内联元素</div>
 			<div class="content open">
 				<div class="list list-number">
@@ -542,15 +582,6 @@
 </code>
 						</pre>
 					</div>
-
-					<div class="title">引用</div>
-					<div class="content closed">
-						<pre class="prettyprint linenums">
-<code>
-&lt;q>引用的内容&lt;/q>
-</code>
-						</pre>
-					</div>
 				</div>
 			</div>
 
@@ -628,22 +659,6 @@
     &lt;p>&lt;input type=text id="fn" name="fn" value="Pillar Magazine.pdf" />&lt;/p>
     &lt;p>&lt;label>&lt;input type="checkbox" name="ext" checked="checked" /> Hide extension&lt;/label>&lt;/p>
 &lt;/details>
-</code>
-						</pre>
-					</div>
-
-					<div class="title">块引用</div>
-					<div class="content closed">
-						<p>&lt;q>用于短引用, 作为现有段落中的一部分, 而&lt;blockquote>元素用于较长的引用, 需要单独显示.</p>
-						<pre class="prettyprint linenums">
-<code>
-&lt;blockquote>
-    Passing cars, 
-    When you can't see,
-    May get you,
-    A glimpse,
-    of eternity.
-&lt;/blockquote>
 </code>
 						</pre>
 					</div>
@@ -940,7 +955,7 @@ table {
 					<div class="content closed">
 						<pre class="prettyprint linenums">
 <code>
-&lt;a href="elixir.html" target="_blank">elixirs&lt;/a>
+&lt;a href="elixir.html" target="_blank">具有超链接效果的内容&lt;/a>
 </code>
 						</pre>
 						<p>
@@ -1203,7 +1218,7 @@ a:active { ... }                /* 用户第一次单击一个连接时, 就处�
 
 	<hr>
 	<p class="text-center text-strong">CSS基础</p>
-	
+
 	<div class="title">常见CSS样式</div>
     <div class="content open">
 		<div class="list list-number">
