@@ -1,0 +1,296 @@
+{include file="template/header" title="设计模式 享元模式" /}
+<p class="text-strong">享元模式(Flyweight), 运用共享技术有效地支持大量细粒度的对象.</p>
+<img src="__ROOT__/static/image/design_pattern/flyweight.png"/>
+<p>在享元对象内部并且不会随环境改变而改变的共享部分, 可以称为享元对象的内部状态, 而随环境改变而改变的, 不可以共享的状态就是外部状态了.</p>
+<p>
+	事实上, 享元模式可以避免大量非常相似类的开销. 在程序设计中, 有时需要生成大量细粒度的类来表示数据. 如果能发现这些实例除了几个参数外基本上都是相同的, 就可以把这些参数移到类实例的外面, 在方法调用时将它们传递进来, 就可以通过共享大幅度地减少单个实例的数目. 也就是说, 享元模式执行时所需的状态是有内部的也可能有外部的, 内部存储在ConcreteFlyweight对象之中, 而外部对象则应该考虑由客户端对象存储或计算, 当调用Flyweight对象的操作时, 将该该状态传递给它.
+</p>
+<div class="list list-number">
+    <div class="title">享元模式应用</div>
+    <div class="content open">
+		<p>
+			如果一个应用程序使用了大量的对象, 而大量的这些对象造成了很大的存储开销时就应该考虑使用; 还有就是对象的大多数状态都是外部状态, 如果删除对象的外部状态, 那么可以用相对较少的共享对象取代很多组对象, 此时可以考虑使用享元模式. 实际上在.NET中, 字符串string就是运用了Flyweight模式. 举个例子吧.
+		</p>
+		<pre class="prettyprint linenums">
+<code>
+string titleA = "大话设计模式";
+string titleB = "大话设计模式";
+Console.WriteLine(Object.ReferenceEquals(titleA, titleB));
+</code>
+		</pre>
+		<p>
+			如上代码, 返回值竟然是True, 这两个字符串是相同的实例! 试想一下, 如果每次创建字符串对象时, 都需要创建一个新的字符串对象的话, 内存的开销会很大. 所以如果第一次创建了字符串对象titleA, 下次在创建相同的字符串titleB时只是把它的引用指向"大话设计模式", 这样就实现了"大话设计模式"在内存中的共享.
+		</p>
+    </div>
+
+    <div class="title">享元模式的缺点</div>
+    <div class="content open">
+		<p>
+			使用享元模式需要维护一个记录了系统已有的所有享元的列表, 而这本身需要消耗资源, 另外享元模式使得系统更加复杂. 为了使对象可以共享, 需要将一些状态外部化, 这使得程序的逻辑复杂化. 因为, 应当在有足够多的对象实例可供共享时才值得使用享元模式.
+		</p>
+    </div>
+
+	<div class="title">范例 - 享元模式</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Collections;
+
+namespace 享元模式
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int extrinscstate = 22;
+
+            FlyweightFactory f = new FlyweightFactory();
+
+            Flyweight fx = f.GetFlyWeight("X");
+            fx.Operation(--extrinscstate);
+
+            Flyweight fy = f.GetFlyWeight("Y");
+            fy.Operation(--extrinscstate);
+
+            Flyweight fz = f.GetFlyWeight("Z");
+            fz.Operation(--extrinscstate);
+
+            UnsharedConcreteFlyweight uf = new UnsharedConcreteFlyweight();
+
+            uf.Operation(--extrinscstate);
+
+            Console.Read();
+        }
+    }
+
+    abstract class Flyweight
+    {
+        public abstract void Operation(int extrinsicstate);
+    }
+
+    class ConcreteFlyweight : Flyweight
+    {
+        public override void Operation(int extrinsicstate)
+        {
+            Console.WriteLine("具體Flyweight:" + extrinsicstate);
+        }
+    }
+
+    // 为什么要有UnsharedConcreteFlyweight的存在呢?
+    // 这是因为尽管我们大部分时间都需要共享对象来降低内存的损耗, 但个别时候也有可能不需要共享的, 那么此时的UnsharedConcreteFlyweight子类就有存在的必要了, 它可以解决不需要共享对象的问题.
+    class UnsharedConcreteFlyweight : Flyweight
+    {
+        public override void Operation(int extrinsicstate)
+        {
+            Console.WriteLine("不共享的具體Flyweight:" + extrinsicstate);
+        }
+    }
+
+    class FlyweightFactory
+    {
+        private Hashtable flyweights = new Hashtable();
+
+        // 这里一定要事先生产对象实例吗?
+        // 实际上是不一定需要的, 完全可以初始化时什么也不做, 到需要时, 再去判断对象是否为null来决定是否实例化.
+        public FlyweightFactory()
+        {
+            flyweights.Add("X", new ConcreteFlyweight());
+            flyweights.Add("Y", new ConcreteFlyweight());
+            flyweights.Add("Z", new ConcreteFlyweight());
+        }
+
+        public Flyweight GetFlyWeight(string key)
+        {
+            return (Flyweight)flyweights[key];
+        }
+    }
+}
+</code>
+		</pre>
+    </div>
+
+	<div class="title">范例 - 享元模式 - 网站共享代码</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Collections;
+
+namespace 网站共享代码___第二版
+{
+    class Program
+    {
+        // 这样写算是基本实现了享元模式的共享对象的目的, 也就是说, 不管见几个网站, 只要是"产品展示", 都是一样的, 只要是"博客", 也是完全相同的, 但这样是有问题的, 你给企业建的网站不是
+        // 一家企业的, 他们数据不会相同, 所以至少它们都应该有不同的帐号, 你怎么办?
+        // 实际上我这样写没有体现对象间的不同, 只体现了它们共享的部分.
+        static void Main(string[] args)
+        {
+            WebSiteFactory f = new WebSiteFactory();
+            WebSite fx = f.GetWebSiteCategory("產品展示");
+            fx.Use();
+            WebSite fy = f.GetWebSiteCategory("產品展示");
+            fy.Use();
+            WebSite fz = f.GetWebSiteCategory("產品展示");
+            fz.Use();
+            WebSite fl = f.GetWebSiteCategory("博客");
+            fl.Use();
+            WebSite fm = f.GetWebSiteCategory("博客");
+            fm.Use();
+            WebSite fn = f.GetWebSiteCategory("博客");
+            fn.Use();
+
+            Console.WriteLine("得到網站分類總數為: {0}", f.GetWebSiteCount());
+            Console.Read();
+        }
+    }
+
+    // 网站抽象类
+    abstract class WebSite
+    {
+        public abstract void Use();
+    }
+
+    // 具体网站类
+    class ConcreteWebSite : WebSite
+    {
+        private string name = "";
+
+        public ConcreteWebSite(string name)
+        {
+            this.name = name;
+        }
+
+        public override void Use()
+        {
+            Console.WriteLine("網站分類: " + name);
+        }
+    }
+
+    // 网站工厂
+    class WebSiteFactory
+    {
+        private Hashtable flyweights = new Hashtable();
+
+        // 获得网站分类
+        public WebSite GetWebSiteCategory(string key)
+        {
+            if (!flyweights.ContainsKey(key)) {
+                flyweights.Add(key, new ConcreteWebSite(key));
+            }
+            return (WebSite)flyweights[key];
+        }
+
+        // 获得网站分类总数
+        public int GetWebSiteCount()
+        {
+            return flyweights.Count;
+        }
+    }
+}
+</code>
+		</pre>
+    </div>
+
+	<div class="title">范例 - 享元模式 - 网站共享代码2.0</div>
+    <div class="content closed">
+		<pre class="prettyprint linenums">
+<code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Collections;
+
+namespace 网站共享代码2._
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            WebsiteFactory f = new WebsiteFactory();
+            WebSite fx = f.GetWebSiteCategory("產品展示");
+            fx.Use(new User("小菜"));
+            WebSite fy = f.GetWebSiteCategory("產品展示");
+            fy.Use(new User("大鳥"));
+            WebSite fz = f.GetWebSiteCategory("產品展示");
+            fz.Use(new User("嬌嬌"));
+            WebSite fl = f.GetWebSiteCategory("博客");
+            fl.Use(new User("老頑童"));
+            WebSite fm = f.GetWebSiteCategory("博客");
+            fm.Use(new User("桃谷六仙"));
+            WebSite fn = f.GetWebSiteCategory("博客");
+            fn.Use(new User("南海鱷神"));
+
+            Console.WriteLine("得到網站分類總數為: {0}", f.GetWebSiteCount());
+            Console.Read();
+        }
+    }
+
+    // 用户
+    public class User
+    {
+        private string name;
+
+        public User(string name)
+        {
+            this.name = name;
+        }
+
+        public string Name
+        {
+            get { return name; }
+        }
+    }
+
+    // 网站抽象类
+    abstract class WebSite
+    {
+        public abstract void Use(User user);
+    }
+
+    // 具体网站类
+    class ConcreteWebSite : WebSite
+    {
+        private string name = "";
+
+        public ConcreteWebSite(string name)
+        {
+            this.name = name;
+        }
+
+        public override void Use(User user)
+        {
+            Console.WriteLine("網站分類: " + name + "用戶: " + user.Name);
+        }
+    }
+
+    // 网站工厂类
+    class WebsiteFactory
+    {
+        private Hashtable flyweights = new Hashtable();
+
+        // 获得网站分类
+        public WebSite GetWebSiteCategory(string key)
+        {
+            if (!flyweights.ContainsKey(key)) {
+                flyweights.Add(key, new ConcreteWebSite(key));
+            }
+            return (WebSite)flyweights[key];
+        }
+
+        // 获得网站分类总数
+        public int GetWebSiteCount()
+        {
+            return flyweights.Count;
+        }
+    }
+}
+</code>
+		</pre>
+    </div>
+</div>
+{include file="template/footer" /}
