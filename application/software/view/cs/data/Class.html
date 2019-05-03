@@ -487,10 +487,9 @@ public string this[int index]    // 参数 & 返回值的类型不规定, 而且
 								<!--事件-->
 								<div class="title">事件</div>
 								<div class="content closed">
-
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-6">
+											<div class="col-12">
 												<pre class="prettyprint linenums">
 <code>
 class Program
@@ -511,7 +510,7 @@ class Program
     }
 }
 　
-// ① 定义事件参数
+// 1. 定义事件参数
 class AlarmEventArgs : EventArgs
 {
     public int numberOfThief;
@@ -521,12 +520,14 @@ class AlarmEventArgs : EventArgs
     }
 }
  
-// ② 事件的发起人
+// 2. 事件的发起人
 class Dog
 {
-    public event EventHandler&lt;AlarmEventArgs> Alarm;	// 声明事件
- 
-    public void OnAlarm(AlarmEventArgs e)	// 定义事件触发函数
+    // 2.1 声明事件
+    public event EventHandler&lt;AlarmEventArgs> Alarm;	
+	
+    // 2.2 定义事件触发函数
+    public void OnAlarm(AlarmEventArgs e)	
     {
         if (this.Alarm != null) {
             Console.WriteLine("The dog is Wangwang...");
@@ -535,45 +536,47 @@ class Dog
     }
 }
 　
-// ③ 事件的订阅者
+// 3. 事件的订阅者
 class Host
 {
-    public Host(Dog dog)
-    {
-        dog.Alarm += new EventHandler&lt;AlarmEventArgs>(HostHandleEvent);	// 添加事件处理程序
-    }
- 
-    public void HostHandleEvent(Object sender, AlarmEventArgs e)	// 定义事件处理函数
+    // 3.1 定义事件处理函数
+    public void HostHandleEvent(Object sender, AlarmEventArgs e)	
     {
         Console.WriteLine("Host caught the thief! The sum is " + e.numberOfThief);
+    }
+
+    public Host(Dog dog)
+    {
+        // 3.2 添加事件处理函数
+        dog.Alarm += new EventHandler&lt;AlarmEventArgs>(HostHandleEvent);	
     }
 }
 </code>
 												</pre>	
 											</div>
-											<div class="col-6">
+											<div class="col-12">
 												<div class="list list-square">
 													<div class="title">事件参数</div>
-													<div class="content open">
+													<div class="content closed">
 														<p>所有基于EventArgs的类都负责在事件发出者和事件订阅者之间来回传送事件的信息.</p>
 														<p>在大多数情况下, EventArgs类中使用的信息都被事件处理程序中的事件订阅者对象使用, 但是, 有时事件处理程序可以把信息添加到EventArgs类中, 使之可用于事件发出者对象.</p>
 														<p>而且如果有其他的对象也处理这个事件, 它们就会看到同一个EventArgs对象.</p>
 													</div>
 
 													<div class="title">事件返回类型</div>
-													<div class="content open">
+													<div class="content closed">
 														<p>注意: 可以为事件提供返回类型, 但这会出问题, 这是因为引发给定的事件, 可能会调用好几个事件处理程序. 如果这些处理程序都返回一个值, 那么我们该使用哪个返回值?</p>
 														<p>系统处理这个问题的方式是, 只允许访问由事件处理程序最后返回的那个值, 也就是最后一个订阅该事件的处理程序返回的值.</p>
 														<p>这个功能在某些情况下是有用的, 但最好不要使用它们. 推荐使用void类型的事件处理程序, 且避免使用out类型的参数.</p>
 													</div>
 
 													<div class="title">多引用</div>
-													<div class="content open">
+													<div class="content closed">
 														<p>当一个对象发生某个事件时, 如果有多个引用变量指向该对象, 则多个引用变量都将接到该事件. ( 实际代码是这个样子的, 但是没有书面资料这么说)</p>
 													</div>
 
 													<div class="title">事件访问器</div>
-													<div class="content open">
+													<div class="content closed">
 														<pre class="prettyprint linenums">
 <code>
 public class Dog
@@ -581,7 +584,7 @@ public class Dog
     // 声明一个delegate
     private EventHandler _barked = null;
 
-    //激发事件
+    // 激发事件
     public void Bark()
     {
         if (_barked != null) {
@@ -589,16 +592,20 @@ public class Dog
         }
     }
 
-    //声明事件: 使用访问器
+    // 声明事件: 使用访问器
     public event EventHandler Barked
     {
         add
         {
-            if (value != null) { _barked += value; };
+            if (value != null) { 
+                _barked += value; 
+            }
         }
         remove
         {
-            if (value == _barked) { _barked -= null; }
+            if (value == _barked) { 
+                _barked -= null; 
+            }
         }
     }
 }
@@ -629,6 +636,11 @@ pClass = null;
 														<p>So no: if pClass is going to be collected anyway, there is no need to unsubscribe the listeners. However, if pClass was long-lived (longer than the instance with MyFunction), then pClass could keep that instance alive, so it would be necessary to unsubscribe if you want the target to be collected.</p>
 
 														<p>Static events, however, for this reason, are very dangerous when used with instance-based handlers.</p>
+													</div>
+
+													<div class="title">事件传递</div>
+													<div class="content closed">
+														<a href="https://blog.csdn.net/hulihui/article/details/3096656">.NET事件传递的实现与事件链问题</a>
 													</div>
 												</div>
 											</div>
@@ -1242,6 +1254,13 @@ class Program
 			</div>
 		</div>
 	</div>
+</div>
+
+<hr>
+<div class="list list-none">
+    <div class="title">参考资料...</div>
+    <div class="content closed">
+    </div>
 </div>
 
 {include file="template/footer" /}
