@@ -401,7 +401,12 @@ try {
 
 								<div class="title">byte[]互转</div>
 								<div class="content open">
-									<pre class="prettyprint linenums lang-php"><code>BitConverter.ToUInt32(BitConverter.GetBytes(0x1234), 0);	// 小端字节</code></pre>
+									<pre class="prettyprint linenums lang-php">
+<code>
+var bytes = BitConverter.ToUInt32(BitConverter.GetBytes(0x1234), 0);	
+// 小端字节(低位在前): bytes[0] = 0x34, bytes[1] = 0x12, bytes[2] = 0, bytes[3] = 0
+</code>
+									</pre>
 								</div>
                             </div>
                         </div>

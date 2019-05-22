@@ -1,13 +1,64 @@
 {include file="template/header" title="开源项目 SD" /}
 <div class="list list-number">
-    <div class="title"></div>
+    <div class="title">调试Sharp Develop</div>
     <div class="content closed">
+		<div class="list list-number">
+			<div class="title">调试环境</div>
+			<div class="content closed">
+				<p>
+					源代码: SharpDevelop 2.2    IDE: SharpDevelop 4.4.2
+				</p>
+				<p>
+					* 调试出错的时候, 先运行一下src文件夹下的clean.bat, 再运行一下debugbuild.bat
+				</p>
+			</div>
 
+			<div class="title">报错</div>
+			<div class="content closed">
+				<div class="list list-number">
+					<div class="title">The application for 'xxx\Boo.InterpreterAddIn.booproj' is not installed. Make sure the application for the project type (.booproj) is installed.</div>
+					<div class="content closed">
+						<p>
+							You cannot open those projects in Visual Studio because VS doesn't support Boo and stand-alone MSBuild files as projects. Use the .bat files to compile SharpDevelop on the command line; then you can use SharpDevelop to open the SharpDevelop source code.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 
-    <div class="title">XXX</div>
+    <div class="title">源代码分析</div>
     <div class="content closed">
-
+		<div class="list list-number">
+			<div class="title">各种Codon</div>
+			<div class="content closed">
+				<p>
+					FiletypeAssociationDoozer<br>		
+					SchemeExtensionDoozer<br>
+					DialogPanelDoozer<br>　
+					DirectoryDoozer<br>　
+					PadDoozer<br>　
+					CustomToolDoozer<br>　
+					TaskBoundAdditionalLoggerDoozer<br>	　
+					DebuggerDoozer<br>	　
+					DisplayBindingDoozer<br>	　
+					LanguageBindingDoozer<br>	　
+					ParserDoozer<br>	　
+					ProjectContentRegistryDoozer<br>	　
+					EditActionDoozer<br>	　
+					SyntaxModeDoozer<br>	　
+					CodeCompletionBindingDoozer<br>	　
+					ClassDoozer<br>	　
+					FileFilterDoozer<br>	　
+					IconDoozer<br>	　
+					IncludeDoozer<br>	　
+					LazyLoadDoozer<br>	　
+					MenuItemDoozer<br>	　
+					StringDoozer<br>	　
+					ToolbarItemDoozer
+				</p>
+			</div>
+		</div>
     </div>
 </div>
 {include file="template/footer" /}
