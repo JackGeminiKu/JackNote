@@ -370,7 +370,7 @@ public function read($id='')
 		</div>
     </div>
 
-    <div class="title">渲染模板</div>
+    <div class="title">渲染模板: fetch & view</div>
     <div class="content closed">
 		<pre class="prettyprint linenums">
 <code>
@@ -388,7 +388,7 @@ class User extends Controller
 </code>
 		</pre>	
 		<p>fetch方法的第一个参数表示渲染的模板文件或者模板表达式。通常我们都是使用的模板表达式，而不需要使用完整的文件名。</p>
-		<table class="table table-bordered table-sm w-75">
+		<table class="table table-bordered table-sm w-100">
 			<tbody>
 				<tr>
 					<td>return $this->fetch();</td>
@@ -403,7 +403,7 @@ class User extends Controller
 					<td>application/index/view/index/list.html</td>
 				</tr>
 				<tr>
-					<td>return $this->fetch('one/two/three/list');</td>
+					<td class='w-50'>return $this->fetch('one/two/three/list');</td>
 					<td>application/index/view/one/two/three/list.html</td>
 				</tr>
 			</tbody>
@@ -451,7 +451,7 @@ class User
 		</pre>
     </div>
 
-    <div class="title">渲染内容</div>
+    <div class="title">渲染内容: display</div>
     <div class="content closed">
 		<p>有时候，并不需要模板文件，而是直接渲染内容或者读取数据库中存储的内容，控制器方法修改如下：</p>
 		<pre class="prettyprint linenums">
