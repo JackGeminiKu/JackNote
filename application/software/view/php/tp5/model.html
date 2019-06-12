@@ -13,12 +13,16 @@
     <div class="content closed">
 		<p>我们为think_user表定义一个User模型（位于application/index/model/User.php）如下：</p>
 
-		<pre class="prettyprint linenums lang-php"><code>namespace app\index\model;
+		<pre class="prettyprint linenums lang-php">
+<code>
+namespace app\index\model;
 use think\Model;
 
 class User extends Model
 {
-}</code></pre>
+}
+</code>
+		</pre>
 
 		<p>模型会自动对应到一个数据表，规则是：数据库前缀 + 模型类名（不含命名空间）. 因为模型类命名是驼峰法，所以获取实际的数据表的时候会自动转换为小写+下划线命名的数据表名称。</p>
 		<p>大多情况下，我们无需为模型定义任何的属性和方法即可完成基础的操作。</p>
@@ -31,13 +35,17 @@ class User extends Model
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-6">
-							<pre class="prettyprint linenums lang-php"><code>namespace app\index\model;
+							<pre class="prettyprint linenums lang-php">
+<code>
+namespace app\index\model;
 use think\Model;
 
 class User extends Model
 {
 	protected $table ='think_user';    // 设置完整的数据表（包含前缀）
-}</code></pre>
+}
+</code>
+							</pre>
 						</div>
 						<div class="col-6">
 							<pre class="prettyprint linenums lang-php"><code>namespace app\index\model;
