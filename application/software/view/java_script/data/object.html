@@ -9,7 +9,8 @@
 					<p class="text-strong">使用构造函数定义</p>
 					<pre class="prettyprint linenums">
 <code>
-function Dog(name, breed, weight) {           // 构造函数首字母大写! 没有return哦!!!
+// 构造函数: 首字母大写! 没有return!!!
+function Dog(name, breed, weight) {           
     this.name = name;
     this.breed = breed;
     this.weight = weight;
@@ -18,7 +19,7 @@ function Dog(name, breed, weight) {           // 构造函数首字母大写! �
     };
 }
 
-// 给Dog类添加静态方法
+// 添加静态方法
 Dog.staticMethod = function() {
     alert("staticMethod");
 }
@@ -126,6 +127,12 @@ document.write (“This is a test”.heading(1));
 </code>
 		</pre>
     </div>
+</div>
+
+<div>
+	<hr>
+	<p>参考资料</p>
+	<a href="https://www.cnblogs.com/huangs/p/3923473.html">js对象字面量属性间相互访问的问题 和 这个问题与执行环境的关系</a>
 </div>
 
 {include file="template/footer" /}
