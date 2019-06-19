@@ -1,7 +1,7 @@
 // 折叠&展开初始化
 $(function () {
 	divList = $("div.list")[0];
-	addListNumber("1", divList);
+	addListNumber("", divList);
 //	$("div.list").each(function (index) {
 //		// 添加序号或图标
 //		var classes = $(this).attr("class").split(" ");
@@ -43,12 +43,19 @@ $(function () {
 })
 
 function addListNumber(prefix, divList) {
-	titles = $(divList).children("div.title");
-	contents = $(divList).children("div.content");
+	var titles = $(divList).children("div.title");
+	var contents = $(divList).children("div.content");
 
-	for(i = 0; i < titles.length; ++i) {
-		subPrefix = prefix + "." + (i+1);
-		title = titles[i];
-		title.text(subPrefix + " " + title.text());
+	for (var i = 0; i < titles.length; ++i) {
+		var subPrefix = prefix == "" ? (i + 1) : (prefix + "." + (i + 1));
+		var title = titles[i];
+		$(title).text(subPrefix + " " + $(title).text());
+		var content = contents[i];
+//		$(content).css("display", "none");
+
+		var subDivList = $(content).children("div.list")[0];
+		if (subDivList) {
+			addListNumber(subPrefix, subDivList);
+		}
 	}
 }
