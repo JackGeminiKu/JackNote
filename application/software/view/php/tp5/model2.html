@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+		<link rel="shortcut icon" href="__ROOT__/static/image/note.ico">
+		<title>[title]</title>
+
+		<base target="_blank">
+
+		<!-- Bootstrap -->
+		<link href="__ROOT__/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+
+		<!-- Jack的默认自定义样式 -->
+		<link href="__ROOT__/static/jack/css/default.css" rel="stylesheet">
+
+		<!-- 折叠样式 -->
+        <link href="__ROOT__/static/jack/collapse/collapse.css" rel="stylesheet">
+
+		<!-- 代码着色Prettify样式 -->
+		<link href="__ROOT__/static/prettify/prettify.css" rel="stylesheet">
+	</head>
+
+	<body onload="prettyPrint()">
+
+		<!--{include file="php/tp5/content" /}-->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-9">
+
+					<div id="outline" style="position: fixed; right: 0; top: 0; width: 200px;">
+						<P>这里是目录</P>
+
+					</div>
+					<hr>
+
+					<p>TP5的模型是一种对象-关系映射（Object/Relation Mapping, 简称ORM）的封装. ORM的基本特性就是表映射到模型, 记录映射到模型对象实例, 字段映射到对象属性.</p>
+
+					<p>
+						模型是一种对象化的操作封装, 而不是简单的CURD操作, 简单的CURD操作直接使用前面提过的Db类即可. <br>
+						模型类和Db类的区别主要在于对象及业务逻辑的封装，Db类的查询默认返回的是数组（或者集合），而模型类返回的是当前的模型对象实例（或者集合），模型是比Db类更高级的数据封装，支持模型关联、模型事件和业务（逻辑）方法。
+					</p>
+
+					<div class="list list-number">
+						<!--定义模型-->
+						<div class="title">定义模型</div>
+						<div class="content closed">
+							<p>我们为think_user表定义一个User模型（位于application/index/model/User.php）如下：</p>
+
+							<pre class="prettyprint linenums lang-php">
+<code>
+namespace app\index\model;
+use think\Model;
+
+class User extends Model
+{
+}
+</code>
+							</pre>
+
+							<p>模型会自动对应到一个数据表，规则是：数据库前缀 + 模型类名（不含命名空间）. 因为模型类命名是驼峰法，所以获取实际的数据表的时候会自动转换为小写+下划线命名的数据表名称。</p>
+							<p>大多情况下，我们无需为模型定义任何的属性和方法即可完成基础的操作。</p>
+
+							<div class="list list-square">
+								<!--自定义对应的数据表-->
+								<div class="title">自定义对应的数据表</div>
+								<div class="content closed">
+									<p>如果你的模型命名不符合这一数据表对应规范，可以给当前模型定义单独的数据表，包括两种方式。</p>
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-6">
+												<pre class="prettyprint linenums lang-php">
+<code>
+namespace app\index\model;
+use think\Model;
+
+class User extends Model
+{
+	protected $table ='think_user';    // 设置完整的数据表（包含前缀）
+}
+</code>
+												</pre>
+											</div>
+											<div class="col-6">
+												<pre class="prettyprint linenums lang-php"><code>namespace app\index\model;
+use think\Model;
+
+class User extends Model
+{
+	protected $name ='user';    // 仅设置数据表（不含前缀）
+}</code></pre>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!--修改模型使用的数据库连接-->
+								<div class="title">修改模型使用的数据库连接</div>
+								<div class="content closed">
+									<p>如果当前模型类需要使用不同的数据库连接, 可以定义模型的connection属性, 例如:</p>
+									<pre class="prettyprint linenums lang-php"><code>namespace app\index\model;
+use think\Model;
+
+class User extends Model
+{
+    // 设置单独的数据库连接
+    protected $connection = [
+        'type'        => 'mysql',		// 数据库类型
+        'hostname'    => '127.0.0.1',		// 服务器地址
+        'database'    => 'test',		// 数据库名
+        'username'    => 'root',		// 数据库用户名
+        'password'    => '',			// 数据库密码
+        'hostport'    => '',			// 数据库连接端口
+        'params'      => [],			// 数据库连接参数
+        'charset'     => 'utf8',		// 数据库编码默认采用utf8
+        'prefix'      => 'think_',		// 数据库表前缀
+        'debug'       => true,			// 数据库调试模式
+    ];
+}</code></pre>
+								</div>
+							</div>
+						</div>
+
+						<!--基本操作-->
+						<div class="title">基本操作</div>
+						<div class="content open">
+							<div class="list list-number">
+								<!--新增数据-->
+								<div class="title">新增数据 - save()</div>
+								<div class="content closed">
+									<div class="list list-square">
+										<div class="title">常规方法 - 使用save()</div>
+										<div class="content open">
+											<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\controller;
+use app\index\model\User as UserModel;
+
+class User
+{
+    // 新增用户数据
+    public function add()
+    {
+        $user = new UserModel;
+        $user->nickname = '流年';
+        $user->email = 'thinkphp@qq.com';
+        $user->birthday = strtotime('1977-03-05');
+        if ($user->save()) {
+            return '用户[ ' . $user->nickname . ':' . $user->id . ' ]新增成功';
+        } else {
+            return $user->getError();
+        }
+    }
+}</code></pre>
+
+											<p>默认情况下，实例化模型类后第一次执行的save操作是执行的数据库insert（新增数据）操作，如果你需要执行数据库的update（更新数据）操作，请确保在save方法之前调用isUpdate方法：</p>
+
+											<pre class="prettyprint linenums lang-php"><code>// 强制执行数据更新操作
+$user->isUpdate(true)->save();</code></pre>
+										</div>
+
+										<div class="title">使用create()方法 - 可以使用数组</div>
+										<div class="content open">
+											<p>如果你觉得上面的方式给User对象一个个赋值太麻烦，可以使用create(), 它可以传入数组或对象.</p>
+											<pre class="prettyprint linenums lang-php"><code>// 新增用户数据
+public function add()
+{
+    $user['nickname'] = '看云';
+    $user['email']    = 'kancloud@qq.com';
+    $user['birthday'] = strtotime('2015-04-02');
+
+    if ($result = UserModel::create($user)) {
+        return '用户[ ' . $result->nickname . ':' . $result->id . ' ]新增成功';
+    } else {
+        return '新增出错';
+    }
+}</code></pre>
+										</div>
+
+										<div class="title">新增多条数据 - 使用saveAll()</div>
+										<div class="content open">
+											<pre class="prettyprint linenums lang-php"><code>// 批量新增用户数据
+public function addList()
+{
+    $user = new UserModel;
+    $list = [
+        ['nickname' => '张三', 'email' => 'zhanghsan@qq.com', 'birthday' => strtotime('1988-01-15')],
+        ['nickname' => '李四', 'email' => 'lisi@qq.com', 'birthday' => strtotime('1990-09-19')],
+    ];
+
+    if ($user->saveAll($list)) {
+        return '用户批量新增成功';
+    } else {
+        return $user->getError();
+    }
+}</code></pre>
+										</div>
+									</div>
+								</div>
+
+								<!--查询数据-->
+								<div class="title">查询数据 - get() & all()</div>
+								<div class="content closed">
+									<div class="list list-square">
+										<!--通过主键-->
+										<div class="title">通过主键</div>
+										<div class="content open">
+											<p>模型的get方法用于获取数据表中的数据并返回当前的模型对象实例. 通常只需要传入主键作为参数，如果没有传入任何值的话，则表示获取第一条数据。</p>
+
+											<pre class="prettyprint linenums lang-php"><code>// 读取用户数据
+public function read($id='')
+{
+    $user = UserModel::get($id);
+    echo $user->nickname . '&lt;br/>';
+    echo $user->email . '&lt;br/>';
+    echo date('Y/m/d', $user->birthday) . '&lt;br/>';
+}</code></pre>
+
+											<p>模型的get方法和Db类的find方法返回结果的区别在于，Db类默认返回的只是数组（注意这里说的默认，其实仍然可以设置为对象），而模型的get方法返回的一定是当前的模型对象实例。但是系统为模型实现了ArrayAccess接口，因此仍然可以通过数组的方式访问对象实例，把控制器的read操作方法改成如下：</p>
+
+											<pre class="prettyprint linenums lang-php"><code>// 读取用户数据
+public function read($id = '')
+{
+    $user = UserModel::get($id);
+    echo $user['nickname'] . '&lt;br/>';
+    echo $user['email'] . '&tl;br/>';
+    echo date('Y/m/d', $user['birthday']) . '&tl;br/>';
+}</code></pre>
+										</div>
+
+										<!--通过非主键-->
+										<div class="title">通过非主键</div>
+										<div class="content open">
+											<p>如果我想通过用户的email来查询模型数据的话，应该如何操作呢？</p>
+											<pre class="prettyprint linenums lang-php"><code>// 根据email读取用户数据
+public function read()
+{
+    $user = UserModel::getByEmail('thinkphp@qq.com');
+    echo $user->nickname . '&lt;br/>';
+    echo $user->email . '&lt;br/>';
+    echo date('Y/m/d', $user->birthday) . '&lt;br/>';
+}</code></pre>
+											<p>如果不是根据主键查询的话，可以传入数组作为查询条件，例如：</p>
+											<pre class="prettyprint linenums lang-php"><code>// 根据nickname读取用户数据
+public function read()
+{
+    $user = UserModel::get(['nickname'=>'流年']);
+    echo $user->nickname . '&lt;br/>';
+    echo $user->email . '&lt;br/>';
+    echo date('Y/m/d', $user->birthday) . '&lt;br/>';
+}</code></pre>
+										</div>
+
+										<!--使用闭包-->
+										<div class="title">使用闭包</div>
+										<div class="content open">
+											<p>更复杂的查询则可以使用闭包并配合查询构建器来完成，例如：</p>
+											<pre class="prettyprint linenums lang-php"><code>// 根据nickname读取用户数据
+public function read()
+{
+    $user = UserModel::get(function($query){
+    	$query->where('nickname', '流年')->where('id', '>', 10)->order('id','desc');
+    });
+    echo $user->nickname . '&lt;br/>';
+    echo $user->email . '&lt;br/>';
+    echo date('Y/m/d', $user->birthday) . '&lt;br/>';
+}</code></pre>
+										</div>
+
+										<div class="title">查询多条数据</div>
+										<div class="content open">
+											<p>如果要查询多个数据，可以使用模型的all方法, 用法同get()类似!</p>
+										</div>
+									</div>
+								</div>
+
+								<div class="title">更新数据 - save() & update()</div>
+								<div class="content closed">
+									<pre class="prettyprint linenums lang-php"><code>// 更新用户数据
+public function update($id)
+{
+    $user = UserModel::get($id);    // 先获取
+    $user->nickname = '刘晨';
+    $user->email = 'liu21st@gmail.com';
+    $user->save();    // 再保存
+    return '更新用户成功';
+}</code></pre>
+									<p>默认情况下，查询返回的模型实例如果执行save操作都是执行的数据库update（更新数据）操作，如果你需要执行数据库的insert（新增数据）操作，请确保在save方法之前调用isUpdate方法：</p>
+									<pre class="prettyprint linenums lang-php"><code>// 强制进行数据新增操作
+$user->isUpdate(false)->save();</code></pre>
+									<p>ActiveRecord模式的更新数据方式需要首先读取对应的数据，如果需要更高效的方法可以把update方法改成：</p>
+									<pre class="prettyprint linenums lang-php"><code>// 更新用户数据
+public function update($id)
+{
+    $user['id']       = (int) $id;
+    $user['nickname'] = '刘晨';
+    $user['email']    = 'liu21st@gmail.com';
+    UserModel::update($user);
+    return '更新用户成功';
+}</code></pre>
+								</div>
+
+								<!--删除数据 - delete() & destory()-->
+								<div class="title">删除数据 - delete() & destory()</div>
+								<div class="content closed">
+									<p>先get, 然后delete</p>
+									<pre class="prettyprint linenums lang-php"><code>// 删除用户数据
+public function delete($id)
+{
+    $user = UserModel::get($id);    // 先获取
+    if ($user) {
+        $user->delete();    // 后删除
+        return '删除用户成功';
+    } else {
+        return '删除的用户不存在';
+    }
+}</code></pre>
+
+									<p>使用destroy()直接删除!</p>
+									<pre class="prettyprint linenums lang-php"><code>// 删除用户数据
+public function delete($id)
+{
+    $result = UserModel::destroy($id);
+    if ($result) {
+        return '删除用户成功';
+    } else {
+        return '删除的用户不存在';
+    }
+}</code></pre>
+								</div>
+							</div>
+						</div>
+
+						<!--读取器-->
+						<div class="title">读取器</div>
+						<div class="content closed">
+							<div class="list list-square">
+								<div class="title">读取数据库中存在的属性</div>
+								<div class="content open">
+									<p>添加一个getBirthdayAttr读取器方法用于读取User模型的birthday属性的值，该方法会在读取birthday属性值的时候自动执行。</p>
+									<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\model;
+
+use think\Model;
+
+class User extends Model
+{
+    // birthday读取器
+    protected function getBirthdayAttr($birthday)
+    {
+        return date('Y-m-d', $birthday);
+    }
+}</code></pre>
+									<p>读取器方法的命名规范是：get + 属性名的驼峰命名+ Attr. 所以，getBirthdayAttr读取器读取的是birthday属性，而getUserBirthdayAttr 读取器读取的则是user_birthday属性。</p>
+									<pre class="prettyprint linenums lang-php"><code>// 读取用户数据
+public function read($id='')
+{
+    $user = UserModel::get($id);
+    echo $user->nickname . '&lt;br/>';
+    echo $user->email . '&lt;br/>';
+    echo $user->birthday . '&lt;br/>';    // 自动执行读取器
+}</code></pre>
+								</div>
+
+								<div class="title">制造数据库中不存在的属性</div>
+								<div class="content open">
+									<p>读取器还可以定义读取数据表中不存在的属性，例如把原始生日和转换的格式分开两个属性birthday和user_birthday，我们只需定义user_birthday属性的读取器方法：</p>
+									<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\model;
+
+use think\Model;
+
+class User extends Model
+{
+    // user_birthday读取器
+    protected function getUserBirthdayAttr($value, $data)
+    {
+        return date('Y-m-d', $data['birthday']);
+    }
+}</code></pre>
+									<p>这里的读取器方法使用了第二个参数，表示传入所有的属性数据。因为原始的user_birthday属性数据是不存在的，所以我们需要通过data参数获取。</p>
+									<pre class="prettyprint linenums"><code>// 读取用户数据
+public function read($id='')
+{
+    $user = UserModel::get($id);
+    echo $user->nickname . '&lt;br/>';
+    echo $user->email . '&lt;br/>';
+    echo $user->birthday . '&lt;br/>';
+    echo $user->user_birthday . '&lt;br/>';
+}</code></pre>
+								</div>
+							</div>
+						</div>
+
+						<!--修改器-->
+						<div class="title">修改器</div>
+						<div class="content closed">
+							<p>由于birthday属性是时间戳（整型）格式的，因此我们必须在写入数据前进行时间戳转换，前面使用的方法是每次赋值的时候进行转换处理：</p>
+							<pre class="prettyprint linenums"><code>$user['birthday'] = strtotime('2015-04-02');</code></pre>
+							<p>为了避免每次都进行日期格式的转换操作，可以定义修改器方法来自动处理，修改User模型如下：</p>
+							<pre class="prettyprint linenums"><code>&lt;?php
+namespace app\index\model;
+
+use think\Model;
+
+class User extends Model
+{
+    // birthday修改器
+    protected function setBirthdayAttr($value)
+    {
+        return strtotime($value);
+    }
+}</code></pre>
+							<p>修改器方法的命名规范是：set + 属性名的驼峰命名+ Attr. 所以，setBirthdayAttr方法修改的是birthday属性，而setUserBirthdayAttr 方法修改的则是user_birthday属性。</p>
+							<pre class="prettyprint linenums"><code>// 新增用户数据
+public function add()
+{
+    $user           = new UserModel;
+    $user->nickname = '流年';
+    $user->email    = 'thinkphp@qq.com';
+    $user->birthday = '1977-03-05';
+    if ($user->save()) {
+        return '用户[ ' . $user->nickname . ':' . $user->id . ' ]新增成功';
+    } else {
+        return $user->getError();
+    }
+}</code></pre>
+						</div>
+
+						<!--关联: 一对一-->
+						<div class="title">关联: 一对一</div>
+						<div class="content closed">
+							<div class="list list-square">
+								<div class="title">使用到的表</div>
+								<div class="content closed">
+									<pre class="prettyprint linenums"><code>DROP TABLE IF EXISTS `think_user`;
+CREATE TABLE IF NOT EXISTS `think_user` (
+  `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(25) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `create_time` int(11) UNSIGNED NOT NULL,
+  `update_time` int(11) UNSIGNED NOT NULL,
+  `status` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `think_profile`;
+CREATE TABLE IF NOT EXISTS `think_profile` (
+  `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `truename` varchar(25) NOT NULL,
+  `birthday` int(11) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `user_id` int(6) UNSIGNED NOT NULL,    // user是profile的外键!
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;</code></pre>	
+								</div>
+
+								<!--定义关联-->
+								<div class="title">定义关联</div>
+								<div class="content closed">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-6">
+												<p class="text-strong">hasOne: 有被当作外键</p>
+												<p>我们以用户和档案的一对一关联为例，在User模型类中添加关联定义方法，然后在方法中调用hasOne方法即可：<br>
+													hasOne(‘关联模型名’,‘关联外键’,‘主键’,‘别名定义’,‘join类型’)</p>
+												<p>默认的外键是：当前模型名_id，主键则是自动获取，如果你的表设计符合这一规范的话，只需要设置关联的模型名即可.</p>	
+												<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\model;
+use think\Model;
+
+class User extends Model
+{
+    // 开启自动写入时间戳
+    protected $autoWriteTimestamp = true;
+
+    // 定义自动完成的属性
+    protected $insert = ['status' => 1];
+
+    // 定义关联方法
+    public function profile()
+    {
+        // 用户HAS ONE档案关联
+        return $this->hasOne('Profile');    // 一个用户有一份档案
+    }
+}</code></pre>
+											</div>
+											<div class="col-6">
+												<p class="text-strong">belongsTo: 有使用外键</p>
+												<p>如果你的关联操作都是基于User模型的话，Profile模型中并不需要定义关联方法。</p>
+												<p>	如果你需要基于Profile模型来进行关联操作，则需要在Profile模型中定义对应的BELONGS_TO关联:<br>
+													belongsTo(‘关联模型名’,‘关联外键’,‘关联模型主键’,‘别名定义’,‘join类型’)
+												</p>
+
+												<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\model;
+
+use think\Model;
+
+class Profile extends Model
+{
+    protected $type       = [
+        'birthday' => 'timestamp:Y-m-d',
+    ];
+
+    public function user()
+    {
+        // 档案 BELONGS TO 关联用户
+        return $this->belongsTo('User');    // 一份档案属于某个用户
+    }
+}</code></pre>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<p class="text-strong">关于命名空间</p>
+												<p>通常关联模型和当前模型都是相同的命名空间，如果关联模型在不同的命名空间，需要指定完整的类名，例如：</p>
+												<pre class="prettyprint linenums lang-php"><code>// 关联admin模块下面的模型对象
+return $this->hasOne('\app\admin\Profile');</code></pre>
+
+												<p class="text-strong">指定数据表名</p>
+												<p>在关联查询的时候，默认使用当前模型的名称（小写）作为数据表别名，可以指定查询使用的数据表别名，例如：</p>
+
+												<pre class="prettyprint linenums lang-php"><code>// 用户HAS ONE档案关联
+return $this->hasOne('Profile','user_id','id',['user'=>'member','profile'=>'info']);</code></pre>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!--关联写入, 查询, 更新 & 删除-->
+								<div class="title">关联写入, 查询, 更新 & 删除</div>
+								<div class="content open">
+									<div class="list list-square">
+										<div class="title">关联写入</div>
+										<div class="content closed">
+											<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\controller;
+use app\index\model\Profile;
+use app\index\model\User as UserModel;
+
+class User
+{
+    // 关联新增数据
+    public function add()
+    {
+        $user = new UserModel;
+        $user->name = 'thinkphp';
+        $user->password = '123456';
+        $user->nickname = '流年';
+        if ($user->save()) {
+            // 写入关联数据
+            $profile  = new Profile;
+            $profile->truename = '刘晨';
+            $profile->birthday = '1977-03-05';
+            $profile->address  = '中国上海';
+            $profile->email    = 'thinkphp@qq.com';
+            $user->profile()->save($profile);    // 关联写入, save方法也可以直接使用数组而不是Profile对象
+            return '用户新增成功';
+        } else {
+            return $user->getError();
+        }
+    }
+}</code></pre>
+											<p>关联模型的写入调用了关联方法profile()，该方法返回的是一个Relation对象，执行save方法会自动传入当前模型User的主键作为关联键值，所以不需要手动传入Profile模型的user_id属性。</p>
+										</div>
+
+										<div class="title">关联删除</div>
+										<div class="content closed">
+											<pre class="prettyprint linenums lang-php"><code>public function delete($id)
+{
+    $user = UserModel::get($id);
+    if ($user->delete()) {
+        // 删除关联数据
+        $user->profile->delete();
+        return '用户[ ' . $user->name . ' ]删除成功';
+    } else {
+        return $user->getError();
+    }
+}</code></pre>
+										</div>
+
+										<div class="title">关联查询</div>
+										<div class="content closed">
+											<p>一对一的关联查询很简单，直接把关联对象当成属性来用即可，例如：</p>
+											<pre class="prettyprint linenums lang-php"><code>public function read($id)
+{
+    $user = UserModel::get($id);
+    echo $user->name . '&lt;br/>';
+    echo $user->nickname . '&lt;br/>';
+    echo $user->profile->truename . '&lt;br/>';
+    echo $user->profile->email . '&lt;br/>';
+}</code></pre>
+											<p>以上关联查询的时候，只有在获取关联对象（$user->profile）的时候才会进行实际的关联查询，缺点是会可能进行多次查询，但可以使用预载入查询来提高查询性能，对于一对一关联来说，只需要进行一次查询即可获取关联对象数据，例如</p>
+											<pre class="prettyprint linenums lang-php"><code>public function read($id)
+{
+    $user = UserModel::get($id,'profile');    // get方法使用第二个参数就表示进行关联预载入查询。
+    echo $user->name . '&lt;br/>';
+    echo $user->nickname . '&lt;br/>';
+    echo $user->profile->truename . '&tl;br/>';
+    echo $user->profile->email . '&lt;br/>';
+}</code></pre>
+										</div>
+
+										<div class="title">关联更新</div>
+										<div class="content closed">
+											<pre class="prettyprint linenums lang-php"><code>public function update($id)
+{
+    $user       = UserModel::get($id);
+    $user->name = 'framework';
+    if ($user->save()) {
+        // 更新关联数据
+        $user->profile->email = 'liu21st@gmail.com';
+        $user->profile->save();
+        return '用户[ ' . $user->name . ' ]更新成功';
+    } else {
+        return $user->getError();
+    }
+}</code></pre>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!--关联: 一对多-->
+						<div class="title">关联: 一对多</div>
+						<div class="content closed">
+							<div class="list list-square">
+								<div class="title">创建相关表</div>
+								<div class="content closed">
+									<pre class="prettyprint linenums"><code>DROP TABLE IF EXISTS `think_book`;
+CREATE TABLE IF NOT EXISTS `think_book` (
+  `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `publish_time` int(11) UNSIGNED DEFAULT NULL,
+  `create_time` int(11) UNSIGNED NOT NULL,
+  `update_time` int(11) UNSIGNED NOT NULL,  
+  `status` tinyint(1) NOT NULL,
+  `user_id` int(6) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;</code></pre>
+								</div>
+
+								<!--定义关联-->
+								<div class="title">定义关联</div>
+								<div class="content closed">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-6">
+												<p>在User模型类添加Book关联如下：</p>
+												<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\model;
+use think\Model;
+
+class User extends Model
+{
+    // 开启自动写入时间戳
+    protected $autoWriteTimestamp = true;
+
+    // 定义自动完成的属性
+    protected $insert = ['status' => 1];
+
+    // 定义关联方法
+    public function profile()
+    {
+        return $this->hasOne('Profile');
+    }
+
+    // 定义关联
+    public function books()
+    {
+        return $this->hasMany('Book');
+    }
+}</code></pre>
+												<p>hasMany的参数如下：hasMany(‘关联模型名’,‘关联外键’,‘关联模型主键’,‘别名定义’)</p>
+											</div>
+											<div class="col-6">
+												<p>Book模型类定义如下：</p>
+												<pre class="prettyprint linenums lang-php"><code>&lt;?php
+namespace app\index\model;
+use think\Model;
+
+class Book extends Model
+{
+    protected $type       = [
+        'publish_time' => 'timestamp:Y-m-d',
+    ];
+
+    // 开启自动写入时间戳
+    protected $autoWriteTimestamp = true;
+
+    // 定义自动完成的属性
+    protected $insert = ['status' => 1];
+    
+    // 定义关联方法
+    public function user()
+    {
+        return $this->belongsTo('User');    // 如果需要定义对应的关联，则可以使用belongsTo方法：
+    }
+}</code></pre>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!--关联新增-->
+								<div class="title">关联新增: save() & saveAll()</div>
+								<div class="content closed">
+									<p>添加addBook方法用于新增关联数据：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function addBook()
+{
+    $user               = UserModel::get(1);
+    $book               = new Book;
+    $book->title        = 'ThinkPHP5快速入门';
+    $book->publish_time = '2016-05-06';
+    $user->books()->save($book);
+    return '添加Book成功';
+}</code></pre>
+
+									<p>对于一对多关联，也可以批量增加数据：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function addBook()
+{
+    $user  = UserModel::get(1);
+    $books = [
+        ['title' => 'ThinkPHP5快速入门', 'publish_time' => '2016-05-06'],
+        ['title' => 'ThinkPHP5开发手册', 'publish_time' => '2016-03-06'],
+    ];
+    $user->books()->saveAll($books);
+    return '添加Book成功';
+}</code></pre>
+								</div>
+
+								<!--关联删除-->
+								<div class="title">关联删除: delete()</div>
+								<div class="content closed">
+									<p>	删除部分关联数据：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function delete($id){
+    $user = UserModel::get($id);
+    // 删除部分关联数据
+    $book = $user->books()->getByTitle('ThinkPHP5开发手册');
+    $book->delete();
+}</code></pre>
+									<p>删除所有的关联数据：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function delete($id){
+    $user = UserModel::get($id);
+    if($user->delete()){
+        // 删除所有的关联数据
+        $user->books()->delete();
+    }
+}</code></pre>
+								</div>
+
+								<!--关联查询-->
+								<div class="title">关联查询</div>
+								<div class="content closed">
+									<p>可以直接调用模型的属性获取全部关联数据，例如：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function read()
+{
+    $user  = UserModel::get(1);
+    $books = $user->books;
+    dump($books);
+}</code></pre>
+
+									<p>一对多查询同样可以使用预载入查询，例如：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function read()
+{
+    $user  = UserModel::get(1,'books');
+    $books = $user->books;
+    dump($books);
+}</code></pre>
+									<p>一对多预载入查询会在原先延迟查询的基础上增加一次查询，可以解决典型的N+1次查询问题。</p>
+
+									<p>如果要过滤查询，可以调用关联方法：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function read()
+{
+    $user  = UserModel::get(1);
+    // 获取状态为1的关联数据
+    $books = $user->books()->where('status',1)->select();
+    dump($books);
+    // 获取作者写的某本书
+    $book  = $user->books()->getByTitle('ThinkPHP5快速入门');
+    dump($book);
+}</code></pre>
+
+									<p>还可以根据关联数据来查询当前模型数据，例如：</p>
+									<pre class="prettyprint linenums lang-php"><code>public function read()
+{
+    // 查询有写过书的作者列表
+    $user = UserModel::has('books')->select();
+    // 查询写过三本书以上的作者
+    $user = UserModel::has('books', '>=', 3)->select();
+    // 查询写过ThinkPHP5快速入门的作者
+    $user = UserModel::hasWhere('books', ['title' => 'ThinkPHP5快速入门'])->select();
+}</code></pre>
+								</div>
+
+								<!--关联更新-->
+								<div class="title">关联更新</div>
+								<div class="content closed">
+									<p>下面来进行关联数据的更新</p>
+									<pre class="prettyprint linenums lang-php"><code>public function update($id)
+{
+    $user        = UserModel::get($id);
+    $book        = $user->books()->getByTitle('ThinkPHP5开发手册');
+    $book->title = 'ThinkPHP5快速入门';
+    $book->save();
+}</code></pre>
+									<p>或者使用查询构建器的update方法进行更新（但可能无法触发关联模型的事件）。</p>
+									<pre class="prettyprint linenums lang-php"><code>public function update($id)
+{
+    $user = UserModel::get($id);
+    $user->books()->where('title', 'ThinkPHP5快速入门')->update(['title' => 'ThinkPHP5开发手册']);
+}</code></pre>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="__STATIC__/jquery/jquery.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="__STATIC__/bootstrap/js/bootstrap.js"></script>
+		<!-- 折叠内容 -->
+		<script src="__ROOT__/static/jack/collapse/collapse.js"></script>
+		<!-- 代码着色 -->
+		<script src="__ROOT__/static/prettify/prettify.js"></script>
+		<script src="__ROOT__/static/jack/prettify_extension.js"></script>
+	</body>
+
+</html>

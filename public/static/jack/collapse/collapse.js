@@ -1,7 +1,8 @@
 // 折叠&展开初始化
 $(function () {
-	divList = $("div.list")[0];
+	var divList = $("div.list")[0];
 	addListNumber("", divList);
+	showOutline(divList);
 //	$("div.list").each(function (index) {
 //		// 添加序号或图标
 //		var classes = $(this).attr("class").split(" ");
@@ -56,6 +57,19 @@ function addListNumber(prefix, divList) {
 		var subDivList = $(content).children("div.list")[0];
 		if (subDivList) {
 			addListNumber(subPrefix, subDivList);
+		}
+	}
+}
+
+function showOutline(divList) {
+	var titles = $(divList).find("div.title");
+	for (var i = 0; i < titles.length; ++i) {
+//		var title = $(titles[i]).text().substring(0,10);
+		var title = $(titles[i]).text();
+		if ($(titles[i]).text().indexOf(".") == -1) {
+			$("#outline").append('<div class="text-strong" title="' + $(titles[i]).text() + '">' + title + "</div>");
+		} else {
+			$("#outline").append("<div title='" + $(titles[i]).text() + "'>" + title + "</div>");
 		}
 	}
 }
