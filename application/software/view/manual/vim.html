@@ -470,19 +470,42 @@
 
 			<div class="title">文件操作</div>
 			<div class="content closed">
-				<p>
-					:new sendemail.php 	新建文件<br>
-					:open sendemail.php 	打开文件<br>
-					:w 	保存文件<br>
-					:w new_file_name 	另存文件<br>
-					v motion<br>
-					:w filename 	选择性另存<br>
-					:wq 	退出并保存<br>
-					:q! 	退出不保存<br>
-					:q 	安全退出, 仅当未改动文件时才可以用来退出vi<br>
-					:r filename 	插入其他文件内容<br>
-					:r !dir 	插入命令输出
-				</p>
+				<div class="list list-number">
+					<div class="title">常用操作</div>
+					<div class="content closed">
+						<p>
+							:new sendemail.php 	新建文件<br>
+							:open sendemail.php 	打开文件<br>
+							:w 	保存文件<br>
+							:w new_file_name 	另存文件<br>
+							v motion<br>
+							:w filename 	选择性另存<br>
+							:wq 	退出并保存<br>
+							:q! 	退出不保存<br>
+							:q 	安全退出, 仅当未改动文件时才可以用来退出vi<br>
+							:r filename 	插入其他文件内容<br>
+							:r !dir 	插入命令输出
+						</p>
+					</div>
+
+					<div class="title">以十六进制格式打开文件</div>
+					<div class="content closed">
+						<p>
+							1、先用vim打开文件的二进制形式，如果不以二进制可能会产生转换错误。<br>
+							vim -b file-to-open.dat<br><br>
+
+							2、用xxd把文件转换成十六进制格式<br>
+							:%!xxd<br>
+							现在就可以对待普通文本一样查看和编辑二进制文件了。<br><br>
+
+							3、修改完成使用xxd把十六进制转换回二进制<br>
+							:%!xxd -r<br><br>
+
+							4、保存文件，并退出vim<br>
+							:wq<br>
+						</p>
+					</div>
+				</div>
 			</div>
 
 			<div class="title">窗口操作</div>
