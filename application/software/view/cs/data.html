@@ -155,6 +155,18 @@ Person p = new Person() { Name = "Jack" };  // 初始化器 = 构造对象 + 属
 </code>
 				</pre> 
             </div>
+
+			<div class="title">动态创建</div>
+			<div class="content open">
+				<pre class="prettyprint linenums">
+<code>
+// Activator
+object obj = Activator.CreateInstance(Type.GetType("System.String,mscorlib"), new object[] { new char[] { '1', '2', '3' } });
+// Assembly
+public object CreateInstance (string typeName);
+</code>
+				</pre>
+			</div>
         </div>
     </div>
 
