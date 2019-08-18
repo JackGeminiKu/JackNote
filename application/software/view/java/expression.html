@@ -1,3 +1,146 @@
 {include file="template/header" title="Java 表达式" /}
-内容...
-{include file="template/footer" /}
+<body>
+	<table border="0" width="90%" bordercolor="#C0C0C0">
+		<tbody><tr>
+				<td colspan="4"><b>1. 算术运算</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">加, 减, 乘, 除, 求余</td>
+				<td width="15%">+, -, *, /, %</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">前自加(减)</td>
+				<td width="15%">++i; --i</td>
+				<td width="67%">前自增(减): 首先i自增, 表达式的值等于自增之后的值.</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">后自加(减)</td>
+				<td width="15%">i++; i--</td>
+				<td width="67%">后自增(减): 表达式的值等于自增之前的值, 然后i自增</td>
+			</tr>
+			<tr>
+				<td colspan="4"><b>2. 比较运算</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">小于(等于)</td>
+				<td width="15%">&nbsp;&lt;, &lt;=</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">大于(等于)</td>
+				<td width="15%">&nbsp;&gt;, &gt;=</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">等于</td>
+				<td width="15%">&nbsp;==</td>
+				<td width="67%">比较primitive类型的值是否相等, 或者引用类的值是否引用的同一对象</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">不等于</td>
+				<td width="15%">!=</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td colspan="4"><b>3. 逻辑运算</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">逻辑非</td>
+				<td width="15%">!</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">逻辑或</td>
+				<td width="15%">^</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">短路或</td>
+				<td width="15%">||</td>
+				<td width="67%">短路求值</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">短路与</td>
+				<td width="15%">&amp;&amp;</td>
+				<td width="67%">短路求值</td>
+			</tr>
+			<tr>
+				<td colspan="4"><b>4. 位运算</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">位与, 位或, 位异或, 位取反</td>
+				<td width="15%">&amp;, |, <font face="Arial">^, ~</font></td>
+				<td width="67%">位与</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">位移</td>
+				<td width="15%">&gt;&gt;, &lt;&lt;</td>
+				<td width="67%">位右移, 位左移</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">　</td>
+				<td width="15%">&gt;&gt;&gt;</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td colspan="4"><b>5. 赋值运算</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">=</td>
+				<td width="15%">　</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">+=, -=, *=, /=, %=</td>
+				<td width="15%">　</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td colspan="4"><b>6. 字符串连接</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">+</td>
+				<td width="15%">　</td>
+				<td width="67%">"+"运算符两侧的操作数中, 只要有一个是字符串(String)类型, 
+					系统会自动将另一个操作数转换为字符串然后再进行连接!</td>
+			</tr>
+			<tr>
+				<td width="99%" colspan="4"><b>7. 三元运算</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">x ? y : z</td>
+				<td width="15%">　</td>
+				<td width="67%">　</td>
+			</tr>
+			<tr>
+				<td width="99%" colspan="4"><b>8. instanceof</b></td>
+			</tr>
+			<tr>
+				<td width="2%">　</td>
+				<td width="15%">garfield instanceof Cat</td>
+				<td width="15%">　</td>
+				<td width="67%">如果garfield是Cat, 则返回true, 否则, 返回false</td>
+			</tr>
+		</tbody></table>
+	<p><b>结合性 &amp; 优先级</b><br>&nbsp;&nbsp; <br>
+		<img border="0" src="__STATIC__/image/java/运算符结合性和优先级.png" width="412" height="442"></p>
+	{include file="template/footer" /}

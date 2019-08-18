@@ -24,7 +24,119 @@
 
 			<div class="title">常用操作</div>
 			<div class="content open">
-
+<table border="1" width="80%" bordercolor="#C0C0C0" id="table2">
+				<tbody><tr>
+					<td colspan="3"><b>操作符</b></td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">String s = "hello" + " world";</td>
+					<td width="47%">+运算: 将两个字符串连接起来.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">s[0]</td>
+					<td width="47%">访问字符串中的字符.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%"><b>public方法</b></td>
+					<td width="47%">　</td>
+				</tr>
+				<tr>
+					<td width="88">长度</td>
+					<td width="45%">public int length();</td>
+					<td width="47%">返回字符串长度.</td>
+				</tr>
+				<tr>
+					<td width="88">查找</td>
+					<td width="45%">public int indexOf(String str);</td>
+					<td width="47%">返回字符串中出现str的第一个位置, 找不到返回-1.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public int indexOf(String str, int fromIndex);</td>
+					<td width="47%">返回字符串中从fromIndex开始出现str的第一个位置.</td>
+				</tr>
+				<tr>
+					<td width="88">比较</td>
+					<td width="45%">public boolean equals(Object anObject);</td>
+					<td width="47%">判断两个字符串的内容是否相同.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public boolean equalsIgnoreCase(String 
+					another);</td>
+					<td width="47%">比较两字符串内容是否相同(忽略大小写).</td>
+				</tr>
+				<tr>
+					<td width="88">取代</td>
+					<td width="45%">public String replace(char oldChar, char 
+					newChar);</td>
+					<td width="47%">在字符串中用nweChar字符替换oldChar字符.</td>
+				</tr>
+				<tr>
+					<td width="88">取字符</td>
+					<td width="45%">public char charAt(int index);</td>
+					<td width="47%">返回指定索引处的字符.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public String substring(int beginIndex);</td>
+					<td width="47%">返回该字符串从beginIndex开始到结尾的子字符串.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public String substring(int beginIndex, int 
+					endIndex);</td>
+					<td width="47%">返回该字符串从beginIndex开始到endIndex结尾的子字符串.</td>
+				</tr>
+				<tr>
+					<td width="88">转换大小写</td>
+					<td width="45%">public String toUpperCase();</td>
+					<td width="47%">返回大写字符串.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public String toLowerCase();</td>
+					<td width="47%">返回小写字符串.</td>
+				</tr>
+				<tr>
+					<td width="88">trim</td>
+					<td width="45%">public String trim();</td>
+					<td width="47%">返回去掉开头和结尾空格后的字符串.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public String[] split(String regex)</td>
+					<td width="47%">分割字符串.</td>
+				</tr>
+				<tr>
+					<td width="88">连接</td>
+					<td width="45%">public String concat(String str);</td>
+					<td width="47%">将指定字符串附加到此字符串的结尾.</td>
+				</tr>
+				<tr>
+					<td width="88">起始字符</td>
+					<td width="45%">public boolean startsWith(String prefix);</td>
+					<td width="47%">判断字符串是否以prefix字符串开头.</td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public boolean endsWith(String suffix);</td>
+					<td width="47%">判断字符串是否以suffix字符串结尾.</td>
+				</tr>
+				<tr>
+					<td colspan="3"><b>static方法</b></td>
+				</tr>
+				<tr>
+					<td width="88">　</td>
+					<td width="45%">public static String valueOf(char c);<br>
+					public static String valueOf(object obj);</td>
+					<td width="47%">把c转成字符串是...<br>
+					把obj转换成字符串是...</td>
+				</tr>
+			</tbody></table>
 			</div>
 
 			<div class="title">String的不变性</div>

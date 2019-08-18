@@ -1,3 +1,139 @@
 {include file="template/header" title="Java 开发环境" /}
-内容...
+<ol dynamicoutline="" initcollapsed="">
+	<li>开发环境配置<ul>
+			<li><b>设置环境变量</b></li>
+			<li>
+				<table border="1" width="80%" bordercolor="#CCE8CF" id="table8">
+					<tbody><tr>
+							<td>Path环境变量</td>
+							<td>windows系统执行命令时要搜寻的路径. (可在命令行中添加, 例如: set path=C:\Program 
+								Files\Java\jdk1.5.0_22\bin, 使用echo %path%可查看)</td>
+						</tr>
+						<tr>
+							<td>classpath环境变量</td>
+							<td>java在编译和运行时要找的class所在的路径, 路径搜索顺序: 从左到右! .jar文件也可以配置到这里! 
+								配置不好java会找不到class文件! 同时又要防止有同名类!</td>
+						</tr>
+					</tbody></table></li>
+			<li><font face="华文楷体">注意:&nbsp; 1) 环境变量有两种, 系统环境变量和用户环境变量. 
+				系统环境变量对所有用户起作用, 而用户环境变量只对当前用户起作用!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2) windows 
+				环境变量的查找顺序是从前向后找的，如果找到命令就不会再向后找.</font></li>
+			<li><b>查看使用的哪个版本的Java</b></li>
+			<li>在命令行中输入: java -version</li>
+			<li><b>验证JDK是否安装好了</b></li>
+			<li>在命令行中输入: javac</li>
+		</ul>
+	</li>
+	<li>编译 &amp; 运行<ul>
+			<li><b>编译&amp;运行</b></li>
+			<li>
+				<table border="1" width="50%" bordercolor="#C0C0C0" bgcolor="#C0C0C0">
+					<tbody><tr>
+							<td>javac MyFirstApp.java&nbsp; // 编译<br>
+								java MyFirstApp&nbsp;&nbsp;&nbsp; // 运行: 不带.java</td>
+						</tr>
+					</tbody></table></li>
+		</ul>
+	</li>
+	<li><b>断言</b><ul>
+			<li>默认情况下, 代码中的assert命令会被Java虚拟机忽略. 但是如果你指定Java虚拟机打开断言的话, 
+				它就能够在不变动一行程序的情况下帮助你调试程序!</li>
+			<li><b>如何使用断言</b></li>
+			<li>
+				<table border="1" width="60%" bordercolor="#C0C0C0" id="table6" bgcolor="#C0C0C0">
+					<tbody><tr>
+							<td>
+								<p style="margin-top: 0; margin-bottom: 0">assert (height &gt; 0);&nbsp; 
+									// 若true, 则继续执行; 若false, 抛出AssertionError</p>
+								<p style="margin-top: 0; margin-bottom: 0">assert (height &gt; 0) : "height = " + height + " weight = " + 
+									weight; // 你也可以加上一点提示信息.</p></td>
+						</tr>
+					</tbody></table></li>
+			<li><b>带有断言的编译和执行</b></li>
+			<li>
+				<table border="1" width="60%" bordercolor="#CCE8CF" id="table7">
+					<tbody><tr>
+							<td width="41">编译: </td>
+							<td>javac TestDriveGame.java</td>
+						</tr>
+						<tr>
+							<td width="41">执行:</td>
+							<td>java -ea TestDriveGame</td>
+						</tr>
+					</tbody></table></li>
+		</ul>
+	</li>
+	<li>调试/编译/运行错误<ol>
+			<li>打开eclipse，卡在loading workbench<ul>
+					<li>关闭eclipse，然后删除Workspaces\.metadata\目录下的 .lock文件，重新启动就行了。</li>
+				</ul></li>
+			<li>打开eclipse, 卡在Loading org.eclipse.debug.core<ul>
+					<li>关闭eclipse，然后删除Workspaces\.metadata\.plugins\org.eclipse.ui.workbench, 
+						重新启动就行了。</li>
+				</ul></li>
+		</ol></li>
+	<li>导入外部jar包<ul>
+			<li>在编写java代码时, 为方便编程, 常常会引用别人已经实现的功能, 通常会封装成jar包, 我们在编写时, 
+				只需引入到Eclipse中即可.</li>
+			<li>1) 在项目下创建一个lib文件夹, 把要导入的jar文件拷贝到这个文件夹.<br>2) 右击项目名, 依次选择[Build Path] | [Configure Build Path...], 在打开的窗口中, 
+				先选中[Libraries]页, 再从右边的按钮中点击[add JARs]...</li>
+		</ul></li>
+	<li>eclipse<ol>
+			<li>发布成可执行文件(jar)<ul>
+					<li><b>生成jar</b></li>
+					<li>File菜单 -&gt; Export -&gt; Java ...</li>
+					<li><b>运行jar</b></li>
+					<li>在命令行下输入: java -jar xxx.jar</li>
+				</ul>
+			</li>
+			<li>常见错误<ol>
+					<li>Activation.main错误<ul>
+							<li>Activation.main: 警告: sun.rmi.activation.execPolicy 系統屬性未指定，並且未授予 
+								ExecPermissions/ExecOptionPermissions; 後續的啟動嘗試可能會因為未成功的ExecPermission/ExecOptionPermission 
+								權限檢查而失敗。如需關於如何配置 rmid 安全的說明文件，請參考:<br>
+								<br>
+								http://java.sun.com/j2se/1.4/docs/tooldocs/solaris/rmid.html<br>
+								http://java.sun.com/j2se/1.4/docs/tooldocs/win32/rmid.html</li>
+							<li>原因：报这个错误是因为你对最外面的大的项目点run as了，所以跳出来一个SELECT JAVA APPLICATION的选 
+								框，其中列出的都是包含main（）函数的类，默认的是**，而最后它用的是排序第一的选项Activation-sun.rmi.server，因而报错.</li>
+							<li>解决方法：<br>
+								1、在你所要运行的程序代码空白处，右击run as-&gt;java application<br>
+								2、在你要运行的 java project name上右击run as,在弹出的SELECT JAVA APPLICATION 
+								的选框内输入自己的class name即可；</li>
+						</ul>
+					</li>
+				</ol>
+
+
+
+			</li>
+		</ol>
+
+
+
+	</li>
+	<li>小技巧<ol>
+			<li>自动跳转到源代码目录<ul>
+					<li>1) 新建一个批处理文件, 比如java.bat</li>
+				</ul>
+				<table border="1" width="50%" bordercolor="#C0C0C0" bgcolor="#C0C0C0">
+					<tbody><tr>
+							<td>@echo off<br>d:<br>cd \Simplo\1.Study\Workspace\Study\Head First Java<br>echo Change current directory done!</td>
+						</tr>
+					</tbody></table>
+				<ul>
+					<li>2) 放到某个Path目录下, 比如: C:\Program Files\Java\jdk1.5.0_22\bin</li>
+					<li>3) 然后在cmd的命令行提示下执行该脚本, 命令如下:</li>
+					<li>
+						<table border="1" width="50%" bordercolor="#C0C0C0" bgcolor="#C0C0C0">
+							<tbody><tr>
+									<td>java.bat</td>
+								</tr>
+							</tbody></table></li>
+				</ul></li>
+			<li>eclipse快速查找一个变量、方法或者类被引用的地方<ul>
+					<li>先双击要查看的变量、方法或者类，使之被选中，然后Ctrl+Shift+G就可以看到概览了。</li>
+				</ul></li>
+		</ol></li>
+</ol>
 {include file="template/footer" /}
