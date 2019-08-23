@@ -735,7 +735,24 @@ curl -sLf https://spacevim.org/install.sh | bash -s -- --install vim
 curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
 </code>
 				</pre>
+				<p>
+					Windows 下最快捷的安装方法是下载安装脚本: 
+					<a href="https://spacevim.org/install.cmd">英文版本</a> &
+					<a href="https://spacevim.org/cn/install.cmd">中文版本</a>
+				</p>
+
 			</div>
+
+			<div class="title">常见安装问题</div>
+			<div class="content closed">
+				<p class="text-strong">一直显示vimproc.vim building</p>
+				<P>
+					初次进入gvim，安装插件时，其他插件都是 installing done，但是 vimproc.vim 就显示 *vimproc.vim Building，一直都没有done。	
+				</P>
+				<p>
+					确认~\.cache\vimfiles\repos\github.com\Shougo\vimproc.vim\lib目录下是否有vimprox_win64.dll或者vimprox_win32.dll文件. 没有就把dll拷贝进去.
+				</p>
+			</div>	
 
 			<div class="title">卸载</div>
 			<div class="content closed">
