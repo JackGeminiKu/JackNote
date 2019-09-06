@@ -1,5 +1,34 @@
 {include file="template/header" title="PHP 开发环境" /}
 <div class="list list-number">
+	<div class="title">phpStudy + Visual Studio Code</div>
+	<div class="content">
+		<div class="list list-number">
+			<div class="title">在VS Code中怎么调试PHP?</div>
+			<div class="content closed">
+				<p class="text-strong">先在服务器上安装Xdebug扩展</p>
+				<p>
+					1) 打开phpStudy菜单, 选择"其他选项菜单"->"PHP扩展及设置"->"PHP扩展", 勾选"Xdebug"<br>
+					2) Configure PHP to use XDebug by adding zend_extension=path/to/xdebug to your php.ini. The path of your php.ini is shown in your phpinfo() output under "Loaded Configuration File".<br>
+					3) Enable remote debugging in your php.ini:<br>
+					[XDebug]<br>
+					xdebug.remote_enable = 1<br>
+					xdebug.remote_autostart = 1<br>
+					4) If you are doing web development, don't forget to restart your webserver to reload the settings.<br>
+					5) Verify your installation by checking your phpinfo() output for an XDebug section.
+				</p>
+
+				<p class="text-strong">然后在VS Code中安装PHP Debug extension</p>
+				<p>
+					1) 在extensions中搜索PHP Debug, 并安装.<br>
+					2) 点击左侧的"小甲虫"图标, 如果DEBUG图标后面显示No Configurations, 点开下拉箭头, 点击Add Configuration...<br>
+					3) 设置好断点, 按F5, 选择PHP.
+				</p>
+
+				<p class="text-strong">在浏览器中直接输入网址就可以调试啦!</p>
+			</div>
+		</div>
+	</div>
+
     <div class="title">开发环境</div>
     <div class="content closed">
         <p><strong>常用集成开发环境: </strong></p>
@@ -114,7 +143,7 @@ echo $colors;
 			<div class="content closed">
 				<a href="https://www.cnblogs.com/superfat/p/5228347.html">网上解决方案</a>
 			</div>
-			
+
 			<div class="title">PHPStudy无法启动Apache和MySQL（Window环境）</div>
 			<div class="content closed">
 				<a href="https://blog.csdn.net/al_assad/article/details/70510889">网上解决方案</a>
