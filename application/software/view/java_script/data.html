@@ -42,10 +42,10 @@
     <div class="content open">
 		<pre class="prettyprint linenums">
 <code>
-// 局部变量(在函数内定义, 进入函数时创建, 退出函数时销毁)
+// 局部变量(在函数内定义, 进入函数时创建, 退出函数时销毁, 只能在函数内部使用)
 function test() {
-    var winner;                      // 变量的值为underfined
-    var language = "Java Script";    // 变量的类型由所赋的值决定
+    var winner;                      // 声明变量, 变量的值为underfined
+    var language = "Java Script";    // 声明变量, 变量的类型由所赋的值决定
 }	
 注意: 当把winner变量的var去掉后，winner就变成了全局变量，但是在局部不使用winner，则这个winner作为全局是无效的。
 
