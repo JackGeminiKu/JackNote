@@ -213,35 +213,42 @@ MyClass.Method();	// 静态方法
 											</p>
 										</div>
 
-										<div class="title">递归</div>
+										<div class="title">递归&迭代</div>
 										<div class="content closed">
+											<a href="https://blog.csdn.net/liuchaoxuan/article/details/79967578">迭代是人，递归是神</a>
+											<p>
+												从概念上讲，递归就是指程序调用自身的编程思想，即一个函数调用本身；迭代是利用已知的变量值，根据递推公式不断演进得到变量新值得编程思想。
+											</p>
 											<pre class="prettyprint linenums">
 <code>
- private void RecurseXmlDocument(XmlNode root, int indent)
+// 递归方式求解斐波那契数列
+int Fib(int n)
 {
-    // Make sure we don't do anything if the root is null.
-    if (root == null)
-        return;
- 
-    if (root is XmlElement) // Root is an XmlElement type
-    {
-        // first, print the name
-        listBoxXmlNodes.Items.Add(root.Name.PadLeft(root.Name.Length + indent));
- 
-        // The check if there are child nodes and if there are, call this
-        // method again to print them.
-        if (root.HasChildNodes)
-            RecurseXmlDocument(root.FirstChild, indent + 2);
- 
-        // Finally check to see if there are any siblings and if there are
-        // call this method again to have them printed.
-        if (root.NextSibling != null)
-            RecurseXmlDocument(root.NextSibling, indent);
-    } else if (root is XmlText) {
-        // Print the text.
-        string text = ((XmlText)root).Value;
-        listBoxXmlNodes.Items.Add(text.PadLeft(text.Length + indent));
+    if (n > 1) {
+        return Fib(n - 1) + Fib(n - 2);
+    } else {
+        return n; // n = 0, 1时给出递归终止条件  
     }
+}
+</code>
+											</pre>	
+											<pre class="prettyprint linenums">
+<code>
+// 迭代方式求解斐波那契数列
+int Fib(int n)
+{
+    if (n &lt;= 1) {
+        return n;
+    }
+    var t1 = 0;
+    var t2 = 0;
+    var t3 = 1;
+    for (var i = 2; i &lt;= n; i++) {
+        t1 = t2 + t3;
+        t2 = t3;
+        t3 = t1;
+    }
+    return t1;
 }
 </code>
 											</pre>	
