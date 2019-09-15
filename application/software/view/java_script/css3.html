@@ -873,92 +873,6 @@ cursor: pointer;
 		</div>
     </div>
 
-	<div class="title">如何将CSS加入到网页中?</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">Link CSS文件(head标签内)</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-&lt;head>
-    &lt;title>文档标题&lt;/title>
-    &lt;link rel="stylesheet" href="hello.css">
-&lt;/head>
-</code>
-				</pre>
-				<div class="list list-square">
-					<div class="title">使用多个样式表</div>
-					<div class="content closed">
-						<p>最下面的样式表最优先, 它会覆盖前面的样式表的设置.</p>
-						<pre class="prettyprint linenums">
-<code>
-&lt;link rel="stylesheet" href="总公司.css">
-&lt;link ref="stylesheet" href="分公司.css">
-</code>
-						</pre>
-					</div>
-
-					<div class="title">不同设备使用不同的样式 - 使用media属性</div>
-					<div class="content closed">
-						<p>对于桌面PC, 笔记本电脑, 平板电脑, 手机, 你想使用不同的样式, 只需在<link>元素中添加media属性即可.</p>
-						<pre class="prettyprint linenums">
-<code>
-&lt;link type="text/css" ref="stylesheet" href="lounge-mobile.css" media="screen and (max-device-width: 480px)">
-</code>
-						</pre>
-						<p>
-							screen: 有屏幕<br>
-							print: 打印页面时使用<br>
-							max-device-width: 480px;    /* 屏幕宽度最多480px(不超过480px) */<br>
-							min-device-width: 200px;    /* 屏幕宽度最小200px(不少于200px) */<br>
-							orientation: landscape 或者 portrait;    /* 横向或者纵向 */<br>
-							max-width: 480px;    /* 浏览器宽度最多480px */<br>
-							min-width: 200px;    /* 浏览器宽度最少200px */	
-						</p>
-						<p>要为CSS指定特定属性的设备, 还可以直接写在CSS中:</p>
-						<pre class="prettyprint linenums">
-<code>
-@media screen and (min-device-width: 481px) {
-   #guarantee {
-        margin-right: 30px;
-    }
-}
-
-/* 通用规则放在@media下面 */
-p.specials {
-    color: red;
-}
-</code>
-						</pre>
-					</div>
-				</div>
-			</div>
-
-			<div class="title">添加Style元素(head标签内)</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-&lt;head>
-    &lt;style type="text/css">             // 放在&lt;head>标记中
-        body { font: 10pt "Arial" }
-    &lt;/style>
-&lt;/head>
-</code>
-				</pre>
-			</div>
-
-			<div class="title">添加Style属性(添加到对应元素)</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
-<code>
-&lt;p style="margin-left: 0.5in; margin-right:0.5in">这一行被增加了左右的外补丁&lt;p>
-</code>
-				</pre>
-			</div>
-		</div>
-	</div>
-
-
 	<div class="title">CSS选择器</div>
     <div class="content closed">
 		<div class="list list-number">
@@ -1057,6 +971,36 @@ img[alt*="flowers"] { ... }    // alt属性包含单词"flowers"的所有img元�
 
 			<div class="title">media查询</div>
 			<div class="content closed">
+				<p>对于桌面PC, 笔记本电脑, 平板电脑, 手机, 你想使用不同的样式, 只需在<link>元素中添加media属性即可.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;link type="text/css" ref="stylesheet" href="lounge-mobile.css" media="screen and (max-device-width: 480px)">
+</code>
+				</pre>
+				<p>
+					screen: 有屏幕<br>
+					print: 打印页面时使用<br>
+					max-device-width: 480px;    /* 屏幕宽度最多480px(不超过480px) */<br>
+					min-device-width: 200px;    /* 屏幕宽度最小200px(不少于200px) */<br>
+					orientation: landscape 或者 portrait;    /* 横向或者纵向 */<br>
+					max-width: 480px;    /* 浏览器宽度最多480px */<br>
+					min-width: 200px;    /* 浏览器宽度最少200px */	
+				</p>
+				<p>要为CSS指定特定属性的设备, 还可以直接写在CSS中:</p>
+				<pre class="prettyprint linenums">
+<code>
+@media screen and (min-device-width: 481px) {
+   #guarantee {
+        margin-right: 30px;
+    }
+}
+
+/* 通用规则放在@media下面 */
+p.specials {
+    color: red;
+}
+</code>
+				</pre>
 				<a href="http://www.runoob.com/cssref/css3-pr-mediaquery.html">http://www.runoob.com/cssref/css3-pr-mediaquery.html</a>
 			</div>
 		</div>
@@ -1081,6 +1025,13 @@ img[alt*="flowers"] { ... }    // alt属性包含单词"flowers"的所有img元�
 h1 {
     font-size: 200% !important;
 }
+</code>
+				</pre>
+				<p>使用多个样式表: 最下面的样式表最优先, 它会覆盖前面的样式表的设置.</p>
+				<pre class="prettyprint linenums">
+<code>
+&lt;link rel="stylesheet" href="总公司.css">
+&lt;link ref="stylesheet" href="分公司.css">
 </code>
 				</pre>
 			</div>
