@@ -2,7 +2,20 @@
 <p>枚举类型的意义: 限制用户不能随意赋值, 只能在定义枚举时列举的值中选择; 不需要死记硬背每一个值是什么, 只需要选择相应的值.</p>
 <pre class="prettyprint linenums">
 <code>
-enum Orientation : int
+// 简单枚举: 包含的值不用于组合, 也不用于按位比较
+enum Day 
+{
+    Sun = 1,
+    Mon,
+    Tue,
+    Wed,
+    Thu,
+    Fri,
+    Sat
+}
+	
+// 标志枚举: 支持按位OR操作
+enum Orientations : int
 {
     [Description("北")]
     North = 1,
@@ -29,8 +42,8 @@ enum Orientation : int
 			<div class="content open">
 				<pre class="prettyprint linenums">
 <code>
-directionByte = (int) myDirection;    // 即使Orientation的基本类型是int, 仍必须使用(int)数据类型转换
-myDirection = (Orientation) myInt;    // 如果要把int类型转换为Orientation, 也需要进行显示转换. 注意: 如果myInt的值没有映射为已定义的Orientation, 程式不会报错.
+directionByte = (int) myDirection;    // 即使Orientations的基本类型是int, 仍必须使用(int)数据类型转换
+myDirection = (Orientations) myInt;    // 如果要把int类型转换为Orientations, 也需要进行显示转换. 注意: 如果myInt的值没有映射为已定义的Orientations, 程式不会报错.
 </code>
 				</pre>
 			</div>
@@ -43,7 +56,7 @@ myDirection = (Orientation) myInt;    // 如果要把int类型转换为Orientati
 directionString = myDirection.ToString();           // 方法1
 directionString = Convert.ToString(myDirection);    // 方法2
 // 字符串 ==> 枚举
-Orientation myDirection = (Orientation)Enum.Parse(typeof(Orientation),"North");    // 并不是所有的字符串都会映射为一个Orientation值, 如果一个值不能映射为枚举值中的一个, 就会产生错误.
+Orientations myDirection = (Orientations)Enum.Parse(typeof(Orientations),"North");    // 并不是所有的字符串都会映射为一个Orientations值, 如果一个值不能映射为枚举值中的一个, 就会产生错误.
 </code>
 				</pre>
 			</div>
