@@ -4,21 +4,11 @@
     <div class="content open">
         <div class="container-fluid ml-0">
             <div class="row">
-                <div class="col-1"><strong>基本类型:</strong></div>
-                <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-boolean')}">Boolean</a></div>
-                <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-number')}">Number</a></div>
-                <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-string')}">String</a></div>
-                <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-date')}">Date</a></div>
+                <div class="col-1"><strong>基本类型:</strong></div>                              
                 <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-object')}">类&对象</a></div>
                 <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-interface')}">接口</a></div>
                 <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-structor')}">结构体</a></div>
                 <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-function')}">function</a></div>
-
-                <div class="col-2"><a href="{:url('software/java_script/index', 'template=java_script-data-undefined+null')}">Undefined & Null</a></div>
-            </div>
-            <div class="row">
-                <div class="col-1"><strong>其他类型:</strong></div>
-                <div class="col-1"><a href="{:url('software/java_script/index', 'template=java_script-data-element')}">Element</a></div>
             </div>
         </div>
         <div class="list list-square pl-3">
@@ -36,21 +26,7 @@
 
     <div class="title">变量 / 常量</div>
     <div class="content open">
-        <pre class="prettyprint linenums">
-<code>
-// 局部变量(在函数内定义, 进入函数时创建, 退出函数时销毁, 只能在函数内部使用)
-function test() {
-    var winner;                      // 声明变量, 变量的值为underfined
-    var language = "Java Script";    // 声明变量, 变量的类型由所赋的值决定
-}	
 
-// 全局变量(在函数外定义, 加载页面时创建, 关闭页面时销毁)
-var test = 5;
-window.test = 5;
-</code>
-		</pre>
-        <p class="text-remark">备注: 同名局部变量会遮挡全局变量.</p>
-        <p><a href="https://www.cnblogs.com/ksl666/p/5944718.html">三种类型变量: const, var & let</a></p>
         <div class="list list-none">
             <div class="title">全局对象...</div>
             <div class="content closed">
@@ -62,16 +38,6 @@ window.test = 5;
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="title">作用域</div>
-    <div class="content open">
-
-    </div>
-
-    <div class="title">数据类型判断</div>
-    <div class="content closed">
-        <p><a href="https://www.cnblogs.com/a546558309/p/3608194.html">js判断各种数据类型</a></p>
     </div>
 </div>
 {include file="template/footer" /}
