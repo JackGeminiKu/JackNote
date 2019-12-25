@@ -1,285 +1,235 @@
 {include file="template/header" title="VIM" /}
 
 <div class="list list-number">
-	<div class="title">各种模式</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">正常模式</div>
-			<div class="content open">
-				<p>
-					正常模式一般用于浏览文件，也包括一些复制、粘贴、删除等操作。这时击键时，一般的键/键组合会被当成功能键，而不会键入对应的字符。<br>
-					启动vim后默认位于正常模式。不论位于什么模式，按下(Esc)键(有时需要按两下）都会进入正常模式.
-				</p>
-			</div>
+    <div class="title">各种模式</div>
+    <div class="content closed">
+        <div class="list list-number">
+            <div class="title">正常模式</div>
+            <div class="content open">
+                <p>
+                    正常模式一般用于浏览文件，也包括一些复制、粘贴、删除等操作。这时击键时，一般的键/键组合会被当成功能键，而不会键入对应的字符。<br> 启动vim后默认位于正常模式。不论位于什么模式，按下(Esc)键(有时需要按两下）都会进入正常模式.
+                </p>
+            </div>
 
-			<div class="title">正常模式 ==> 插入模式</div>
-			<div class="content open">
-				<p>
-					在正常模式中按下i, I, a, A, o, O等键，会进入插入模式。<br>
-					插入模式中，击键时会写入相应的字符。
-				</p>
-				<p>
-					i(I): 在光标左侧(行首)输入正文<br>
-					a(A): 在光标右侧(行尾)输入正文<br>
-					o(O): 在光标所在行下一行(上一行)添加新行
-				</p>
-			</div>
+            <div class="title">正常模式 ==> 插入模式</div>
+            <div class="content open">
+                <p>
+                    在正常模式中按下i, I, a, A, o, O等键，会进入插入模式。<br> 插入模式中，击键时会写入相应的字符。
+                </p>
+                <p>
+                    i(I): 在光标左侧(行首)输入正文<br> a(A): 在光标右侧(行尾)输入正文<br> o(O): 在光标所在行下一行(上一行)添加新行
+                </p>
+            </div>
 
-			<div class="title">正常模式 ==> 命令模式</div>
-			<div class="content open">
-				<p>
-					在正常模式中，<br>
-					1) 按下：（冒号）键，会进入命令模式.<br>
-					2) 按下.符号, 会重复执行上一次的命令.
-				</p>
-			</div>
+            <div class="title">正常模式 ==> 命令模式</div>
+            <div class="content open">
+                <p>
+                    在正常模式中，<br> 1) 按下：（冒号）键，会进入命令模式.<br> 2) 按下.符号, 会重复执行上一次的命令.
+                </p>
+            </div>
 
-			<div class="title">正常模式 ==> 可视模式</div>
-			<div class="content open">
-				<p>
-					在正常模式按下v, V, (Ctrl) + v，可以进入可视模式。<br>
-					可视模式中的操作有点像拿鼠标进行操作，选择文本的时候有一种鼠标选择的即视感，有时候会很方便。
-				</p>
-			</div>
-		</div>
-	</div>
+            <div class="title">正常模式 ==> 可视模式</div>
+            <div class="content open">
+                <p>
+                    在正常模式按下v, V, (Ctrl) + v，可以进入可视模式。<br> 可视模式中的操作有点像拿鼠标进行操作，选择文本的时候有一种鼠标选择的即视感，有时候会很方便。
+                </p>
+            </div>
+        </div>
+    </div>
 
-	<div class="title">常用操作</div>
-	<div class="content open">
-		<div class="list list-number">
-			<div class="title">光标操作</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">简单方向移动</div>
-					<div class="content open">
-						<p>
-							h: 左移<br>
-							l: 右移<br>
-							j: 下移<br>
-							k: 上移
-						</p>
-						<p class="text-remark">前面都可以加数字, 代表执行操作的次数.</p>
-					</div>
+    <div class="title">常用操作</div>
+    <div class="content open">
+        <div class="list list-number">
+            <div class="title">光标操作</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">简单方向移动</div>
+                    <div class="content open">
+                        <p>
+                            h: 左移<br> l: 右移<br> j: 下移<br> k: 上移
+                        </p>
+                        <p class="text-remark">前面都可以加数字, 代表执行操作的次数.</p>
+                    </div>
 
-					<div class="title">行移动</div>
-					<div class="content open">
-						<p>
-							gg: 移动到文件头<br>
-							G: 移动到文件尾<br>
-							ngg / nG: 移动到第n行<br>
-							H: 移动到当前窗口第一行(head)<br>
-							M: 移动到当前窗口中间行(middle)<br>
-							L: 移动到当前窗口最后一行(last)
-						</p>
-						<p>
-							0: 移动到行首<br>
-							$: 移动到行尾
-						</p>
-						<p>
-							ctrl + b: 向上翻页(b为backward)<br>
-							ctrl + f: 向下翻页(f为forward)
-						</p>
-					</div>
+                    <div class="title">行移动</div>
+                    <div class="content open">
+                        <p>
+                            gg: 移动到文件头<br> G: 移动到文件尾<br> ngg / nG: 移动到第n行<br> H: 移动到当前窗口第一行(head)<br> M: 移动到当前窗口中间行(middle)<br> L: 移动到当前窗口最后一行(last)
+                        </p>
+                        <p>
+                            0: 移动到行首<br> $: 移动到行尾
+                        </p>
+                        <p>
+                            ctrl + b: 向上翻页(b为backward)<br> ctrl + f: 向下翻页(f为forward)
+                        </p>
+                    </div>
 
-					<div class="title">单词移动</div>
-					<div class="content open">
-						<p>
-							w: 移动到下一个单词的首字母<br>
-							b: 移动到前一个单词的首字母<br>
-							e: 移动到下一个单词的尾字母
-						</p>
-						<p class="text-remark">前面可以加数字, 代表执行操作的次数</p>
-					</div>
+                    <div class="title">单词移动</div>
+                    <div class="content open">
+                        <p>
+                            w: 移动到下一个单词的首字母<br> b: 移动到前一个单词的首字母<br> e: 移动到下一个单词的尾字母
+                        </p>
+                        <p class="text-remark">前面可以加数字, 代表执行操作的次数</p>
+                    </div>
 
-					<div class="title">标记移动</div>
-					<div class="content open">
-						<p>
-							ma: 为当前行设置一个标记, 名字为a. 标记名可以为a~z, A~Z<br>
-							'a: 返回到标记名为a的那一行<br>	
-							:delmarks a: 删除标记a<br>
-							:marks: 列出所有的标记
-						</p>
-					</div>
+                    <div class="title">标记移动</div>
+                    <div class="content open">
+                        <p>
+                            ma: 为当前行设置一个标记, 名字为a. 标记名可以为a~z, A~Z<br> 'a: 返回到标记名为a的那一行<br> :delmarks a: 删除标记a<br> :marks: 列出所有的标记
+                        </p>
+                    </div>
 
-					<div class="title">句子</div>
-					<div class="content open">
-						<p>
-							): 下一句<br>
-							(: 上一句
-						</p>
-						<p class="text-remark">前面可以加数字, 代表执行操作的次数</p>
-					</div>
+                    <div class="title">句子</div>
+                    <div class="content open">
+                        <p>
+                            ): 下一句<br> (: 上一句
+                        </p>
+                        <p class="text-remark">前面可以加数字, 代表执行操作的次数</p>
+                    </div>
 
-					<div class="title">光标跳转</div>
-					<div class="content open">
-						<p>
-							ctrl + o: 返回上一次光标的位置<br>
-							ctrl + i: 同上相反
-						</p>
-					</div>
-				</div>
-			</div>
+                    <div class="title">光标跳转</div>
+                    <div class="content open">
+                        <p>
+                            ctrl + o: 返回上一次光标的位置<br> ctrl + i: 同上相反
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-			<div class="title">语法高亮</div>
-			<div class="content closed">
-				<p>
-					启用自动语法高亮命令: syntax on<br>
-					手动设置文件类型命令: set filetype=xml
-				</p>
-			</div>
+            <div class="title">语法高亮</div>
+            <div class="content closed">
+                <p>
+                    启用自动语法高亮命令: syntax on<br> 手动设置文件类型命令: set filetype=xml
+                </p>
+            </div>
 
-			<div class="title">查找</div>
-			<div class="content closed">
-				<div class="list list-square">
-					<div class="title">正常模式</div>
-					<div class="content open">
-						<p>输入/something 敲回车后, Vim会跳转到第一个匹配. 按下 n 查找下一个, 按下 N 查找上一个.</p>	
-						<p>忽略大小写: 输入/something \c</p>	
-					</div>
+            <div class="title">查找</div>
+            <div class="content closed">
+                <div class="list list-square">
+                    <div class="title">正常模式</div>
+                    <div class="content open">
+                        <p>输入/something 敲回车后, Vim会跳转到第一个匹配. 按下 n 查找下一个, 按下 N 查找上一个.</p>
+                        <p>忽略大小写: 输入/something \c</p>
+                    </div>
 
-					<div class="title">命令模式</div>
-					<div class="content open">
-						<p>:/something</p>
-					</div>
+                    <div class="title">命令模式</div>
+                    <div class="content open">
+                        <p>:/something</p>
+                    </div>
 
-					<div class="title">支持正则表达式</div>
-					<div class="content open">
-						<p>Vim查找支持正则表达式，例如 /vim$ 匹配行尾的 "vim" 。 需要查找特殊字符需要转义，例如 /vim\$ 匹配 "vim$" </p>
-					</div>
+                    <div class="title">支持正则表达式</div>
+                    <div class="content open">
+                        <p>Vim查找支持正则表达式，例如 /vim$ 匹配行尾的 "vim" 。 需要查找特殊字符需要转义，例如 /vim\$ 匹配 "vim$" </p>
+                    </div>
 
-					<div class="title">查找当前单词</div>
-					<div class="content open">
-						<p>
-							在正常模式下按下 * 即可查找光标所在单词, 要求每次出现的前后为空白字符或标点符号. 例如当前为 foo ， 可以匹配 foo bar 中的 foo, 但不可匹配 foobar 中的 foo.  这在查找函数名、变量名时非常有用.
-						</p>
+                    <div class="title">查找当前单词</div>
+                    <div class="content open">
+                        <p>
+                            在正常模式下按下 * 即可查找光标所在单词, 要求每次出现的前后为空白字符或标点符号. 例如当前为 foo ， 可以匹配 foo bar 中的 foo, 但不可匹配 foobar 中的 foo. 这在查找函数名、变量名时非常有用.
+                        </p>
 
-						<p>
-							按下 g* 即可查找光标所在单词的字符序列, 每次出现前后字符无要求. 即 foo bar 和 foobar 中的 foo 均可被匹配到.
-						</p>
-					</div>
+                        <p>
+                            按下 g* 即可查找光标所在单词的字符序列, 每次出现前后字符无要求. 即 foo bar 和 foobar 中的 foo 均可被匹配到.
+                        </p>
+                    </div>
 
-					<div class="title">配对括号的查找</div>
-					<div class="content open">
-						<p>
-							输入 % 可以查找配对的括号 ), ], }.<br>
-							1. 把光标放在一个 (, [ 或 { 处.<br>
-							2. 接着按 % 字符。<br>
-							3. 此时光标的位置应当是在配对的括号处。<br>
-							4. 再次按 % 就可以跳回配对的第一个括号处。
-						</p>
-					</div>
+                    <div class="title">配对括号的查找</div>
+                    <div class="content open">
+                        <p>
+                            输入 % 可以查找配对的括号 ), ], }.<br> 1. 把光标放在一个 (, [ 或 { 处.<br> 2. 接着按 % 字符。<br> 3. 此时光标的位置应当是在配对的括号处。<br> 4. 再次按 % 就可以跳回配对的第一个括号处。
+                        </p>
+                    </div>
 
-					<div class="title">大小写敏感(默认不敏感)</div>
-					<div class="content open">
-						<p>
-							默认是大小写敏感的, 为了方便可以设置:<br>
-							:set ic    " 不敏感, 或者:set ignorecase<br>
-							:set noic  " 敏感, 或者:set noignorecase<br>
-						</p>
-						<p>
-							在查找模式中加入 \c 表示大小写不敏感查找, \C 表示大小写敏感查找.<br>
-							例如：/foo\c<br>
-							将会查找所有的 "foo" , "FOO" , "Foo" 等字符串.
-						</p>
-					</div>
+                    <div class="title">大小写敏感(默认不敏感)</div>
+                    <div class="content open">
+                        <p>
+                            默认是大小写敏感的, 为了方便可以设置:<br> :set ic " 不敏感, 或者:set ignorecase<br> :set noic " 敏感, 或者:set noignorecase<br>
+                        </p>
+                        <p>
+                            在查找模式中加入 \c 表示大小写不敏感查找, \C 表示大小写敏感查找.<br> 例如：/foo\c
+                            <br> 将会查找所有的 "foo" , "FOO" , "Foo" 等字符串.
+                        </p>
+                    </div>
 
-					<div class="title">高亮设置(默认开启)</div>
-					<div class="content open">
-						<P>
-							:set hls    " 高亮, 或者:set hlsearch<br>
-							:set nohls  " 不高亮, 或者:set nohlsearch
-						</P>
-					</div>
+                    <div class="title">高亮设置(默认开启)</div>
+                    <div class="content open">
+                        <P>
+                            :set hls " 高亮, 或者:set hlsearch<br> :set nohls " 不高亮, 或者:set nohlsearch
+                        </P>
+                    </div>
 
-					<div class="title">即时查找(默认开启)</div>
-					<div class="content open">
-						<p>
-							:set is    " 开启, 或者:set incsearch<br>
-							:set nois  " 关闭, 或者:set noincsearch
-						</p>
-					</div>
+                    <div class="title">即时查找(默认开启)</div>
+                    <div class="content open">
+                        <p>
+                            :set is " 开启, 或者:set incsearch<br> :set nois " 关闭, 或者:set noincsearch
+                        </p>
+                    </div>
 
-					<div class="title">反向查找</div>
-					<div class="content open">
-						<p>如果您想逆向查找字符串，请使用 ? 代替 / 进行.</p>
-					</div>
+                    <div class="title">反向查找</div>
+                    <div class="content open">
+                        <p>如果您想逆向查找字符串，请使用 ? 代替 / 进行.</p>
+                    </div>
 
-				</div>
-			</div>
+                </div>
+            </div>
 
-			<div class="title">选择</div>
-			<div class="content closed">
-				<p>选择全部: ggvG</p>
-			</div>
+            <div class="title">选择</div>
+            <div class="content closed">
+                <p>选择全部: ggvG</p>
+            </div>
 
-			<div class="title">删除</div>
-			<div class="content closed">
-				<div class="list list-square">
-					<div class="title">正常模式</div>
-					<div class="content open">
-						<p>
-							x: 	删除光标所在的字符<br>
-							de/dne: 	从当前光标当前位置开始删除, 直到单词末尾，包括最后一个字符<br>
-							dw/dnw: 	从当前光标当前位置开始删除, 直到下一个单词起始处，不包括它的第一个字符<br>
-							d$/dn$: 	可以从光标处删除到这一行的末尾<br>
-							dd/dnd/ndd: 	删除光标所在的行
-						</p>
-						<p>
-							删除光标前按键 d0 <br>
-							删除光标后按键 D <br> 
-						</p>
-						<p>
-							删除文件中的所有内容: ggdG或者:%d
-						</p>
-						<p class="text-strong">删除单词</p>
-						<p>
-							daw : delete the word under the cursor<br>
-							caw : delete the word under the cursor and put you in insert mode<br>
-							dw : <br>
-							cw : 
-						</p>
-					</div>
+            <div class="title">删除</div>
+            <div class="content closed">
+                <div class="list list-square">
+                    <div class="title">正常模式</div>
+                    <div class="content open">
+                        <p>
+                            x: 删除光标所在的字符<br> de/dne: 从当前光标当前位置开始删除, 直到单词末尾，包括最后一个字符<br> dw/dnw: 从当前光标当前位置开始删除, 直到下一个单词起始处，不包括它的第一个字符<br> d$/dn$: 可以从光标处删除到这一行的末尾<br> dd/dnd/ndd: 删除光标所在的行
+                        </p>
+                        <p>
+                            删除光标前按键 d0 <br> 删除光标后按键 D <br>
+                        </p>
+                        <p>
+                            删除文件中的所有内容: ggdG或者:%d
+                        </p>
+                        <p class="text-strong">删除单词</p>
+                        <p>
+                            daw : delete the word under the cursor<br> caw : delete the word under the cursor and put you in insert mode<br> dw : <br> cw :
+                        </p>
+                    </div>
 
-					<div class="title">命令模式</div>
-					<div class="content open">
-						<p>:1,10d // 删除1到10行</p>
-					</div>
+                    <div class="title">命令模式</div>
+                    <div class="content open">
+                        <p>:1,10d // 删除1到10行</p>
+                    </div>
 
-					<div class="title">可视模式</div>
-					<div class="content open">
-						<p>
-							1. V/v "进入行可视模式<br>
-							2. {motion} "移动到需要删除的最后一行<br>
-							3. d "删除选中的
-						</p>
-						<p>注意: Shift + v进去可视模式, 选中的是行, v 选中的是你左右上下移动选中的块.</p>
-					</div>
-				</div>
-			</div>
+                    <div class="title">可视模式</div>
+                    <div class="content open">
+                        <p>
+                            1. V/v "进入行可视模式<br> 2. {motion} "移动到需要删除的最后一行<br> 3. d "删除选中的
+                        </p>
+                        <p>注意: Shift + v进去可视模式, 选中的是行, v 选中的是你左右上下移动选中的块.</p>
+                    </div>
+                </div>
+            </div>
 
-			<div class="title">修改</div>
-			<div class="content closed">
-				<p>
-					r: 替换光标处的那个字符<br>
-					R: 连续替换多个字符, 直到按&lt;ESC>回到正常模式<br>
-					ce/cw/cne/cnw: 要改变文本直到一个单词的末尾，请输入ce(或cw)<br>
-					c$/cn$:	要改变文本直到行末
-				</p>
-				<p>请注意: ce(或cw) 命令不仅仅是删除了一个单词，它也让您进入插入模式了!</p>
-			</div>
+            <div class="title">修改</div>
+            <div class="content closed">
+                <p>
+                    r: 替换光标处的那个字符<br> R: 连续替换多个字符, 直到按&lt;ESC>回到正常模式<br> ce/cw/cne/cnw: 要改变文本直到一个单词的末尾，请输入ce(或cw)<br> c$/cn$: 要改变文本直到行末
+                </p>
+                <p>请注意: ce(或cw) 命令不仅仅是删除了一个单词，它也让您进入插入模式了!</p>
+            </div>
 
-			<div class="title">替换</div>
-			<div class="content closed">
-				<p>
-					当前行头一个字符串 	:s/old/new<br>
-					当前行 	:s/old/new/gc<br>
-					全文 	:%s/old/new/gc<br>
-					2-11行 	:5,12s/old/new/gc<br>
-					当前行 . 与接下来两行 +2 	:.,+2s/old/new/gc
-				</p>
-				<p>
-					选区，在Visual模式下选择区域后输入 : ，Vim即可自动补全为 :'<,'> 。,br>
-					:'<,'>s/foo/bar/g
+            <div class="title">替换</div>
+            <div class="content closed">
+                <p>
+                    当前行头一个字符串 :s/old/new<br> 当前行 :s/old/new/gc<br> 全文 :%s/old/new/gc<br> 2-11行 :5,12s/old/new/gc<br> 当前行 . 与接下来两行 +2 :.,+2s/old/new/gc
+                </p>
+                <p>
+                    选区，在Visual模式下选择区域后输入 : ，Vim即可自动补全为 :'
+                    <, '> 。,br>
+					:'<, '>s/foo/bar/g
 				</p>
 			</div>
 
@@ -306,7 +256,6 @@
 				</p>
 
 				<P class="text-strong">复制字符到vim的命令行窗口的4种方法</P>
-				<p>
 					1.从vim中拷贝字符串到:命令行：<br>
 					先yank字符串<br>
 					然后在:命令行ctrl-r"<br><br>
@@ -323,18 +272,19 @@
 
 					拷贝字符串到:命令行，主要是用于执行替换操作（查找有#和*）
 				</p>
-				<div class="list list-number">
-					<div class="title">vim在系统剪切板的复制与粘贴</div>
-					<div class="content closed">
-						<a href="http://www.ppkanshu.com/index.php/post/2602.html">vim与系统剪切板之间的复制粘贴</a><br>
-						<a href="https://blog.csdn.net/zhangxiao93/article/details/53677764">vim在系统剪切板的复制与粘贴</a>
-					</div>
 
-					<div class="title">XXX</div>
-					<div class="content closed">
+				<P class="text-strong">将vim中的内容粘贴到剪切板</P>
+				<p>
+					1) 在visual模式下选中文字<br>
+					2) 执行: "+y<br>
+				</p>
 
-					</div>
-				</div>
+				<P class="text-strong">将剪切板内容粘贴到vim中</P>
+				<p>
+					在非插入模式下输入: "+p<br>
+				</p>
+
+				<a href="http://www.ppkanshu.com/index.php/post/2602.html">vim与系统剪切板之间的复制粘贴</a><br>
 			</div>
 
 			<div class="title">折叠</div>
@@ -592,14 +542,13 @@
 		<p>在vim的安装根目录下找到名为“_vimrc”的文件，在第"source $VIMRUNTIME/vimrc_example.vim"前面添加：</p>
 		<pre class="prettyprint linenums">
 <code>
-let $LANG = 'en'  "set message language
-set langmenu=en   "set menu's language of gvim. no spaces beside '='
-</code>
-		</pre>
+let $LANG = 'en '  "set message language
+set langmenu=en   "set menu's language of gvim. no spaces beside '=' </code>
+                        </pre>
 
-		<p class="text-strong">常用设置</p>
-		<p>在vim的安装根目录下找到名为“_vimrc”的文件，在文件最后添加如下常用设置:</p>
-		<pre class="prettyprint linenums">
+                        <p class="text-strong">常用设置</p>
+                        <p>在vim的安装根目录下找到名为“_vimrc”的文件，在文件最后添加如下常用设置:</p>
+                        <pre class="prettyprint linenums">
 <code>
 " 设置字符编码(解决显示中文乱码问题)
 set encoding=utf-8
@@ -634,29 +583,27 @@ set smartcase
 set nowrap
 </code>
 		</pre>
-	</div>
+            </div>
 
-	<div class="title">插件</div>
-	<div class="content closed">
-		<div class="list list-number">
-			<div class="title">如何安装插件?</div>
-			<div class="content closed">
-				<p>手动安装: 直接把插件拷贝到插件目录即可.</p>
-			</div>
+            <div class="title">插件</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">如何安装插件?</div>
+                    <div class="content closed">
+                        <p>手动安装: 直接把插件拷贝到插件目录即可.</p>
+                    </div>
 
-			<div class="title">xkbswitch</div>
-			<div class="content closed">
-				<p>可以解决normal模式&inset模式切换的输入法问题.</p>
-				<a href="https://www.vim.org/scripts/script.php?script_id=4503">下载网址</a>
-			</div>
-			<div class="title">Vundle</div>
-			<div class="content closed">
-				<p>
-					1) 安装: Git, cURL<br>
-					2) git clone https://github.com/gmarik/vundle "C:\Program Files\Vim\vimfiles\bundle\vundle"<br>
-					3) 配置
-				</p>
-				<pre class="prettyprint linenums">
+                    <div class="title">xkbswitch</div>
+                    <div class="content closed">
+                        <p>可以解决normal模式&inset模式切换的输入法问题.</p>
+                        <a href="https://www.vim.org/scripts/script.php?script_id=4503">下载网址</a>
+                    </div>
+                    <div class="title">Vundle</div>
+                    <div class="content closed">
+                        <p>
+                            1) 安装: Git, cURL<br> 2) git clone https://github.com/gmarik/vundle "C:\Program Files\Vim\vimfiles\bundle\vundle"<br> 3) 配置
+                        </p>
+                        <pre class="prettyprint linenums">
 <code>
 filetype off
 " 此处规定Vundle的路径
@@ -686,105 +633,95 @@ Bundle 'YankRing.vim'
 filetype plugin indent on " required! 
 </code>
 				</pre>
-				<p>4) 打开vim, 输入: :PluginInstall</p>
+                        <p>4) 打开vim, 输入: :PluginInstall</p>
 
-				<p><a href="https://github.com/VundleVim/Vundle.vim/wiki/Vundle-for-Windows">安装教程</a></p>
-			</div>
+                        <p><a href="https://github.com/VundleVim/Vundle.vim/wiki/Vundle-for-Windows">安装教程</a></p>
+                    </div>
 
-			<div class="title">mark</div>
-			<div class="content closed">
-				<p>
-					\m 高亮或反高亮一个单词<br>
-					\n 清除当前的单词高亮(光标处)若光标处无高亮的单词就清除所有的单词高亮显示<br>
-					\r 按照输入的正则表达式高亮单词<br><br>
+                    <div class="title">mark</div>
+                    <div class="content closed">
+                        <p>
+                            \m 高亮或反高亮一个单词<br> \n 清除当前的单词高亮(光标处)若光标处无高亮的单词就清除所有的单词高亮显示<br> \r 按照输入的正则表达式高亮单词<br><br> 搜索
 
-					搜索<br>
-					\* 跳转到当前高亮的下一个单词<br>
-					\# 跳转到当前高亮的上一个单词<br>
-					\/ 跳转到任一下一个高亮单词<br>
-					/? 跳转到任一上一高亮单词
-				</p>
-			</div>
+                            <br> \* 跳转到当前高亮的下一个单词<br> \# 跳转到当前高亮的上一个单词<br> \/ 跳转到任一下一个高亮单词<br> /? 跳转到任一上一高亮单词
+                        </p>
+                    </div>
 
-			<div class="title">TagList</div>
-			<div class="content closed">
-				<p>
-					打开: TlistOpen<br>
-					关闭: TlistClose<br>
-					默认打开, 在配置文件中添加:  let Tlist_Auto_Open=1
-				</p>
-			</div>
+                    <div class="title">TagList</div>
+                    <div class="content closed">
+                        <p>
+                            打开: TlistOpen<br> 关闭: TlistClose<br> 默认打开, 在配置文件中添加: let Tlist_Auto_Open=1
+                        </p>
+                    </div>
 
-			<div class="title">Solarized</div>
-			<div class="content closed">
-				<p>
-					在vim配置文件中添加:<br>
-					set background=dark<br>
-					colorscheme Solarized	
-				</p>
-			</div>
-		</div>
-	</div>
+                    <div class="title">Solarized</div>
+                    <div class="content closed">
+                        <p>
+                            在vim配置文件中添加:<br> set background=dark<br> colorscheme Solarized
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-	<div class="title">SpaceVim</div>
-    <div class="content closed">
-		<div class="list list-number">
-			<div class="title">安装</div>
-			<div class="content closed">
-				<p>为Vim和neoVim安装SpaceVim</p>
-				<pre class="prettyprint linenums">
+            <div class="title">SpaceVim</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">安装</div>
+                    <div class="content closed">
+                        <p>为Vim和neoVim安装SpaceVim</p>
+                        <pre class="prettyprint linenums">
 <code>
 curl -sLf https://spacevim.org/install.sh | bash
 </code>
 				</pre>
-				<p>为Vim或neoVim安装SpaceVim</p>
-				<pre class="prettyprint linenums">
+                        <p>为Vim或neoVim安装SpaceVim</p>
+                        <pre class="prettyprint linenums">
 <code>
 curl -sLf https://spacevim.org/install.sh | bash -s -- --install vim
 curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
 </code>
 				</pre>
-				<p>
-					Windows 下最快捷的安装方法是下载安装脚本: 
-					<a href="https://spacevim.org/install.cmd">英文版本</a> &
-					<a href="https://spacevim.org/cn/install.cmd">中文版本</a>
-				</p>
+                        <p>
+                            Windows 下最快捷的安装方法是下载安装脚本:
+                            <a href="https://spacevim.org/install.cmd">英文版本</a> &
+                            <a href="https://spacevim.org/cn/install.cmd">中文版本</a>
+                        </p>
 
-			</div>
+                    </div>
 
-			<div class="title">常见安装问题</div>
-			<div class="content closed">
-				<p class="text-strong">一直显示vimproc.vim building</p>
-				<P>
-					初次进入gvim，安装插件时，其他插件都是 installing done，但是 vimproc.vim 就显示 *vimproc.vim Building，一直都没有done。	
-				</P>
-				<p>
-					确认~\.cache\vimfiles\repos\github.com\Shougo\vimproc.vim\lib目录下是否有vimprox_win64.dll或者vimprox_win32.dll文件. 没有就把dll拷贝进去.
-				</p>
-			</div>	
+                    <div class="title">常见安装问题</div>
+                    <div class="content closed">
+                        <p class="text-strong">一直显示vimproc.vim building</p>
+                        <P>
+                            初次进入gvim，安装插件时，其他插件都是 installing done，但是 vimproc.vim 就显示 *vimproc.vim Building，一直都没有done。
+                        </P>
+                        <p>
+                            确认~\.cache\vimfiles\repos\github.com\Shougo\vimproc.vim\lib目录下是否有vimprox_win64.dll或者vimprox_win32.dll文件. 没有就把dll拷贝进去.
+                        </p>
+                    </div>
 
-			<div class="title">卸载</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
+                    <div class="title">卸载</div>
+                    <div class="content closed">
+                        <pre class="prettyprint linenums">
 <code>
 curl -sLf https://spacevim.org/install.sh | bash -s -- --uninstall
 </code>
 				</pre>
-			</div>
-		</div>
-    </div>
+                    </div>
+                </div>
+            </div>
 
-	<div class="title">NeoVim</div>
-    <div class="content closed">
-		<p>官网: neovim.io</p>
-    </div>
-</div>
+            <div class="title">NeoVim</div>
+            <div class="content closed">
+                <p>官网: neovim.io</p>
+            </div>
+        </div>
 
-<hr>
-<p>
-	参考资料: <br>
-	<a href="https://spacevim.org/quick-start-guide/">SpaceVim Quick Start Guide</a><br>
-	<a href="https://spacevim.org/documentation/">SpaceVim Documentation</a>
-</p>
+        <hr>
+        <p>
+            参考资料: <br>
+            <a href="https://spacevim.org/quick-start-guide/">SpaceVim Quick Start Guide</a><br>
+            <a href="https://spacevim.org/documentation/">SpaceVim Documentation</a>
+        </p>
 
-{include file="template/footer" /}
+        {include file="template/footer" /}
