@@ -16,7 +16,7 @@
                 <div class="col-1"><a href="{:url('software/cs/index', 'template=cs-data-string')}">字符串</a></div>
                 <div class="col-1"><a href="{:url('software/cs/index', 'template=cs-data-DateTime')}">日期时间</a></div>
                 <div class="col-2"><a href="{:url('software/cs/index', 'template=cs-data-Nullable')}">(可空类型)</a></div>
-            </div>	
+            </div>
 
             <div class="row">
                 <div class="col-1"><strong>数据结构</strong></div>
@@ -49,56 +49,54 @@
             <div class="row">
                 <div class="col-1"><strong>特殊类型</strong></div>
                 <div class="col-1"><a href="{:url('software/cs/index', 'template=cs-data-delegate')}">委托</a></div>
-                <div class="col-1"><a href="{:url('software/cs/index', 'template=cs-data-dynamic')}">dynamic</a></div>
             </div>
         </div>
 
-		<div class="list list-square pl-3">
-			<div class="title">值类型&引用类型</div>
-			<div class="content closed">
-				<p>
-					两种类型的变量都存储在堆栈中, 区别是: 值类型变量中存储的就是值本身, 而引用类型变量中存储的是地址, 这个地址指向堆中的对象! <br>
-					所以值类型赋值时, 拷贝的是值; 引用类型赋值时, 拷贝的是"地址".<br>                
-					<img src="__ROOT__/static/image/cs/值类型.png" width="445" height="196">       
-					<img src="__ROOT__/static/image/cs/引用类型.png" width="445" height="196">
-				</p>
+        <div class="list list-square pl-3">
+            <div class="title">值类型&引用类型</div>
+            <div class="content closed">
+                <p>
+                    两种类型的变量都存储在堆栈中, 区别是: 值类型变量中存储的就是值本身, 而引用类型变量中存储的是地址, 这个地址指向堆中的对象! <br> 所以值类型赋值时, 拷贝的是值; 引用类型赋值时, 拷贝的是"地址".<br>
+                    <img src="__ROOT__/static/image/cs/值类型.png" width="445" height="196">
+                    <img src="__ROOT__/static/image/cs/引用类型.png" width="445" height="196">
+                </p>
 
-				<p class="text-danger">
-					值类型只有6中: 包括bool, char, 整数, 浮点数 & 结构体. 剩下的都是引用类型.
-				</p>
-			</div>
+                <p class="text-danger">
+                    值类型只有6中: 包括bool, char, 整数, 浮点数 & 结构体. 剩下的都是引用类型.
+                </p>
+            </div>
 
-			<div class="title">装箱&拆箱</div>
-			<div class="content closed">
-				<p><strong>装箱: 把值类型赋给Object类型</strong></p>
-				<pre class="prettyprint linenums lang-cs"><code>Currency balance = new Currency(40, 0);  // Currency是结构体, 所以是值类型
+            <div class="title">装箱&拆箱</div>
+            <div class="content closed">
+                <p><strong>装箱: 把值类型赋给Object类型</strong></p>
+                <pre class="prettyprint linenums lang-cs"><code>Currency balance = new Currency(40, 0);  // Currency是结构体, 所以是值类型
 object baseCopy = balance;  // 装箱: 引用类型指向了值类型</code></pre>
-				<p>
-					在最初定义Currency结构体时, .NET自动提供了另一个"隐式"类, 即装箱Currency类, 它包含与Currency结构相同的所有字段, 但却是一个引用类型, 存储在堆上. 所有值类型都存在类似的装箱引用类型！
-				</p>
-				<p>
-					在隐式地把Currency转换为Object时, 会实例化一个新的装箱Currency实例, 并用Currency结构中的所有数据进行初始化, 在上例中, baseCopy对象引用的就是这个装箱Currency实例.
-				</p>
+                <p>
+                    在最初定义Currency结构体时, .NET自动提供了另一个"隐式"类, 即装箱Currency类, 它包含与Currency结构相同的所有字段, 但却是一个引用类型, 存储在堆上. 所有值类型都存在类似的装箱引用类型！
+                </p>
+                <p>
+                    在隐式地把Currency转换为Object时, 会实例化一个新的装箱Currency实例, 并用Currency结构中的所有数据进行初始化, 在上例中, baseCopy对象引用的就是这个装箱Currency实例.
+                </p>
 
 
-				<p><strong>拆箱: 装箱的反过程, 即把Object类型"赋给"值类型</strong></p>
-				<p>
-					拆箱是装箱的相反过程. 由于是一种显示转换, 转换时可能会抛异常!
-				</p>
-				<pre class="prettyprint linenums lang-php">
+                <p><strong>拆箱: 装箱的反过程, 即把Object类型"赋给"值类型</strong></p>
+                <p>
+                    拆箱是装箱的相反过程. 由于是一种显示转换, 转换时可能会抛异常!
+                </p>
+                <pre class="prettyprint linenums lang-php">
 <code>object derivedObject = new Currency(40, 0);
 object baseObject = new object();
 Currency derivedCopy1 = (Currency)derivedObject;    // 拆箱
 Currency derivedCopy2 = (Currency)baseObject;       // Exception thrown
 </code>
-				</pre>	
-			</div>
+				</pre>
+            </div>
 
-			<div class="title">托管&非托管类型</div>
-			<div class="content closed">
-				<p>详见资源释放专题!</p>
-			</div>
-		</div>
+            <div class="title">托管&非托管类型</div>
+            <div class="content closed">
+                <p>详见资源释放专题!</p>
+            </div>
+        </div>
     </div>
 
     <!--常量/变量-->
@@ -107,58 +105,58 @@ Currency derivedCopy2 = (Currency)baseObject;       // Exception thrown
         <div class="list list-number">
             <div class="title">常量</div>
             <div class="content open">
-				<pre class="prettyprint linenums lang-cs">
+                <pre class="prettyprint linenums lang-cs">
 <code>
 const / readonly double MAX_LINES = 100;
 </code>
 				</pre>
 
-				<table class="w-75">
-					<tbody>                        
-						<tr>
-							<th></th>
-							<th>const: 类常量</th>
-							<th>readonly: 对象常量</th>
-						</tr>
-						<tr>
-							<th>声明位置</th>
-							<td>类里面, 或者函数内</td>
-							<td>类里面</td>
-						</tr>
-						<tr>
-							<th>初始化</th>
-							<td>声明时</td>
-							<td>声明时 + 构造函数中 (声明时的顺序可能会对值造成影响, 可以把所有的ReadOnly声明看成一段代码)</td>                                
-						</tr>
-						<tr>
-							<th>类型限制</th>
-							<td>只能是值类型</td>
-							<td>任何类型</td>
-						</tr>
-						<tr>
-							<th>对于对象而言</th>
-							<td>对于类的所有对象而言, 常量的值都是一样的</td>
-							<td>对于类的不同对象而言, 常量的值可以是不一样的</td>
-						</tr>
-					</tbody>
-				</table>
-				<br>
-				<p>注意: const常量总是静态的, 但是不必在常量声明中包含修饰符static.</p>
+                <table class="w-75">
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>const: 类常量</th>
+                            <th>readonly: 对象常量</th>
+                        </tr>
+                        <tr>
+                            <th>声明位置</th>
+                            <td>类里面, 或者函数内</td>
+                            <td>类里面</td>
+                        </tr>
+                        <tr>
+                            <th>初始化</th>
+                            <td>声明时</td>
+                            <td>声明时 + 构造函数中 (声明时的顺序可能会对值造成影响, 可以把所有的ReadOnly声明看成一段代码)</td>
+                        </tr>
+                        <tr>
+                            <th>类型限制</th>
+                            <td>只能是值类型</td>
+                            <td>任何类型</td>
+                        </tr>
+                        <tr>
+                            <th>对于对象而言</th>
+                            <td>对于类的所有对象而言, 常量的值都是一样的</td>
+                            <td>对于类的不同对象而言, 常量的值可以是不一样的</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <p>注意: const常量总是静态的, 但是不必在常量声明中包含修饰符static.</p>
             </div>
 
             <div class="title">变量</div>
             <div class="content open">
-				<pre class="prettyprint linenums lang-cs">
+                <pre class="prettyprint linenums lang-cs">
 <code>int i = 0;
 var i = 0;  // 隐式类型, 变量的类型由后面的值决定 (Since .NET 3.0)
 Person p = new Person() { Name = "Jack" };  // 初始化器 = 构造对象 + 属性赋值 (since .NET 3.0)
 </code>
-				</pre> 
+				</pre>
             </div>
 
-			<div class="title">动态创建</div>
-			<div class="content open">
-				<pre class="prettyprint linenums">
+            <div class="title">动态创建</div>
+            <div class="content open">
+                <pre class="prettyprint linenums">
 <code>
 // Activator
 object obj = Activator.CreateInstance(Type.GetType("System.String,mscorlib"), new object[] { new char[] { '1', '2', '3' } });
@@ -166,7 +164,7 @@ object obj = Activator.CreateInstance(Type.GetType("System.String,mscorlib"), ne
 public object CreateInstance (string typeName);
 </code>
 				</pre>
-			</div>
+            </div>
         </div>
     </div>
 
@@ -174,21 +172,14 @@ public object CreateInstance (string typeName);
     <div class="title">作用域: 局部/全局</div>
     <div class="content closed">
         <p>
-            1) 局部变量/常量: 在函数中定义, 只能在当前{}中使用<br>
-            2) 全局变量/常量: 在函数外定义, 可以在当前类中使用. - 尽量少用全局变量!<br><br>
-
-            注意: 同名局部变量/常量会遮挡全局变量/常量的作用域!
+            1) 局部变量/常量: 在函数中定义, 只能在当前{}中使用<br> 2) 全局变量/常量: 在函数外定义, 可以在当前类中使用. - 尽量少用全局变量!<br><br> 注意: 同名局部变量/常量会遮挡全局变量/常量的作用域!
         </p>
     </div>
 
     <div class="title">访问权限控制</div>
     <div class="content closed">
-        <p>            
-            private: 	仅对当前类公开<br>
-            protected: 	对当前类及其派生类公开<br>
-            internal:   对当前程序集公开<br>
-            public:		对任何类都公开<br>
-            protected internal: protected或者internal<br>
+        <p>
+            private: 仅对当前类公开<br> protected: 对当前类及其派生类公开<br> internal: 对当前程序集公开<br> public: 对任何类都公开<br> protected internal: protected或者internal<br>
         </p>
     </div>
 
@@ -221,14 +212,14 @@ global::System.Collections.Generic.List&lt;int> list;        // global别名: gl
             <div class="title">外部别名</div>
             <div class="content open">
                 <p>
-                    http://www.cnblogs.com/Insein/p/6290439.html<br>
-                    https://stackoverflow.com/questions/2502640/the-extern-alias-xxx-was-not-specified-in-a-reference-option/<br>
-                </p>                
+                    http://www.cnblogs.com/Insein/p/6290439.html<br> https://stackoverflow.com/questions/2502640/the-extern-alias-xxx-was-not-specified-in-a-reference-option/
+                    <br>
+                </p>
             </div>
         </div>
     </div>
 
-	<br>
+    <br>
 
     <!--数据类型判断-->
     <div class="title">数据类型判断</div>
@@ -237,7 +228,7 @@ global::System.Collections.Generic.List&lt;int> list;        // global别名: gl
             <div class="row">
                 <div class="col-3">判断类型是否相等</div>
                 <div class="col-6">typof(T1) == typeof(T2)</div>
-            </div>	
+            </div>
             <div class="row">
                 <div class="col-3">判断某种类型是否是XXX类型的子类</div>
                 <div class="col-6">t.IsSubclassOf(XXX)</div>
@@ -256,7 +247,8 @@ global::System.Collections.Generic.List&lt;int> list;        // global别名: gl
             </div>
             <div class="row">
                 <div class="col-3">判断某种类型是否是某种泛型</div>
-                <div class="col-9">t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Dictionary<,>)</div>
+                <div class="col-9">t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Dictionary
+                    <,>)</div>
             </div>
         </div>
     </div>
@@ -314,20 +306,16 @@ global::System.Collections.Generic.List&lt;int> list;        // global别名: gl
                                 </tbody>
                             </table>
                             <p>
-                                注意: <br>
-                                ① 只能从较小的整数类型隐式地转换为较大的整数类型, 反过来则不能转换.<br>
-                                ② 无符号的数可以转换为有符号数, 只要无符号数的大小在有符号数的范围之内即可.
+                                注意: <br> ① 只能从较小的整数类型隐式地转换为较大的整数类型, 反过来则不能转换.<br> ② 无符号的数可以转换为有符号数, 只要无符号数的大小在有符号数的范围之内即可.
                             </p>
                         </div>
                         <div class="col-6">
                             <p><strong>可空类型</strong></p>
                             <p>
-                                1) 可空类型 ==> 其他可空类型, 应遵循上表中非可空类型的转换原则. <br>
-                                2) 非可空类型 ==> 可空类型, 也应遵循上表中的转换原则.<br>
-                                3) 可空类型 ==> 非可空类型是不可以的, 此时必须进行显示转换. 这是因为可空类型的值可以是null, 但非可空类型不能表示这个值.<
-                            </p>
+                                1) 可空类型 ==> 其他可空类型, 应遵循上表中非可空类型的转换原则. <br> 2) 非可空类型 ==> 可空类型, 也应遵循上表中的转换原则.<br> 3) 可空类型 ==> 非可空类型是不可以的, 此时必须进行显示转换. 这是因为可空类型的值可以是null, 但非可空类型不能表示这个值.
+                                < </p>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
 
@@ -353,13 +341,10 @@ int i = (int)val;   // i = -1294967296</code></pre>
     int i = (int)val;   // 抛出溢出异常
 }</code></pre>
                                     <p>
-                                        总之, 在进行(type)转换时有一些限制, 例如:<br>
-                                        1) 值类型, 只能在数字, char类型和enum类型之间转换; <br>
-                                        2) 不能直接把bool类型转换为其他类型, 也不能把其他类型转换为bool类型, 否则编译会出错.<br>
-                                        而且所有的(type)转化都可能不安全, 在 程序中应使用checked关键字, 处理可能失败的数据类型转换.
+                                        总之, 在进行(type)转换时有一些限制, 例如:<br> 1) 值类型, 只能在数字, char类型和enum类型之间转换; <br> 2) 不能直接把bool类型转换为其他类型, 也不能把其他类型转换为bool类型, 否则编译会出错.<br> 而且所有的(type)转化都可能不安全, 在 程序中应使用checked关键字, 处理可能失败的数据类型转换.
                                     </p>
 
-                                    <p>修改溢出检查的默认设置:  在C#中, 打开Project 属性, 单击Advanced按钮, 在打开的对话框中, 选中Check for arithmetic overflow/underflow选项...</p>
+                                    <p>修改溢出检查的默认设置: 在C#中, 打开Project 属性, 单击Advanced按钮, 在打开的对话框中, 选中Check for arithmetic overflow/underflow选项...</p>
 
                                     <p><strong>父类&子类之间的数据类型转换</strong></p>
                                     <p>编译器已经提供了基类和派生类之间的转换, 实际上, 这种转换并没有对对象进行任何数据转换, 只是改变一下引用“指向”而已!</p>
@@ -377,12 +362,9 @@ Dog d2 = (Dog)a2;   // 不能指向本类/子类对象， 抛出运行时异常<
                                 <div class="content open">
                                     <pre class="prettyprint linenums lang-php"><code>something as sometype</code></pre>
                                     <p>
-                                        把一种类型转换为指定的引用类型, 如果转换失败时, 表达式的值为null!<br><br>
+                                        把一种类型转换为指定的引用类型, 如果转换失败时, 表达式的值为null!<br><br> 这只适用于下列情况:
 
-                                        这只适用于下列情况:<br>
-                                        1) something的类型是sometype类型.<br>
-                                        2) something可以隐式转换为sometype类型.<br>
-                                        3) something可以封箱到类型sometype中.
+                                        <br> 1) something的类型是sometype类型.<br> 2) something可以隐式转换为sometype类型.<br> 3) something可以封箱到类型sometype中.
                                     </p>
                                 </div>
 
@@ -411,18 +393,18 @@ try {
 }</code></pre>
                                 </div>
 
-								<div class="title">byte[]互转</div>
-								<div class="content open">
-									<pre class="prettyprint linenums lang-php">
+                                <div class="title">byte[]互转</div>
+                                <div class="content open">
+                                    <pre class="prettyprint linenums lang-php">
 <code>
 var bytes = BitConverter.ToUInt32(BitConverter.GetBytes(0x1234), 0);	
 // 小端字节(低位在前): bytes[0] = 0x34, bytes[1] = 0x12, bytes[2] = 0, bytes[3] = 0
 </code>
 									</pre>
-								</div>
+                                </div>
                             </div>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
 
@@ -443,21 +425,18 @@ var bytes = BitConverter.ToUInt32(BitConverter.GetBytes(0x1234), 0);
                     比较两个对象的引用(内存地址)是否相等. 关于null: null和null比较， 则返回true; 只有一个为null时, 返回false.
                 </p>
                 <p>
-                    虚拟方法(可以重写): object.Equals(obj)<br>
-                    静态方法(不能重写): Object.ReferenceEquals(objA, objB); Object.Equals(objA, objB)<br>                    
+                    虚拟方法(可以重写): object.Equals(obj)<br> 静态方法(不能重写): Object.ReferenceEquals(objA, objB); Object.Equals(objA, objB)<br>
                 </p>
 
                 <p>
-                    System.ValueType类中已经重载了Equals()方法, 以便对值类型进进行合适的相等测试.<br>
-                    引用比较应用于值类型时, 总是返回false, 因为为了调用这个方法, 值类型需要装箱到对象中, 这意味着会得到不同的引用.
+                    System.ValueType类中已经重载了Equals()方法, 以便对值类型进进行合适的相等测试.<br> 引用比较应用于值类型时, 总是返回false, 因为为了调用这个方法, 值类型需要装箱到对象中, 这意味着会得到不同的引用.
                 </p>
             </div>
 
             <div class="title">a == b</div>
             <div class="content open">
                 <p>
-                    对于值类型和string类型，如果操作数的值相等，则返回true，否则返回false.<br>
-                    对于引用类型(string除外)，如果两个操作数引用同一个对象，则返回 true.
+                    对于值类型和string类型，如果操作数的值相等，则返回true，否则返回false.<br> 对于引用类型(string除外)，如果两个操作数引用同一个对象，则返回 true.
                 </p>
             </div>
         </div>
