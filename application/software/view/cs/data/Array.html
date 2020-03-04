@@ -3,10 +3,10 @@
 <div class="list list-number">
     <div class="title">普通数组</div>
     <div class="content open">
-		<div class="list list-number">
-			<div class="title">定义</div>
-			<div class="content open">
-				<pre class="prettyprint linenums">
+        <div class="list list-number">
+            <div class="title">定义</div>
+            <div class="content open">
+                <pre class="prettyprint linenums">
 <code>
 int[] myIntArray;	// 定义一个整型数组变量, 还未指向具体的整型数组 
 myIntArray = new int[5];	// 指向一个整型数组, 维数为5.
@@ -18,102 +18,91 @@ int[] myIntArray = new int[5] {1,2,3,4,5};	// 定义 + 初始化: 指定了所�
 Array arr = Array.CreateInstance(elementType, count);	// 动态创建
 </code>
 				</pre>
-			</div>
+            </div>
 
-			<div class="title">操作</div>
-			<div class="content open">
-				<div class="list list-number">
-					<div class="title">访问数组元素</div>
-					<div class="content open">
-						<p>array[i]</p>
-					</div>
+            <div class="title">操作</div>
+            <div class="content open">
+                <div class="list list-number">
+                    <div class="title">访问数组元素</div>
+                    <div class="content open">
+                        <p>array[i]</p>
+                    </div>
 
-					<div class="title">获取数组长度</div>
-					<div class="content open">
-						<p>array.Length</p>
-					</div>
+                    <div class="title">获取数组长度</div>
+                    <div class="content open">
+                        <p>array.Length</p>
+                    </div>
 
-					<div class="title">颠倒</div>
-					<div class="content open">
-						<p>Array.Reverse(array)</p>
-					</div>
+                    <div class="title">颠倒</div>
+                    <div class="content open">
+                        <p>Array.Reverse(array)</p>
+                    </div>
 
-					<div class="title">运行时</div>
-					<div class="content open">
-						<pre class="prettyprint linenums">
+                    <div class="title">比较数组</div>
+                    <div class="content">
+                        <pre class="prettyprint">
+var arr1 = new byte[] { 1, 2, 3 };
+var arr2 = new byte[] { 1, 2, 3 };
+Console.WriteLine(Enumerable.SequenceEqual(arr1, arr2));
+						</pre>
+                    </div>
+
+                    <div class="title">运行时</div>
+                    <div class="content open">
+                        <pre class="prettyprint linenums">
 <code>
 Array values = Array.CreateInstance(typeof(string), 3);
 values.GetValue(0);
 values.SetValue("new value", 0);
 </code>
 						</pre>
-					</div>
-				</div>
-			</div>
-		</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="title">矩形数组(多维数组)</div>
     <div class="content closed">
-		<div class="list list-number">
-			<div class="title">定义</div>
-			<div class="content open">
-				<pre class="prettyprint linenums">
+        <div class="list list-number">
+            <div class="title">定义</div>
+            <div class="content open">
+                <pre class="prettyprint linenums">
 <code>
 double[,] hillHeight = new double[3,4];
 double[,] hillHeight = { {1,2,3,4}, {2,3,4,5}, {3,4,5,6} };
 </code>
 				</pre>
-			</div>
+            </div>
 
-			<div class="title">操作</div>
-			<div class="content open">
-				<p class="text-strong">访问元素</p>
-				<pre class="prettyprint linenums">
+            <div class="title">操作</div>
+            <div class="content open">
+                <p class="text-strong">访问元素</p>
+                <pre class="prettyprint linenums">
 <code>
 hillHeight[2,1]
 </code>
 				</pre>
-			</div>
-		</div>
+            </div>
+        </div>
     </div>
 
-	<div class="title">锯齿数组(数组的数组)</div>
+    <div class="title">锯齿数组(数组的数组)</div>
     <div class="content closed">
-		<div class="list list-number">
-			<div class="title">定义</div>
-			<div class="content open">
-				<p>多维数组可称为矩形数组, 这是因为每一行的元素个数都相同. 而数组的数组, 也可以使用变长数组, 其中每行可以有不同的元素个数. 为此, 需要有这样一个数组, 其中的每个元素都是另一个数组. 也可以有数组的数组的数组, 甚至更复杂的数组. 但是注意这些数组都必须有相同的基本类型.</p>
+        <div class="list list-number">
+            <div class="title">定义</div>
+            <div class="content open">
+                <p>多维数组可称为矩形数组, 这是因为每一行的元素个数都相同. 而数组的数组, 也可以使用变长数组, 其中每行可以有不同的元素个数. 为此, 需要有这样一个数组, 其中的每个元素都是另一个数组. 也可以有数组的数组的数组, 甚至更复杂的数组. 但是注意这些数组都必须有相同的基本类型.</p>
 
-				<p class="text-strong">先定义</p>
-				<pre class="prettyprint linenums">
+                <p class="text-strong">先定义</p>
+                <pre class="prettyprint linenums">
 <code>
 int[][] jaggedIntArray;    // 数组中的每个元素也是数组
 </code>
-				</pre>	
+				</pre>
 
-				<p class="text-strong">然后初始化</p>
-				<pre class="prettyprint linenums">
-<code>
-jaggedIntArray = new int[2][];
-jaggedIntArray[0] = new int[3];
-jaggedIntArray[1] = new int[4];
-
-jaggedIntArray = new int[2][] = { new int[] {1,2,3}, new int[] {1,2,3,4} };
-</code>
-				</pre>	
-
-				<p class="text-strong">定义+初始化</p>
-				<pre class="prettyprint linenums">
-<code>
-int[][] jaggedIntArray = { new int[] {1,2,3}, new int[] {1,2,3,4} };
-</code>
-				</pre>	
-			</div>
-
-			<div class="title">操作</div>
-			<div class="content open">
-				<pre class="prettyprint linenums">
+                <p class="text-strong">然后初始化</p>
+                <pre class="prettyprint linenums">
 <code>
 jaggedIntArray = new int[2][];
 jaggedIntArray[0] = new int[3];
@@ -122,13 +111,33 @@ jaggedIntArray[1] = new int[4];
 jaggedIntArray = new int[2][] = { new int[] {1,2,3}, new int[] {1,2,3,4} };
 </code>
 				</pre>
-			</div>
-		</div>
+
+                <p class="text-strong">定义+初始化</p>
+                <pre class="prettyprint linenums">
+<code>
+int[][] jaggedIntArray = { new int[] {1,2,3}, new int[] {1,2,3,4} };
+</code>
+				</pre>
+            </div>
+
+            <div class="title">操作</div>
+            <div class="content open">
+                <pre class="prettyprint linenums">
+<code>
+jaggedIntArray = new int[2][];
+jaggedIntArray[0] = new int[3];
+jaggedIntArray[1] = new int[4];
+
+jaggedIntArray = new int[2][] = { new int[] {1,2,3}, new int[] {1,2,3,4} };
+</code>
+				</pre>
+            </div>
+        </div>
     </div>
 
     <div class="title">父类数组 & 子类数组</div>
     <div class="content closed">
-		<pre class="prettyprint linenums">
+        <pre class="prettyprint linenums">
 <code>
 Animal[] animals;
 Dog[] dogs = ...;
