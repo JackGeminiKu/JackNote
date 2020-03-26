@@ -52,27 +52,6 @@
 		</p>
     </div>
 
-	<div class="title">部署tpAdmin</div>
-    <div class="content closed">
-		<p class="text-strong">新建数据库</p>
-		<p>新建数据库 tpadmin，导入项目根目录的 tpadmin.sql 文件，默认管理员帐号：admin，默认管理员密码：123456</p>
-
-		<p class="text-strong">设置虚拟域名</p>
-		<p>
-			如果是配置了虚拟域名并且虚拟域名指向了项目根目录的 public 文件夹，那么访问 http://your-tpadmin-root-domain/admin;<br>
-			如果配置了虚拟域名但是虚拟域名指向的是项目根目录，那么访问 http://your-tpadmin-root-domain/public/admin.<br>
-			如果没有配置虚拟域名，那么访问 http://localhost/tpadmin/public/admin; (Apache推荐这种)
-		</p>
-
-		<p class="text-strong">ajax请求问题</p>
-		<p>
-			tpadmin 使用了大量的 ajax 请求，本人实测过程中经常遇到 php.ini 文件报警告，导致返回的 json 数据出错，警告如下：<br>
-			>[warning] Deprecated: Automatically populating $HTTP_RAW_POST_DATA is deprecated and will be removed in a future version. To avoid this warning set ‘always_populate_raw_post_data’ to ‘-1’ in php.ini and use the php://input stream instead. in Unknown on line 0<br>
-			请修改 php.ini 文件里的 always_populate_raw_post_data ，将其值设为 -1 ，一般存在该配置项，直接删掉前面注释
-		</p>
-
-    </div>
-
     <div class="title">弹出提示框</div>
     <div class="content closed">
 		<p>使用<a href="https://www.kancloud.cn/yuan1994/tpadmin/225019">ajax_return...</a></p>
