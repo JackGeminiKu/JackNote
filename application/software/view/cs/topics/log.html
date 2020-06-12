@@ -3,66 +3,47 @@
 <div class="list list-number">
     <div class="title">Log4net</div>
     <div class="content open">
-		<div class="list list-number">
-			<div class="title">日记级别</div>
-			<div class="content closed">
-				<p>
-					日志的等级，由高到底分别为：OFF > FATAL > ERROR > WARN > INFO > DEBUG > ALL. <br>
-					高于等级设定值的方法都能写入日志， OFF的话所有的写入方法都不写到日志里，ALL则相反. <br>
-					例如当我们设成Info时，Debug()方法就会被忽略而不写入文件，但是FATAL, ERROR, WARN, INFO会被写入，因为他们等级高于INFO. 
-				</p>
+        <div class="list list-number">
+            <div class="title">日记级别</div>
+            <div class="content closed">
+                <p>
+                    日志的等级，由高到底分别为：OFF > FATAL > ERROR > WARN > INFO > DEBUG > ALL. <br> 高于等级设定值的方法都能写入日志， OFF的话所有的写入方法都不写到日志里，ALL则相反. <br> 例如当我们设成Info时，Debug()方法就会被忽略而不写入文件，但是FATAL, ERROR, WARN, INFO会被写入，因为他们等级高于INFO.
+                </p>
 
-				<p>1. Debug ( 给程序员看的 )</p>
-				<p>
-					Debug信息是给程序员看的, 在系统实际运行过程中，一般都是不输出的. <br>
-					因此这个级别的信息，可以随意的使用，任何觉得有利于在调试时更详细的了解系统运行状态的东东，比如变量的值等等，都输出来看看也无妨.  
-					当然，在每一个 Debug 调用之前，一定要加上 If 判断. 
-				</p>
+                <p>1. Debug ( 给程序员看的 )</p>
+                <p>
+                    Debug信息是给程序员看的, 在系统实际运行过程中，一般都是不输出的. <br> 因此这个级别的信息，可以随意的使用，任何觉得有利于在调试时更详细的了解系统运行状态的东东，比如变量的值等等，都输出来看看也无妨. 当然，在每一个 Debug 调用之前，一定要加上 If 判断.
+                </p>
 
-				<p>2. Info ( 给用户看的 )</p>
-				<p>
-					Info信息用来反馈系统的当前状态给最终用户的，所以，在这里输出的信息，最终用户要能够看得明白是什么意思才行. <br>
-					从某种角度上说，Info信息可以看作是软件产品的一部分（就像那些交互界面上的文字一样），所以需要谨慎对待，不可随便. 
-				</p>
+                <p>2. Info ( 给用户看的 )</p>
+                <p>
+                    Info信息用来反馈系统的当前状态给最终用户的，所以，在这里输出的信息，最终用户要能够看得明白是什么意思才行. <br> 从某种角度上说，Info信息可以看作是软件产品的一部分（就像那些交互界面上的文字一样），所以需要谨慎对待，不可随便.
+                </p>
 
-				<p>3. Warn、Error、Fatal ( 检测到了异常的状态 )</p>
-				<p>
-					所谓Warn，是指系统发生了异常, 但是这个异常确定是可以修复的! <br>
-					所谓Error，是指系统发生了异常, 这个异常可以尝试着修复一下, 但不确定是否能修复成功!<br>
-					所谓Fatal，是指系统发生了异常, 而且这个异常无法被修复!. 这时候采取的最好的措施不是试图将系统状态恢复到正常，而是尽可能地保留系统有效数据并停止运行. <br><br>
+                <p>3. Warn、Error、Fatal ( 检测到了异常的状态 )</p>
+                <p>
+                    所谓Warn，是指系统发生了异常, 但是这个异常确定是可以修复的! <br> 所谓Error，是指系统发生了异常, 这个异常可以尝试着修复一下, 但不确定是否能修复成功!<br> 所谓Fatal，是指系统发生了异常, 而且这个异常无法被修复!. 这时候采取的最好的措施不是试图将系统状态恢复到正常，而是尽可能地保留系统有效数据并停止运行. <br><br> 简单来说: 系统发生了异常之后, 如果对以后基本没什么影响，则警告之，如果肯定是以后要出严重问题的了，则Fatal之，拿不准会怎么样，则
+                    Error 之.<br>
+                </p>
+            </div>
 
-					简单来说: 系统发生了异常之后, 如果对以后基本没什么影响，则警告之，如果肯定是以后要出严重问题的了，则Fatal之，拿不准会怎么样，则 Error 之.<br>
-				</p>
-			</div>
+            <div class="title">各种Appender</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <p>
+                        AdoNetAppender: 将日志输出到各种数据库. <br> FileAppender & RollingFileAppender: 将日志信息输出到指定的日志文件, 后者会根据设置生成多个文件. <br> ConsoleAppender, ColoredConsoleAppender & ManagedColoredConsoleAppender: 将日志输出到控制台, 后者可以为不同级别的日志指定不同的颜色. <br> SmtpAppender
+                        & SmtpPickupDirAppender: 将日志输出到邮件中. <br>
+                        <br> TraceAppender & AspNetTraceAppender: 将日志输出到.NET Trace系统, 后者输出到ASP.NET的Trace系统中. <br> EventLogAppender: 将日志写入到本地机器的应用程序事件日志中. <br> MemoryAppender: 将日志输出到内存缓冲区. <br> NetSendAppender: 将日志输出到指定电脑的屏幕. <br> OutputDebugStringAppender:
+                        将日志输出到Debuger，如果程序没有Debuger，就输出到系统Debuger. 如果系统Debuger也不可用，将忽略消息. <br> UdpAppender 将日志以无连接UDP数据报的形式送到远程宿主或用UdpClient的形式广播. <br> RemotingAppender: 通过.NET Remoting将日志写到远程接收端. <br>
+                        <br> ForwardingAppender: 可以用来为一个Appender指定一组约束. <br> BufferingForwardingAppender: 将输出到指定Appender的日志信息先缓存, 超过规定数量时才输出!
+                    </p>
 
-			<div class="title">各种Appender</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<p>
-						AdoNetAppender: 将日志输出到各种数据库. <br>
-						FileAppender & RollingFileAppender: 将日志信息输出到指定的日志文件, 后者会根据设置生成多个文件. <br>
-						ConsoleAppender, ColoredConsoleAppender & ManagedColoredConsoleAppender: 将日志输出到控制台, 后者可以为不同级别的日志指定不同的颜色. <br>
-						SmtpAppender & SmtpPickupDirAppender: 将日志输出到邮件中. <br>
-						<br>
-						TraceAppender & AspNetTraceAppender: 将日志输出到.NET Trace系统, 后者输出到ASP.NET的Trace系统中. <br>	
-						EventLogAppender: 将日志写入到本地机器的应用程序事件日志中. <br>
-						MemoryAppender: 将日志输出到内存缓冲区. <br> 
-						NetSendAppender: 将日志输出到指定电脑的屏幕. <br>
-						OutputDebugStringAppender: 将日志输出到Debuger，如果程序没有Debuger，就输出到系统Debuger. 如果系统Debuger也不可用，将忽略消息. <br>
-						UdpAppender 将日志以无连接UDP数据报的形式送到远程宿主或用UdpClient的形式广播. <br>
-						RemotingAppender: 通过.NET Remoting将日志写到远程接收端. <br>
-						<br>
+                </div>
+            </div>
 
-						ForwardingAppender: 可以用来为一个Appender指定一组约束. <br>
-						BufferingForwardingAppender: 将输出到指定Appender的日志信息先缓存, 超过规定数量时才输出!
-					</p>
-
-				</div>
-			</div>
-
-			<div class="title">配置文件范本</div>
-			<div class="content closed">
-				<pre class="prettyprint linenums">
+            <div class="title">配置文件范本</div>
+            <div class="content closed">
+                <pre class="prettyprint linenums">
 <code>
 &lt;?xml version="1.0" encoding="utf-8" ?>
 &lt;configuration>
@@ -159,41 +140,45 @@
 &lt;/configuration>
 </code>
 				</pre>
-			</div>
+            </div>
 
 
-			<div class="title">启用Debug信息</div>
-			<div class="content closed">
-				<p>log4net可以输出internal debug信息，只要在配置文件里加上（configuration根节点下, log4net相关节点末尾）</p>
-				<pre class="prettyprint linenums">
+            <div class="title">使用自定义属性</div>
+            <div class="content closed">
+                <a href="https://stackoverflow.com/questions/28500667/using-the-assembly-version-in-log4net-fileappender-file-name?r=SearchResults">点我</a>
+            </div>
+
+            <div class="title">启用Debug信息</div>
+            <div class="content closed">
+                <p>log4net可以输出internal debug信息，只要在配置文件里加上（configuration根节点下, log4net相关节点末尾）</p>
+                <pre class="prettyprint linenums">
 <code>
 &lt;appSettings> 
     &lt;add key="log4net.Internal.Debug" value="true "/> 
 &lt;/appSettings>
 </code>
 				</pre>
-			</div>
+            </div>
 
-			<div class="title">乱码问题</div>
-			<div class="content closed">
-				<a href="https://www.cnblogs.com/jys509/p/4702275.html">解决方法</a>
-			</div>
+            <div class="title">乱码问题</div>
+            <div class="content closed">
+                <a href="https://www.cnblogs.com/jys509/p/4702275.html">解决方法</a>
+            </div>
 
-			<div class="title">自动监测配置文件</div>
-			<div class="content closed">
-				<p>XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));</p>
-				<p>
-					The file to read the configuration from can be specified using any of the log4net.Config.XmlConfigurator methods that accept a System.IO.FileInfo object. 
-					Because the file system can be monitored for file change notifications 
-					the ConfigureAndWatch methods can be used to monitor the configuration file for modifications and automatically reconfigure log4net.
-				</p>
-			</div>
+            <div class="title">自动监测配置文件</div>
+            <div class="content closed">
+                <p>XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));</p>
+                <p>
+                    The file to read the configuration from can be specified using any of the log4net.Config.XmlConfigurator methods that accept a System.IO.FileInfo object. Because the file system can be monitored for file change notifications the ConfigureAndWatch methods
+                    can be used to monitor the configuration file for modifications and automatically reconfigure log4net.
+                </p>
+            </div>
 
-			<div class="title">生成对象</div>
-			<div class="content closed">
-				<p>XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));</p>
-			</div>
-		</div>
+            <div class="title">生成对象</div>
+            <div class="content closed">
+                <p>XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));</p>
+            </div>
+        </div>
 
     </div>
 
@@ -201,14 +186,14 @@
     <div class="content closed">
 
     </div>
-	
-	<p>
-		参考资料: 
-		<a href="http://logging.apache.org/log4net/release/config-examples.html">官方Config Examples</a>, 
-		<a href="https://www.cnblogs.com/lzrabbit/archive/2012/03/23/2413180.html">非常完善的Log4net详细说明</a>, 
-		<a href="https://www.cnblogs.com/anderslly/archive/2007/03/09/log4netconfigsamples.html">log4net的各种Appender配置示例</a>
 
-	</p>
+    <p>
+        参考资料:
+        <a href="http://logging.apache.org/log4net/release/config-examples.html">官方Config Examples</a>,
+        <a href="https://www.cnblogs.com/lzrabbit/archive/2012/03/23/2413180.html">非常完善的Log4net详细说明</a>,
+        <a href="https://www.cnblogs.com/anderslly/archive/2007/03/09/log4netconfigsamples.html">log4net的各种Appender配置示例</a>
+
+    </p>
 </div>
 
 {include file="template/footer" /}
