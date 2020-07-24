@@ -1,52 +1,51 @@
 {include file="template/header" title="C# 类" /}
 
 <div class="list list-number">
-	<!--各种类-->
-	<div class="title">各种类</div>
-	<div class="content open">
-		<div class="list list-number">
+    <!--各种类-->
+    <div class="title">各种类</div>
+    <div class="content open">
+        <div class="list list-number">
 
-			<!--普通类-->
-			<div class="title">普通类</div>
-			<div class="content open">
-				<p>
-					[ internal | public ] class 类名 : 基类, 接口1, 接口2... <br>
-					{
-				</p>
-				<div class="pl-4">
-					<div class="list list-square">
-						<!--数据-->
-						<div class="title">数据</div>
-						<div class="content open">
-							<div class="list list-square">
-								<!--常量-->
-								<div class="title">常量</div>
-								<div class="content closed">
-									<pre class="prettyprint linenums lang-cs">
+            <!--普通类-->
+            <div class="title">普通类</div>
+            <div class="content open">
+                <p>
+                    [ internal | public ] class 类名 : 基类, 接口1, 接口2... <br> {
+                </p>
+                <div class="pl-4">
+                    <div class="list list-square">
+                        <!--数据-->
+                        <div class="title">数据</div>
+                        <div class="content open">
+                            <div class="list list-square">
+                                <!--常量-->
+                                <div class="title">常量</div>
+                                <div class="content closed">
+                                    <pre class="prettyprint linenums lang-cs">
 <code>
 const double PI = 3.14;    // const型: 只能由初始化语句赋值, 在静态&非静态的类成员中均可使用.
 readonly double PI = 3.14;    // readonly型: 可以由初始化语句赋值, 也可以在构造函数中赋值. 加上static后不能混用.
 </code>
 									</pre>
 
-								</div>
+                                </div>
 
-								<!--字段-->
-								<div class="title">字段</div>
-								<div class="content closed">
-									<pre class="prettyprint linenums">
+                                <!--字段-->
+                                <div class="title">字段</div>
+                                <div class="content closed">
+                                    <pre class="prettyprint linenums">
 <code>
 double Weight [= 60];	// 字段是与类相关的变量. 可以初始化
 </code>
 									</pre>
-									<p>注意: 客户端使用属性和字段的语法是相同的, 但是一般情况下, 最好提供属性. 因为这样可以更好的控制整个过程(比如判断赋的值是否非法), 这个不会影响使用对象实例的代码.</p>
-								</div>
+                                    <p>注意: 客户端使用属性和字段的语法是相同的, 但是一般情况下, 最好提供属性. 因为这样可以更好的控制整个过程(比如判断赋的值是否非法), 这个不会影响使用对象实例的代码.</p>
+                                </div>
 
-								<!--属性-->
-								<div class="title">属性</div>
-								<div class="content closed">
-									<p>属性是一个方法或方法对, 在客户端看来, 它们是一个字段, 但是属性同字段相比, 可以做更多的控制, 所以属性要优于字段.</p>
-									<pre class="prettyprint linenums">
+                                <!--属性-->
+                                <div class="title">属性</div>
+                                <div class="content closed">
+                                    <p>属性是一个方法或方法对, 在客户端看来, 它们是一个字段, 但是属性同字段相比, 可以做更多的控制, 所以属性要优于字段.</p>
+                                    <pre class="prettyprint linenums">
 <code>
 string foreName;
 
@@ -64,27 +63,27 @@ string ForeName
 }
 </code>
 									</pre>
-									<p class="text-danger"> 注意: 1) 可以定义只读或只写属性. 2) C#不支持属性带参数.</p>
+                                    <p class="text-danger"> 注意: 1) 可以定义只读或只写属性. 2) C#不支持属性带参数.</p>
 
-									<p class="text-strong">自动属性（Since .NET 3.5)</p>
-									<pre class="prettyprint linenums">
+                                    <p class="text-strong">自动属性（Since .NET 3.5)</p>
+                                    <pre class="prettyprint linenums">
 <code>
 string PetName { get; set; }  //right
 string PetName { get; }  //wrong，必须get set同时，才可为自动的属性；
 </code>
 									</pre>
-								</div>
-							</div>
-						</div>
+                                </div>
+                            </div>
+                        </div>
 
-						<!--操作-->
-						<div class="title">操作</div>
-						<div class="content open">
-							<div class="list list-square">
-								<!--构造函数-->
-								<div class="title">构造函数(不能继承)</div>
-								<div class="content closed">
-									<pre class="prettyprint linenums">
+                        <!--操作-->
+                        <div class="title">操作</div>
+                        <div class="content open">
+                            <div class="list list-square">
+                                <!--构造函数-->
+                                <div class="title">构造函数(不能继承)</div>
+                                <div class="content closed">
+                                    <pre class="prettyprint linenums">
 <code>
 访问级别 Program ( 形参 )     
 {                         
@@ -94,27 +93,25 @@ string PetName { get; }  //wrong，必须get set同时，才可为自动的属�
 </code>
 									</pre>
 
-									<p class="text-strong">默认构造函数</p>
-									<p>
-										如果没有提供任何构造函数, 编译器会自动创建一个默认的构造函数(没有形参的构造函数). <br>
-										这是一个非常基本的构造函数, 它只能把所有的成员字段初始化为标准的默认值(例如, 引用类型为null, 数字数据类型为0, bool为false). 这个默认构造函数是public的.
-									</p>
+                                    <p class="text-strong">默认构造函数</p>
+                                    <p>
+                                        如果没有提供任何构造函数, 编译器会自动创建一个默认的构造函数(没有形参的构造函数). <br> 这是一个非常基本的构造函数, 它只能把所有的成员字段初始化为标准的默认值(例如, 引用类型为null, 数字数据类型为0, bool为false). 这个默认构造函数是public的.
+                                    </p>
 
-									<p class="text-strong">构造函数调用顺序</p>
-									<p>调用构造函数之前: 先给字段初始化(如果字段有初始化), 然后调用父类的构造函数.</p>
+                                    <p class="text-strong">构造函数调用顺序</p>
+                                    <p>调用构造函数之前: 先给字段初始化(如果字段有初始化), 然后调用父类的构造函数.</p>
 
-									<p>
-										1) 如果使用base关键字指定了父类的构造函数, 就调用这个构造函数; 否则, 调用父类的默认构造函数! <br>
-										2) 也可以用this关键字指定调用本类的其他构造函数!
-									</p>
+                                    <p>
+                                        1) 如果使用base关键字指定了父类的构造函数, 就调用这个构造函数; 否则, 调用父类的默认构造函数! <br> 2) 也可以用this关键字指定调用本类的其他构造函数!
+                                    </p>
 
-									<p class="text-danger">注意: 父类还有自己的父类哦.</p>
-								</div>
+                                    <p class="text-danger">注意: 父类还有自己的父类哦.</p>
+                                </div>
 
-								<!--析构函数-->
-								<div class="title">析构函数(不能继承)</div>
-								<div class="content closed">
-									<pre class="prettyprint linenums">
+                                <!--析构函数-->
+                                <div class="title">析构函数(不能继承)</div>
+                                <div class="content closed">
+                                    <pre class="prettyprint linenums">
 <code>
 ~类名()
 {
@@ -122,26 +119,25 @@ string PetName { get; }  //wrong，必须get set同时，才可为自动的属�
 }
 </code>
 									</pre>
-									<p class="text-strong">默认析构函数 vs 自定义析构函数</p>
-									<p>
-										析构函数只有一个. 一般情况下, 不需要提供析构函数, 而是由默认的析构函数执行操作. <br>
-										但是, 如果在删除对象实例前, 需要完成一些重要的操作, 就应提供特定的析构函数.
-									</p>
+                                    <p class="text-strong">默认析构函数 vs 自定义析构函数</p>
+                                    <p>
+                                        析构函数只有一个. 一般情况下, 不需要提供析构函数, 而是由默认的析构函数执行操作. <br> 但是, 如果在删除对象实例前, 需要完成一些重要的操作, 就应提供特定的析构函数.
+                                    </p>
 
-									<p class="text-strong">析构函数调用时间</p>
-									<p>我们无法控制何时调用析构函数, 因为什么时候调用是由GC决定的, 所以我们不应该依赖析构函数来释放对象实例所使用的资源.</p>
+                                    <p class="text-strong">析构函数调用时间</p>
+                                    <p>我们无法控制何时调用析构函数, 因为什么时候调用是由GC决定的, 所以我们不应该依赖析构函数来释放对象实例所使用的资源.</p>
 
-									<p class="text-strong">析构函数调用顺序</p>
-									<p>析构函数调用顺序同构造函数调用顺序相反, 即先调用子类的析构函数, 再调用父类的析构函数.</p>
-								</div>
+                                    <p class="text-strong">析构函数调用顺序</p>
+                                    <p>析构函数调用顺序同构造函数调用顺序相反, 即先调用子类的析构函数, 再调用父类的析构函数.</p>
+                                </div>
 
-								<!--方法-->
-								<div class="title">方法</div>
-								<div class="content closed">
-									<div class="list list-number">
-										<div class="title">定义</div>
-										<div class="content closed">
-											<pre class="prettyprint linenums">
+                                <!--方法-->
+                                <div class="title">方法</div>
+                                <div class="content closed">
+                                    <div class="list list-number">
+                                        <div class="title">定义</div>
+                                        <div class="content closed">
+                                            <pre class="prettyprint linenums">
 <code>
 return_type MethodName([parameters])
 {
@@ -150,76 +146,71 @@ return_type MethodName([parameters])
 </code>
 											</pre>
 
-											<div class="list list-square">
-												<div class="title">参数传值方式</div>
-												<div class="content open">
-													<div class="container-fluid">
-														<div class="row">
-															<div class="col-4">
-																<p class="text-strong">默认传参方式: 传值 </p>
-																<p>
-																	在C#中, 函数参数默认是传值的: <br>
-																	1) 值 类 型: 拷贝的是变量的值, 所以实和形参是两个变量! <br>
-																	2) 引用类型: 拷贝的是变量的地址, 所以实参和形参指向同一个对象!. </p>
-																<p>注意: 默认方式下, 对于引用类型, 在函数内重新赋值, 将使形参指向新的对象. </p>
-															</div>
-															<div class="col-4">
-																<p class="text-strong">强制传引用: out/ref </p>
+                                            <div class="list list-square">
+                                                <div class="title">参数传值方式</div>
+                                                <div class="content open">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <p class="text-strong">默认传参方式: 传值 </p>
+                                                                <p>
+                                                                    在C#中, 函数参数默认是传值的: <br> 1) 值 类 型: 拷贝的是变量的值, 所以实和形参是两个变量! <br> 2) 引用类型: 拷贝的是变量的地址, 所以实参和形参指向同一个对象!. </p>
+                                                                <p>注意: 默认方式下, 对于引用类型, 在函数内重新赋值, 将使形参指向新的对象. </p>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <p class="text-strong">强制传引用: out/ref </p>
 
-																<p>
-																	不管形参是值类型, 还是引用类型, 使用out/ref关键字, 可以把实参和形参看成是同一个变量! <br>
-																	out: 方法返回前, 形参必须赋值;ref: 调用方法时, 实参必须先赋值.
-																</p>
-															</div>
-														</div>
-													</div>
+                                                                <p>
+                                                                    不管形参是值类型, 还是引用类型, 使用out/ref关键字, 可以把实参和形参看成是同一个变量! <br> out: 方法返回前, 形参必须赋值;ref: 调用方法时, 实参必须先赋值.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-												</div>
+                                                </div>
 
-												<div class="title">可变参数(参数数组)</div>
-												<div class="content open">
-													<pre class="prettyprint linenums">
+                                                <div class="title">可变参数(参数数组)</div>
+                                                <div class="content open">
+                                                    <pre class="prettyprint linenums">
 <code>
 params int[ ] vals    // 参数数组, 必须是最后一个参数, 调用方式: ①数组格式: intArray ②分开格式: int1, int2, int3
 </code>
 													</pre>
-												</div>
+                                                </div>
 
-												<div class="title">默认参数</div>
-												<div class="content open">
-													<p class="text-danger">不支持!</p>
-												</div>
+                                                <div class="title">默认参数</div>
+                                                <div class="content open">
+                                                    <p class="text-danger">不支持!</p>
+                                                </div>
 
-											</div>
-										</div>
+                                            </div>
+                                        </div>
 
-										<div class="title">调用</div>
-										<div class="content closed">
-											<pre class="prettyprint linenums">
+                                        <div class="title">调用</div>
+                                        <div class="content closed">
+                                            <pre class="prettyprint linenums">
 <code>
 myInstance.Method();	// 实例方法
 MyClass.Method();	// 静态方法
 </code>
 											</pre>
-										</div>
+                                        </div>
 
 
-										<div class="title">重载</div>
-										<div class="content closed">
-											<p>
-												C#支持方法重载, 对于重载方法: <br>
-												1) 两个方法不能仅在返回类型上有区别. <br>
-												2) 两个方法不能仅根据参数声明为ref还是out来区分.
-											</p>
-										</div>
+                                        <div class="title">重载</div>
+                                        <div class="content closed">
+                                            <p>
+                                                C#支持方法重载, 对于重载方法: <br> 1) 两个方法不能仅在返回类型上有区别. <br> 2) 两个方法不能仅根据参数声明为ref还是out来区分.
+                                            </p>
+                                        </div>
 
-										<div class="title">递归&迭代</div>
-										<div class="content closed">
-											<a href="https://blog.csdn.net/liuchaoxuan/article/details/79967578">迭代是人，递归是神</a>
-											<p>
-												从概念上讲，递归就是指程序调用自身的编程思想，即一个函数调用本身；迭代是利用已知的变量值，根据递推公式不断演进得到变量新值得编程思想。
-											</p>
-											<pre class="prettyprint linenums">
+                                        <div class="title">递归&迭代</div>
+                                        <div class="content closed">
+                                            <a href="https://blog.csdn.net/liuchaoxuan/article/details/79967578">迭代是人，递归是神</a>
+                                            <p>
+                                                从概念上讲，递归就是指程序调用自身的编程思想，即一个函数调用本身；迭代是利用已知的变量值，根据递推公式不断演进得到变量新值得编程思想。
+                                            </p>
+                                            <pre class="prettyprint linenums">
 <code>
 // 递归方式求解斐波那契数列
 int Fib(int n)
@@ -231,8 +222,8 @@ int Fib(int n)
     }
 }
 </code>
-											</pre>	
-											<pre class="prettyprint linenums">
+											</pre>
+                                            <pre class="prettyprint linenums">
 <code>
 // 迭代方式求解斐波那契数列
 int Fib(int n)
@@ -251,12 +242,12 @@ int Fib(int n)
     return t1;
 }
 </code>
-											</pre>	
-										</div>
+											</pre>
+                                        </div>
 
-										<div class="title">扩展</div>
-										<div class="content closed">
-											<pre class="prettyprint linenums">
+                                        <div class="title">扩展</div>
+                                        <div class="content closed">
+                                            <pre class="prettyprint linenums">
 <code>
 public static class StringExtension	// 静态类
 {
@@ -266,42 +257,37 @@ public static class StringExtension	// 静态类
     }
 }
 </code>
-											</pre>	
-											<a href="https://www.cnblogs.com/luluping/archive/2008/05/26/1207536.html">c#3.0 中使用扩展方法来扩展接口</a>
-										</div>
+											</pre>
+                                            <a href="https://www.cnblogs.com/luluping/archive/2008/05/26/1207536.html">c#3.0 中使用扩展方法来扩展接口</a>
+                                        </div>
 
-										<div class="title">父类方法</div>
-										<div class="content closed">
-											<div class="list list-number">
-												<div class="title">如何调用父类的方法</div>
-												<div class="content open">
-													<p>使用base关键字</p>
-												</div>
+                                        <div class="title">父类方法</div>
+                                        <div class="content closed">
+                                            <div class="list list-number">
+                                                <div class="title">如何调用父类的方法</div>
+                                                <div class="content open">
+                                                    <p>使用base关键字</p>
+                                                </div>
 
-												<div class="title">sealed, abstract, virtual & new</div>
-												<div class="content open">
-													<p>
-														密封方法: sealed方法, 派生类不能重!. <br>
-														抽象方法: abstract方法, 派生类中重写! <br>
-														隐藏方法: 无论父类的方法是否是virtual, 都可以new关键字强行重写函数. <br>
-														虚方法: virtual方法, 派生于可以重写, 也可以不重写! 
-													</p>
-												</div>
+                                                <div class="title">sealed, abstract, virtual & new</div>
+                                                <div class="content open">
+                                                    <p>
+                                                        密封方法: sealed方法, 派生类不能重!. <br> 抽象方法: abstract方法, 派生类中重写! <br> 隐藏方法: 无论父类的方法是否是virtual, 都可以new关键字强行重写函数. <br> 虚方法: virtual方法, 派生于可以重写, 也可以不重写!
+                                                    </p>
+                                                </div>
 
-												<div class="title">多态 & 隐藏</div>
-												<div class="content open">
-													<p>
-														当父类引用指向一个子类对象时: <br>
-														1) 如果调用的方法被子类重写类，则调用子类方法 --- 此为多态. <br>
-														2) 否则, 则调用基类的方法 --- 此为隐藏.
-													</p>	
-												</div>
-											</div>	
-										</div>
+                                                <div class="title">多态 & 隐藏</div>
+                                                <div class="content open">
+                                                    <p>
+                                                        当父类引用指向一个子类对象时: <br> 1) 如果调用的方法被子类重写类，则调用子类方法 --- 此为多态. <br> 2) 否则, 则调用基类的方法 --- 此为隐藏.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
 
-										<div class="title">入口函数</div>
-										<div class="content closed">
-											<pre class="prettyprint linenums">
+                                        <div class="title">入口函数</div>
+                                        <div class="content closed">
+                                            <pre class="prettyprint linenums">
 <code>
 // 不带参数
 static void Main()
@@ -314,103 +300,100 @@ static void Main(string[] args)
 }
 </code>
 											</pre>
-											<p>
-												注意: <br>
-												命令行参数args[]: 每个参数需要用空格隔开, 如果参数包含空格, 需要用双引号把参数括起来. <br>
-												可以在Visual Studio中定义命令行参数, 以便于调试. 只需在Solution Explorer | Properties | Debug | Command line arguments中输入即可.
-											</p>
-										</div>
+                                            <p>
+                                                注意: <br> 命令行参数args[]: 每个参数需要用空格隔开, 如果参数包含空格, 需要用双引号把参数括起来. <br> 可以在Visual Studio中定义命令行参数, 以便于调试. 只需在Solution Explorer | Properties | Debug | Command line arguments中输入即可.
+                                            </p>
+                                        </div>
 
-										<div class="title">如何调用外部dll中的非托管函数?</div>
-										<div class="content closed">
-											<p>
-												[DllImport("DLL文件名")] <br>
-												修饰符 extern 返回变量类型 方法名称 （参数列表）
-											</p>
-											<p>其中：访问修饰符, 除了abstract以外在声明方法时可以使用的修饰符.</p>
+                                        <div class="title">如何调用外部dll中的非托管函数?</div>
+                                        <div class="content closed">
+                                            <p>
+                                                [DllImport("DLL文件名")] <br> 修饰符 extern 返回变量类型 方法名称 （参数列表）
+                                            </p>
+                                            <p>其中：访问修饰符, 除了abstract以外在声明方法时可以使用的修饰符.</p>
 
-											<p>
-												注意： <br>
-												1) 需要在程序声明中使用System.Runtime.InteropServices命名空间. <br>
-												2) DLL文件必须位于程序当前目录, 或系统定义的查询路径中（即：系统环境变量中Path所设置的路径）. <br>
-												3) 返回变量类型、方法名称、参数列表一定要与DLL文件中的定义相一致. 
-											</p>
+                                            <p>
+                                                注意： <br> 1) 需要在程序声明中使用System.Runtime.InteropServices命名空间. <br> 2) DLL文件必须位于程序当前目录, 或系统定义的查询路径中（即：系统环境变量中Path所设置的路径）. <br> 3) 返回变量类型、方法名称、参数列表一定要与DLL文件中的定义相一致.
+                                            </p>
 
-											<p>详见<a href="http://www.cnblogs.com/gaoweipeng/archive/2009/04/05/1429704.html">C#程序实现动态调用非托管的DLL文件</a></p>
-										</div>
+                                            <p>详见<a href="http://www.cnblogs.com/gaoweipeng/archive/2009/04/05/1429704.html">C#程序实现动态调用非托管的DLL文件</a></p>
+                                        </div>
 
-										<div class="title">如何与函数交换数据?</div>
-										<div class="content closed">
-											<p>从优到劣质: ①返回值    ②形参    ③全局变量</p>
-										</div>
-									</div>
-								</div>
+                                        <div class="title">如何与函数交换数据?</div>
+                                        <div class="content closed">
+                                            <p>从优到劣质: ①返回值 ②形参 ③全局变量</p>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<!--运算符-->
-								<div class="title">运算符</div>
-								<div class="content closed">
-									<div class="list list-number">
-										<div class="title">运算符重载</div>
-										<div class="content closed">
-											<p>虽然使用方法也可以达到同样的功能, 但是在许多情况下, 重载运算符可以生产可读性更高, 更直观的代码.</p>
-											<div class="list list-square">
-												<div class="title">哪些运算符可以重载?</div>
-												<div class="content closed">
-													<p>并不是所有的运算符都可以重载, 可以重载的运算符如下表所示:</p>
-													<table class="table table-bordered table-sm">
-														<tbody>
-															<tr>
-																<td>类型</td>
-																<td>运算符</td>
-																<td>限制</td>
-															</tr>
-															<tr>
-																<td>二元算术</td>
-																<td>+, -, *, /, %</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>一元算术</td>
-																<td>+, -, ++, --</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>二元按位</td>
-																<td>&, |, ^, <<, >></td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>一元按位</td>
-																<td>!, ~, true, false</td>
-																<td>true和false必须成对重载</td>
-															</tr>
-															<tr>
-																<td>比较运算</td>
-																<td>==, !=, >, >=, <, <=</td>
-																<td>必须成对重载</td>
-															</tr>
-															<tr>
-																<td>赋值运算</td>
-																<td>+=, -=, *=, /=, %=, >>=, <<=, &=, |=, ^=</td>
-																<td>C#不允许重载=运算符, 但如果重载+元算符, 编译器就会自动使用+运算符的重载来执行+=运算符的操作</td>
-															</tr>
-															<tr>
-																<td>索引运算符</td>
-																<td>[]</td>
-																<td>不能直接重载索引运算符</td>
-															</tr>
-															<tr>
-																<td>数据类型转换</td>
-																<td>()</td>
-																<td>不能直接重载, 用户定义的数据类型转换允许定义定制的数据类型转换</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
+                                <!--运算符-->
+                                <div class="title">运算符</div>
+                                <div class="content closed">
+                                    <div class="list list-number">
+                                        <div class="title">运算符重载</div>
+                                        <div class="content closed">
+                                            <p>虽然使用方法也可以达到同样的功能, 但是在许多情况下, 重载运算符可以生产可读性更高, 更直观的代码.</p>
+                                            <div class="list list-square">
+                                                <div class="title">哪些运算符可以重载?</div>
+                                                <div class="content closed">
+                                                    <p>并不是所有的运算符都可以重载, 可以重载的运算符如下表所示:</p>
+                                                    <table class="table table-bordered table-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>类型</td>
+                                                                <td>运算符</td>
+                                                                <td>限制</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>二元算术</td>
+                                                                <td>+, -, *, /, %</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>一元算术</td>
+                                                                <td>+, -, ++, --</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>二元按位</td>
+                                                                <td>&, |, ^,
+                                                                    <<,>></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>一元按位</td>
+                                                                <td>!, ~, true, false</td>
+                                                                <td>true和false必须成对重载</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>比较运算</td>
+                                                                <td>==, !=, >, >=,
+                                                                    <, <=</td>
+                                                                        <td>必须成对重载</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>赋值运算</td>
+                                                                <td>+=, -=, *=, /=, %=, >>=,
+                                                                    <<=, &=, |=, ^=</td>
+                                                                        <td>C#不允许重载=运算符, 但如果重载+元算符, 编译器就会自动使用+运算符的重载来执行+=运算符的操作</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>索引运算符</td>
+                                                                <td>[]</td>
+                                                                <td>不能直接重载索引运算符</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>数据类型转换</td>
+                                                                <td>()</td>
+                                                                <td>不能直接重载, 用户定义的数据类型转换允许定义定制的数据类型转换</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-												<div class="title">重载实例</div>
-												<div class="content closed">
-													<pre class="prettyprint linenums">
+                                                <div class="title">重载实例</div>
+                                                <div class="content closed">
+                                                    <pre class="prettyprint linenums">
 <code>
 // 重载加法
  public class AddClass1
@@ -462,26 +445,26 @@ op1.Value = 3e15;
 ConvClass1 op2 = (ConvClass1)op1;    // 这里会执行显示转换操作
 </code>
 													</pre>
-												</div>
+                                                </div>
 
-												<div class="title">比较运算符重载</div>
-												<div class="content closed">
-													<p> 
+                                                <div class="title">比较运算符重载</div>
+                                                <div class="content closed">
+                                                    <p>
 
-														C#要求成对重载比较运算符. 如果重载了==, 也必须重载!=, 否则会产生编译错误. 另外, 比较运算符必须返回bool类型的值. </p>
-													<p>
-														注意, 在重载==和!=时, 还因该重载从Object中继承的Equals()和GetHashCode()方法, 否则会产生一个编译警告. 原因是Equals()方法应执行与==运算符相同的相等逻辑. 另外, 不要通过调用Object中继承的Equals()方法的实例版本, 来重载比较运算符, 如果这么做, 在objA是null时计算(objA == objB), 这会产生一个异常, 因为.NET运行库会视图计算null.Equals(objB). 
-													</P>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
+                                                        C#要求成对重载比较运算符. 如果重载了==, 也必须重载!=, 否则会产生编译错误. 另外, 比较运算符必须返回bool类型的值. </p>
+                                                    <p>
+                                                        注意, 在重载==和!=时, 还因该重载从Object中继承的Equals()和GetHashCode()方法, 否则会产生一个编译警告. 原因是Equals()方法应执行与==运算符相同的相等逻辑. 另外, 不要通过调用Object中继承的Equals()方法的实例版本, 来重载比较运算符, 如果这么做, 在objA是null时计算(objA == objB), 这会产生一个异常, 因为.NET运行库会视图计算null.Equals(objB).
+                                                    </P>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<!--索引器-->
-								<div class="title">索引器</div>
-								<div class="content closed">
-									<pre class="prettyprint linenums">
+                                <!--索引器-->
+                                <div class="title">索引器</div>
+                                <div class="content closed">
+                                    <pre class="prettyprint linenums">
 <code>
 public string this[int index]    // 参数 & 返回值的类型不规定, 而且参数可以有多个!
 {
@@ -490,15 +473,15 @@ public string this[int index]    // 参数 & 返回值的类型不规定, 而且
 }
 </code>
 									</pre>
-								</div>
+                                </div>
 
-								<!--事件-->
-								<div class="title">事件</div>
-								<div class="content closed">
-									<div class="container-fluid">
-										<div class="row">
-											<div class="col-12">
-												<pre class="prettyprint linenums">
+                                <!--事件-->
+                                <div class="title">事件</div>
+                                <div class="content closed">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <pre class="prettyprint linenums">
 <code>
 class Program
 {
@@ -560,32 +543,32 @@ class Host
     }
 }
 </code>
-												</pre>	
-											</div>
-											<div class="col-12">
-												<div class="list list-square">
-													<div class="title">事件参数</div>
-													<div class="content closed">
-														<p>所有基于EventArgs的类都负责在事件发出者和事件订阅者之间来回传送事件的信息.</p>
-														<p>在大多数情况下, EventArgs类中使用的信息都被事件处理程序中的事件订阅者对象使用, 但是, 有时事件处理程序可以把信息添加到EventArgs类中, 使之可用于事件发出者对象.</p>
-														<p>而且如果有其他的对象也处理这个事件, 它们就会看到同一个EventArgs对象.</p>
-													</div>
+												</pre>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="list list-square">
+                                                    <div class="title">事件参数</div>
+                                                    <div class="content closed">
+                                                        <p>所有基于EventArgs的类都负责在事件发出者和事件订阅者之间来回传送事件的信息.</p>
+                                                        <p>在大多数情况下, EventArgs类中使用的信息都被事件处理程序中的事件订阅者对象使用, 但是, 有时事件处理程序可以把信息添加到EventArgs类中, 使之可用于事件发出者对象.</p>
+                                                        <p>而且如果有其他的对象也处理这个事件, 它们就会看到同一个EventArgs对象.</p>
+                                                    </div>
 
-													<div class="title">事件返回类型</div>
-													<div class="content closed">
-														<p>注意: 可以为事件提供返回类型, 但这会出问题, 这是因为引发给定的事件, 可能会调用好几个事件处理程序. 如果这些处理程序都返回一个值, 那么我们该使用哪个返回值?</p>
-														<p>系统处理这个问题的方式是, 只允许访问由事件处理程序最后返回的那个值, 也就是最后一个订阅该事件的处理程序返回的值.</p>
-														<p>这个功能在某些情况下是有用的, 但最好不要使用它们. 推荐使用void类型的事件处理程序, 且避免使用out类型的参数.</p>
-													</div>
+                                                    <div class="title">事件返回类型</div>
+                                                    <div class="content closed">
+                                                        <p>注意: 可以为事件提供返回类型, 但这会出问题, 这是因为引发给定的事件, 可能会调用好几个事件处理程序. 如果这些处理程序都返回一个值, 那么我们该使用哪个返回值?</p>
+                                                        <p>系统处理这个问题的方式是, 只允许访问由事件处理程序最后返回的那个值, 也就是最后一个订阅该事件的处理程序返回的值.</p>
+                                                        <p>这个功能在某些情况下是有用的, 但最好不要使用它们. 推荐使用void类型的事件处理程序, 且避免使用out类型的参数.</p>
+                                                    </div>
 
-													<div class="title">多引用</div>
-													<div class="content closed">
-														<p>当一个对象发生某个事件时, 如果有多个引用变量指向该对象, 则多个引用变量都将接到该事件. ( 实际代码是这个样子的, 但是没有书面资料这么说)</p>
-													</div>
+                                                    <div class="title">多引用</div>
+                                                    <div class="content closed">
+                                                        <p>当一个对象发生某个事件时, 如果有多个引用变量指向该对象, 则多个引用变量都将接到该事件. ( 实际代码是这个样子的, 但是没有书面资料这么说)</p>
+                                                    </div>
 
-													<div class="title">事件访问器</div>
-													<div class="content closed">
-														<pre class="prettyprint linenums">
+                                                    <div class="title">事件访问器</div>
+                                                    <div class="content closed">
+                                                        <pre class="prettyprint linenums">
 <code>
 public class Dog
 {
@@ -619,125 +602,110 @@ public class Dog
 }
 </code>
 														</pre>
-													</div>
-													<div class="title">局部变量&事件处理</div>
-													<div class="content closed">
-														<pre class="prettyprint linenums">
+                                                    </div>
+                                                    <div class="title">局部变量&事件处理</div>
+                                                    <div class="content closed">
+                                                        <pre class="prettyprint linenums">
 <code>
 MyClass pClass = new MyClass();
 pClass.MyEvent += MyFunction;
 pClass = null;
 </code>
 														</pre>
-														<p>For the specific question "Will pClass be garbage collected": the event subscription has no effect on the collection of pClass (as the publisher).</p>
+                                                        <p>For the specific question "Will pClass be garbage collected": the event subscription has no effect on the collection of pClass (as the publisher).</p>
 
-														<p>For GC in general (in particular, the target): it depends whether MyFunction is static or instance-based.</p>
+                                                        <p>For GC in general (in particular, the target): it depends whether MyFunction is static or instance-based.</p>
 
-														<p>A delegate (such as an event subscription) to an instance method includes a reference to the instance. So yes, an event subscription will prevent GC. However, as soon as the object publishing the event (pClass above) is eligible for collection, this ceases to be a problem.</p>
+                                                        <p>A delegate (such as an event subscription) to an instance method includes a reference to the instance. So yes, an event subscription will prevent GC. However, as soon as the object publishing the
+                                                            event (pClass above) is eligible for collection, this ceases to be a problem.</p>
 
-														<p>Note that this is one-way; i.e. if we have:</p>
+                                                        <p>Note that this is one-way; i.e. if we have:</p>
 
-														<p>publisher.SomeEvent += target.SomeHandler;</p>
+                                                        <p>publisher.SomeEvent += target.SomeHandler;</p>
 
-														<p>then "publisher" will keep "target" alive, but "target" will not keep "publisher" alive.</p>
+                                                        <p>then "publisher" will keep "target" alive, but "target" will not keep "publisher" alive.</p>
 
-														<p>So no: if pClass is going to be collected anyway, there is no need to unsubscribe the listeners. However, if pClass was long-lived (longer than the instance with MyFunction), then pClass could keep that instance alive, so it would be necessary to unsubscribe if you want the target to be collected.</p>
+                                                        <p>So no: if pClass is going to be collected anyway, there is no need to unsubscribe the listeners. However, if pClass was long-lived (longer than the instance with MyFunction), then pClass could keep
+                                                            that instance alive, so it would be necessary to unsubscribe if you want the target to be collected.</p>
 
-														<p>Static events, however, for this reason, are very dangerous when used with instance-based handlers.</p>
-													</div>
+                                                        <p>Static events, however, for this reason, are very dangerous when used with instance-based handlers.</p>
+                                                    </div>
 
-													<div class="title">事件传递</div>
-													<div class="content closed">
-														<a href="https://blog.csdn.net/hulihui/article/details/3096656">.NET事件传递的实现与事件链问题</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<p>}</p>
+                                                    <div class="title">事件传递</div>
+                                                    <div class="content closed">
+                                                        <a href="https://blog.csdn.net/hulihui/article/details/3096656">.NET事件传递的实现与事件链问题</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>}</p>
 
-				<div class="list list-square">
-					<div class="title">继承 vs 接口</div>
-					<div class="content closed">
-						<p class="text-strong">继承</p>
-						<p>当且仅当两个类之间是"is-a"关系时, 才能考虑使用继承! C#支持单继承!</p>
+                <div class="list list-square">
+                    <div class="title">继承 vs 接口</div>
+                    <div class="content closed">
+                        <p class="text-strong">继承</p>
+                        <p>当且仅当两个类之间是"is-a"关系时, 才能考虑使用继承! C#支持单继承!</p>
 
-						<p>
-							如果子类派生于父类, 那么:<br>
-							1) 继承: 子类自动继承父类除private外的所有属性, 事件 & 方法; <br> 
-							2) 重写: 子类可以重写继承自父类的属性,事件和方法; <br>
-							3) 新增: 子类可以添加父类没有的属性, 事件和方法.
-						</p>
+                        <p>
+                            如果子类派生于父类, 那么:<br> 1) 继承: 子类自动继承父类除private外的所有属性, 事件 & 方法; <br> 2) 重写: 子类可以重写继承自父类的属性,事件和方法; <br> 3) 新增: 子类可以添加父类没有的属性, 事件和方法.
+                        </p>
 
-						<p>所有的.NET类最后都派生于Object. 实际上, 如果在定义类时没有指定基类, 编译器就会自动假定这个类派生于Object.</p>
+                        <p>所有的.NET类最后都派生于Object. 实际上, 如果在定义类时没有指定基类, 编译器就会自动假定这个类派生于Object.</p>
 
-						<p class="text-strong">接口</p>
-						<p>表示一个类型只继承了函数的签名, 却没有继承任何实现代码.</p>
-						<p>在需要指定该类型具有某些可用的特性时, 最好使用这种类型的继承. 例如, 某些类型可以指定从接口System.IDisposable中派生, 从而提供一种清理资源的方法Dispose(). 由于某种类型清理资源的方式可能与另一种类型完全不同, 所以定义通用的实现代码是没有意义的, 此时就适合使用接口继承.</p>
-						<p>注意: C#不支持多重继承, 但是C#又允许类型派生于多个接口.</p>
+                        <p class="text-strong">接口</p>
+                        <p>表示一个类型只继承了函数的签名, 却没有继承任何实现代码.</p>
+                        <p>在需要指定该类型具有某些可用的特性时, 最好使用这种类型的继承. 例如, 某些类型可以指定从接口System.IDisposable中派生, 从而提供一种清理资源的方法Dispose(). 由于某种类型清理资源的方式可能与另一种类型完全不同, 所以定义通用的实现代码是没有意义的, 此时就适合使用接口继承.</p>
+                        <p>注意: C#不支持多重继承, 但是C#又允许类型派生于多个接口.</p>
 
-						<p class="text-strong">抽象类&接口比较</p>
-						<p>
-							相同点: <br>
-							抽象类和接口都包含可以由派生类继承的成员. <br>
-							接口和抽象类都不能直接实例化, 但可以声明它们的变量, 通过多态性使用它们.
-						</p>
-						<p>
-							不同点: <br>
-							一个类只能继承一个抽象类, 但是可以实现多个接口等等.. <br>
-							抽象类可以给出一些成员的实现, 但是接口不能包含成员的实现! <br>
-							抽象类的抽象成员可以被子类部分实现, 但是接口的成员需要实现类完全实现! <br>
-							接口成员只能是公共的, 但抽象类的成员没有限制. <br>
-							接口不能包含字段, 构造函数, 析构函数, 静态成员或常量
-						</p>
-						<p>
-							这说明这两种类型用于完全不同的目的. 
-							抽象类主要用作对象系列的基类, 共享某些主要特性, 例如共同的目的和结构. 接口则主要用于类, 这些类在基础水平上有所不同, 但仍可以完成某些相同的任务. <br>
-							通俗来说, 抽象类, 本质上是一类; 接口, 只是具有相似的行为.
-						</p>
-						<p>上面是从两者的形态上去区分的, 我觉得还有三点式能帮助我们去区分抽象类和接口的.</p>
+                        <p class="text-strong">抽象类&接口比较</p>
+                        <p>
+                            相同点: <br> 抽象类和接口都包含可以由派生类继承的成员. <br> 接口和抽象类都不能直接实例化, 但可以声明它们的变量, 通过多态性使用它们.
+                        </p>
+                        <p>
+                            不同点: <br> 一个类只能继承一个抽象类, 但是可以实现多个接口等等.. <br> 抽象类可以给出一些成员的实现, 但是接口不能包含成员的实现! <br> 抽象类的抽象成员可以被子类部分实现, 但是接口的成员需要实现类完全实现! <br> 接口成员只能是公共的, 但抽象类的成员没有限制. <br> 接口不能包含字段, 构造函数, 析构函数, 静态成员或常量
+                        </p>
+                        <p>
+                            这说明这两种类型用于完全不同的目的. 抽象类主要用作对象系列的基类, 共享某些主要特性, 例如共同的目的和结构. 接口则主要用于类, 这些类在基础水平上有所不同, 但仍可以完成某些相同的任务. <br> 通俗来说, 抽象类, 本质上是一类; 接口, 只是具有相似的行为.
+                        </p>
+                        <p>上面是从两者的形态上去区分的, 我觉得还有三点式能帮助我们去区分抽象类和接口的.</p>
 
-						<p>1) 类是对对象的抽象, 抽象类是对类的抽象, 接口是对行为的抽象. <br>
-							接口是对类的局部(行为)进行的抽象, 而抽象类是对类整体(字段, 属性, 方法)的抽象. 如果只关注行为抽象, 那么也可以认为接口就是抽象类. 总之, 不论是接口, 抽象类, 类甚至对象, 都是在不同层次, 不同角度进行抽象的结果, 它们的共性就是抽象.
-						</p>
+                        <p>1) 类是对对象的抽象, 抽象类是对类的抽象, 接口是对行为的抽象. <br> 接口是对类的局部(行为)进行的抽象, 而抽象类是对类整体(字段, 属性, 方法)的抽象. 如果只关注行为抽象, 那么也可以认为接口就是抽象类. 总之, 不论是接口, 抽象类, 类甚至对象, 都是在不同层次, 不同角度进行抽象的结果, 它们的共性就是抽象.
+                        </p>
 
-						<p>2) 如果行为跨越不同类的对象, 可以使用接口; 对于一些相似的类对象, 则用继承抽象类. <br>
-							比如猫啊狗啊它们其实都是动物, 它们之间有很多相似的地方, 所以我们应该让它们去继承动物这个抽象类, 而飞机, 麻雀, 超人是完全不相关的类, 叮当是动漫角色, 孙悟空是古代神话人物, 这也是不相关的类, 但它们又是有共同点的, 前三个都会飞, 而后两个都会变出东西, 所以此时让它们去实现相同的接口来达到我们的设计目的就很合适了.
-						</p>
+                        <p>2) 如果行为跨越不同类的对象, 可以使用接口; 对于一些相似的类对象, 则用继承抽象类. <br> 比如猫啊狗啊它们其实都是动物, 它们之间有很多相似的地方, 所以我们应该让它们去继承动物这个抽象类, 而飞机, 麻雀, 超人是完全不相关的类, 叮当是动漫角色, 孙悟空是古代神话人物, 这也是不相关的类, 但它们又是有共同点的, 前三个都会飞, 而后两个都会变出东西, 所以此时让它们去实现相同的接口来达到我们的设计目的就很合适了.
+                        </p>
 
-						<p>3) 从设计角度讲, 抽象类是从子类中发现了公共的东西, 泛化出父类, 然后子类继承父类, 而接口是根本不知子类的存在, 方法如何实现还不确认, 预先定义. <br>
-							这里其实说明的是抽象类和接口设计的思维过程. 回想一下我们今天刚开始讲的时候, 先是有一个Cat类, 然后再有一个Dog类, 观察后发现它们有类似之处, 于是泛化出Animal类, 这也体现了敏捷开发的思想, 通过重构改善既有代码的设计. 事实上, 只有小猫的时候, 你就去设计一个动物类, 这就极有可能会成为过度设计了. 所以说抽象类往往都是通过重构得来的, 当然, 如果你事先意识到多种分类的可能, 那么实现就设计出抽象类也是完全可以的. 而接口就完全不是一回事, 比如我们是动物运动会的主办方, 在策划时, 大家就坐在一起考虑需要组织什么样的比赛, 大家商议后, 觉得应该设置如跑得最快, 跳得最高, 飞得最远, 叫得最响, 力气最大等等比赛项目, 而此时, 主办方其实还不太清楚会有什么样的动物来参加运动会, 所有的这些比赛项目都可能是完全不相同的动物在比, 它们将如何去实现这些行为也不得而知, 此时, 能做的事就是事先定义这些比赛目的的行为接口.
-						</p>
-					</div>
+                        <p>3) 从设计角度讲, 抽象类是从子类中发现了公共的东西, 泛化出父类, 然后子类继承父类, 而接口是根本不知子类的存在, 方法如何实现还不确认, 预先定义. <br> 这里其实说明的是抽象类和接口设计的思维过程. 回想一下我们今天刚开始讲的时候, 先是有一个Cat类, 然后再有一个Dog类, 观察后发现它们有类似之处, 于是泛化出Animal类, 这也体现了敏捷开发的思想, 通过重构改善既有代码的设计. 事实上, 只有小猫的时候, 你就去设计一个动物类,
+                            这就极有可能会成为过度设计了. 所以说抽象类往往都是通过重构得来的, 当然, 如果你事先意识到多种分类的可能, 那么实现就设计出抽象类也是完全可以的. 而接口就完全不是一回事, 比如我们是动物运动会的主办方, 在策划时, 大家就坐在一起考虑需要组织什么样的比赛, 大家商议后, 觉得应该设置如跑得最快, 跳得最高, 飞得最远, 叫得最响, 力气最大等等比赛项目, 而此时, 主办方其实还不太清楚会有什么样的动物来参加运动会, 所有的这些比赛项目都可能是完全不相同的动物在比,
+                            它们将如何去实现这些行为也不得而知, 此时, 能做的事就是事先定义这些比赛目的的行为接口.
+                        </p>
+                    </div>
 
-					<div class="title">访问修饰符</div>
-					<div class="content closed">
-						<p>
-							private: 当前类中 <br>
-							protected: 当前类 + 派生类 <br>
-							internal: 当前类 + 当前程序集 <br>
-							protected internal: 当前类 + 派生类 + 当前程序集 <br>
-							public 	当前类 + 任何地方
-						</p>
-					</div>
-				</div>
+                    <div class="title">访问修饰符</div>
+                    <div class="content closed">
+                        <p>
+                            private: 当前类中 <br> protected: 当前类 + 派生类 <br> internal: 当前类 + 当前程序集 <br> protected internal: 当前类 + 派生类 + 当前程序集 <br> public 当前类 + 任何地方
+                        </p>
+                    </div>
+                </div>
 
-			</div>
+            </div>
 
-			<div class="title">静态成员 & 静态类</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">类的静态成员</div>
-					<div class="content open">
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-5">
-									<pre class="prettyprint linenums">
+            <div class="title">静态成员 & 静态类</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">类的静态成员</div>
+                    <div class="content open">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-5">
+                                    <pre class="prettyprint linenums">
 <code>
 public class Automobile
 {
@@ -760,36 +728,34 @@ public class Automobile
 </code>
 									</pre>
 
-								</div>
-								<div class="col-6">
-									<p>静态成员可以理解为是类的成员, 而不是对象的成员! 它们不会随对象状态而变化.</p>
+                                </div>
+                                <div class="col-6">
+                                    <p>静态成员可以理解为是类的成员, 而不是对象的成员! 它们不会随对象状态而变化.</p>
 
-									<p class="text-strong">调用静态成员</p>
-									<p>MyStaticClass.XXX</p>
+                                    <p class="text-strong">调用静态成员</p>
+                                    <p>MyStaticClass.XXX</p>
 
-									<p class="text-strong">可访问成员</p>
-									<p>静态方法只能访问静态成员, 但是可以访问类的构造函数; 而非静态方法则可以访问所有的成员.</p>
+                                    <p class="text-strong">可访问成员</p>
+                                    <p>静态方法只能访问静态成员, 但是可以访问类的构造函数; 而非静态方法则可以访问所有的成员.</p>
 
-									<p class="text-strong">静态构造函数</p>
-									<p>用户不能直接调用静态构造函数, 也不能控制何时执行静态构造函数. 在创建类的第一个实例或引用任何静态成员之前, 程序将自动调用静态构造函数, 且静态构造函数只会调用一次. </p>
-									<p>所以静态构造函数用于初始化任何静态数据, 或用于执行仅需执行一次的特定操作. 静态构造函数具有如下特点: 
-									</p>
-									<p>
-										1) 静态构造函数的典型用途是: 当类使用日志文件时, 将使用这种构造函数向日志文件中写入项. <br>
-										2) 静态构造函数在为非托管代码创建包装类时也很有用, 此时该构造函数可以调用 LoadLibrary 方法. <br>
-										3) 如果静态构造函数引发异常, 运行时将不会再次调用该构造函数, 并且在程序运行所在的应用程序域的生存期内, 类型将保持未初始化.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+                                    <p class="text-strong">静态构造函数</p>
+                                    <p>用户不能直接调用静态构造函数, 也不能控制何时执行静态构造函数. 在创建类的第一个实例或引用任何静态成员之前, 程序将自动调用静态构造函数, 且静态构造函数只会调用一次. </p>
+                                    <p>所以静态构造函数用于初始化任何静态数据, 或用于执行仅需执行一次的特定操作. 静态构造函数具有如下特点:
+                                    </p>
+                                    <p>
+                                        1) 静态构造函数的典型用途是: 当类使用日志文件时, 将使用这种构造函数向日志文件中写入项. <br> 2) 静态构造函数在为非托管代码创建包装类时也很有用, 此时该构造函数可以调用 LoadLibrary 方法. <br> 3) 如果静态构造函数引发异常, 运行时将不会再次调用该构造函数, 并且在程序运行所在的应用程序域的生存期内, 类型将保持未初始化.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="title">静态类</div>
-					<div class="content open">
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-5">
-									<pre class="prettyprint linenums">
+                    <div class="title">静态类</div>
+                    <div class="content open">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-5">
+                                    <pre class="prettyprint linenums">
 <code>
 static class CompanyInfo
 {
@@ -800,28 +766,25 @@ static class CompanyInfo
 }
 </code>
 									</pre>
-								</div>
-								<div class="col-6">
-									<p>
-										类可以声明为静态, 以表明它只能包含静态成员. 静态类的主要特点如下：<br>
-										1) 只能包含静态成员. <br>
-										2) 不能被实例化, 所以不能包含实例构造函数, 但可声明静态构造函数以分配初始值或设置某个静态状态. <br>
-										3) 不能被继承.
-									</p>
-									<p>
-										静态类一般用于实现函数库, 例如System命名空间中的Math类的方法。此外，静态类能够使您的实现更简单、迅速，因为您不必创建对象就能调用其方法.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                </div>
+                                <div class="col-6">
+                                    <p>
+                                        类可以声明为静态, 以表明它只能包含静态成员. 静态类的主要特点如下：<br> 1) 只能包含静态成员. <br> 2) 不能被实例化, 所以不能包含实例构造函数, 但可声明静态构造函数以分配初始值或设置某个静态状态. <br> 3) 不能被继承.
+                                    </p>
+                                    <p>
+                                        静态类一般用于实现函数库, 例如System命名空间中的Math类的方法。此外，静态类能够使您的实现更简单、迅速，因为您不必创建对象就能调用其方法.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="title">抽象类</div>
-			<div class="content closed">
-				<p>抽象类不能实例化, 抽象类的用途是提供多个派生类可共享的基类的公共定义.</p>
-				<pre class="prettyprint linenums">
+            <div class="title">抽象类</div>
+            <div class="content closed">
+                <p>抽象类不能实例化, 抽象类的用途是提供多个派生类可共享的基类的公共定义.</p>
+                <pre class="prettyprint linenums">
 <code>
 abstract class A
 {
@@ -848,14 +811,14 @@ abstract class A
 				</pre>
 
 
-				<p class="text-strong">抽象类 vs 接口</p>
-				<p>使用抽象类, 可以共享代码, 但是一个类只能继承自一个基类; 而接口虽然不能实现代共享代码, 却可以实现多个!</p>
-			</div>
+                <p class="text-strong">抽象类 vs 接口</p>
+                <p>使用抽象类, 可以共享代码, 但是一个类只能继承自一个基类; 而接口虽然不能实现代共享代码, 却可以实现多个!</p>
+            </div>
 
-			<div class="title">密封成员 & 密封类</div>
-			<div class="content closed">
-				<p>密封类不能被继承</p>
-				<pre class="prettyprint linenums">
+            <div class="title">密封成员 & 密封类</div>
+            <div class="content closed">
+                <p>密封类不能被继承</p>
+                <pre class="prettyprint linenums">
 <code>
 public sealed class Animal
 {
@@ -863,8 +826,8 @@ public sealed class Animal
 </code>
 				</pre>
 
-				<p>密封成员不能被重写</p>
-				<pre class="prettyprint linenums">
+                <p>密封成员不能被重写</p>
+                <pre class="prettyprint linenums">
 <code>
 public class Animal 
 {
@@ -873,8 +836,8 @@ public class Animal
 </code>
 				</pre>
 
-				<p>在对基类的虚成员进行重写的派生类上, 方法、字段、属性或事件可以声明为为selaed。在用于以后的派生类时，这将取消成员的虚效果.</p>
-				<pre class="prettyprint linenums">
+                <p>在对基类的虚成员进行重写的派生类上, 方法、字段、属性或事件可以声明为为selaed。在用于以后的派生类时，这将取消成员的虚效果.</p>
+                <pre class="prettyprint linenums">
 <code>
 public class D : C
 {
@@ -883,23 +846,19 @@ public class D : C
 </code>
 				</pre>
 
-				<p class="text-danger">
-					把类或方法标记为sealed时, 最可能的情况是: 如果要对库, 类或自己编写的其他类进行操作, 则重写某些功能会导致错误. 也可以因商业原因把类或方法标记为sealed, 以防第三方以违反注册协议的方式扩展该类. <br>
-					一般情况下, 在把类或方法标记为sealed时要小心, 因为这么做会严重限制它的使用. 即使不希望它能继承一个类或重写类的某个成员, 仍有可能在将来的某个时刻, 有人会遇到我们没有预料到的情形.
-				</p>
-			</div>
+                <p class="text-danger">
+                    把类或方法标记为sealed时, 最可能的情况是: 如果要对库, 类或自己编写的其他类进行操作, 则重写某些功能会导致错误. 也可以因商业原因把类或方法标记为sealed, 以防第三方以违反注册协议的方式扩展该类. <br> 一般情况下, 在把类或方法标记为sealed时要小心, 因为这么做会严重限制它的使用. 即使不希望它能继承一个类或重写类的某个成员, 仍有可能在将来的某个时刻, 有人会遇到我们没有预料到的情形.
+                </p>
+            </div>
 
-			<div class="title">嵌套类</div>
-			<div class="content closed">
-				<p>除了在命名空间中定义类之外, 还可以在其他类中定义这些类 - 这种类称为嵌套类.</p>
-				<p>
-					1) 可以为嵌套类指定private访问修饰符，只有嵌套类才可以这样做。<br>
-					2) 嵌套类要想访问包容类的实例，一个办法是显式传递包容类的实例，比如通过一个构造器或方法参数。 <br>
-					3) 嵌套类能访问包容类的任何成员，甚至是私有成员。但包容类不能访问嵌套类的私有成员。<br>
-					4) 嵌套类一般很少用。除此之外，要警惕public 嵌套类，它们意味着不良的编码风格，有可能造成混淆和难以发现。
-				</p>
+            <div class="title">嵌套类</div>
+            <div class="content closed">
+                <p>除了在命名空间中定义类之外, 还可以在其他类中定义这些类 - 这种类称为嵌套类.</p>
+                <p>
+                    1) 可以为嵌套类指定private访问修饰符，只有嵌套类才可以这样做。<br> 2) 嵌套类要想访问包容类的实例，一个办法是显式传递包容类的实例，比如通过一个构造器或方法参数。 <br> 3) 嵌套类能访问包容类的任何成员，甚至是私有成员。但包容类不能访问嵌套类的私有成员。<br> 4) 嵌套类一般很少用。除此之外，要警惕public 嵌套类，它们意味着不良的编码风格，有可能造成混淆和难以发现。
+                </p>
 
-				<pre class="prettyprint linenums">
+                <pre class="prettyprint linenums">
 <code>
 public class MyClass
 {
@@ -918,26 +877,24 @@ public class MyClass
 }
 </code>
 				</pre>
-			</div>
+            </div>
 
-			<div class="title">泛型类 & 泛型成员</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">什么是泛型</div>
-					<div class="content open">
-						<p>
-							泛型把类或方法的类型的确定, 推迟到实例化该类或方法的时候 ，也就是说刚开始定义时不指定类型，等到要使用（实例化）时再指定类型. 泛型可以用于类、方法、委托、事件等. 使用泛型的好处是: <br>
-							1) 设计更加通用的类型; <br>
-							2) 避免容器操作中的装箱和拆箱操作！
-						</p>
+            <div class="title">泛型类 & 泛型成员</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">什么是泛型</div>
+                    <div class="content open">
+                        <p>
+                            泛型把类或方法的类型的确定, 推迟到实例化该类或方法的时候 ，也就是说刚开始定义时不指定类型，等到要使用（实例化）时再指定类型. 泛型可以用于类、方法、委托、事件等. 使用泛型的好处是: <br> 1) 设计更加通用的类型; <br> 2) 避免容器操作中的装箱和拆箱操作！
+                        </p>
 
-						<p>但是由于"泛型把类或方法的类型的确定, 推迟到实例化类或方法的时候", 所以泛型支持的操作比较有限!</p>
-					</div>
+                        <p>但是由于"泛型把类或方法的类型的确定, 推迟到实例化类或方法的时候", 所以泛型支持的操作比较有限!</p>
+                    </div>
 
-					<div class="title">定义泛型</div>
-					<div class="content open">
-						<p class="text-strong">定义泛型类</p>
-						<pre class="prettyprint linenums">
+                    <div class="title">定义泛型</div>
+                    <div class="content open">
+                        <p class="text-strong">定义泛型类</p>
+                        <pre class="prettyprint linenums">
 <code>
 class MyGenericClass&lt;T>
 {
@@ -946,8 +903,8 @@ class MyGenericClass&lt;T>
 </code>
 						</pre>
 
-						<p class="text-strong">定义泛型方法</p>
-						<pre class="prettyprint linenums">
+                        <p class="text-strong">定义泛型方法</p>
+                        <pre class="prettyprint linenums">
 <code>
 public T Get&lt;T>(string property, T defaultValue)
 {
@@ -956,8 +913,8 @@ public T Get&lt;T>(string property, T defaultValue)
 </code>
 						</pre>
 
-						<p class="text-strong">当父类是泛型时</p>
-						<pre class="prettyprint linenums">
+                        <p class="text-strong">当父类是泛型时</p>
+                        <pre class="prettyprint linenums">
 <code>
 // 子类不是泛型类: 父类中的T必须显式提供.
 public class Cards : List&lt;Card>
@@ -969,28 +926,28 @@ class SuperFarm&lt;T> : Farm&lt;T> where T : SuperCow
 </code>
 						</pre>
 
-						<p class="text-strong">约束类型</p>
-						<table class="table table-bordered table-sm w-50">
-							<tbody>
-								<tr>
-									<td>约束类型</td>
-									<td>解释</td>
-								</tr>
-								<tr>
-									<td>struct / class</td>
-									<td>类型必须是值类型/引用类型</td>
-								</tr>
-								<tr>
-									<td>base class / interface</td>
-									<td>类型必须继承自指定类 / 实现了指定接口, 不能指定多个类或接口</td>
-								</tr>
-								<tr>
-									<td>new()</td>
-									<td>类型必须有一个公共的无参构造函数</td>
-								</tr>
-							</tbody>
-						</table>
-						<pre class="prettyprint linenums">
+                        <p class="text-strong">约束类型</p>
+                        <table class="table table-bordered table-sm w-50">
+                            <tbody>
+                                <tr>
+                                    <td>约束类型</td>
+                                    <td>解释</td>
+                                </tr>
+                                <tr>
+                                    <td>struct / class</td>
+                                    <td>类型必须是值类型/引用类型</td>
+                                </tr>
+                                <tr>
+                                    <td>base class / interface</td>
+                                    <td>类型必须继承自指定类 / 实现了指定接口, 不能指定多个类或接口</td>
+                                </tr>
+                                <tr>
+                                    <td>new()</td>
+                                    <td>类型必须有一个公共的无参构造函数</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pre class="prettyprint linenums">
 <code>
 class MyGenericClass&lt;T> where T: 约束
 { }
@@ -1005,31 +962,28 @@ class MyGenericClass&lt;T1,T2> where T2: T1    // 裸类型约束
 { }
 </code>
 						</pre>
-					</div>
+                    </div>
 
-					<div class="title">default关键字</div>
-					<div class="content open">
-						<p>
-							在泛型类和泛型方法中产生的一个问题是，在预先未知以下情况时，如何将默认值分配给参数化类型T? 解决方案是使用default关键字: <br>
-							1) 对于引用类型会返回空(null); <br>
-							2) 对于数值类型会返回零; <br>
-							3) 对于结构体类型，此关键字将返回初始化为零或null的每个结构成员，具体取决于这些成员是值类型还是引用类型.
-						</p>
+                    <div class="title">default关键字</div>
+                    <div class="content open">
+                        <p>
+                            在泛型类和泛型方法中产生的一个问题是，在预先未知以下情况时，如何将默认值分配给参数化类型T? 解决方案是使用default关键字: <br> 1) 对于引用类型会返回空(null); <br> 2) 对于数值类型会返回零; <br> 3) 对于结构体类型，此关键字将返回初始化为零或null的每个结构成员，具体取决于这些成员是值类型还是引用类型.
+                        </p>
 
-						<pre class="prettyprint linenums">
+                        <pre class="prettyprint linenums">
 <code>
 T temp = default(T);
 </code>
 						</pre>
-					</div>
-				</div>
-			</div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="title">部分类 & 部分方法</div>
-			<div class="content closed">
-				<p>partial关键字允许把类, 结构或接口放在多个文件中. 一般情况下, 一个类存储在单个文件中. 但有时, 多个开发人员需要访问同一个类, 或者某种类型的代码生成器生成了一个类的某部分, 所以把类放在多个文件中是有益的. 在把部分类编译到类型中时, 会合并属性, XML注释, 接口, 一般类型的参数属性和成员.</p>
+            <div class="title">部分类 & 部分方法</div>
+            <div class="content closed">
+                <p>partial关键字允许把类, 结构或接口放在多个文件中. 一般情况下, 一个类存储在单个文件中. 但有时, 多个开发人员需要访问同一个类, 或者某种类型的代码生成器生成了一个类的某部分, 所以把类放在多个文件中是有益的. 在把部分类编译到类型中时, 会合并属性, XML注释, 接口, 一般类型的参数属性和成员.</p>
 
-				<pre class="prettyprint linenums">
+                <pre class="prettyprint linenums">
 <code>
 // BigClassPart1.cs
 partial class TheBigClass
@@ -1046,112 +1000,60 @@ partial class TheBigClass
 }
 </code>
 				</pre>
-				<p class="text-danger">如果声明类时使用了下面的关键字, 这些关键字将应用于同一个类的所有部分: private, protected, internal, public, abstract, sealed, 基类, new, 一般约束.</p>
-			</div>
+                <p class="text-danger">如果声明类时使用了下面的关键字, 这些关键字将应用于同一个类的所有部分: private, protected, internal, public, abstract, sealed, 基类, new, 一般约束.</p>
+            </div>
+        </div>
+    </div>
 
-			<!--匿名对象-->
-			<div class="title">匿名对象</div>
-			<div class="content closed">
-				<p class="text-strong">一、.NET 3.0时代开始引入匿名对象概念</p>
-				<p>.NET3.0 时, 微软加入了匿名对象. 可以让我们实例化对象而不需要为该对象定义类. 如何理解“实例化对象而不需要为该对象定义类”，还是用代码来解释吧:</p>
-				<pre class="prettyprint linenums">
-<code>
-private static Object GetAnonymousObj()
-{
-    Object anonymousObj = new { UserName = "admin", Password = "1111" };
-    return anonymousObj;
-}
-</code>
-				</pre>
+    <!--高级功能-->
+    <div class="title">高级功能</div>
+    <div class="content open">
+        <div class="list list-number">
+            <div class="title">对象复制</div>
+            <div class="content closed">
+                <p class="text-strong">1. MemberwiseClone</p>
+                <p>调用受保护的方法: System.Object.MemberwiseClone(), 只能实现浅复制.</p>
+                <p class="text-strong">2. ICloneable</p>
+                <p>可根据需要实现深/浅复制.</p>
+            </div>
 
-				<p class="text-strong"> 二、.NET 4.0中将匿名对象作为函数返回值</p>
-				<p>前面很简单的一段代码, 让我们将anonymousObj这个匿名对象作为了函数返回值. 但是在调用该函数时发现了问题, 我们没法这样做:</p>
-				<pre class="prettyprint linenums">
-<code>
-Object obj = GetAnonymousObj();
-Console.WriteLine(obj.UserName); // 这里将无法编译。因为obj对象是Object类型。
-</code>
-				</pre>
+            <div class="title">对象比较</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">给对象添加比较功能</div>
+                    <div class="content open">
+                        <p class="text-strong">IComparable</p>
+                        <p>int CompareTo(Object obj)</p>
+                        <p class="text-strong">IComparer</p>
+                        <p>int Compare(Object x, Object y)</p>
+                    </div>
 
-				<p>因此在.net3.5时，我告诉同事这个还是不要这样实现的好。换个方法吧？当.NET4.0时代来临时，我们的问题得到妥善的解决 --- 先将上文中的GetAnonymousObj函数改造成返回dynamic 类型:</p>
-				<pre class="prettyprint linenums">
-<code>
-private static dynamic GetAnonymousObj()
-{
-    dynamic anonymousObj = new { UserName = "admin", Password = "1111" };
-    return anonymousObj;
-}
-</code>
-				</pre>
+                    <div class="title">比较类</div>
+                    <div class="content open">
+                        <p class="text-strong">1. Comparer</p>
+                        <p>
+                            Comparer.Default: 比较过程使用当前线程的 Thread.CurrentCulture 来确定排序顺序和大小写规则. <br> Comparer.DefaultInvariant: 比较过程使用 CultureInfo.InvariantCulture 确定排序顺序和大小写规则
+                        </p>
+                        <p>
+                            使用这个类的注意事项: <br> 1) 传送给Comparer.Compare()的对象, 必须支持IComparable. <br> 2) 允许使用null值, 它表示"小于"其他对象. <br> 3) 字符串根据当前文化来处理. 要根据不同的文化(或语言)处理字符串, Comparer类必须使用其构造函数进行实例化, 以便传送指定文化的System.Globalization.CultureInfo对象. <br> 4) 字符串在处理是要区分大小写.
+                            如果要以不区分大小写的方式来处理它们, 就需要使用下面的类 - CaseInsensitiveComparer, 该类以相同的方式工作.
+                        </p>
 
-				<p>接着调用GetAnonymousObj()方法:</p>
-				<pre class="prettyprint linenums">
-<code>
-static void Main(string[] args)
-{
-    dynamic o = GetAnonymousObj();
-    Console.WriteLine(o.UserName);
-}
-</code>
-				</pre>
-			</div>	
-		</div>
-	</div>
+                        <p class="text-strong">2. CaseInsensitiveComparer</p>
+                    </div>
+                </div>
 
-	<!--高级功能-->
-	<div class="title">高级功能</div>
-	<div class="content open">
-		<div class="list list-number">
-			<div class="title">对象复制</div>
-			<div class="content closed">
-				<p class="text-strong">1. MemberwiseClone</p>
-				<p>调用受保护的方法: System.Object.MemberwiseClone(), 只能实现浅复制.</p>
-				<p class="text-strong">2. ICloneable</p>
-				<p>可根据需要实现深/浅复制.</p>
-			</div>
+            </div>
 
-			<div class="title">对象比较</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">给对象添加比较功能</div>
-					<div class="content open">
-						<p class="text-strong">IComparable</p>
-						<p>int CompareTo(Object obj)</p>
-						<p class="text-strong">IComparer</p>
-						<p>int Compare(Object x, Object y)</p>
-					</div>
-
-					<div class="title">比较类</div>
-					<div class="content open">
-						<p class="text-strong">1. Comparer</p>
-						<p>
-							Comparer.Default: 比较过程使用当前线程的 Thread.CurrentCulture 来确定排序顺序和大小写规则. <br>
-							Comparer.DefaultInvariant: 比较过程使用 CultureInfo.InvariantCulture 确定排序顺序和大小写规则
-						</p>
-						<p>
-							使用这个类的注意事项: <br>
-							1) 传送给Comparer.Compare()的对象, 必须支持IComparable. <br>
-							2) 允许使用null值, 它表示"小于"其他对象. <br>
-							3) 字符串根据当前文化来处理. 要根据不同的文化(或语言)处理字符串, Comparer类必须使用其构造函数进行实例化, 以便传送指定文化的System.Globalization.CultureInfo对象. <br>
-							4) 字符串在处理是要区分大小写. 如果要以不区分大小写的方式来处理它们, 就需要使用下面的类 - CaseInsensitiveComparer, 该类以相同的方式工作. 
-						</p>
-
-						<p class="text-strong">2. CaseInsensitiveComparer</p>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="title">添加迭代器功能</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">默认迭代器</div>
-					<div class="content open">
-						<p>
-							① 实现IEnumerable接口 ( 只有一个成员IEnumerator GetEnumerator() ) <br>
-							② 定义一个方法, 原型为: public IEnumerator GetEnumerator()
-						</p>
-						<pre class="prettyprint linenums">
+            <div class="title">添加迭代器功能</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">默认迭代器</div>
+                    <div class="content open">
+                        <p>
+                            ① 实现IEnumerable接口 ( 只有一个成员IEnumerator GetEnumerator() ) <br> ② 定义一个方法, 原型为: public IEnumerator GetEnumerator()
+                        </p>
+                        <pre class="prettyprint linenums">
 <code>
 // 添加迭代功能
 public IEnumerator GetEnumerator()
@@ -1166,12 +1068,12 @@ foreach( int i in enumerableObject ){
 }
 </code>
 						</pre>
-					</div>
+                    </div>
 
-					<div class="title">命名迭代器</div>
-					<div class="content open">
-						<p>在类中定义一个方法: 只需要返回IEnumerable类型即可</p>
-						<pre class="prettyprint linenums">
+                    <div class="title">命名迭代器</div>
+                    <div class="content open">
+                        <p>在类中定义一个方法: 只需要返回IEnumerable类型即可</p>
+                        <pre class="prettyprint linenums">
 <code>
 // 添加迭代器功能	
 public IEnumerable Reverse()
@@ -1186,20 +1088,20 @@ foreach( int i in enumerableObject.Reverse() ){
 }
 </code>
 						</pre>
-					</div>
-				</div>
+                    </div>
+                </div>
 
-			</div>
+            </div>
 
-			<div class="title">函数调用: 同步 vs 异步</div>
-			<div class="content closed">
-				<div class="list list-number">
-					<div class="title">异步调用范例</div>
-					<div class="content open">
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-7">
-									<pre class="prettyprint linenums">
+            <div class="title">函数调用: 同步 vs 异步</div>
+            <div class="content closed">
+                <div class="list list-number">
+                    <div class="title">异步调用范例</div>
+                    <div class="content open">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-7">
+                                    <pre class="prettyprint linenums">
 <code>
 class Program
 {
@@ -1231,11 +1133,11 @@ class Program
     }
 }
 </code>
-									</pre>	
-								</div>
-								<div class="col-5">
-									<p>输出结果</p>
-									<pre class="prettyprint linenums">
+									</pre>
+                                </div>
+                                <div class="col-5">
+                                    <p>输出结果</p>
+                                    <pre class="prettyprint linenums">
 <code>
 [20:08:41] [09]: main
 [20:08:41] [10]: 0 + 0
@@ -1246,29 +1148,29 @@ class Program
 [20:08:47] [14]: result = 4
 </code>
 									</pre>
-									<p>
-										说明: 异步调用时, 函数在另外一个线程中执行, 并且回调函数也在这个新线程中执行!
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+                                    <p>
+                                        说明: 异步调用时, 函数在另外一个线程中执行, 并且回调函数也在这个新线程中执行!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="title">XXX</div>
-					<div class="content open">
+                    <div class="title">XXX</div>
+                    <div class="content open">
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr>
 <div class="list list-none">
     <div class="title">参考资料...</div>
     <div class="content open">
-		<a href="https://docs.microsoft.com/zh-cn/previous-versions/visualstudio/visual-studio-2008/ms182357(v=vs.90)">重载等号运算符时重写 Equals 方法</a>
+        <a href="https://docs.microsoft.com/zh-cn/previous-versions/visualstudio/visual-studio-2008/ms182357(v=vs.90)">重载等号运算符时重写 Equals 方法</a>
     </div>
 </div>
 
